@@ -1,10 +1,18 @@
 package io.github.sarhatabaot;
 
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+/**
+ * @author sarhatabaot
+ */
 
 public class Config {
     private static boolean usePermissions = true;
@@ -39,32 +47,173 @@ public class Config {
         if (!dataFolder.exists()) {
             dataFolder.mkdirs();
         }
+        File configFile = new File(dataFolder, "config.yml");
+        if(!configFile.exists()){
+            configFile.createNewFile();
+            BufferedWriter out = new BufferedWriter(new FileWriter(configFile));
+            out.write("# FarmAssist Configuration File");
+            out.newLine();
+            writeUsePermissions(out);
+            writeCrops(out);
+            writeWorld(out);
+            writeCheckForUpdates(out);
+            writeDebug(out);
+            out.close();
+        }
+    }
+    private static void loadConfig(File configFile) throws IOException{
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
+        BufferedWriter out = new BufferedWriter(new FileWriter(configFile, true));
+        if(config.contains("Wheat.Enabled")){
+            Config.setWheat(config.getBoolean("Wheat.Enabled"));
+        }
+        if(config.contains("Wheat.Only Replant When Fully Grown")){
+            Config.setWheatRipe(config.getBoolean("Wheat.Only Replant When Fully Grown"));
+        }
+        if(config.contains("Wheat.Plant on till")){
+            Config.setWheatOnTill(config.getBoolean("Wheat.Plant on till"));
+        }
+        if(config.contains("Wheat.Enabled")){
+            Config.setWheat(config.getBoolean("Wheat.Enabled"));
+        }
+        if(config.contains("Reeds.Enabled")){
+            Config.setSugarCane(config.getBoolean("Reeds.Enabled"));
+        }
+        if(config.contains("Netherwart.Enabled")){
+            Config.setNetherWart(config.getBoolean("Netherwart.Enabled"));
+        }
+        if(config.contains("Netherwart.Only Replant When Fully Grown")){
+            Config.setNetherWartRipe(config.getBoolean("Netherwart.Only Replant When Fully Grown"));
+        }
+        if(config.contains("Cocoa Beans.Enabled")){
+            Config.setCocoaBeans(config.getBoolean("Cocoa Beans.Enabled"));
+        }
+        if(config.contains("Cocoa Beans.Only Replant When Fully Grown")){
+            Config.setCocoaRipe(config.getBoolean("Cocoa Beans.Only Replant When Fully Grown"));
+        }
+        if(config.contains("Carrots.Enabled")){
+            Config.setCarrots(config.getBoolean("Carrots.Enabled"));
+        }
+        if(config.contains("Carrots.Only Replant When Fully Grown")){
+            Config.setCarrotsRipe(config.getBoolean("Carrots.Only Replant When Fully Grown"));
+        }
+        if(config.contains("Potatoes.Enabled")){
+            Config.setPotatoes(config.getBoolean("Potatoes.Enabled"));
+        }
+        if(config.contains("Potatoes.Only Replant When Fully Grown")){
+            Config.setPotatoesRipe(config.getBoolean("Potatoes.Only Replant When Fully Grown"));
+        }
+        if(config.contains("Pumpkin.Enabled")){
+            Config.setPumpkin(config.getBoolean("Pumpkin.Enabled"));
+        }
+        if(config.contains("Pumpkin.Only Replant When Fully Grown")){
+            Config.setPumpkinRipe(config.getBoolean("Pumpkin.Only Replant When Fully Grown"));
+        }
+        if(config.contains("Melon.Enabled")){
+            Config.setMelon(config.getBoolean("Melon.Enabled"));
+        }
+        if(config.contains("Melon.Only Replant When Fully Grown")){
+            Config.setMelonRipe(config.getBoolean("Melon.Only Replant When Fully Grown"));
+        }
+        if(config.contains("Beetroot.Enabled")){
+            Config.setBeetroot(config.getBoolean("Beetroot.Enabled"));
+        }
+        if(config.contains("Beetroot.Only Replant When Fully Grown")){
+            Config.setBeetrootRipe(config.getBoolean("Beetroot.Only Replant When Fully Grown"));
+        }
+        if(config.contains("World.Enable Per World")){
+            Config.setPerWorld(config.getBoolean("World.Enable Per World"));
+        }
+        /* Figure it out
+        if(config.contains("Worlds.Enabled Worlds")){
+            Config.setWorlds(config.getList("Worlds.Enabled Worlds"));
+        }*/
+        if(config.contains("Main.Use Permission")){
 
+        } else {
+            writeUsePermissions(out);
+        }
+        if(config.contains("Check for updates")){
+
+        } else {
+            writeCheckForUpdates(out);
+        }
+        if (config.contains("debug")){
+
+        } else {
+            writeDebug(out);
+        }
+        out.close();
+    }
+    private static void writeCrops(BufferedWriter out) throws IOException {
+        out.write("Wheat.Enabled: true");
+        out.newLine();
+        out.write("Wheat.Only Replant When Fully Grown: false");
+        out.newLine();
+        out.write("Wheat.Plant on till: true");
+        out.newLine();
+        out.write("Reeds.Enabled: true");
+        out.newLine();
+        out.write("Netherwart.Enabled: true");
+        out.newLine();
+        out.write("Netherwart.Only Replant When Fully Grown: false");
+        out.newLine();
+        out.write("Cocoa Beans.Enabled: true");
+        out.newLine();
+        out.write("Cocoa Beans.Only Replant When Fully Grown: false");
+        out.newLine();
+        out.write("Carrots.Enabled: true");
+        out.newLine();
+        out.write("Carrots.Only Replant When Fully Grown: false");
+        out.newLine();
+        out.write("Potatoes.Enabled: true");
+        out.newLine();
+        out.write("Potatoes.Only Replant When Fully Grown: false");
+        out.newLine();
+        out.write("Pumpkin.Enabled: true");
+        out.newLine();
+        out.write("Pumpkin.Only Replant When Fully Grown: false");
+        out.newLine();
+        out.write("Melon.Enabled: true");
+        out.newLine();
+        out.write("Melon.Only Replant When Fully Grown: false");
+        out.newLine();
+        out.write("Beetroot.Enabled: true");
+        out.newLine();
+        out.write("Beetroot.Only Replant When Fully Grown");
+        out.newLine();
+    }
+    private static void writeWorld(BufferedWriter out) throws IOException{
+        out.write("# Enable per world");
+        out.newLine();
+        out.write("World.Enable Per World: true");
+        out.newLine();
+        out.write("# Enabled Worlds:");
+        out.newLine();
+        out.write("#    - ExampleWorld");
+        out.newLine();
+        out.write("Worlds.Enabled Worlds: ");
+        out.newLine();
+    }
+    private static void writeUsePermissions(BufferedWriter out) throws IOException {
+        out.write("# Use permissions or just config.yml");
+        out.newLine();
+        out.write("Main.Use Permissions: true");
+        out.newLine();
     }
 
-    private HashMap<String, String> loadConfigurables(HashMap<String, String> items) {
-        items.put("Main.Use Permissions", "true");
-        items.put("Wheat.Enabled", "true");
-        items.put("Wheat.Only Replant When Fully Grown", "false");
-        items.put("Wheat.Plant on till", "true");
-        items.put("Reeds.Enabled", "true");
-        items.put("Netherwart.Enabled", "true");
-        items.put("Netherwart.Only Replant When Fully Grown", "false");
-        items.put("Cocoa Beans.Enabled", "true");
-        items.put("Cocoa Beans.Only Replant When Fully Grown", "false");
-        items.put("Worlds.Enable Per World", "false");
-        items.put("Worlds.Enabled Worlds", "LIST");
-        items.put("Carrots.Enabled", "true");
-        items.put("Carrots.Only Replant When Fully Grown", "false");
-        items.put("Potatoes.Enabled", "true");
-        items.put("Potatoes.Only Replant When Fully Grown", "false");
-        items.put("Pumpkin.Enabled", "true");
-        items.put("Pumpkin.Only Replant When Fully Grown", "false");
-        items.put("Melon.Enabled", "true");
-        items.put("Melon.Only Replant When Fully Grown", "false");
-        items.put("Check for updates","true");
-        items.put("debug","false");
-        return items;
+    private static void writeCheckForUpdates(BufferedWriter out) throws IOException {
+        out.write("# Check for updates");
+        out.newLine();
+        out.write("Check for updates: true");
+        out.newLine();
+    }
+
+    private static void writeDebug(BufferedWriter out) throws IOException{
+        out.write("# For debugging only");
+        out.newLine();
+        out.write("debug: false");
+        out.newLine();
     }
 
     public static boolean isBeetroot() {

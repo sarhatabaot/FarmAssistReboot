@@ -14,6 +14,10 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * @author sarhatabaot
+ */
+
 public class BlockBreakListener implements Listener {
     private FarmAssist plugin;
 
@@ -32,15 +36,14 @@ public class BlockBreakListener implements Listener {
         Player player = event.getPlayer();
         World world = player.getWorld();
         Material material = block.getType();
-        if (!isWorldEnabled(plugin, world)) {
-            // ?
-            if (!this.plugin.disabledPlayerList.contains(event.getPlayer().getName())) {
+        if (!isWorldEnabled(plugin, world) && !this.plugin.disabledPlayerList.contains(event.getPlayer().getName())) {
                 if (material == Material.WHEAT &&
                         this.plugin.getConfig().getBoolean("Wheat.Enabled")
                         && checkPermission(player,"farmassist.wheat")
                         && player.getInventory().contains(Material.WHEAT_SEEDS)
                         && (!this.plugin.getConfig().getBoolean("Wheat.Only Replant When Fully Grown") || isRipe(block))) {
                    replant(player,block,Material.WHEAT_SEEDS);
+                   return;
                 }
 
                 if (material == Material.SUGAR_CANE
@@ -48,6 +51,7 @@ public class BlockBreakListener implements Listener {
                         && checkPermission(player,"farmassist.reeds")
                         && player.getInventory().contains(Material.SUGAR_CANE)) {
                     replant(player,block,Material.SUGAR_CANE);
+                    return;
                 }
 
                 if (material == Material.NETHER_WART
@@ -56,6 +60,7 @@ public class BlockBreakListener implements Listener {
                         && player.getInventory().contains(Material.NETHER_WART)
                         && (!this.plugin.getConfig().getBoolean("Netherwart.Only Replant When Fully Grown") || isRipe(block))) {
                     replant(player,block,Material.NETHER_WART);
+                    return;
                 }
 
                 if (material == Material.COCOA_BEANS
@@ -64,6 +69,7 @@ public class BlockBreakListener implements Listener {
                         && player.getInventory().contains(Material.COCOA_BEANS)
                         && (!this.plugin.getConfig().getBoolean("Cocoa Beans.Only Replant When Fully Grown") || isRipe(block))) {
                     replant(player,block,Material.COCOA_BEANS);
+                    return;
                 }
 
                 if (material == Material.CARROTS
@@ -72,6 +78,7 @@ public class BlockBreakListener implements Listener {
                         && player.getInventory().contains(Material.CARROT)
                         && (!this.plugin.getConfig().getBoolean("Carrots.Only Replant When Fully Grown") || isRipe(block))) {
                     replant(player,block,Material.CARROT);
+                    return;
                 }
 
                 if (material == Material.POTATOES
@@ -80,6 +87,7 @@ public class BlockBreakListener implements Listener {
                         && player.getInventory().contains(Material.POTATO) &&
                         (!this.plugin.getConfig().getBoolean("Potatoes.Only Replant When Fully Grown") || isRipe(block))) {
                     replant(player,block,Material.POTATO);
+                    return;
                 }
 
                 if (material == Material.PUMPKIN_STEM
@@ -88,6 +96,7 @@ public class BlockBreakListener implements Listener {
                         && player.getInventory().contains(Material.PUMPKIN_SEEDS)
                         && (!this.plugin.getConfig().getBoolean("Pumpkin.Only Replant When Fully Grown") || isRipe(block))) {
                     replant(player,block,Material.PUMPKIN_SEEDS);
+                    return;
                 }
 
                 if (material == Material.MELON_STEM
@@ -96,6 +105,7 @@ public class BlockBreakListener implements Listener {
                         && player.getInventory().contains(Material.MELON_SEEDS)
                         && (!this.plugin.getConfig().getBoolean("Melon.Only Replant When Fully Grown") || isRipe(block))) {
                     replant(player,block,Material.MELON_SEEDS);
+                    return;
                 }
 
                 if(material == Material.BEETROOTS
@@ -105,8 +115,6 @@ public class BlockBreakListener implements Listener {
                         &&(!this.plugin.getConfig().getBoolean("Beetroot.Only Replant When Fully Grown") || isRipe(block))){
                     replant(player,block,Material.BEETROOT);
                 }
-
-            }
         }
     }
 
