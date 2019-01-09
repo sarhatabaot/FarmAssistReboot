@@ -1,15 +1,15 @@
-package io.github.sarhatabaot.farminassistreboot.commands;
+package io.github.sarhatabaot.farmassistreboot.commands;
 
-import io.github.sarhatabaot.farminassistreboot.FarmAssist;
+import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 public class CommandToggle implements CommandExecutor {
-    private FarmAssist plugin;
+    private FarmAssistReboot plugin;
 
-    public CommandToggle(FarmAssist plugin) {
+    public CommandToggle(FarmAssistReboot plugin) {
         this.plugin = plugin;
     }
 
@@ -23,10 +23,10 @@ public class CommandToggle implements CommandExecutor {
 
             if (plugin.disabledPlayerList.contains(sender.getName())) {
                 plugin.disabledPlayerList.remove(sender.getName());
-                sender.sendMessage(ChatColor.GREEN + "FarmAssist functions are now on for you!");
+                sender.sendMessage(ChatColor.GREEN + "FarmAssistReboot functions are now on for you!");
             } else {
                 plugin.disabledPlayerList.add(sender.getName());
-                sender.sendMessage(ChatColor.GREEN + "FarmAssist functions turned off for you!");
+                sender.sendMessage(ChatColor.GREEN + "FarmAssistReboot functions turned off for you!");
             }
 
             return true;

@@ -1,4 +1,4 @@
-package io.github.sarhatabaot.farminassistreboot;
+package io.github.sarhatabaot.farmassistreboot;
 
 import java.io.File;
 import java.io.IOException;

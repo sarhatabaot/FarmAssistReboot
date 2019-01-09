@@ -1,15 +1,15 @@
-package io.github.sarhatabaot.farminassistreboot.commands;
+package io.github.sarhatabaot.farmassistreboot.commands;
 
-import io.github.sarhatabaot.farminassistreboot.FarmAssist;
+import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 public class CommandReload implements CommandExecutor {
-    private FarmAssist plugin;
+    private FarmAssistReboot plugin;
 
-    public CommandReload(FarmAssist plugin) {
+    public CommandReload(FarmAssistReboot plugin) {
         this.plugin = plugin;
     }
 
@@ -22,8 +22,8 @@ public class CommandReload implements CommandExecutor {
             }
 
             plugin.loadYamls();
-            sender.sendMessage(ChatColor.GREEN + "FarmAssist has been reloaded.");
-            plugin.logger.warning("FarmAssist Reloaded.");
+            sender.sendMessage(ChatColor.GREEN + "FarmAssistReboot has been reloaded.");
+            plugin.logger.warning("FarmAssistReboot Reloaded.");
             return true;
         }
         return false;

@@ -1,9 +1,10 @@
-package io.github.sarhatabaot.farminassistreboot;
+package io.github.sarhatabaot.farmassistreboot;
 
-import io.github.sarhatabaot.farminassistreboot.commands.CommandReload;
-import io.github.sarhatabaot.farminassistreboot.commands.CommandToggle;
-import io.github.sarhatabaot.farminassistreboot.commands.CommandUpdate;
-import io.github.sarhatabaot.farminassistreboot.listeners.PlayerInteractionListener;
+import io.github.sarhatabaot.farmassistreboot.commands.CommandReload;
+import io.github.sarhatabaot.farmassistreboot.commands.CommandToggle;
+import io.github.sarhatabaot.farmassistreboot.commands.CommandUpdate;
+import io.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
+import io.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -26,7 +27,7 @@ import java.util.logging.Logger;
  * @author sarhatabaot
  */
 
-public class FarmAssist extends JavaPlugin {
+public class FarmAssistReboot extends JavaPlugin {
     public List<String> disabledPlayerList = new ArrayList<>();
     public Logger logger = getLogger();
 
@@ -41,15 +42,14 @@ public class FarmAssist extends JavaPlugin {
     private boolean needsUpdate;
     private String newVersion;
 
-
     @Override
     public void onLoad() {
-        logger.info("FarmAssist Loaded");
+        logger.info("FarmAssistReboot Loaded");
     }
 
     @Override
     public void onDisable() {
-        logger.info("FarmAssist Disabled!");
+        logger.info("FarmAssistReboot Disabled!");
     }
 
     @Override
@@ -59,20 +59,21 @@ public class FarmAssist extends JavaPlugin {
             return;
         }
 
-        if (config.getBoolean("debug")) {
+        if (Config.isDebug()) {
             logger.setLevel(Level.ALL);
         }
 
-        new PlayerInteractionListener(this);
+        this.getServer().getPluginManager().registerEvents(new PlayerInteractionListener(this),this);
+        this.getServer().getPluginManager().registerEvents(new BlockBreakListener(this),this);
 
-        if (config.getBoolean("Check for updates")) {
+        if (Config.isCheckForUpdates()) {
             Bukkit.getScheduler().runTaskAsynchronously(this, new SimpleUpdateChecker());
         }
 
 
         registerCommands();
 
-        logger.info("FarmAssist Enabled!");
+        logger.info("FarmAssistReboot Enabled!");
     }
 
     /**
@@ -94,10 +95,10 @@ public class FarmAssist extends JavaPlugin {
      *
      */
     private void registerCommands() {
-        this.getCommand("FarmAssist reload").setExecutor(new CommandReload(this));
-        this.getCommand("FarmAssist toggle").setExecutor(new CommandToggle(this));
-        this.getCommand("FarmAssist global").setExecutor(new CommandToggle(this));
-        this.getCommand("FarmAssist update").setExecutor(new CommandUpdate(this));
+        this.getCommand("FarmAssistReboot reload").setExecutor(new CommandReload(this));
+        this.getCommand("FarmAssistReboot toggle").setExecutor(new CommandToggle(this));
+        this.getCommand("FarmAssistReboot global").setExecutor(new CommandToggle(this));
+        this.getCommand("FarmAssistReboot update").setExecutor(new CommandUpdate(this));
         logger.fine("Commands registered.");
     }
 
@@ -115,7 +116,7 @@ public class FarmAssist extends JavaPlugin {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("FarmAssist") && args.length > 0) {
+        if (command.getName().equalsIgnoreCase("FarmAssistReboot") && args.length > 0) {
 
             return true;
         } else {
@@ -188,10 +189,10 @@ public class FarmAssist extends JavaPlugin {
 
     private static class SimpleUpdateChecker implements Runnable {
 
-        private FarmAssist plugin;
+        private FarmAssistReboot plugin;
         private String versionNumber;
 
-        private String latest = "https://api.github.com/repos/sarhatabaot/FarmAssist/releases/latest";
+        private String latest = "https://api.github.com/repos/sarhatabaot/FarmAssistReboot/releases/latest";
 
         public SimpleUpdateChecker() {
             this.versionNumber = plugin.getDescription().getVersion();

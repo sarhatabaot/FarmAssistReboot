@@ -1,10 +1,10 @@
-main: io.github.sarhatabaot.farmassistreboot
-name: FarmAssist
+main: io.github.sarhatabaot.farmassistreboot.FarmAssistReboot
+name: FarmAssistReboot
 version: 0.1.0-SNAPSHOT
 author: sarhatbaot
-description: FarmAssist Rebooted
+description: FarmAssistReboot Rebooted
 api-version: 1.13
 commands:
   FarmAssist:
-    description: Turn FarmAssist Featues on or off
+    description: Turn FarmAssistReboot Featues on or off
     usage: /<command> toggle/global

@@ -1,4 +1,4 @@
-package io.github.sarhatabaot.farminassistreboot;
+package io.github.sarhatabaot.farmassistreboot;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -9,17 +9,17 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class ReplantTask extends BukkitRunnable {
-    private FarmAssist plugin;
+    private FarmAssistReboot plugin;
     private Block block;
     private Material material;
 
-    public ReplantTask(FarmAssist plugin, Block block, Material type) {
+    public ReplantTask(FarmAssistReboot plugin, Block block, Material type) {
         this.plugin = plugin;
         this.block = block;
         this.material = type;
     }
 
-    public ReplantTask(FarmAssist plugin, Block block){
+    public ReplantTask(FarmAssistReboot plugin, Block block){
         this.plugin = plugin;
         this.block = block;
         this.material = null;

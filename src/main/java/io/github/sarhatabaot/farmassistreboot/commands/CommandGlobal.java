@@ -1,15 +1,15 @@
-package io.github.sarhatabaot.farminassistreboot.commands;
+package io.github.sarhatabaot.farmassistreboot.commands;
 
-import io.github.sarhatabaot.farminassistreboot.FarmAssist;
+import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 public class CommandGlobal implements CommandExecutor {
-    private FarmAssist plugin;
+    private FarmAssistReboot plugin;
 
-    public CommandGlobal(FarmAssist plugin) {
+    public CommandGlobal(FarmAssistReboot plugin) {
         this.plugin = plugin;
     }
 
@@ -23,10 +23,10 @@ public class CommandGlobal implements CommandExecutor {
 
             if (!plugin.isGlobalEnabled()) {
                 plugin.setGlobalEnabled(true);
-                sender.sendMessage(ChatColor.GREEN + "FarmAssist functions are globally back on!");
+                sender.sendMessage(ChatColor.GREEN + "FarmAssistReboot functions are globally back on!");
             } else {
                 plugin.setGlobalEnabled(false);
-                sender.sendMessage(ChatColor.GREEN + "FarmAssist functions turned off globally!");
+                sender.sendMessage(ChatColor.GREEN + "FarmAssistReboot functions turned off globally!");
             }
 
             return true;

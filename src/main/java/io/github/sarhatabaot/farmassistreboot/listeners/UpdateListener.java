@@ -1,6 +1,6 @@
-package io.github.sarhatabaot.farminassistreboot.listeners;
+package io.github.sarhatabaot.farmassistreboot.listeners;
 
-import io.github.sarhatabaot.farminassistreboot.FarmAssist;
+import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
@@ -9,10 +9,10 @@ import org.bukkit.event.player.PlayerJoinEvent;
  */
 
 public class UpdateListener implements Listener {
-    private FarmAssist plugin;
-    private String updateUrl ="https://github.com/sarhatabaot/FarmAssist/releases";
+    private FarmAssistReboot plugin;
+    private String updateUrl ="https://github.com/sarhatabaot/FarmAssistReboot/releases";
 
-    public UpdateListener(FarmAssist plugin) {
+    public UpdateListener(FarmAssistReboot plugin) {
         this.plugin = plugin;
     }
 

@@ -1,7 +1,7 @@
-package io.github.sarhatabaot.farminassistreboot.listeners;
+package io.github.sarhatabaot.farmassistreboot.listeners;
 
-import io.github.sarhatabaot.farminassistreboot.FarmAssist;
-import io.github.sarhatabaot.farminassistreboot.ReplantTask;
+import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
+import io.github.sarhatabaot.farmassistreboot.ReplantTask;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -15,9 +15,9 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public class BlockBreakListener implements Listener {
-    private FarmAssist plugin;
+    private FarmAssistReboot plugin;
 
-    public BlockBreakListener(FarmAssist plugin) {
+    public BlockBreakListener(FarmAssistReboot plugin) {
         this.plugin = plugin;
     }
 
@@ -133,7 +133,7 @@ public class BlockBreakListener implements Listener {
         }
     }
 
-    private boolean isWorldEnabled(@NotNull FarmAssist plugin, @NotNull World world) {
+    private boolean isWorldEnabled(@NotNull FarmAssistReboot plugin, @NotNull World world) {
         boolean worldEnabled = plugin.getConfig().getBoolean("Worlds.Enable Per World");
         boolean isPlayerWorld = plugin.getConfig().getList("Worlds.Enabled Worlds").contains(world.getName());
         return !worldEnabled || isPlayerWorld;
