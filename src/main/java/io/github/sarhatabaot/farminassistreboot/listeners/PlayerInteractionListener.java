@@ -1,7 +1,7 @@
-package io.github.sarhatabaot.listeners;
+package io.github.sarhatabaot.farminassistreboot.listeners;
 
-import io.github.sarhatabaot.FarmAssist;
-import io.github.sarhatabaot.ReplantTask;
+import io.github.sarhatabaot.farminassistreboot.FarmAssist;
+import io.github.sarhatabaot.farminassistreboot.ReplantTask;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;

@@ -1,11 +1,7 @@
 *.class
 
-# Gradle #
-.gradle
-build
+# Maven
+target
 
 # IntelliJ #
 .idea
-
-# out #
-out

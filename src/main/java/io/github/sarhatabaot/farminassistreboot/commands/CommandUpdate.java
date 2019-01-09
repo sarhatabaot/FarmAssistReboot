@@ -1,6 +1,6 @@
-package io.github.sarhatabaot.commands;
+package io.github.sarhatabaot.farminassistreboot.commands;
 
-import io.github.sarhatabaot.FarmAssist;
+import io.github.sarhatabaot.farminassistreboot.FarmAssist;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,7 +21,7 @@ public class CommandUpdate implements CommandExecutor {
             }
             if(sender.hasPermission("farmassist.update")){
                 sender.sendMessage("New update found: "+plugin.getNewVersion()+" You are running:"+plugin.getDescription().getVersion());
-                sender.sendMessage("https://github.com/sarhatabaot/FarmAssistReboot/releases");
+                sender.sendMessage("https://github.com/sarhatabaot/FarmAssist/releases");
                 return true;
             }
         }

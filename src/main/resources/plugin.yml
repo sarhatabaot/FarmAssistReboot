@@ -1,5 +1,5 @@
-main: io.github.sarhatabaot.farmassistReboot
-name: FarmAssistReboot
+main: io.github.sarhatabaot.farmassistreboot
+name: FarmAssist
 version: 0.1.0-SNAPSHOT
 author: sarhatbaot
 description: FarmAssist Rebooted

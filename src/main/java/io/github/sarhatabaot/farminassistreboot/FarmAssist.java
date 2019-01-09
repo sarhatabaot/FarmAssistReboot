@@ -1,9 +1,9 @@
-package io.github.sarhatabaot;
+package io.github.sarhatabaot.farminassistreboot;
 
-import io.github.sarhatabaot.commands.CommandReload;
-import io.github.sarhatabaot.commands.CommandToggle;
-import io.github.sarhatabaot.commands.CommandUpdate;
-import io.github.sarhatabaot.listeners.PlayerInteractionListener;
+import io.github.sarhatabaot.farminassistreboot.commands.CommandReload;
+import io.github.sarhatabaot.farminassistreboot.commands.CommandToggle;
+import io.github.sarhatabaot.farminassistreboot.commands.CommandUpdate;
+import io.github.sarhatabaot.farminassistreboot.listeners.PlayerInteractionListener;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -191,7 +191,7 @@ public class FarmAssist extends JavaPlugin {
         private FarmAssist plugin;
         private String versionNumber;
 
-        private String latest = "https://api.github.com/repos/sarhatabaot/FarmAssistReboot/releases/latest";
+        private String latest = "https://api.github.com/repos/sarhatabaot/FarmAssist/releases/latest";
 
         public SimpleUpdateChecker() {
             this.versionNumber = plugin.getDescription().getVersion();
