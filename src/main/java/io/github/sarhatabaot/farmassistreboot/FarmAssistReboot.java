@@ -1,11 +1,12 @@
 package io.github.sarhatabaot.farmassistreboot;
 
-import io.github.sarhatabaot.farmassistreboot.commands.CommandReload;
-import io.github.sarhatabaot.farmassistreboot.commands.CommandToggle;
-import io.github.sarhatabaot.farmassistreboot.commands.CommandUpdate;
+import io.github.sarhatabaot.farmassistreboot.command.CommandManager;
+import io.github.sarhatabaot.farmassistreboot.command.commands.CommandGlobal;
+import io.github.sarhatabaot.farmassistreboot.command.commands.CommandReload;
+import io.github.sarhatabaot.farmassistreboot.command.commands.CommandToggle;
+import io.github.sarhatabaot.farmassistreboot.command.commands.CommandUpdate;
 import io.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
 import io.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -34,6 +35,7 @@ public class FarmAssistReboot extends JavaPlugin {
     // Config
     private File configFile;
     private FileConfiguration config;
+    private CommandManager commandManager;
 
     // State
     private boolean enabled;
@@ -63,15 +65,15 @@ public class FarmAssistReboot extends JavaPlugin {
             logger.setLevel(Level.ALL);
         }
 
+
+        registerCommands();
         this.getServer().getPluginManager().registerEvents(new PlayerInteractionListener(this),this);
         this.getServer().getPluginManager().registerEvents(new BlockBreakListener(this),this);
 
         if (Config.isCheckForUpdates()) {
-            Bukkit.getScheduler().runTaskAsynchronously(this, new SimpleUpdateChecker());
+           // Bukkit.getScheduler().runTaskAsynchronously(this, new SimpleUpdateChecker());
         }
 
-
-        registerCommands();
 
         logger.info("FarmAssistReboot Enabled!");
     }
@@ -95,10 +97,12 @@ public class FarmAssistReboot extends JavaPlugin {
      *
      */
     private void registerCommands() {
-        this.getCommand("FarmAssistReboot reload").setExecutor(new CommandReload(this));
-        this.getCommand("FarmAssistReboot toggle").setExecutor(new CommandToggle(this));
-        this.getCommand("FarmAssistReboot global").setExecutor(new CommandToggle(this));
-        this.getCommand("FarmAssistReboot update").setExecutor(new CommandUpdate(this));
+        commandManager = new CommandManager();
+        commandManager.register(CommandManager.class,commandManager);
+        commandManager.register(CommandGlobal.class,new CommandGlobal(this));
+        commandManager.register(CommandReload.class,new CommandReload(this));
+        commandManager.register(CommandToggle.class,new CommandToggle(this));
+        commandManager.register(CommandUpdate.class,new CommandUpdate(this));
         logger.fine("Commands registered.");
     }
 
@@ -116,11 +120,13 @@ public class FarmAssistReboot extends JavaPlugin {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("FarmAssistReboot") && args.length > 0) {
+        if (command.getName().equalsIgnoreCase("FarmAssist") && args.length > 0) {
 
+            //Spoof args array to account for the initial sub-command specification
+            String[] spoofedArgs = new String[args.length - 1];
+            System.arraycopy(args, 1, spoofedArgs, 0, args.length - 1);
+            commandManager.callCommand(args[0], sender, spoofedArgs);
             return true;
-        } else {
-            showHelpByPermissions(sender);
         }
         return false;
     }
