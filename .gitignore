@@ -1,0 +1,10 @@
+*.class
+
+# Gradle #
+.grade
+
+# IntelliJ #
+.idea
+
+# out #
+out
