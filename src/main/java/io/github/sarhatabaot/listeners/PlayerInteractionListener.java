@@ -12,10 +12,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-/**
- * @author sarhatabaot
- */
-
 public class PlayerInteractionListener implements Listener {
     private FarmAssist plugin;
 
