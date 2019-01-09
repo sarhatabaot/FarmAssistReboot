@@ -9,18 +9,22 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+/**
+ * @author sarhatabaot
+ */
 
 public class FarmAssist extends JavaPlugin {
     public List<String> disabledPlayerList = new ArrayList<>();
@@ -50,7 +54,10 @@ public class FarmAssist extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.configFile = new File(this.getDataFolder(), "config.yml");
+        if(!setupConfig()){
+            logger.severe("Couldn't setup config.yml, plugin loading aborted.");
+            return;
+        }
 
         if (config.getBoolean("debug")) {
             logger.setLevel(Level.ALL);
@@ -68,6 +75,24 @@ public class FarmAssist extends JavaPlugin {
         logger.info("FarmAssist Enabled!");
     }
 
+    /**
+     *
+     * @return
+     */
+    private boolean setupConfig(){
+        try {
+            Config.initConfig(getDataFolder());
+        } catch (IOException e){
+            logger.severe("Could not make config file!");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     *
+     */
     private void registerCommands() {
         this.getCommand("FarmAssist reload").setExecutor(new CommandReload(this));
         this.getCommand("FarmAssist toggle").setExecutor(new CommandToggle(this));
@@ -76,6 +101,9 @@ public class FarmAssist extends JavaPlugin {
         logger.fine("Commands registered.");
     }
 
+    /**
+     *
+     */
     public void loadYamls() {
         try {
             this.config.load(this.configFile);
@@ -100,13 +128,13 @@ public class FarmAssist extends JavaPlugin {
         this.enabled = enabled;
     }
 
+    //TODO:
     private void showHelpByPermissions(CommandSender sender){
         List<Permission> permissionsList = this.getDescription().getPermissions();
         StringBuilder sb = new StringBuilder();
         for(Permission permission : permissionsList){
             if(sender.hasPermission(permission)){
                 this.getDescription().getCommands();
-                sb.append("");
             }
         }
 
