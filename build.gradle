@@ -18,7 +18,17 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
     compile group: 'org.json', name: 'json', version: '20090211'
     compile group: 'org.jetbrains', name: 'annotations', version: '16.0.1'
-
     compileOnly 'org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT'
+}
 
+configurations {
+    shade
+    compile.extendsFrom shade
+}
+jar {
+    configurations.shade.each { dep ->
+        from(project.zipTree(dep)) {
+            exclude 'META-INF', 'META-INF/**'
+        }
+    }
 }
