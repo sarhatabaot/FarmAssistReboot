@@ -12,6 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.json.JSONObject;
 
@@ -33,8 +34,6 @@ public class FarmAssistReboot extends JavaPlugin {
     public Logger logger = getLogger();
 
     // Config
-    private File configFile;
-    private FileConfiguration config;
     private CommandManager commandManager;
 
     // State
@@ -67,8 +66,7 @@ public class FarmAssistReboot extends JavaPlugin {
 
 
         registerCommands();
-        this.getServer().getPluginManager().registerEvents(new PlayerInteractionListener(this),this);
-        this.getServer().getPluginManager().registerEvents(new BlockBreakListener(this),this);
+        registerListeners();
 
         if (Config.isCheckForUpdates()) {
            // Bukkit.getScheduler().runTaskAsynchronously(this, new SimpleUpdateChecker());
@@ -78,6 +76,12 @@ public class FarmAssistReboot extends JavaPlugin {
         logger.info("FarmAssistReboot Enabled!");
     }
 
+    private void registerListeners(){
+        PluginManager pluginManager = getServer().getPluginManager();
+        pluginManager.registerEvents(new PlayerInteractionListener(this),this);
+        pluginManager.registerEvents(new BlockBreakListener(this),this);
+    }
+
     /**
      *
      * @return
@@ -85,6 +89,7 @@ public class FarmAssistReboot extends JavaPlugin {
     private boolean setupConfig(){
         try {
             Config.initConfig(getDataFolder());
+            logger.fine("config initialized");
         } catch (IOException e){
             logger.severe("Could not make config file!");
             e.printStackTrace();
@@ -106,16 +111,16 @@ public class FarmAssistReboot extends JavaPlugin {
         logger.fine("Commands registered.");
     }
 
-    /**
+    /*
      *
-     */
+     *
     public void loadYamls() {
         try {
             this.config.load(this.configFile);
         } catch (Exception exception) {
             logger.severe(exception.getMessage());
         }
-    }
+    }*/
 
 
     @Override
@@ -135,18 +140,6 @@ public class FarmAssistReboot extends JavaPlugin {
         this.enabled = enabled;
     }
 
-    //TODO:
-    private void showHelpByPermissions(CommandSender sender){
-        List<Permission> permissionsList = this.getDescription().getPermissions();
-        StringBuilder sb = new StringBuilder();
-        for(Permission permission : permissionsList){
-            if(sender.hasPermission(permission)){
-                this.getDescription().getCommands();
-            }
-        }
-
-    }
-
     public boolean isNeedsUpdate() {
         return needsUpdate;
     }
@@ -163,22 +156,20 @@ public class FarmAssistReboot extends JavaPlugin {
                 Player player = (Player) sender;
                 if (player.hasPermission("farmassist.reload")) {
                     commands.add("reload");
-                } else if (player.hasPermission("farmassist.toggle.global")) {
+                }
+                if (player.hasPermission("farmassist.toggle.global")) {
                     commands.add("global");
-                } else if (player.hasPermission("farmassist.toggle")) {
+                }
+                if (player.hasPermission("farmassist.toggle")) {
                     commands.add("toggle");
-                } else if (player.hasPermission("farmassist.update")) {
+                }
+                if (player.hasPermission("farmassist.update")) {
                     commands.add("update");
                 }
             }
             return commands;
         }
         return null;
-    }
-
-    @Override
-    public FileConfiguration getConfig() {
-        return config;
     }
 
     public boolean isGlobalEnabled() {

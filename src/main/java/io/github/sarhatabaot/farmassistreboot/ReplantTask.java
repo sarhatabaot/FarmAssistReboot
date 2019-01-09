@@ -8,7 +8,7 @@ import org.bukkit.block.data.type.Cocoa;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class ReplantTask extends BukkitRunnable {
+public class ReplantTask implements Runnable {
     private FarmAssistReboot plugin;
     private Block block;
     private Material material;
