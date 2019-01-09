@@ -4,11 +4,15 @@ import io.github.sarhatabaot.FarmAssist;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class onPlayerJoin implements Listener {
+/**
+ * @author sarhatabaot
+ */
+
+public class UpdateListener implements Listener {
     private FarmAssist plugin;
     private String updateUrl ="https://github.com/sarhatabaot/FarmAssistReboot/releases";
 
-    public onPlayerJoin(FarmAssist plugin) {
+    public UpdateListener(FarmAssist plugin) {
         this.plugin = plugin;
     }
 
