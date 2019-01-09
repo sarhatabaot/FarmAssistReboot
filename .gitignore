@@ -1,7 +1,7 @@
 *.class
 
 # Gradle #
-.grade
+.gradle
 
 # IntelliJ #
 .idea
