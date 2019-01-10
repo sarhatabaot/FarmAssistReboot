@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -61,9 +62,13 @@ public class FarmAssistReboot extends JavaPlugin {
         }
 
         if (Config.isDebug()) {
-            logger.setLevel(Level.ALL);
+            logger.setLevel(Level.FINE);
+            ConsoleHandler handler = new ConsoleHandler();
+            handler.setLevel(Level.FINE);
+            logger.addHandler(handler);
         }
 
+        this.enabled = true;
 
         registerCommands();
         registerListeners();
@@ -80,6 +85,7 @@ public class FarmAssistReboot extends JavaPlugin {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerInteractionListener(this),this);
         pluginManager.registerEvents(new BlockBreakListener(this),this);
+        logger.fine("Registered Listeners");
     }
 
     /**
@@ -89,7 +95,7 @@ public class FarmAssistReboot extends JavaPlugin {
     private boolean setupConfig(){
         try {
             Config.initConfig(getDataFolder());
-            logger.fine("config initialized");
+            logger.info("Loaded: config.yml");
         } catch (IOException e){
             logger.severe("Could not make config file!");
             e.printStackTrace();
