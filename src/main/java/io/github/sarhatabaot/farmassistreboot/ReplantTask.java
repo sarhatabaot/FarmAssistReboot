@@ -119,7 +119,7 @@ public class ReplantTask implements Runnable {
 
     private void onTilt(){
         if (this.block.getRelative(BlockFace.UP).getType() == Material.AIR && this.block.getType() == Material.FARMLAND) {
-            this.block.getRelative(BlockFace.UP).setType(Material.FARMLAND);
+            this.block.getRelative(BlockFace.UP).setType(Material.WHEAT);
         } else {
             this.block.getWorld().dropItemNaturally(this.block.getLocation(), new ItemStack(Material.WHEAT_SEEDS));
         }
