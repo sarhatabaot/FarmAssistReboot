@@ -1,32 +1,24 @@
-Main:
-  Use Permissions: false
-Wheat:
-  Enabled: true
-  Only Replant When Fully Grown: false
-  Plant on till: true
-Reeds:
-  Enabled: true
-Netherwart:
-  Enabled: true
-  Only Replant When Fully Grown: false
-Cocoa Beans:
-  Enabled: true
-  Only Replant When Fully Grown: false
-Carrots:
-  Enabled: true
-  Only Replant When Fully Grown: false
-Potatoes:
-  Enabled: true
-  Only Replant When Fully Grown: false
-Pumpkin:
-  Enabled: true
-  Only Replant When Fully Grown: false
-Melon:
-  Enabled: true
-  Only Replant When Fully Grown: false
-Worlds:
-  Enable Per World: false
-  Enabled Worlds:
+Main.Use Permissions: true
+Wheat.Enabled: true
+Wheat.Only Replant When Fully Grown: false
+Wheat.Plant on till: true
+Reeds.Enabled: true
+Netherwart.Enabled: true
+Netherwart.Only Replant When Fully Grown: false
+Cocoa Beans.Enabled: true
+Cocoa Beans.Only Replant When Fully Grown: false
+Carrots.Enabled: true
+Carrots.Only Replant When Fully Grown: false
+Potatoes.Enabled: true
+Potatoes.Only Replant When Fully Grown: false
+Pumpkin.Enabled: true
+Pumpkin.Only Replant When Fully Grown: false
+Melon.Enabled: true
+Melon.Only Replant When Fully Grown: false
+Beetroot.Enabled: true
+Beetroot.Only Replant When Fully Grown: false
+Worlds.Enable Per World: false
+Worlds.Enabled Worlds:
     - ExampleWorld
 Check for updates: true
-debug: false
+debug: true
