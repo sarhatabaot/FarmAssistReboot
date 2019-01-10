@@ -20,7 +20,7 @@ public class PlayerInteractionListener implements Listener {
     }
 
     /**
-     * on tilt
+     * on till
      * @param event
      */
     @EventHandler
