@@ -5,8 +5,10 @@ import io.github.sarhatabaot.farmassistreboot.command.commands.CommandGlobal;
 import io.github.sarhatabaot.farmassistreboot.command.commands.CommandReload;
 import io.github.sarhatabaot.farmassistreboot.command.commands.CommandToggle;
 import io.github.sarhatabaot.farmassistreboot.command.commands.CommandUpdate;
+import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import io.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
 import io.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -31,8 +33,10 @@ import java.util.logging.Logger;
  */
 
 public class FarmAssistReboot extends JavaPlugin {
+    private static FarmAssistReboot instance;
     public List<String> disabledPlayerList = new ArrayList<>();
     public Logger logger = getLogger();
+
 
     // Config
     private CommandManager commandManager;
@@ -56,17 +60,23 @@ public class FarmAssistReboot extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
+
+        //Config
+        saveDefaultConfig();
+
+        /*
         if(!setupConfig()){
             logger.severe("Couldn't setup config.yml, plugin loading aborted.");
             return;
-        }
+        }*/
 
-        if (Config.isDebug()) {
+        /*if (Config.isDebug()) {
             logger.setLevel(Level.FINE);
             ConsoleHandler handler = new ConsoleHandler();
             handler.setLevel(Level.FINE);
             logger.addHandler(handler);
-        }
+        }*/
 
         this.enabled = true;
 
@@ -79,6 +89,11 @@ public class FarmAssistReboot extends JavaPlugin {
 
 
         logger.info("FarmAssistReboot Enabled!");
+    }
+
+    public static void debug(String msg) {
+        if(FarmAssistConfig.getInstance().getDebug())
+            Bukkit.getPluginManager().getPlugin("FarmAssistReboot").getLogger().warning("\u001B[33m"+"[DEBUG] "+msg+"\u001B[0m");
     }
 
     private void registerListeners(){
@@ -174,6 +189,10 @@ public class FarmAssistReboot extends JavaPlugin {
             return commands;
         }
         return null;
+    }
+
+    public static FarmAssistReboot getInstance(){
+        return instance;
     }
 
     public boolean isGlobalEnabled() {
