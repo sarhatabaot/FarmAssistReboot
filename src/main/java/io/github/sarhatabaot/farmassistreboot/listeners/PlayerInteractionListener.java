@@ -25,7 +25,8 @@ public class PlayerInteractionListener implements Listener {
      */
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if(!plugin.isGlobalEnabled())
+        if(!plugin.isGlobalEnabled()
+                || !(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event)))
             return;
         Player player = event.getPlayer();
         if (isWorldEnabled(event)
@@ -37,7 +38,6 @@ public class PlayerInteractionListener implements Listener {
                 if (isHoe(material) && player.getInventory().contains(Material.WHEAT_SEEDS)) {
                    replant(player,event.getClickedBlock(),Material.WHEAT_SEEDS);
                 }
-
         }
     }
 

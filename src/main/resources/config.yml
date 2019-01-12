@@ -21,4 +21,4 @@ Worlds.Enable Per World: false
 Worlds.Enabled Worlds:
     - ExampleWorld
 Check for updates: true
-debug: true
+debug: false

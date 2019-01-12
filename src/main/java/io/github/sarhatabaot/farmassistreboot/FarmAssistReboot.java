@@ -74,7 +74,7 @@ public class FarmAssistReboot extends JavaPlugin {
         registerListeners();
 
         if (Config.isCheckForUpdates()) {
-           // Bukkit.getScheduler().runTaskAsynchronously(this, new SimpleUpdateChecker());
+           // Bukkit.getScheduler().runTaskAsynchronously(this, new SimpleUpdateChecker(this));
         }
 
 
@@ -117,16 +117,14 @@ public class FarmAssistReboot extends JavaPlugin {
         logger.fine("Commands registered.");
     }
 
-    /*
-     *
-     *
+
     public void loadYamls() {
         try {
-            this.config.load(this.configFile);
+            Config.loadConfig(Config.configFile);
         } catch (Exception exception) {
             logger.severe(exception.getMessage());
         }
-    }*/
+    }
 
 
     @Override
@@ -197,7 +195,8 @@ public class FarmAssistReboot extends JavaPlugin {
 
         private String latest = "https://api.github.com/repos/sarhatabaot/FarmAssistReboot/releases/latest";
 
-        public SimpleUpdateChecker() {
+        public SimpleUpdateChecker(FarmAssistReboot plugin) {
+            this.plugin = plugin;
             this.versionNumber = plugin.getDescription().getVersion();
         }
 

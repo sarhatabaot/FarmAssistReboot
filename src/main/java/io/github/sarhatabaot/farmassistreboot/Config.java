@@ -38,17 +38,15 @@ public class Config {
     private static boolean checkForUpdates = true;
     private static boolean debug = false;
 
+    public static File configFile;
+
     private static Logger logger = Bukkit.getPluginManager().getPlugin("FarmAssistReboot").getLogger();
-
-
-    public Config() {
-    }
 
     public static void initConfig(File dataFolder) throws IOException {
         if (!dataFolder.exists()) {
             dataFolder.mkdirs();
         }
-        File configFile = new File(dataFolder, "config.yml");
+        configFile = new File(dataFolder, "config.yml");
         if (!configFile.exists()) {
             logger.warning("config.yml doesn't exist, creating now.");
             configFile.createNewFile();
@@ -67,7 +65,7 @@ public class Config {
 
     }
 
-    private static void loadConfig(File configFile) throws IOException {
+    public static void loadConfig(File configFile) throws IOException {
         YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
         BufferedWriter out = new BufferedWriter(new FileWriter(configFile, true));
         if (config.contains("Wheat.Enabled")) {
