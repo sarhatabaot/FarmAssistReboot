@@ -12,21 +12,15 @@ import io.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListene
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -66,12 +60,6 @@ public class FarmAssistReboot extends JavaPlugin {
         saveDefaultConfig();
         new FarmAssistConfig();
         new FarmAssistCrops();
-
-        /*
-        if(!setupConfig()){
-            logger.severe("Couldn't setup config.yml, plugin loading aborted.");
-            return;
-        }*/
 
         this.enabled = true;
 
