@@ -3,6 +3,9 @@ package io.github.sarhatabaot.farmassistreboot.listeners;
 import io.github.sarhatabaot.farmassistreboot.Config;
 import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import io.github.sarhatabaot.farmassistreboot.ReplantTask;
+import io.github.sarhatabaot.farmassistreboot.Util;
+import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
+import io.github.sarhatabaot.farmassistreboot.config.FarmAssistCrops;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -17,8 +20,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class BlockBreakListener implements Listener {
     private FarmAssistReboot plugin;
+    private FarmAssistConfig config;
 
     public BlockBreakListener(FarmAssistReboot plugin) {
+        config = FarmAssistConfig.getInstance();
         this.plugin = plugin;
     }
 
@@ -31,7 +36,7 @@ public class BlockBreakListener implements Listener {
             return;
         if(this.plugin.disabledPlayerList.contains(event.getPlayer().getName()))
             return;
-        if (isWorldEnabled(plugin, event.getPlayer().getWorld())) {
+        if (isWorldEnabled(event.getPlayer().getWorld())) {
             applyReplant(event);
         }
     }
@@ -60,12 +65,42 @@ public class BlockBreakListener implements Listener {
     }
 
     private boolean applyReplant(BlockBreakEvent event){
+        Material material = event.getBlock().getType();
+        if(!FarmAssistCrops.getCropList().contains(material))
+            return false;
+        if(config.getEnabled(material) && checkPermission(event.getPlayer(),material.name().toLowerCase())){
+            if(!Util.inventoryContains(event.getPlayer(),event.getBlock().getType()))
+                return false;
+            // case sugar cane
+            if(material == Material.SUGAR_CANE){
+                replant(event.getPlayer(),event.getBlock(),material);
+                return true;
+            }
+            // case ripe
+            if(!config.getRipe(material) || isRipe(event.getBlock())){
+                replant(event.getPlayer(), event.getBlock(), material);
+                return true;
+                // case wheat
+                // config.getPlantOnTill should be in playerinteractionlistener
+                /*
+                if(material == Material.WHEAT && config.getPlantOnTill()) {
+                    replant(event.getPlayer(), event.getBlock(), material);
+                    return true;
+                } */
+            }
+        }
+        return false;
+    }
+
+    /*
+    private boolean applyReplant(BlockBreakEvent event){
         Block block = event.getBlock();
         Material material = block.getType();
         Player player = event.getPlayer();
 
         switch (material){
             case WHEAT: {
+
                 if(!(Config.isWheat()
                         && (!Config.isWheatRipe() || isRipe(block))
                         && checkPermission(player,"wheat")
@@ -149,17 +184,15 @@ public class BlockBreakListener implements Listener {
             }
         }
         return false;
-    }
+    }*/
 
-    private boolean isWorldEnabled(@NotNull FarmAssistReboot plugin, @NotNull World world) {
-        boolean worldEnabled = plugin.getConfig().getBoolean("Worlds.Enable Per World");
-        boolean isPlayerWorld = plugin.getConfig().getList("Worlds.Enabled Worlds").contains(world.getName());
-        return !worldEnabled || isPlayerWorld;
+    private boolean isWorldEnabled(World world) {
+        return !config.getWorldEnabled() || config.getWorlds().contains(world);
 
     }
 
     private boolean checkPermission(Player player, String permission) {
-        return !plugin.getConfig().getBoolean("Main.Use Permissions") || player.hasPermission("farmassist."+permission);
+        return !config.getPermission() || player.hasPermission("farmassist."+permission);
     }
 
     private boolean isRipe(@NotNull Block block) {
