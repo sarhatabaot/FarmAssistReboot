@@ -36,7 +36,7 @@ public class BlockBreakListener implements Listener {
             return;
         if(this.plugin.disabledPlayerList.contains(event.getPlayer().getName()))
             return;
-        if (isWorldEnabled(event.getPlayer().getWorld())) {
+        if (Util.isWorldEnabled(event.getPlayer().getWorld())) {
             applyReplant(event);
         }
     }
@@ -186,10 +186,6 @@ public class BlockBreakListener implements Listener {
         return false;
     }*/
 
-    private boolean isWorldEnabled(World world) {
-        return !config.getWorldEnabled() || config.getWorlds().contains(world);
-
-    }
 
     private boolean checkPermission(Player player, String permission) {
         return !config.getPermission() || player.hasPermission("farmassist."+permission);

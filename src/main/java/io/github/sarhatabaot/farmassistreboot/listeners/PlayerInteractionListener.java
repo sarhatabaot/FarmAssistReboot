@@ -3,6 +3,7 @@ package io.github.sarhatabaot.farmassistreboot.listeners;
 import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import io.github.sarhatabaot.farmassistreboot.ReplantTask;
 import io.github.sarhatabaot.farmassistreboot.Util;
+import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -15,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class PlayerInteractionListener implements Listener {
     private FarmAssistReboot plugin;
+    private FarmAssistConfig config = FarmAssistConfig.getInstance();
 
     public PlayerInteractionListener(FarmAssistReboot plugin) {
         this.plugin = plugin;
@@ -30,10 +32,11 @@ public class PlayerInteractionListener implements Listener {
                 || !(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event)))
             return;
         Player player = event.getPlayer();
-        if (isWorldEnabled(event)
+        if (Util.isWorldEnabled(event.getPlayer().getWorld())
                 && isPlayerBlockFarmable(event)
-                && isWheatEnabled()
-                && checkPermission(player)) {
+                && config.getEnabled(Material.WHEAT)
+                && config.getPlantOnTill()
+                && Util.checkPermission(player,"till")) {
 
                 Material material = player.getInventory().getItemInMainHand().getType();
                 if (isHoe(material) && Util.inventoryContains(event.getPlayer(),Material.WHEAT)) {
@@ -78,19 +81,6 @@ public class PlayerInteractionListener implements Listener {
                 || material == Material.DIAMOND_HOE;
     }
 
-    /**
-     * Checks if wheat is enabled in the config
-     * and if plant on till is enabled
-     * @return
-     */
-    private boolean isWheatEnabled() {
-        return plugin.getConfig().getBoolean("Wheat.Enabled") && plugin.getConfig().getBoolean("Wheat.Plant on till");
-    }
-
-    private boolean checkPermission(Player player) {
-        return !this.plugin.getConfig().getBoolean("Main.Use Permissions") || player.hasPermission("farmassist.till");
-    }
-
     private boolean isPlayerBlockFarmable(PlayerInteractEvent event) {
         boolean isGrassOrDirt = event.getClickedBlock().getType() == Material.GRASS_BLOCK || event.getClickedBlock().getType() == Material.DIRT;
         boolean isRightClick = event.getAction().equals(Action.RIGHT_CLICK_BLOCK);
@@ -102,9 +92,4 @@ public class PlayerInteractionListener implements Listener {
                 && isTopBlockAir;
     }
 
-    private boolean isWorldEnabled(PlayerInteractEvent event) {
-        boolean worldEnabled = plugin.getConfig().getBoolean("Worlds.Enable Per World");
-        boolean isPlayerWorld = plugin.getConfig().getList("Worlds.Enabled Worlds").contains(event.getPlayer().getWorld());
-        return !worldEnabled || isPlayerWorld;
-    }
-}
+

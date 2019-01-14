@@ -1,12 +1,15 @@
 package io.github.sarhatabaot.farmassistreboot;
 
+import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 /**
  * @author sarhatabaot
  */
 public class Util {
+    private static FarmAssistConfig config = FarmAssistConfig.getInstance();
     public static boolean inventoryContains(Player player, Material material){
         switch (material){
             case WHEAT:
@@ -26,6 +29,12 @@ public class Util {
                 return player.getInventory().contains(material);
             }
         }
+    }
+    public static boolean isWorldEnabled(World world) {
+        return !config.getWorldEnabled() || config.getWorlds().contains(world);
+    }
 
+    public static boolean checkPermission(Player player, String permission) {
+        return !config.getPermission() || player.hasPermission("farmassist."+permission);
     }
 }
