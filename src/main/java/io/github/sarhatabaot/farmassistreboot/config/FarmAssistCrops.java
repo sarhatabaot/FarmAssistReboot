@@ -20,7 +20,7 @@ public class FarmAssistCrops {
         cropList.add(Material.WHEAT);
         cropList.add(Material.SUGAR_CANE);
         cropList.add(Material.NETHER_WART);
-        cropList.add(Material.COCOA_BEANS);
+        cropList.add(Material.COCOA);
         cropList.add(Material.CARROTS);
         cropList.add(Material.POTATOES);
         cropList.add(Material.ATTACHED_MELON_STEM);
