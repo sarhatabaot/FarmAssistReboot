@@ -17,15 +17,18 @@ public class FarmAssistConfig {
     private FarmAssistReboot plugin;
     private FileConfiguration config;
 
-    public FarmAssistConfig(FarmAssistReboot plugin) {
+    public FarmAssistConfig() {
+        instance = this;
         this.plugin = FarmAssistReboot.getInstance();
         this.config = plugin.getConfig();
     }
 
+    public boolean getPermission(){
+        return config.getBoolean("Use Permissions");
+    }
     public boolean getDebug(){
         return config.getBoolean("debug");
     }
-
     public boolean getCheckForUpdates(){
         return config.getBoolean("Check for updates");
     }
