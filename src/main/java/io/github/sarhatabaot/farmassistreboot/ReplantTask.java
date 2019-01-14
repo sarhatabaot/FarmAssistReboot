@@ -69,7 +69,7 @@ public class ReplantTask implements Runnable {
                 }
                 break;
             }
-            case COCOA_BEANS:{
+            case COCOA:{
                 if (this.block.getType() == Material.AIR) {
                     //Material.JUNGLE_LOG
                     if (this.block.getRelative(BlockFace.NORTH).getType() == Material.JUNGLE_LOG) {
