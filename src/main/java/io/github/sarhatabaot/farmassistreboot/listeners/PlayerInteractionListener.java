@@ -28,9 +28,10 @@ public class PlayerInteractionListener implements Listener {
      */
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (!plugin.isGlobalEnabled() && !event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
+        //!plugin.isGlobalEnabled() Should disable the plugin.
+        if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
             return;
-        if(!this.plugin.disabledPlayerList.contains(event.getPlayer().getName()))
+        if(this.plugin.disabledPlayerList.contains(event.getPlayer().getName()))
             return;
         if (!(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event))) {
             FarmAssistReboot.debug("isHoe: "+isHoe(event.getPlayer().getInventory().getItemInMainHand().getType())+",farmable:"+isPlayerBlockFarmable(event));
