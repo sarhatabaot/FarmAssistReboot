@@ -18,14 +18,13 @@ public class FarmAssistConfig {
     private static FarmAssistConfig instance;
     private FarmAssistReboot plugin;
     private FileConfiguration config;
-    private File configFile;
 
     public FarmAssistConfig() {
         instance = this;
         this.plugin = FarmAssistReboot.getInstance();
-        configFile = new File(plugin.getDataFolder(),"config.yml");
-        config = YamlConfiguration.loadConfiguration(configFile);
+        config = plugin.getConfig();
     }
+
 
     public boolean getPermission(){
         return config.getBoolean("Use Permissions");
