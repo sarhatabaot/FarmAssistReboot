@@ -27,17 +27,17 @@ public class BlockBreakListener implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler (
+    @EventHandler(
             priority = EventPriority.HIGHEST,
             ignoreCancelled = true
     )
     public void onBlockBreak(BlockBreakEvent event) {
         if (!plugin.isGlobalEnabled())
             return;
-        if(this.plugin.disabledPlayerList.contains(event.getPlayer().getName()))
+        if (this.plugin.disabledPlayerList.contains(event.getPlayer().getName()))
             return;
         if (Util.isWorldEnabled(event.getPlayer().getWorld())) {
-            FarmAssistReboot.debug("isWorldEnabled:"+Util.isWorldEnabled(event.getPlayer().getWorld()));
+            FarmAssistReboot.debug("isWorldEnabled:" + Util.isWorldEnabled(event.getPlayer().getWorld()));
             applyReplant(event);
         }
     }
@@ -45,11 +45,13 @@ public class BlockBreakListener implements Listener {
 
     /**
      * @param player
-     * @param block
-     * @param material Material to replant
+     * @param block    Block broken
+     * @param material Material to remove from inventory
      */
     private void replant(@NotNull Player player, Block block, Material material) {
-        int spot = player.getInventory().first(material);
+        // remove seeds/mat
+
+        int spot = player.getInventory().first(getCrop(material));
         ItemStack next;
         if (spot >= 0) {
             next = player.getInventory().getItem(spot);
@@ -59,46 +61,89 @@ public class BlockBreakListener implements Listener {
             } else {
                 player.getInventory().setItem(spot, new ItemStack(Material.AIR));
             }
+            //
 
             ReplantTask b = new ReplantTask(this.plugin, block);
             this.plugin.getServer().getScheduler().scheduleSyncDelayedTask(this.plugin, b, 20L);
         }
     }
 
-    private boolean applyReplant(BlockBreakEvent event){
+    private boolean applyReplant(BlockBreakEvent event) {
         Material material = event.getBlock().getType();
         FarmAssistReboot.debug(material.name());
-        if(!FarmAssistCrops.getCropList().contains(material)) {
-            FarmAssistReboot.debug("Croplist doesnt contains"+material.name());
+        if (!FarmAssistCrops.getCropList().contains(material)) {
+            FarmAssistReboot.debug("Croplist doesnt contains" + material.name());
             return false;
         }
-        FarmAssistReboot.debug("Croplist contains"+material.name());
+        FarmAssistReboot.debug("Croplist contains" + material.name());
+//        material = getMaterialFromCrops(material);
+//        FarmAssistReboot.debug(material.name());
 
-        if(config.getEnabled(material) && checkPermission(event.getPlayer(),material.name().toLowerCase())){
-            if(!Util.inventoryContains(event.getPlayer(),event.getBlock().getType())) {
+        if (config.getEnabled(getMaterialFromCrops(material)) && checkPermission(event.getPlayer(), material.name().toLowerCase())) {
+
+            if (!Util.inventoryContains(event.getPlayer(), material)) {
                 FarmAssistReboot.debug("Player doesn't have the correct seeds/material to replant");
                 return false;
             }
             // case sugar cane
-            if(material == Material.SUGAR_CANE){
-                replant(event.getPlayer(),event.getBlock(),material);
+            if (material == Material.SUGAR_CANE) {
+                replant(event.getPlayer(), event.getBlock(), material);
                 return true;
             }
             // case ripe
-            if(!config.getRipe(material) || isRipe(event.getBlock())){
+            if (!config.getRipe(material) || isRipe(event.getBlock())) {
                 replant(event.getPlayer(), event.getBlock(), material);
                 return true;
-                // case wheat
-                // config.getPlantOnTill should be in playerinteractionlistener
-                /*
-                if(material == Material.WHEAT && config.getPlantOnTill()) {
-                    replant(event.getPlayer(), event.getBlock(), material);
-                    return true;
-                } */
             }
         }
         FarmAssistReboot.debug("fallthrough");
         return false;
+    }
+
+    //TODO: better name
+    // or handle in util?
+    private Material getMaterialFromCrops(Material material) {
+        switch (material) {
+            case MELON_STEM:
+            case ATTACHED_MELON_STEM:
+                return Material.MELON;
+            case PUMPKIN_STEM:
+            case ATTACHED_PUMPKIN_STEM:
+                return Material.PUMPKIN;
+            case BEETROOTS:
+                return Material.BEETROOT;
+            default:
+                return material;
+        }
+    }
+
+    /**
+     * Gets the plantable version of a material
+     *
+     * @param material
+     * @return
+     */
+    private Material getCrop(Material material) {
+        switch (material) {
+            case COCOA:
+                return Material.COCOA_BEANS;
+            case CARROTS:
+                return Material.CARROT;
+            case POTATOES:
+                return Material.POTATO;
+            case BEETROOTS:
+                return Material.BEETROOT_SEEDS;
+            case PUMPKIN_STEM:
+            case ATTACHED_PUMPKIN_STEM:
+                return Material.PUMPKIN_SEEDS;
+            case MELON_STEM:
+            case ATTACHED_MELON_STEM:
+                return Material.MELON_SEEDS;
+            case WHEAT:
+                return Material.WHEAT_SEEDS;
+            default:
+                return material;
+        }
     }
 
     /*
@@ -197,7 +242,7 @@ public class BlockBreakListener implements Listener {
 
 
     private boolean checkPermission(Player player, String permission) {
-        return !config.getPermission() || player.hasPermission("farmassist."+permission);
+        return !config.getPermission() || player.hasPermission("farmassist." + permission);
     }
 
     private boolean isRipe(@NotNull Block block) {
