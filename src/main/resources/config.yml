@@ -11,10 +11,10 @@ nether_wart:
 cocoa_beans:
     Enabled: true
     Replant when ripe: false
-carrot:
+carrots:
     Enabled: true
     Replant when ripe: false
-potato:
+potatoes:
     Enabled: true
     Replant when ripe: false
 pumpkin:
