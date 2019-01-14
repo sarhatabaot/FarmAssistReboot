@@ -1,6 +1,6 @@
 main: io.github.sarhatabaot.farmassistreboot.FarmAssistReboot
 name: FarmAssistReboot
-version: 0.1.0-SNAPSHOT
+version: ${project.version}
 author: sarhatbaot
 description: FarmAssistReboot Rebooted
 api-version: 1.13

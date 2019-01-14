@@ -5,7 +5,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +18,13 @@ public class FarmAssistConfig {
     private static FarmAssistConfig instance;
     private FarmAssistReboot plugin;
     private FileConfiguration config;
+    private File configFile;
 
     public FarmAssistConfig() {
         instance = this;
         this.plugin = FarmAssistReboot.getInstance();
-        this.config = plugin.getConfig();
+        configFile = new File(plugin.getDataFolder(),"config.yml");
+        config = YamlConfiguration.loadConfiguration(configFile);
     }
 
     public boolean getPermission(){

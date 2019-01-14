@@ -23,12 +23,12 @@ public class PlayerInteractionListener implements Listener {
     }
 
     /**
-     * on till
+     * On till event
      * @param event
      */
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if(!plugin.isGlobalEnabled()
+        if (!plugin.isGlobalEnabled()
                 || !(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event)))
             return;
         Player player = event.getPlayer();
@@ -36,22 +36,21 @@ public class PlayerInteractionListener implements Listener {
                 && isPlayerBlockFarmable(event)
                 && config.getEnabled(Material.WHEAT)
                 && config.getPlantOnTill()
-                && Util.checkPermission(player,"till")) {
+                && Util.checkPermission(player, "till")) {
 
-                Material material = player.getInventory().getItemInMainHand().getType();
-                if (isHoe(material) && Util.inventoryContains(event.getPlayer(),Material.WHEAT)) {
-                   replant(player,event.getClickedBlock(),Material.FARMLAND);
-                }
+            Material material = player.getInventory().getItemInMainHand().getType();
+            if (isHoe(material) && Util.inventoryContains(event.getPlayer(), Material.WHEAT)) {
+                replant(player, event.getClickedBlock(), Material.FARMLAND);
+            }
         }
     }
 
     /**
-     *
      * @param player
      * @param block
-     * @param material      Material to replant
+     * @param material Material to replant
      */
-    private void replant(Player player, Block block, Material material){
+    private void replant(Player player, Block block, Material material) {
         int spot = player.getInventory().first(material);
         ItemStack next;
         if (spot >= 0) {
@@ -70,6 +69,7 @@ public class PlayerInteractionListener implements Listener {
 
     /**
      * Checks if the material is a hoe
+     *
      * @param material
      * @return if material is a hoe
      */
@@ -91,5 +91,6 @@ public class PlayerInteractionListener implements Listener {
                 && isGrassOrDirt
                 && isTopBlockAir;
     }
+}
 
 
