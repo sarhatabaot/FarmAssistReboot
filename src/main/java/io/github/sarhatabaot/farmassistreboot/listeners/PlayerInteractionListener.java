@@ -2,6 +2,8 @@ package io.github.sarhatabaot.farmassistreboot.listeners;
 
 import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import io.github.sarhatabaot.farmassistreboot.ReplantTask;
+import io.github.sarhatabaot.farmassistreboot.Util;
+import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -14,40 +16,47 @@ import org.bukkit.inventory.ItemStack;
 
 public class PlayerInteractionListener implements Listener {
     private FarmAssistReboot plugin;
+    private FarmAssistConfig config = FarmAssistConfig.getInstance();
 
     public PlayerInteractionListener(FarmAssistReboot plugin) {
         this.plugin = plugin;
     }
 
     /**
-     * on till
+     * On till event
      * @param event
      */
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if(!plugin.isGlobalEnabled()
-                || !(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event)))
+        if (!plugin.isGlobalEnabled()
+                || !(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event))) {
+            FarmAssistReboot.debug("isHoe: "+isHoe(event.getPlayer().getInventory().getItemInMainHand().getType())+",farmable:"+isPlayerBlockFarmable(event));
             return;
+        }
         Player player = event.getPlayer();
-        if (isWorldEnabled(event)
+        FarmAssistReboot.debug("Wheat: "+config.getEnabled(Material.WHEAT)+"Plant on till: "+config.getPlantOnTill());
+        if (Util.isWorldEnabled(event.getPlayer().getWorld())
                 && isPlayerBlockFarmable(event)
-                && isWheatEnabled()
-                && checkPermission(player)) {
-
-                Material material = player.getInventory().getItemInMainHand().getType();
-                if (isHoe(material) && player.getInventory().contains(Material.WHEAT_SEEDS)) {
-                   replant(player,event.getClickedBlock(),Material.WHEAT_SEEDS);
-                }
+                && config.getEnabled(Material.WHEAT)
+                && config.getPlantOnTill()
+                && Util.checkPermission(player, "till")) {
+            FarmAssistReboot.debug("initial checks");
+            if (Util.inventoryContains(event.getPlayer(), Material.WHEAT)) {
+                FarmAssistReboot.debug("planting..");
+                // override block type TODO: Better way to implement this
+                Block block = event.getClickedBlock();
+                block.setType(Material.FARMLAND);
+                replant(player, block, Material.WHEAT_SEEDS);
+            }
         }
     }
 
     /**
-     *
      * @param player
      * @param block
-     * @param material      Material to replant
+     * @param material Material to replant
      */
-    private void replant(Player player, Block block, Material material){
+    private void replant(Player player, Block block, Material material) {
         int spot = player.getInventory().first(material);
         ItemStack next;
         if (spot >= 0) {
@@ -66,6 +75,7 @@ public class PlayerInteractionListener implements Listener {
 
     /**
      * Checks if the material is a hoe
+     *
      * @param material
      * @return if material is a hoe
      */
@@ -77,33 +87,17 @@ public class PlayerInteractionListener implements Listener {
                 || material == Material.DIAMOND_HOE;
     }
 
-    /**
-     * Checks if wheat is enabled in the config
-     * and if plant on till is enabled
-     * @return
-     */
-    private boolean isWheatEnabled() {
-        return plugin.getConfig().getBoolean("Wheat.Enabled") && plugin.getConfig().getBoolean("Wheat.Plant on till");
-    }
-
-    private boolean checkPermission(Player player) {
-        return !this.plugin.getConfig().getBoolean("Main.Use Permissions") || player.hasPermission("farmassist.till");
-    }
-
     private boolean isPlayerBlockFarmable(PlayerInteractEvent event) {
         boolean isGrassOrDirt = event.getClickedBlock().getType() == Material.GRASS_BLOCK || event.getClickedBlock().getType() == Material.DIRT;
-        boolean isRightClick = event.getAction().equals(Action.RIGHT_CLICK_BLOCK);
+        boolean isRightClick = event.getAction().equals(Action.RIGHT_CLICK_BLOCK); // should be checked before this
         boolean isTopBlockAir = event.getClickedBlock().getRelative(BlockFace.UP).getType() == Material.AIR;
-        return !this.plugin.disabledPlayerList.contains(event.getPlayer().getName())
-                && event.hasBlock()
+        FarmAssistReboot.debug("Grass|dirt: "+isGrassOrDirt+"RightClick: "+isRightClick+"TopBlockAir: "+isTopBlockAir+"HasBlock: "+event.hasBlock());
+        return //!this.plugin.disabledPlayerList.contains(event.getPlayer().getName()) // should check this before the event is started
+                event.hasBlock()
                 && isRightClick
                 && isGrassOrDirt
                 && isTopBlockAir;
     }
-
-    private boolean isWorldEnabled(PlayerInteractEvent event) {
-        boolean worldEnabled = plugin.getConfig().getBoolean("Worlds.Enable Per World");
-        boolean isPlayerWorld = plugin.getConfig().getList("Worlds.Enabled Worlds").contains(event.getPlayer().getWorld());
-        return !worldEnabled || isPlayerWorld;
-    }
 }
+
+

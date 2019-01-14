@@ -6,10 +6,12 @@
 
     <groupId>io.github.sarhatabaot</groupId>
     <artifactId>FarmAssistReboot</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.1</version>
 
 
     <properties>
+        <finalName>${artifactId}-${version}-SNAPSHOT</finalName>
+
         <!-- Encoding Properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
@@ -65,6 +67,14 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <finalName>${finalName}</finalName>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
                 <configuration>
@@ -78,5 +88,12 @@
                 <version>3.0.0-M3</version>
             </plugin>
         </plugins>
+        <resources>
+            <!-- Resource filtering; use Maven version in plugin.yml -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 </project>

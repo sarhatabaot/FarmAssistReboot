@@ -5,8 +5,11 @@ import io.github.sarhatabaot.farmassistreboot.command.commands.CommandGlobal;
 import io.github.sarhatabaot.farmassistreboot.command.commands.CommandReload;
 import io.github.sarhatabaot.farmassistreboot.command.commands.CommandToggle;
 import io.github.sarhatabaot.farmassistreboot.command.commands.CommandUpdate;
+import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
+import io.github.sarhatabaot.farmassistreboot.config.FarmAssistCrops;
 import io.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
 import io.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -31,6 +34,7 @@ import java.util.logging.Logger;
  */
 
 public class FarmAssistReboot extends JavaPlugin {
+    private static FarmAssistReboot instance;
     public List<String> disabledPlayerList = new ArrayList<>();
     public Logger logger = getLogger();
 
@@ -56,17 +60,18 @@ public class FarmAssistReboot extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
+
+        //Config
+        saveDefaultConfig();
+        new FarmAssistConfig();
+        new FarmAssistCrops();
+
+        /*
         if(!setupConfig()){
             logger.severe("Couldn't setup config.yml, plugin loading aborted.");
             return;
-        }
-
-        if (Config.isDebug()) {
-            logger.setLevel(Level.FINE);
-            ConsoleHandler handler = new ConsoleHandler();
-            handler.setLevel(Level.FINE);
-            logger.addHandler(handler);
-        }
+        }*/
 
         this.enabled = true;
 
@@ -80,6 +85,10 @@ public class FarmAssistReboot extends JavaPlugin {
 
         logger.info("FarmAssistReboot Enabled!");
     }
+    public static void debug(String msg) {
+        if(FarmAssistConfig.getInstance().getDebug())
+            Bukkit.getPluginManager().getPlugin("FarmAssistReboot").getLogger().warning("\u001B[33m"+"[DEBUG] "+msg+"\u001B[0m");
+    }
 
     private void registerListeners(){
         PluginManager pluginManager = getServer().getPluginManager();
@@ -89,23 +98,7 @@ public class FarmAssistReboot extends JavaPlugin {
     }
 
     /**
-     *
-     * @return
-     */
-    private boolean setupConfig(){
-        try {
-            Config.initConfig(getDataFolder());
-            logger.info("Loaded: config.yml");
-        } catch (IOException e){
-            logger.severe("Could not make config file!");
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     *
+     * Registers commands
      */
     private void registerCommands() {
         commandManager = new CommandManager();
@@ -117,7 +110,6 @@ public class FarmAssistReboot extends JavaPlugin {
         logger.fine("Commands registered.");
     }
 
-
     public void loadYamls() {
         try {
             Config.loadConfig(Config.configFile);
@@ -126,11 +118,9 @@ public class FarmAssistReboot extends JavaPlugin {
         }
     }
 
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("FarmAssist") && args.length > 0) {
-
             //Spoof args array to account for the initial sub-command specification
             String[] spoofedArgs = new String[args.length - 1];
             System.arraycopy(args, 1, spoofedArgs, 0, args.length - 1);
@@ -176,15 +166,19 @@ public class FarmAssistReboot extends JavaPlugin {
         return null;
     }
 
+    public static FarmAssistReboot getInstance(){
+        return instance;
+    }
+
     public boolean isGlobalEnabled() {
         return enabled;
     }
 
-    public void setNeedsUpdate(boolean needsUpdate) {
+    private void setNeedsUpdate(boolean needsUpdate) {
         this.needsUpdate = needsUpdate;
     }
 
-    public void setNewVersion(String newVersion) {
+    private void setNewVersion(String newVersion) {
         this.newVersion = newVersion;
     }
 
@@ -222,6 +216,7 @@ public class FarmAssistReboot extends JavaPlugin {
                     plugin.setNewVersion(remoteVer);
                     plugin.getLogger().info("New update: " + remoteVer + " Current version: " + versionNumber);
                 } else {
+                    plugin.setNeedsUpdate(false);
                     plugin.getLogger().info("You are running the latest version: " + versionNumber);
                 }
             } catch (Throwable t) {

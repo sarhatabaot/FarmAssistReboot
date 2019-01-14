@@ -33,6 +33,22 @@ public class ReplantTask implements Runnable {
                 }
                 break;
             }
+            case CARROTS:{
+                if (relativeBlockDown(Material.FARMLAND) && this.block.getType() == Material.AIR) {
+                    this.block.setType(Material.CARROTS);
+                } else{
+                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.CARROT));
+                }
+                break;
+            }
+            case POTATOES:{
+                if (relativeBlockDown(Material.FARMLAND) && this.block.getType() == Material.AIR) {
+                    this.block.setType(Material.POTATOES);
+                } else{
+                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.POTATO));
+                }
+                break;
+            }
             case SUGAR_CANE:{
                 if ((this.block.getRelative(BlockFace.DOWN).getType() == Material.GRASS
                         || this.block.getRelative(BlockFace.DOWN).getType() == Material.DIRT
@@ -72,22 +88,6 @@ public class ReplantTask implements Runnable {
                     } else {
                         this.block.getWorld().dropItemNaturally(this.block.getLocation(), new ItemStack(Material.COCOA_BEANS));
                     }
-                }
-                break;
-            }
-            case CARROTS:{
-                if (relativeBlockDown(Material.FARMLAND) && this.block.getType() == Material.AIR) {
-                    this.block.setType(Material.CARROTS);
-                } else{
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.CARROT));
-                }
-                break;
-            }
-            case POTATOES:{
-                if (relativeBlockDown(Material.FARMLAND) && this.block.getType() == Material.AIR) {
-                    this.block.setType(Material.POTATOES);
-                } else{
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.POTATO));
                 }
                 break;
             }
