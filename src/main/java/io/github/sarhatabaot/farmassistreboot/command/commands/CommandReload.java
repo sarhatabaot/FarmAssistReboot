@@ -18,7 +18,7 @@ public class CommandReload {
             permissions ="farmassist.reload"
     )
     public void reload(CommandSender sender, String[] args){
-        //TODO: Actually reload
+        plugin.reloadConfig();
         sender.sendMessage(ChatColor.GREEN + "FarmAssistReboot has been reloaded.");
         FarmAssistReboot.debug("FarmAssistReboot Reloaded.");
     }
