@@ -5,9 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +59,7 @@ public class FarmAssistConfig {
     }
 
     public boolean getRipe(Material material){
-        return config.getBoolean(material.name()+".Replant when ripe");
+        return config.getBoolean(material.name().toLowerCase()+".Replant when ripe");
     }
 
     public boolean getPlantOnTill(){
