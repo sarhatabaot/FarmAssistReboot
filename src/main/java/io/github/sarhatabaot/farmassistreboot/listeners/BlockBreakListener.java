@@ -1,13 +1,11 @@
 package io.github.sarhatabaot.farmassistreboot.listeners;
 
-import io.github.sarhatabaot.farmassistreboot.Config;
 import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import io.github.sarhatabaot.farmassistreboot.ReplantTask;
 import io.github.sarhatabaot.farmassistreboot.Util;
 import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import io.github.sarhatabaot.farmassistreboot.config.FarmAssistCrops;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Player;

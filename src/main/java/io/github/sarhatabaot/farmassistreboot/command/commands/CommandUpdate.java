@@ -1,8 +1,8 @@
 package io.github.sarhatabaot.farmassistreboot.command.commands;
 
-import io.github.sarhatabaot.farmassistreboot.Config;
 import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import io.github.sarhatabaot.farmassistreboot.command.Command;
+import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import org.bukkit.command.CommandSender;
 
 public class CommandUpdate {
@@ -18,7 +18,7 @@ public class CommandUpdate {
             permissions = "farmassist.update"
     )
     public void update(CommandSender sender, String[] args) {
-        if (!Config.isCheckForUpdates()) {
+        if (!FarmAssistConfig.getInstance().getCheckForUpdates()) {
             sender.sendMessage("Check for updates is disabled.");
             return;
         }

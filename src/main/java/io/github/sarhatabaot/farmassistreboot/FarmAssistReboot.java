@@ -66,7 +66,7 @@ public class FarmAssistReboot extends JavaPlugin {
         registerCommands();
         registerListeners();
 
-        if (Config.isCheckForUpdates()) {
+        if (FarmAssistConfig.getInstance().getCheckForUpdates()) {
            // Bukkit.getScheduler().runTaskAsynchronously(this, new SimpleUpdateChecker(this));
         }
 
@@ -96,14 +96,6 @@ public class FarmAssistReboot extends JavaPlugin {
         commandManager.register(CommandToggle.class,new CommandToggle(this));
         commandManager.register(CommandUpdate.class,new CommandUpdate(this));
         logger.fine("Commands registered.");
-    }
-
-    public void loadYamls() {
-        try {
-            Config.loadConfig(Config.configFile);
-        } catch (Exception exception) {
-            logger.severe(exception.getMessage());
-        }
     }
 
     @Override
