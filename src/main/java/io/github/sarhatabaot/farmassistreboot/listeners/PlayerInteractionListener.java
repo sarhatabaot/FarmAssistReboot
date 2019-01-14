@@ -2,6 +2,7 @@ package io.github.sarhatabaot.farmassistreboot.listeners;
 
 import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import io.github.sarhatabaot.farmassistreboot.ReplantTask;
+import io.github.sarhatabaot.farmassistreboot.Util;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -35,8 +36,8 @@ public class PlayerInteractionListener implements Listener {
                 && checkPermission(player)) {
 
                 Material material = player.getInventory().getItemInMainHand().getType();
-                if (isHoe(material) && player.getInventory().contains(Material.WHEAT_SEEDS)) {
-                   replant(player,event.getClickedBlock(),Material.WHEAT_SEEDS);
+                if (isHoe(material) && Util.inventoryContains(event.getPlayer(),Material.WHEAT)) {
+                   replant(player,event.getClickedBlock(),Material.FARMLAND);
                 }
         }
     }
