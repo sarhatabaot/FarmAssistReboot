@@ -9,10 +9,10 @@ import java.util.List;
  * @author sarhatabaot
  */
 public class FarmAssistCrops {
-    private List<Material> cropList;
+    private static List<Material> cropList;
 
     public FarmAssistCrops() {
-        this.cropList = createCropList();
+        cropList = createCropList();
     }
 
     private List<Material> createCropList(){
@@ -21,15 +21,17 @@ public class FarmAssistCrops {
         cropList.add(Material.SUGAR_CANE);
         cropList.add(Material.NETHER_WART);
         cropList.add(Material.COCOA_BEANS);
-        cropList.add(Material.CARROT);
-        cropList.add(Material.POTATO);
-        cropList.add(Material.PUMPKIN);
-        cropList.add(Material.MELON);
-        cropList.add(Material.BEETROOT);
+        cropList.add(Material.CARROTS);
+        cropList.add(Material.POTATOES);
+        cropList.add(Material.ATTACHED_MELON_STEM);
+        cropList.add(Material.ATTACHED_PUMPKIN_STEM);
+        cropList.add(Material.PUMPKIN_STEM);
+        cropList.add(Material.MELON_STEM);
+        cropList.add(Material.BEETROOTS);
         return cropList;
     }
 
-    public List<Material> getCropList() {
+    public static List<Material> getCropList() {
         return cropList;
     }
 }
