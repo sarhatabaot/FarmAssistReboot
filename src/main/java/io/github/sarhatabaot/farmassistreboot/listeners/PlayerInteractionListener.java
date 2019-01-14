@@ -28,8 +28,11 @@ public class PlayerInteractionListener implements Listener {
      */
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (!plugin.isGlobalEnabled()
-                || !(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event))) {
+        if (!plugin.isGlobalEnabled() && !event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
+            return;
+        if(!this.plugin.disabledPlayerList.contains(event.getPlayer().getName()))
+            return;
+        if (!(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event))) {
             FarmAssistReboot.debug("isHoe: "+isHoe(event.getPlayer().getInventory().getItemInMainHand().getType())+",farmable:"+isPlayerBlockFarmable(event));
             return;
         }
@@ -87,16 +90,12 @@ public class PlayerInteractionListener implements Listener {
                 || material == Material.DIAMOND_HOE;
     }
 
+
+
     private boolean isPlayerBlockFarmable(PlayerInteractEvent event) {
         boolean isGrassOrDirt = event.getClickedBlock().getType() == Material.GRASS_BLOCK || event.getClickedBlock().getType() == Material.DIRT;
-        boolean isRightClick = event.getAction().equals(Action.RIGHT_CLICK_BLOCK); // should be checked before this
         boolean isTopBlockAir = event.getClickedBlock().getRelative(BlockFace.UP).getType() == Material.AIR;
-        FarmAssistReboot.debug("Grass|dirt: "+isGrassOrDirt+"RightClick: "+isRightClick+"TopBlockAir: "+isTopBlockAir+"HasBlock: "+event.hasBlock());
-        return //!this.plugin.disabledPlayerList.contains(event.getPlayer().getName()) // should check this before the event is started
-                event.hasBlock()
-                && isRightClick
-                && isGrassOrDirt
-                && isTopBlockAir;
+        return event.hasBlock() && isGrassOrDirt && isTopBlockAir;
     }
 }
 
