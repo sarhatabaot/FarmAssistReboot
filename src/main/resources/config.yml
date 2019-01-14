@@ -1,29 +1,29 @@
 Use Permissions: true
-Wheat:
+wheat:
     Enabled: true
     Replant when ripe: false
     Plant on till: true
-Sugar_cane:
+sugar_cane:
     Enabled: true
-Nether_wart:
-    Enabled: true
-    Replant when ripe: false
-Cocoa_Beans:
+nether_wart:
     Enabled: true
     Replant when ripe: false
-Carrot:
+cocoa_beans:
     Enabled: true
     Replant when ripe: false
-Potato:
+carrot:
     Enabled: true
     Replant when ripe: false
-Pumpkin:
+potato:
     Enabled: true
     Replant when ripe: false
-Melon:
+pumpkin:
     Enabled: true
     Replant when ripe: false
-Beetroot:
+melon:
+    Enabled: true
+    Replant when ripe: false
+beetroot:
     Enabled: true
     Replant when ripe: false
 Worlds:

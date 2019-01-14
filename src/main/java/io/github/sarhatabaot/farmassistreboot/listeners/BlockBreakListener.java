@@ -37,6 +37,7 @@ public class BlockBreakListener implements Listener {
         if(this.plugin.disabledPlayerList.contains(event.getPlayer().getName()))
             return;
         if (Util.isWorldEnabled(event.getPlayer().getWorld())) {
+            FarmAssistReboot.debug("isWorldEnabled:"+Util.isWorldEnabled(event.getPlayer().getWorld()));
             applyReplant(event);
         }
     }
@@ -66,11 +67,18 @@ public class BlockBreakListener implements Listener {
 
     private boolean applyReplant(BlockBreakEvent event){
         Material material = event.getBlock().getType();
-        if(!FarmAssistCrops.getCropList().contains(material))
+        FarmAssistReboot.debug(material.name());
+        if(!FarmAssistCrops.getCropList().contains(material)) {
+            FarmAssistReboot.debug("Croplist doesnt contains"+material.name());
             return false;
+        }
+        FarmAssistReboot.debug("Croplist contains"+material.name());
+
         if(config.getEnabled(material) && checkPermission(event.getPlayer(),material.name().toLowerCase())){
-            if(!Util.inventoryContains(event.getPlayer(),event.getBlock().getType()))
+            if(!Util.inventoryContains(event.getPlayer(),event.getBlock().getType())) {
+                FarmAssistReboot.debug("Player doesn't have the correct seeds/material to replant");
                 return false;
+            }
             // case sugar cane
             if(material == Material.SUGAR_CANE){
                 replant(event.getPlayer(),event.getBlock(),material);
@@ -89,6 +97,7 @@ public class BlockBreakListener implements Listener {
                 } */
             }
         }
+        FarmAssistReboot.debug("fallthrough");
         return false;
     }
 
