@@ -103,6 +103,7 @@ public class FarmAssistReboot extends JavaPlugin {
         logger.fine("Registered Listeners");
     }
 
+
     /**
      *
      * @return
@@ -120,7 +121,7 @@ public class FarmAssistReboot extends JavaPlugin {
     }
 
     /**
-     *
+     * Registers commands
      */
     private void registerCommands() {
         commandManager = new CommandManager();
