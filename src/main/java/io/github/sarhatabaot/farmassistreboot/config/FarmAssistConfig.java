@@ -65,6 +65,6 @@ public class FarmAssistConfig {
     }
 
     public boolean getPlantOnTill(){
-        return config.getBoolean("Wheat.Plant on till");
+        return config.getBoolean("wheat.Plant on till");
     }
 }

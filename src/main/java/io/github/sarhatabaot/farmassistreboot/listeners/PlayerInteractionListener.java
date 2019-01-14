@@ -34,6 +34,7 @@ public class PlayerInteractionListener implements Listener {
             return;
         }
         Player player = event.getPlayer();
+        FarmAssistReboot.debug("Wheat: "+config.getEnabled(Material.WHEAT)+"Plant on till: "+config.getPlantOnTill());
         if (Util.isWorldEnabled(event.getPlayer().getWorld())
                 && isPlayerBlockFarmable(event)
                 && config.getEnabled(Material.WHEAT)
@@ -42,7 +43,10 @@ public class PlayerInteractionListener implements Listener {
             FarmAssistReboot.debug("initial checks");
             if (Util.inventoryContains(event.getPlayer(), Material.WHEAT)) {
                 FarmAssistReboot.debug("planting..");
-                replant(player, event.getClickedBlock(), Material.FARMLAND);
+                // override block type TODO: Better way to implement this
+                Block block = event.getClickedBlock();
+                block.setType(Material.FARMLAND);
+                replant(player, block, Material.WHEAT_SEEDS);
             }
         }
     }
@@ -85,10 +89,11 @@ public class PlayerInteractionListener implements Listener {
 
     private boolean isPlayerBlockFarmable(PlayerInteractEvent event) {
         boolean isGrassOrDirt = event.getClickedBlock().getType() == Material.GRASS_BLOCK || event.getClickedBlock().getType() == Material.DIRT;
-        boolean isRightClick = event.getAction().equals(Action.RIGHT_CLICK_BLOCK);
+        boolean isRightClick = event.getAction().equals(Action.RIGHT_CLICK_BLOCK); // should be checked before this
         boolean isTopBlockAir = event.getClickedBlock().getRelative(BlockFace.UP).getType() == Material.AIR;
-        return !this.plugin.disabledPlayerList.contains(event.getPlayer().getName()) // should check this before the event is started
-                && event.hasBlock()
+        FarmAssistReboot.debug("Grass|dirt: "+isGrassOrDirt+"RightClick: "+isRightClick+"TopBlockAir: "+isTopBlockAir+"HasBlock: "+event.hasBlock());
+        return //!this.plugin.disabledPlayerList.contains(event.getPlayer().getName()) // should check this before the event is started
+                event.hasBlock()
                 && isRightClick
                 && isGrassOrDirt
                 && isTopBlockAir;
