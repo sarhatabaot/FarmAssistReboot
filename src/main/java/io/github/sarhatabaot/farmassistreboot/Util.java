@@ -3,9 +3,7 @@ package io.github.sarhatabaot.farmassistreboot;
 import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 /**
  * @author sarhatabaot

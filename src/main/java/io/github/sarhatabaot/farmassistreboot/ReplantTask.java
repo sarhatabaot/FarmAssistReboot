@@ -107,7 +107,7 @@ public class ReplantTask implements Runnable {
                 }
                 break;
             }
-            case BEETROOT_SEEDS: {
+            case BEETROOTS: {
                 if(relativeBlockDown(Material.FARMLAND) && this.block.getType() == Material.AIR) {
                     this.block.setType(Material.BEETROOTS);
                 } else {
@@ -121,7 +121,7 @@ public class ReplantTask implements Runnable {
                 break;
             }
             default:{
-                plugin.logger.warning("Error while getting material.");
+                FarmAssistReboot.debug("Error while getting material."+material.name());
                 break;
             }
         }

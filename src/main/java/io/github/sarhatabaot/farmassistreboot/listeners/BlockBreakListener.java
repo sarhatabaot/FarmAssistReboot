@@ -49,8 +49,6 @@ public class BlockBreakListener implements Listener {
      * @param material Material to remove from inventory
      */
     private void replant(@NotNull Player player, Block block, Material material) {
-        // remove seeds/mat
-
         int spot = player.getInventory().first(getCrop(material));
         ItemStack next;
         if (spot >= 0) {
@@ -76,8 +74,6 @@ public class BlockBreakListener implements Listener {
             return false;
         }
         FarmAssistReboot.debug("Croplist contains" + material.name());
-//        material = getMaterialFromCrops(material);
-//        FarmAssistReboot.debug(material.name());
 
         if (config.getEnabled(getMaterialFromCrops(material)) && checkPermission(event.getPlayer(), material.name().toLowerCase())) {
 
@@ -100,8 +96,7 @@ public class BlockBreakListener implements Listener {
         return false;
     }
 
-    //TODO: better name
-    // or handle in util?
+
     private Material getMaterialFromCrops(Material material) {
         switch (material) {
             case MELON_STEM:
@@ -146,102 +141,8 @@ public class BlockBreakListener implements Listener {
         }
     }
 
-    /*
-    private boolean applyReplant(BlockBreakEvent event){
-        Block block = event.getBlock();
-        Material material = block.getType();
-        Player player = event.getPlayer();
-
-        switch (material){
-            case WHEAT: {
-
-                if(!(Config.isWheat()
-                        && (!Config.isWheatRipe() || isRipe(block))
-                        && checkPermission(player,"wheat")
-                        && player.getInventory().contains(Material.WHEAT_SEEDS)))
-                    return false;
-                replant(player,block,Material.WHEAT_SEEDS);
-                return true;
-            }
-            case SUGAR_CANE: {
-                if(!(Config.isSugarCane()
-                        && checkPermission(player,"reeds")
-                        && player.getInventory().contains(Material.SUGAR_CANE)))
-                    return false;
-                replant(player,block,material);
-                return true;
-            }
-            case NETHER_WART:{
-                if(!(Config.isNetherWart()
-                        && (!Config.isNetherWartRipe() || isRipe(block))
-                        && checkPermission(player, "wart")
-                        && player.getInventory().contains(Material.NETHER_WART)))
-                    return false;
-                replant(player,block,material);
-                return true;
-            }
-            case COCOA_BEANS:{
-                if(!(Config.isCocoaBeans()
-                        && (!Config.isCocoaRipe() || isRipe(block))
-                        && checkPermission(player,"cocoa")
-                        && player.getInventory().contains(Material.COCOA_BEANS)))
-                    return false;
-                replant(player,block,material);
-                return true;
-            }
-            case CARROTS: {
-                if(!(Config.isCarrots()
-                        && (!Config.isCarrotsRipe() || isRipe(block))
-                        && checkPermission(player,"carrots")
-                        && player.getInventory().contains(Material.CARROT)))
-                    return false;
-                replant(player,block,Material.CARROT);
-                return true;
-            }
-            case POTATOES:{
-                if(!(Config.isPotatoes()
-                        && (!Config.isPotatoesRipe() || isRipe(block))
-                        && checkPermission(player,"potatoes")
-                        && player.getInventory().contains(Material.POTATO)))
-                    return false;
-                replant(player,block,Material.POTATO);
-                return true;
-            }
-            case BEETROOTS:{
-                if(!(Config.isBeetroot()
-                        && (!Config.isBeetrootRipe() || isRipe(block))
-                        && checkPermission(player,"beetroot")
-                        && player.getInventory().contains(Material.BEETROOT_SEEDS)))
-                    return false;
-                replant(player,block,Material.BEETROOT_SEEDS);
-                return true;
-            }
-            case MELON_STEM:
-            case ATTACHED_MELON_STEM: {
-                if(!(Config.isMelon()
-                        && (!Config.isMelonRipe() || isRipe(block))
-                        && checkPermission(player,"melon")
-                        && player.getInventory().contains(Material.MELON_SEEDS)))
-                    return false;
-                replant(player,block,Material.MELON_SEEDS);
-                return true;
-            }
-            case PUMPKIN_STEM:
-            case ATTACHED_PUMPKIN_STEM: {
-                if(!(Config.isPumpkin()
-                        && (!Config.isPumpkinRipe() || isRipe(block))
-                        && checkPermission(player,"pumpkin")
-                        && player.getInventory().contains(Material.PUMPKIN_SEEDS)))
-                    return false;
-                replant(player,block,Material.PUMPKIN_SEEDS);
-                return true;
-            }
-        }
-        return false;
-    }*/
-
-
     private boolean checkPermission(Player player, String permission) {
+        FarmAssistReboot.debug("MainPermissions: "+config.getPermission() +"hasPermission: "+ player.hasPermission("farmassist." + permission));
         return !config.getPermission() || player.hasPermission("farmassist." + permission);
     }
 
