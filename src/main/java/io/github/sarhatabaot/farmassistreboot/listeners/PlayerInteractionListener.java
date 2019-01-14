@@ -29,17 +29,19 @@ public class PlayerInteractionListener implements Listener {
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         if (!plugin.isGlobalEnabled()
-                || !(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event)))
+                || !(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event))) {
+            FarmAssistReboot.debug("isHoe: "+isHoe(event.getPlayer().getInventory().getItemInMainHand().getType())+",farmable:"+isPlayerBlockFarmable(event));
             return;
+        }
         Player player = event.getPlayer();
         if (Util.isWorldEnabled(event.getPlayer().getWorld())
                 && isPlayerBlockFarmable(event)
                 && config.getEnabled(Material.WHEAT)
                 && config.getPlantOnTill()
                 && Util.checkPermission(player, "till")) {
-
-            Material material = player.getInventory().getItemInMainHand().getType();
-            if (isHoe(material) && Util.inventoryContains(event.getPlayer(), Material.WHEAT)) {
+            FarmAssistReboot.debug("initial checks");
+            if (Util.inventoryContains(event.getPlayer(), Material.WHEAT)) {
+                FarmAssistReboot.debug("planting..");
                 replant(player, event.getClickedBlock(), Material.FARMLAND);
             }
         }
@@ -85,7 +87,7 @@ public class PlayerInteractionListener implements Listener {
         boolean isGrassOrDirt = event.getClickedBlock().getType() == Material.GRASS_BLOCK || event.getClickedBlock().getType() == Material.DIRT;
         boolean isRightClick = event.getAction().equals(Action.RIGHT_CLICK_BLOCK);
         boolean isTopBlockAir = event.getClickedBlock().getRelative(BlockFace.UP).getType() == Material.AIR;
-        return !this.plugin.disabledPlayerList.contains(event.getPlayer().getName())
+        return !this.plugin.disabledPlayerList.contains(event.getPlayer().getName()) // should check this before the event is started
                 && event.hasBlock()
                 && isRightClick
                 && isGrassOrDirt
