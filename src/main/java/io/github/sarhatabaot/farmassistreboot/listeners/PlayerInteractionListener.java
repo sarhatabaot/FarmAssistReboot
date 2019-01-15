@@ -1,7 +1,7 @@
 package io.github.sarhatabaot.farmassistreboot.listeners;
 
 import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import io.github.sarhatabaot.farmassistreboot.ReplantTask;
+import io.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
 import io.github.sarhatabaot.farmassistreboot.Util;
 import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import org.bukkit.Material;
@@ -28,7 +28,8 @@ public class PlayerInteractionListener implements Listener {
      */
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        //!plugin.isGlobalEnabled() Should disable the plugin.
+        if(!plugin.isGlobalEnabled())
+            return;
         if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
             return;
         if(this.plugin.disabledPlayerList.contains(event.getPlayer().getName()))

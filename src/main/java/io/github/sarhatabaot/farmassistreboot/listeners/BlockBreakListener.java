@@ -1,7 +1,7 @@
 package io.github.sarhatabaot.farmassistreboot.listeners;
 
 import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import io.github.sarhatabaot.farmassistreboot.ReplantTask;
+import io.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
 import io.github.sarhatabaot.farmassistreboot.Util;
 import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import io.github.sarhatabaot.farmassistreboot.config.FarmAssistCrops;

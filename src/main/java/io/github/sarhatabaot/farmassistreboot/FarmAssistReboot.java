@@ -9,6 +9,7 @@ import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import io.github.sarhatabaot.farmassistreboot.config.FarmAssistCrops;
 import io.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
 import io.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
+import io.github.sarhatabaot.farmassistreboot.tasks.SimpleUpdateCheckerTask;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -67,7 +68,7 @@ public class FarmAssistReboot extends JavaPlugin {
         registerListeners();
 
         if (FarmAssistConfig.getInstance().getCheckForUpdates()) {
-           // Bukkit.getScheduler().runTaskAsynchronously(this, new SimpleUpdateChecker(this));
+           Bukkit.getScheduler().runTaskAsynchronously(this, new SimpleUpdateCheckerTask(this));
         }
 
 
@@ -154,14 +155,15 @@ public class FarmAssistReboot extends JavaPlugin {
         return enabled;
     }
 
-    private void setNeedsUpdate(boolean needsUpdate) {
+    public void setNeedsUpdate(boolean needsUpdate) {
         this.needsUpdate = needsUpdate;
     }
 
-    private void setNewVersion(String newVersion) {
+    public void setNewVersion(String newVersion) {
         this.newVersion = newVersion;
     }
 
+    //TODO: implement once a release is out
     private static class SimpleUpdateChecker implements Runnable {
 
         private FarmAssistReboot plugin;
