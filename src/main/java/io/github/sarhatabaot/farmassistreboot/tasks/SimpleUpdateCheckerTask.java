@@ -35,6 +35,7 @@ public class SimpleUpdateCheckerTask implements Runnable {
 
             JSONObject obj = new JSONObject(str);
             String remoteVer = obj.get("tag_name").toString();
+            remoteVer = remoteVer.replace("v","");
             int remoteVal = Integer.valueOf(remoteVer.replace(".", ""));
             int localVer = Integer.valueOf(versionNumber.replace(".", ""));
             if (remoteVal > localVer) {
