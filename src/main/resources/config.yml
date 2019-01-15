@@ -8,7 +8,7 @@ sugar_cane:
 nether_wart:
     Enabled: true
     Replant when ripe: false
-cocoa_beans:
+cocoa:
     Enabled: true
     Replant when ripe: false
 carrots:
