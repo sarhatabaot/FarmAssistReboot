@@ -83,7 +83,7 @@ public class FarmAssistReboot extends JavaPlugin {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerInteractionListener(this),this);
         pluginManager.registerEvents(new BlockBreakListener(this),this);
-        logger.fine("Registered Listeners");
+        debug("Registered Listeners");
     }
 
     /**
@@ -96,7 +96,7 @@ public class FarmAssistReboot extends JavaPlugin {
         commandManager.register(CommandReload.class,new CommandReload(this));
         commandManager.register(CommandToggle.class,new CommandToggle(this));
         commandManager.register(CommandUpdate.class,new CommandUpdate(this));
-        logger.fine("Commands registered.");
+        debug("Commands registered.");
     }
 
     @Override
@@ -162,50 +162,4 @@ public class FarmAssistReboot extends JavaPlugin {
     public void setNewVersion(String newVersion) {
         this.newVersion = newVersion;
     }
-
-    //TODO: implement once a release is out
-    private static class SimpleUpdateChecker implements Runnable {
-
-        private FarmAssistReboot plugin;
-        private String versionNumber;
-
-        private String latest = "https://api.github.com/repos/sarhatabaot/FarmAssistReboot/releases/latest";
-
-        public SimpleUpdateChecker(FarmAssistReboot plugin) {
-            this.plugin = plugin;
-            this.versionNumber = plugin.getDescription().getVersion();
-        }
-
-
-        @Override
-        public void run() {
-            try {
-                URL updateTag = new URL(latest);
-                Scanner scanner = new Scanner(updateTag.openStream());
-                StringBuilder stringBuilder = new StringBuilder();
-                while (scanner.hasNext()) {
-                    stringBuilder.append(scanner.nextLine());
-                }
-                scanner.close();
-                String str = stringBuilder.toString();
-
-                JSONObject obj = new JSONObject(str);
-                String remoteVer = obj.get("tag_name").toString();
-                int remoteVal = Integer.valueOf(remoteVer.replace(".", ""));
-                int localVer = Integer.valueOf(versionNumber.replace(".", ""));
-                if (remoteVal > localVer) {
-                    plugin.setNeedsUpdate(true);
-                    plugin.setNewVersion(remoteVer);
-                    plugin.getLogger().info("New update: " + remoteVer + " Current version: " + versionNumber);
-                } else {
-                    plugin.setNeedsUpdate(false);
-                    plugin.getLogger().info("You are running the latest version: " + versionNumber);
-                }
-            } catch (Throwable t) {
-                t.printStackTrace();
-            }
-        }
-    }
-
-
 }
