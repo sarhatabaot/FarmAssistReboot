@@ -22,9 +22,14 @@ public class CommandUpdate {
             sender.sendMessage("Check for updates is disabled.");
             return;
         }
-        sender.sendMessage("New update found: " + plugin.getNewVersion());
-        sender.sendMessage("Current version: "+ plugin.getDescription().getVersion());
-        sender.sendMessage("https://github.com/sarhatabaot/FarmAssistReboot/releases");
+        if (plugin.getNewVersion()!=null) {
+            sender.sendMessage("New update found: " + plugin.getNewVersion());
+            sender.sendMessage("Current version: " + plugin.getDescription().getVersion());
+            sender.sendMessage("https://github.com/sarhatabaot/FarmAssistReboot/releases");
+        }
+        else {
+            sender.sendMessage("You are running the latest version.");
+        }
     }
 
 }
