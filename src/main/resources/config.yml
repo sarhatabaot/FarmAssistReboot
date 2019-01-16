@@ -23,7 +23,7 @@ pumpkin:
 melon:
     Enabled: true
     Replant when ripe: false
-beetroot:
+beetroots:
     Enabled: true
     Replant when ripe: false
 Worlds:
