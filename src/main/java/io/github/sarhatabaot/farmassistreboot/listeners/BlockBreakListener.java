@@ -65,10 +65,10 @@ public class BlockBreakListener implements Listener {
         Material material = event.getBlock().getType();
         FarmAssistReboot.debug(material.name());
         if (!FarmAssistCrops.getCropList().contains(material)) {
-            FarmAssistReboot.debug("Croplist doesnt contains" + material.name());
+            FarmAssistReboot.debug("CropList doesn't contain: " + material.name());
             return false;
         }
-        FarmAssistReboot.debug("Croplist contains" + material.name());
+        FarmAssistReboot.debug("CropList contains: " + material.name());
 
         if (config.getEnabled(getMaterialFromCrops(material)) && checkPermission(event.getPlayer(), material.name().toLowerCase())) {
 
@@ -76,18 +76,16 @@ public class BlockBreakListener implements Listener {
                 FarmAssistReboot.debug("Player doesn't have the correct seeds/material to replant");
                 return false;
             }
-            // case sugar cane
             if (material == Material.SUGAR_CANE) {
                 replant(event.getPlayer(), event.getBlock(), material);
                 return true;
             }
-            // case ripe
             if (!config.getRipe(material) || isRipe(event.getBlock())) {
                 replant(event.getPlayer(), event.getBlock(), material);
                 return true;
             }
         }
-        FarmAssistReboot.debug("fallthrough");
+        FarmAssistReboot.debug("Fallthrough");
         return false;
     }
 
@@ -137,7 +135,7 @@ public class BlockBreakListener implements Listener {
     }
 
     private boolean checkPermission(Player player, String permission) {
-        FarmAssistReboot.debug("MainPermissions: "+config.getPermission() +"hasPermission: "+ player.hasPermission("farmassist." + permission));
+        FarmAssistReboot.debug("MainPermissions: "+config.getPermission() +",hasPermission: "+ player.hasPermission("farmassist." + permission));
         return !config.getPermission() || player.hasPermission("farmassist." + permission);
     }
 

@@ -24,7 +24,7 @@ public class PlayerInteractionListener implements Listener {
 
     /**
      * On till event
-     * @param event
+     * @param event PlayerInteractEvent
      */
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
@@ -39,15 +39,14 @@ public class PlayerInteractionListener implements Listener {
             return;
         }
         Player player = event.getPlayer();
-        FarmAssistReboot.debug("Wheat: "+config.getEnabled(Material.WHEAT)+"Plant on till: "+config.getPlantOnTill());
+        FarmAssistReboot.debug("Wheat: "+config.getEnabled(Material.WHEAT)+",Plant on till: "+config.getPlantOnTill());
         if (Util.isWorldEnabled(event.getPlayer().getWorld())
                 && isPlayerBlockFarmable(event)
                 && config.getEnabled(Material.WHEAT)
                 && config.getPlantOnTill()
                 && Util.checkPermission(player, "till")) {
-            FarmAssistReboot.debug("initial checks");
             if (Util.inventoryContains(event.getPlayer(), Material.WHEAT)) {
-                FarmAssistReboot.debug("planting..");
+                FarmAssistReboot.debug("Planting..");
                 // override block type TODO: Better way to implement this
                 Block block = event.getClickedBlock();
                 block.setType(Material.FARMLAND);
@@ -57,9 +56,9 @@ public class PlayerInteractionListener implements Listener {
     }
 
     /**
-     * @param player
-     * @param block
-     * @param material Material to replant
+     * @param player Player that replants.
+     * @param block Block that's being set.
+     * @param material Material to replant.
      */
     private void replant(Player player, Block block, Material material) {
         int spot = player.getInventory().first(material);
@@ -73,16 +72,15 @@ public class PlayerInteractionListener implements Listener {
                 player.getInventory().setItem(spot, new ItemStack(Material.AIR));
             }
 
-            ReplantTask b = new ReplantTask(this.plugin, block);
+            ReplantTask b = new ReplantTask(block);
             this.plugin.getServer().getScheduler().scheduleSyncDelayedTask(this.plugin, b, 20L);
         }
     }
 
     /**
      * Checks if the material is a hoe
-     *
-     * @param material
-     * @return if material is a hoe
+     * @param material Material
+     * @return Return if material is a hoe
      */
     private boolean isHoe(Material material) {
         return material == Material.WOODEN_HOE
@@ -92,8 +90,11 @@ public class PlayerInteractionListener implements Listener {
                 || material == Material.DIAMOND_HOE;
     }
 
-
-
+    /**
+     * Checks if the block is farmable.
+     * @param event PlayerInteractEvent
+     * @return
+     */
     private boolean isPlayerBlockFarmable(PlayerInteractEvent event) {
         boolean isGrassOrDirt = event.getClickedBlock().getType() == Material.GRASS_BLOCK || event.getClickedBlock().getType() == Material.DIRT;
         boolean isTopBlockAir = event.getClickedBlock().getRelative(BlockFace.UP).getType() == Material.AIR;

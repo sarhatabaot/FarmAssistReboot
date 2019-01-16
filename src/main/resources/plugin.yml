@@ -13,14 +13,14 @@ permissions:
     default: true
     children:
       farmassist.wheat: true
-      farmassist.reed: true
+      farmassist.sugar_cane: true
       farmassist.pumkin: true
       farmassist.melon: true
       farmassist.cocoa: true
-      farmassist.wart: true
+      farmassist.nether_wart: true
       farmassist.carrots: true
       farmassist.potatoes: true
-      farmassist.beetroot: true
+      farmassist.beetroots: true
   farmassist.reload:
     default: op
   farmassist.toggle:

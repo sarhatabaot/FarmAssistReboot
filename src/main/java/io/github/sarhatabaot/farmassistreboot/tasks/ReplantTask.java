@@ -19,7 +19,6 @@ public class ReplantTask implements Runnable {
         this.block = block;
         this.material = block.getType();
 
-        //case cocoa
         if(block.getType() == Material.COCOA){
             this.cocoa = (Cocoa) block.getBlockData().clone();
             this.cocoa.setAge(0);
@@ -29,7 +28,7 @@ public class ReplantTask implements Runnable {
 
     @Override
     public void run() {
-        FarmAssistReboot.debug("Run:"+block.getType().name()+"Material:"+material.name());
+        FarmAssistReboot.debug("Block: "+block.getType().name()+",Material: "+material.name());
         switch (material){
             case WHEAT:{
                 if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
@@ -86,6 +85,7 @@ public class ReplantTask implements Runnable {
                 }
                 break;
             }
+            case ATTACHED_PUMPKIN_STEM:
             case PUMPKIN_STEM:{
                 if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
                     this.block.setType(Material.PUMPKIN_STEM);
@@ -94,6 +94,7 @@ public class ReplantTask implements Runnable {
                 }
                 break;
             }
+            case ATTACHED_MELON_STEM:
             case MELON_STEM:{
                 if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
                     this.block.setType(Material.MELON_STEM);
