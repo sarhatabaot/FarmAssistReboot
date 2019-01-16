@@ -42,6 +42,7 @@ public class Util {
             }
         }
     }
+
     public static boolean isWorldEnabled(World world) {
         FarmAssistReboot.debug(config.getWorldEnabled()+","+config.getWorlds().contains(world)+","+world.getName());
         return !config.getWorldEnabled() || config.getWorlds().contains(world);

@@ -9,13 +9,9 @@ import java.util.List;
  * @author sarhatabaot
  */
 public class FarmAssistCrops {
-    private static List<Material> cropList;
+    private static List<Material> cropList = createCropList();
 
-    public FarmAssistCrops() {
-        cropList = createCropList();
-    }
-
-    private List<Material> createCropList(){
+    private static List<Material> createCropList(){
         ArrayList<Material> cropList = new ArrayList<>();
         cropList.add(Material.WHEAT);
         cropList.add(Material.SUGAR_CANE);

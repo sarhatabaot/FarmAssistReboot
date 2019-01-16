@@ -29,10 +29,11 @@ import java.util.logging.Logger;
 
 public class FarmAssistReboot extends JavaPlugin {
     private static FarmAssistReboot instance;
-    public List<String> disabledPlayerList = new ArrayList<>();
-    public Logger logger = getLogger();
+    private Logger logger = getLogger();
 
-    // Config
+    public List<String> disabledPlayerList = new ArrayList<>();
+
+    // Commands
     private CommandManager commandManager;
 
     // State
@@ -56,7 +57,6 @@ public class FarmAssistReboot extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        //Config
         saveDefaultConfig();
         new FarmAssistConfig();
         new FarmAssistCrops();
@@ -70,14 +70,21 @@ public class FarmAssistReboot extends JavaPlugin {
            Bukkit.getScheduler().runTaskAsynchronously(this, new SimpleUpdateCheckerTask(this));
         }
 
-
         logger.info("FarmAssistReboot Enabled!");
     }
+
+    /**
+     * Sends colored debug message.
+     * @param msg Message to send
+     */
     public static void debug(String msg) {
         if(FarmAssistConfig.getInstance().getDebug())
             Bukkit.getPluginManager().getPlugin("FarmAssistReboot").getLogger().warning("\u001B[33m"+"[DEBUG] "+msg+"\u001B[0m");
     }
 
+    /**
+     * Register Listeners
+     */
     private void registerListeners(){
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerInteractionListener(this),this);

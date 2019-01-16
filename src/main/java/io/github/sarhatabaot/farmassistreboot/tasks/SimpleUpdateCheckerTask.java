@@ -28,7 +28,6 @@ public class SimpleUpdateCheckerTask implements Runnable {
     public void run() {
         JSONParser parser = new JSONParser();
         try {
-
             URL url = new URL(latest);
             URLConnection urlConnection = url.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -51,36 +50,4 @@ public class SimpleUpdateCheckerTask implements Runnable {
             t.printStackTrace();
         }
     }
-
-    /*
-    @Override
-    public void run() {
-        try {
-            URL updateTag = new URL(tag);
-            Scanner scanner = new Scanner(updateTag.openStream());
-            StringBuilder stringBuilder = new StringBuilder();
-            while (scanner.hasNext()) {
-                stringBuilder.append(scanner.nextLine());
-            }
-            scanner.close();
-            String str = stringBuilder.toString();
-
-            JSONObject obj = new JSONObject(str);
-            String remoteVer = obj.get("tag_name").toString();
-            remoteVer = remoteVer.replace("v","");
-            int remoteVal = Integer.valueOf(remoteVer.replace(".", ""));
-            int localVer = Integer.valueOf(versionNumber.replace(".", ""));
-            if (remoteVal > localVer) {
-                plugin.setNeedsUpdate(true);
-                plugin.setNewVersion(remoteVer);
-                plugin.getLogger().info("New update: " + remoteVer + " Current version: " + versionNumber);
-            } else {
-                plugin.setNeedsUpdate(false);
-                plugin.getLogger().info("You are running the latest version: " + versionNumber);
-            }
-        } catch (Throwable t) {
-            plugin.getLogger().info("Could not get new version.");
-            t.printStackTrace();
-        }
-    }*/
 }

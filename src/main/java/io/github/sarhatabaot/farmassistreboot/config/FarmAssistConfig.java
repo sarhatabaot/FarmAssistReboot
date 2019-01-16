@@ -27,13 +27,14 @@ public class FarmAssistConfig {
     public boolean getPermission(){
         return config.getBoolean("Use Permissions");
     }
+
     public boolean getDebug(){
         return config.getBoolean("debug");
     }
+
     public boolean getCheckForUpdates(){
         return config.getBoolean("Check for updates");
     }
-
 
     public static FarmAssistConfig getInstance() {
         return instance;

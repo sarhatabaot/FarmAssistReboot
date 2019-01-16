@@ -40,7 +40,6 @@ public class BlockBreakListener implements Listener {
         }
     }
 
-
     /**
      * @param player
      * @param block    Block broken
@@ -57,9 +56,7 @@ public class BlockBreakListener implements Listener {
             } else {
                 player.getInventory().setItem(spot, new ItemStack(Material.AIR));
             }
-            //
-
-            ReplantTask b = new ReplantTask(this.plugin, block);
+            ReplantTask b = new ReplantTask(block);
             this.plugin.getServer().getScheduler().scheduleSyncDelayedTask(this.plugin, b, 20L);
         }
     }

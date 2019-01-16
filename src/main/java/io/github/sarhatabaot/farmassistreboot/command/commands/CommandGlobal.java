@@ -6,7 +6,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 public class CommandGlobal {
-    //TODO: Maybe disable plugin here.. disabling isn't possible since you would have to re-execute commands from within the plugin.
     private FarmAssistReboot plugin;
 
     public CommandGlobal(FarmAssistReboot plugin) {
