@@ -80,7 +80,6 @@ public class ReplantTask implements Runnable {
                 }
                 break;
             }
-            //TODO: issue
             case COCOA:{
                 if (this.block.getType() == Material.AIR) {
                     if(this.block.getRelative(cocoa.getFacing()).getType() == Material.JUNGLE_LOG){
@@ -131,10 +130,6 @@ public class ReplantTask implements Runnable {
 
     private boolean relativeBlockDown(Material material){
         return this.block.getRelative(BlockFace.DOWN).getType() == material;
-    }
-
-    private void setCocoaDirection(BlockFace face){
-        cocoa.setFacing(face);
     }
 
     private void setCropState(){
