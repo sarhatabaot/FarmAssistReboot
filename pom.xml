@@ -6,11 +6,11 @@
 
     <groupId>io.github.sarhatabaot</groupId>
     <artifactId>FarmAssistReboot</artifactId>
-    <version>0.1.4.2</version>
+    <version>0.1.4.3</version>
 
 
     <properties>
-        <finalName>${artifactId}-${version}-SNAPSHOT</finalName>
+        <finalName>${project.artifactId}-${project.version}-SNAPSHOT</finalName>
 
         <!-- Encoding Properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -44,12 +44,6 @@
             <version>16.0.3</version>
             <scope>compile</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.json/json -->
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20090211</version>
-        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -62,7 +56,6 @@
             <version>${juinit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
     <build>
         <plugins>

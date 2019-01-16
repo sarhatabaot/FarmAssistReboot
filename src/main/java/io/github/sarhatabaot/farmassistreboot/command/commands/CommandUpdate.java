@@ -13,7 +13,7 @@ public class CommandUpdate {
     }
 
     @Command(
-            aliases = "updates",
+            aliases = {"updates","update"},
             description = "check for updates",
             permissions = "farmassist.update"
     )
@@ -22,7 +22,8 @@ public class CommandUpdate {
             sender.sendMessage("Check for updates is disabled.");
             return;
         }
-        sender.sendMessage("New update found: " + plugin.getNewVersion() + " You are running:" + plugin.getDescription().getVersion());
+        sender.sendMessage("New update found: " + plugin.getNewVersion());
+        sender.sendMessage("Current version: "+ plugin.getDescription().getVersion());
         sender.sendMessage("https://github.com/sarhatabaot/FarmAssistReboot/releases");
     }
 
