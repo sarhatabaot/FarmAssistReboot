@@ -1,0 +1,31 @@
+main: io.github.sarhatabaot.farmassistreboot.FarmAssistReboot
+name: FarmAssistReboot
+version: ${project.version}
+author: sarhatbaot
+description: FarmAssistReboot Rebooted
+api-version: 1.13
+commands:
+  FarmAssist:
+    description: Turn FarmAssistReboot Featues on or off
+    usage: /<command> toggle/global
+permissions:
+  farmassist.crops:
+    default: true
+    children:
+      farmassist.wheat: true
+      farmassist.sugar_cane: true
+      farmassist.pumkin: true
+      farmassist.melon: true
+      farmassist.cocoa: true
+      farmassist.nether_wart: true
+      farmassist.carrots: true
+      farmassist.potatoes: true
+      farmassist.beetroots: true
+  farmassist.reload:
+    default: op
+  farmassist.toggle:
+    default: op
+  farmassist.global:
+    default: op
+  farmassist.update:
+    default: op

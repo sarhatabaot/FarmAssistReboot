@@ -1,0 +1,8 @@
+*.class
+
+# Maven
+target
+
+# IntelliJ #
+.idea
+FarmAssistReboot.iml
