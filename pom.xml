@@ -6,11 +6,11 @@
 
     <groupId>io.github.sarhatabaot</groupId>
     <artifactId>FarmAssistReboot</artifactId>
-    <version>0.1.4.3</version>
+    <version>1.0.0</version>
 
 
     <properties>
-        <finalName>${project.artifactId}-${project.version}-SNAPSHOT</finalName>
+        <finalName>${project.artifactId}-${project.version}</finalName>
 
         <!-- Encoding Properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

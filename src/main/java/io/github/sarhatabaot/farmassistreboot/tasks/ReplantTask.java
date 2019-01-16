@@ -55,6 +55,14 @@ public class ReplantTask implements Runnable {
                 }
                 break;
             }
+            case CACTUS: {
+                if(isBottomBlock(Material.SAND) && this.block.getType() == Material.AIR){
+                    this.block.setType(material);
+                } else {
+                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.CACTUS));
+                }
+                break;
+            }
             case SUGAR_CANE:{
                 if ((isBottomBlock(Material.GRASS) || isBottomBlock(Material.DIRT) || isBottomBlock(Material.SAND))
                         && this.block.getType() == Material.AIR) {

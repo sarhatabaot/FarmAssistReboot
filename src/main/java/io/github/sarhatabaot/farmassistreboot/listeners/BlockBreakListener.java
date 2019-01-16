@@ -76,7 +76,7 @@ public class BlockBreakListener implements Listener {
                 FarmAssistReboot.debug("Player doesn't have the correct seeds/material to replant");
                 return false;
             }
-            if (material == Material.SUGAR_CANE) {
+            if (material == Material.SUGAR_CANE || material == Material.CACTUS) {
                 replant(event.getPlayer(), event.getBlock(), material);
                 return true;
             }

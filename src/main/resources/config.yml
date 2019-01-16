@@ -26,6 +26,8 @@ melon:
 beetroots:
     Enabled: true
     Replant when ripe: false
+cactus:
+    Enabled: true
 Worlds:
     Enable per world: false
     Enabled Worlds:

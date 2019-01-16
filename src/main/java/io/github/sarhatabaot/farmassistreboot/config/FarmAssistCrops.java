@@ -24,6 +24,7 @@ public class FarmAssistCrops {
         cropList.add(Material.PUMPKIN_STEM);
         cropList.add(Material.MELON_STEM);
         cropList.add(Material.BEETROOTS);
+        cropList.add(Material.CACTUS);
         return cropList;
     }
 
