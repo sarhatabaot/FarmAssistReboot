@@ -10,7 +10,7 @@
 
 
     <properties>
-        <finalName>${artifactId}-${version}-SNAPSHOT</finalName>
+        <finalName>${project.artifactId}-${project.version}-SNAPSHOT</finalName>
 
         <!-- Encoding Properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -48,7 +48,7 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20090211</version>
+            <version>20180813</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -62,7 +62,6 @@
             <version>${juinit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
     <build>
         <plugins>
@@ -87,6 +86,27 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M3</version>
+            </plugin>
+            <!-- Not a solution, try to make do with simpleJSON -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>org.json:json</include>
+                                </includes>
+                            </artifactSet>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
         <resources>

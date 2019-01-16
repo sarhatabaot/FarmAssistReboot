@@ -3,6 +3,7 @@ package io.github.sarhatabaot.farmassistreboot.tasks;
 import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import org.json.JSONObject;
 
+
 import java.net.URL;
 import java.util.Scanner;
 
@@ -14,6 +15,7 @@ public class SimpleUpdateCheckerTask implements Runnable {
     private String versionNumber;
 
     private final String latest = "https://api.github.com/repos/sarhatabaot/FarmAssistReboot/releases/latest";
+    private final String tag ="https://api.github.com/repos/sarhatabaot/FarmAssistReboot/releases/tags/v0.1.4.1";
 
     public SimpleUpdateCheckerTask(FarmAssistReboot plugin) {
         this.plugin = plugin;
@@ -24,7 +26,7 @@ public class SimpleUpdateCheckerTask implements Runnable {
     @Override
     public void run() {
         try {
-            URL updateTag = new URL(latest);
+            URL updateTag = new URL(tag);
             Scanner scanner = new Scanner(updateTag.openStream());
             StringBuilder stringBuilder = new StringBuilder();
             while (scanner.hasNext()) {
@@ -47,6 +49,7 @@ public class SimpleUpdateCheckerTask implements Runnable {
                 plugin.getLogger().info("You are running the latest version: " + versionNumber);
             }
         } catch (Throwable t) {
+            plugin.getLogger().info("Could not get new version.");
             t.printStackTrace();
         }
     }
