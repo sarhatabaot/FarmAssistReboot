@@ -68,6 +68,8 @@ public class FarmAssistReboot extends JavaPlugin {
            Bukkit.getScheduler().runTaskAsynchronously(this, new SimpleUpdateCheckerTask(this));
         }
 
+        Metrics metrics = new Metrics(this);
+
         logger.info("FarmAssistReboot Enabled!");
     }
 
