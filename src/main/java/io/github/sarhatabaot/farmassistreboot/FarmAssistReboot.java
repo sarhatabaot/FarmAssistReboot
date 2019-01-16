@@ -16,7 +16,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ArrayList;
