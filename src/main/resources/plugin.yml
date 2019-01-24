@@ -21,6 +21,7 @@ permissions:
       farmassist.carrots: true
       farmassist.potatoes: true
       farmassist.beetroots: true
+      farmassist.cactus: true
   farmassist.reload:
     default: op
   farmassist.toggle:
