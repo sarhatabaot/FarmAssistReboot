@@ -98,8 +98,6 @@ public class BlockBreakListener implements Listener {
             case PUMPKIN_STEM:
             case ATTACHED_PUMPKIN_STEM:
                 return Material.PUMPKIN;
-            case BEETROOTS:
-                return Material.BEETROOT;
             default:
                 return material;
         }
