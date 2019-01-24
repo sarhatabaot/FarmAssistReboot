@@ -133,7 +133,7 @@ public class BlockBreakListener implements Listener {
     }
 
     private boolean checkPermission(Player player, String permission) {
-        FarmAssistReboot.debug("MainPermissions: "+config.getPermission() +",hasPermission: "+ player.hasPermission("farmassist." + permission));
+        FarmAssistReboot.debug("MainPermissions: "+config.getPermission() +",HasPermission: "+ player.hasPermission("farmassist." + permission));
         return !config.getPermission() || player.hasPermission("farmassist." + permission);
     }
 

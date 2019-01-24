@@ -5,7 +5,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,16 +25,22 @@ public class FarmAssistConfig {
         config = plugin.getConfig();
     }
 
+    public void reloadConfig() {
+        plugin.reloadConfig();
+        config = plugin.getConfig();
+        FarmAssistReboot.debug("Config reloaded ");
+    }
 
-    public boolean getPermission(){
+
+    public boolean getPermission() {
         return config.getBoolean("Use Permissions");
     }
 
-    public boolean getDebug(){
+    public boolean getDebug() {
         return config.getBoolean("debug");
     }
 
-    public boolean getCheckForUpdates(){
+    public boolean getCheckForUpdates() {
         return config.getBoolean("Check for updates");
     }
 
@@ -40,30 +48,30 @@ public class FarmAssistConfig {
         return instance;
     }
 
-    public boolean getEnabled(Material material){
-        return config.getBoolean(material.name().toLowerCase()+".Enabled");
+    public boolean getEnabled(Material material) {
+        return config.getBoolean(material.name().toLowerCase() + ".Enabled");
     }
 
-    public boolean getWorldEnabled(){
+    public boolean getWorldEnabled() {
         return config.getBoolean("Worlds.Enable per world");
     }
 
     //TODO:
-    public List<World> getWorlds(){
+    public List<World> getWorlds() {
         ArrayList<World> worldsList = new ArrayList<>();
         List<?> configList = config.getList("Worlds.Enabled Worlds");
-        for(Object obj: configList){
+        for (Object obj : configList) {
             World tmp = Bukkit.getWorld((String) obj);
             worldsList.add(tmp);
         }
         return worldsList;
     }
 
-    public boolean getRipe(Material material){
-        return config.getBoolean(material.name().toLowerCase()+".Replant when ripe");
+    public boolean getRipe(Material material) {
+        return config.getBoolean(material.name().toLowerCase() + ".Replant when ripe");
     }
 
-    public boolean getPlantOnTill(){
+    public boolean getPlantOnTill() {
         return config.getBoolean("wheat.Plant on till");
     }
 }
