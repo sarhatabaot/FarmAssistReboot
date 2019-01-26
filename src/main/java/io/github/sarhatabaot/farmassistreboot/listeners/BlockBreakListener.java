@@ -35,7 +35,9 @@ public class BlockBreakListener implements Listener {
         if (this.plugin.disabledPlayerList.contains(event.getPlayer().getName()))
             return;
         if (config.isPermissionEnabled() && !hasMaterialPermission(event)){
-            FarmAssistReboot.debug("Player doesn't have permission to replant: "+event.getBlock().getType().name());
+            String playerName = "Player: "+event.getPlayer().getDisplayName();
+            String permission = "farmassist."+getMaterialFromCrops(event.getBlock().getType()).name();
+            FarmAssistReboot.debug(playerName+", "+"doesn't have permission "+"\u001b[36m"+permission+"\u001b[0m");
             return;
         }
         if (Util.isWorldEnabled(event.getPlayer().getWorld())) {
@@ -95,7 +97,6 @@ public class BlockBreakListener implements Listener {
             }
         }
         FarmAssistReboot.debug("Fallthrough");
-        return;
     }
 
 
