@@ -35,21 +35,24 @@ public class PlayerInteractionListener implements Listener {
         if(this.plugin.disabledPlayerList.contains(event.getPlayer().getName()))
             return;
         if (!(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event))) {
-            FarmAssistReboot.debug("isHoe: "+isHoe(event.getPlayer().getInventory().getItemInMainHand().getType())+",farmable:"+isPlayerBlockFarmable(event));
+            FarmAssistReboot.debug("Is Block Farmable: "+isPlayerBlockFarmable(event));
+            FarmAssistReboot.debug("Is Item Hoe: "+isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()));
             return;
         }
         // Permission Checks
         if (config.isPermissionEnabled() && (!event.getPlayer().hasPermission("farmassist.wheat")) || !event.getPlayer().hasPermission("farmassist.till")) {
-            FarmAssistReboot.debug(event.getClickedBlock().getType().name()+":"+event.getPlayer().hasPermission("farmassist.wheat"));
-            FarmAssistReboot.debug("farmassist.till:"+event.getPlayer().hasPermission("farmassist.till"));
-            FarmAssistReboot.debug("Player doesn't have permission to replant on till.");
+            String wheatPermission = "\u001b[36m farmassist.wheat\u001b[0m";
+            String tillPermission ="\u001b[36m farmassist.till\u001b[0m";
+            String playerName = "Player: "+event.getPlayer().getDisplayName();
+            FarmAssistReboot.debug(playerName+","+tillPermission+": "+event.getPlayer().hasPermission("farmassist.till"));
+            FarmAssistReboot.debug(playerName+","+wheatPermission+": "+event.getPlayer().hasPermission("farmassist.wheat"));
             return;
         }
         Player player = event.getPlayer();
-        FarmAssistReboot.debug("Wheat: "+config.getEnabled(Material.WHEAT)+",Plant on till: "+config.getPlantOnTill());
+        FarmAssistReboot.debug("Config.Wheat: "+config.getEnabled(Material.WHEAT));
+        FarmAssistReboot.debug("Config.Plant on Till: "+config.getPlantOnTill());
         if (Util.isWorldEnabled(event.getPlayer().getWorld()) && config.getEnabled(Material.WHEAT) && config.getPlantOnTill()) {
             if (Util.inventoryContains(event.getPlayer(), Material.WHEAT)) {
-                FarmAssistReboot.debug("Planting..");
                 // override block type TODO: Better way to implement this
                 Block block = event.getClickedBlock();
                 block.setType(Material.FARMLAND);

@@ -89,7 +89,7 @@ public class FarmAssistReboot extends JavaPlugin {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerInteractionListener(this),this);
         pluginManager.registerEvents(new BlockBreakListener(this),this);
-        debug("Registered Listeners");
+        getLogger().info("Registered listeners");
     }
 
     /**
@@ -102,7 +102,7 @@ public class FarmAssistReboot extends JavaPlugin {
         commandManager.register(CommandReload.class,new CommandReload(this));
         commandManager.register(CommandToggle.class,new CommandToggle(this));
         commandManager.register(CommandUpdate.class,new CommandUpdate(this));
-        debug("Commands registered.");
+        getLogger().info("Registered commands");
     }
 
     @Override
