@@ -49,8 +49,8 @@ public class Util {
     }
 
     public static boolean checkPermission(Player player, String permission) {
-        FarmAssistReboot.debug("has permission:"+player.hasPermission(permission)+"enabled:"+config.getPermission());
-        return !config.getPermission() || player.hasPermission("farmassist."+permission);
+        FarmAssistReboot.debug("has permission:"+player.hasPermission(permission)+"enabled:"+config.isPermissionEnabled());
+        return !config.isPermissionEnabled() || player.hasPermission("farmassist."+permission);
     }
 
 }
