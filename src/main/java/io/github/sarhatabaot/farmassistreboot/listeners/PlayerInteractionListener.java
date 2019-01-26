@@ -38,13 +38,16 @@ public class PlayerInteractionListener implements Listener {
             FarmAssistReboot.debug("isHoe: "+isHoe(event.getPlayer().getInventory().getItemInMainHand().getType())+",farmable:"+isPlayerBlockFarmable(event));
             return;
         }
+        // Permission Checks
+        if (config.isPermissionEnabled() && (!event.getPlayer().hasPermission("farmassist.wheat")) || !event.getPlayer().hasPermission("farmassist.till")) {
+            FarmAssistReboot.debug(event.getClickedBlock().getType().name()+":"+event.getPlayer().hasPermission("farmassist.wheat"));
+            FarmAssistReboot.debug("farmassist.till:"+event.getPlayer().hasPermission("farmassist.till"));
+            FarmAssistReboot.debug("Player doesn't have permission to replant on till.");
+            return;
+        }
         Player player = event.getPlayer();
         FarmAssistReboot.debug("Wheat: "+config.getEnabled(Material.WHEAT)+",Plant on till: "+config.getPlantOnTill());
-        if (Util.isWorldEnabled(event.getPlayer().getWorld())
-                && isPlayerBlockFarmable(event)
-                && config.getEnabled(Material.WHEAT)
-                && config.getPlantOnTill()
-                && Util.checkPermission(player, "till")) {
+        if (Util.isWorldEnabled(event.getPlayer().getWorld()) && config.getEnabled(Material.WHEAT) && config.getPlantOnTill()) {
             if (Util.inventoryContains(event.getPlayer(), Material.WHEAT)) {
                 FarmAssistReboot.debug("Planting..");
                 // override block type TODO: Better way to implement this
@@ -54,6 +57,7 @@ public class PlayerInteractionListener implements Listener {
             }
         }
     }
+
 
     /**
      * @param player Player that replants.

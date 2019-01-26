@@ -2,6 +2,7 @@ package io.github.sarhatabaot.farmassistreboot.command.commands;
 
 import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import io.github.sarhatabaot.farmassistreboot.command.Command;
+import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -18,7 +19,7 @@ public class CommandReload {
             permissions ="farmassist.reload"
     )
     public void reload(CommandSender sender, String[] args){
-        plugin.reloadConfig(); //TODO: doesn't work.
+        FarmAssistConfig.getInstance().reloadConfig();
         sender.sendMessage(ChatColor.GREEN + "FarmAssistReboot has been reloaded.");
         FarmAssistReboot.debug("FarmAssistReboot Reloaded.");
     }
