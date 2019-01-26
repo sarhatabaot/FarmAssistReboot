@@ -32,7 +32,7 @@ public class FarmAssistConfig {
     }
 
 
-    public boolean getPermission() {
+    public boolean isPermissionEnabled() {
         return config.getBoolean("Use Permissions");
     }
 
