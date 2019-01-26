@@ -2,6 +2,7 @@ main: io.github.sarhatabaot.farmassistreboot.FarmAssistReboot
 name: FarmAssistReboot
 version: ${project.version}
 author: sarhatbaot
+website: https://www.spigotmc.org/resources/farmassistreboot.64064/
 description: FarmAssistReboot Rebooted
 api-version: 1.13
 commands:
@@ -10,7 +11,7 @@ commands:
     usage: /<command> toggle/global
 permissions:
   farmassist.crops:
-    default: true
+    default: false
     children:
       farmassist.wheat: true
       farmassist.sugar_cane: true
@@ -22,6 +23,26 @@ permissions:
       farmassist.potatoes: true
       farmassist.beetroots: true
       farmassist.cactus: true
+  farmassist.wheat:
+    default: false
+  farmassist.sugar_cane:
+    default: false
+  farmassist.pumpkin:
+    default: false
+  farmassist.cocoa:
+    default: false
+  farmassist.nether_wart:
+    default: false
+  farmassist.carrots:
+    default: false
+  farmassist.potatoes:
+    default: false
+  farmassist.beetroots:
+    default: false
+  farmassist.cactus:
+    default: false
+  farmassist.melon:
+    default: false
   farmassist.reload:
     default: op
   farmassist.toggle:
