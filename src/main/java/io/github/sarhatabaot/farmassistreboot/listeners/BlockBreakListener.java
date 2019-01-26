@@ -41,7 +41,7 @@ public class BlockBreakListener implements Listener {
             return;
         }
         if (Util.isWorldEnabled(event.getPlayer().getWorld())) {
-            FarmAssistReboot.debug("isWorldEnabled:" + Util.isWorldEnabled(event.getPlayer().getWorld()));
+            FarmAssistReboot.debug("Is"+event.getPlayer().getWorld().getName()+" enabled: " + Util.isWorldEnabled(event.getPlayer().getWorld()));
             applyReplant(event);
         }
     }
@@ -74,12 +74,12 @@ public class BlockBreakListener implements Listener {
 
     private void applyReplant(BlockBreakEvent event) {
         Material material = event.getBlock().getType();
-        FarmAssistReboot.debug(material.name());
+        FarmAssistReboot.debug("Block broken: "+material.name());
         if (!FarmAssistCrops.getCropList().contains(material)) {
-            FarmAssistReboot.debug("CropList doesn't contain: " + material.name());
+            FarmAssistReboot.debug("Crop List doesn't contain: " + material.name());
             return;
         }
-        FarmAssistReboot.debug("CropList contains: " + material.name());
+        FarmAssistReboot.debug("Crop List contains: " + material.name());
 
         if (config.getEnabled(getMaterialFromCrops(material))) {
 

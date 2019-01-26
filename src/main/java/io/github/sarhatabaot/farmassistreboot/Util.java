@@ -44,13 +44,12 @@ public class Util {
     }
 
     public static boolean isWorldEnabled(World world) {
-        FarmAssistReboot.debug(config.getWorldEnabled()+","+config.getWorlds().contains(world)+","+world.getName());
+        String globalWorld = "Config.Enabled per World:"+config.getWorldEnabled();
+        String localWorld = "Is "+"\u001b[36m"+world.getName()+"\u001b[0m enabled: "+config.getWorlds().contains(world);
+        FarmAssistReboot.debug(globalWorld);
+        FarmAssistReboot.debug(localWorld);
         return !config.getWorldEnabled() || config.getWorlds().contains(world);
     }
 
-    public static boolean checkPermission(Player player, String permission) {
-        FarmAssistReboot.debug("has permission:"+player.hasPermission(permission)+"enabled:"+config.isPermissionEnabled());
-        return !config.isPermissionEnabled() || player.hasPermission("farmassist."+permission);
-    }
 
 }

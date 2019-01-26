@@ -41,11 +41,11 @@ public class PlayerInteractionListener implements Listener {
         }
         // Permission Checks
         if (config.isPermissionEnabled() && (!event.getPlayer().hasPermission("farmassist.wheat")) || !event.getPlayer().hasPermission("farmassist.till")) {
-            FarmAssistReboot.debug(event.getClickedBlock().getType().name()+":"+event.getPlayer().hasPermission("farmassist.wheat"));
-            String tillPermission ="\u001b[36m farmassist.till \u001b[0m";
+            String wheatPermission = "\u001b[36m farmassist.wheat\u001b[0m";
+            String tillPermission ="\u001b[36m farmassist.till\u001b[0m";
             String playerName = "Player: "+event.getPlayer().getDisplayName();
-            FarmAssistReboot.debug(playerName+", "+);
-            FarmAssistReboot.debug(playerName+", "+"doesn't have permission "+tillPermission);
+            FarmAssistReboot.debug(playerName+","+tillPermission+": "+event.getPlayer().hasPermission("farmassist.till"));
+            FarmAssistReboot.debug(playerName+","+wheatPermission+": "+event.getPlayer().hasPermission("farmassist.wheat"));
             return;
         }
         Player player = event.getPlayer();
