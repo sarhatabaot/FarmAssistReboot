@@ -7,12 +7,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 public class CommandReload {
-    private FarmAssistReboot plugin;
-
-    public CommandReload(FarmAssistReboot plugin) {
-        this.plugin = plugin;
-    }
-
     @Command(
             aliases = "reload",
             description = "Reload FarmAssistReboot",
