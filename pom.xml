@@ -19,10 +19,6 @@
         <!-- JDK Version -->
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-
-        <!-- Junit5 Versions -->
-        <juinit.jupiter.version>5.3.2</juinit.jupiter.version>
-        <!-- Mockito -->
     </properties>
 
     <repositories>
@@ -30,43 +26,31 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+        <repository>
+            <id>CodeMC</id>
+            <url>https://repo.codemc.org/repository/maven-public</url>
+        </repository>
+
     </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.13.2-R0.1-SNAPSHOT</version>
+            <version>1.14-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>16.0.3</version>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>1.4</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${juinit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${juinit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
+
     <build>
+        <defaultGoal>clean package</defaultGoal>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.1</version>
-                <configuration>
-                    <finalName>${finalName}</finalName>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -78,9 +62,30 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M3</version>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+                <configuration>
+                    <minimizeJar>true</minimizeJar>
+                    <relocations>
+                        <relocation>
+                            <pattern>org.bstats</pattern>
+                            <shadedPattern>io.github.sarhatabaot.farmassistreboot</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
+
         </plugins>
         <resources>
             <!-- Resource filtering; use Maven version in plugin.yml -->

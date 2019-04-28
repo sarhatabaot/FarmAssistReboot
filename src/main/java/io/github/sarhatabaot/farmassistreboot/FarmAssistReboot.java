@@ -10,6 +10,7 @@ import io.github.sarhatabaot.farmassistreboot.config.FarmAssistCrops;
 import io.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
 import io.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
 import io.github.sarhatabaot.farmassistreboot.tasks.SimpleUpdateCheckerTask;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
