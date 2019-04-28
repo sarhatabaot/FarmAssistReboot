@@ -19,6 +19,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -30,7 +31,7 @@ public class FarmAssistReboot extends JavaPlugin {
     private static FarmAssistReboot instance;
     private Logger logger = getLogger();
 
-    public List<String> disabledPlayerList = new ArrayList<>();
+    private List<String> disabledPlayerList = new ArrayList<>();
 
     // Commands
     private CommandManager commandManager;
@@ -58,7 +59,6 @@ public class FarmAssistReboot extends JavaPlugin {
 
         saveDefaultConfig();
         new FarmAssistConfig();
-        new FarmAssistCrops();
 
         this.enabled = true;
 
@@ -80,7 +80,7 @@ public class FarmAssistReboot extends JavaPlugin {
      */
     public static void debug(String msg) {
         if(FarmAssistConfig.getInstance().getDebug())
-            Bukkit.getPluginManager().getPlugin("FarmAssistReboot").getLogger().warning("\u001B[33m"+"[DEBUG] "+msg+"\u001B[0m");
+            instance.getLogger().warning("\u001B[33m [DEBUG]"+msg+"\u001B[0m");
     }
 
     /**
@@ -97,10 +97,10 @@ public class FarmAssistReboot extends JavaPlugin {
      * Registers commands
      */
     private void registerCommands() {
-        commandManager = new CommandManager();
+        commandManager = new CommandManager(this);
         commandManager.register(CommandManager.class,commandManager);
         commandManager.register(CommandGlobal.class,new CommandGlobal(this));
-        commandManager.register(CommandReload.class,new CommandReload(this));
+        commandManager.register(CommandReload.class,new CommandReload());
         commandManager.register(CommandToggle.class,new CommandToggle(this));
         commandManager.register(CommandUpdate.class,new CommandUpdate(this));
         getLogger().info("Registered commands");
@@ -151,7 +151,7 @@ public class FarmAssistReboot extends JavaPlugin {
             }
             return commands;
         }
-        return null;
+        return Collections.emptyList();
     }
 
     public static FarmAssistReboot getInstance(){
@@ -169,4 +169,9 @@ public class FarmAssistReboot extends JavaPlugin {
     public void setNewVersion(String newVersion) {
         this.newVersion = newVersion;
     }
+
+    public List<String> getDisabledPlayerList() {
+        return disabledPlayerList;
+    }
+
 }
