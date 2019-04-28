@@ -5,9 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +54,6 @@ public class FarmAssistConfig {
         return config.getBoolean("Worlds.Enable per world");
     }
 
-    //TODO:
     public List<World> getWorlds() {
         ArrayList<World> worldsList = new ArrayList<>();
         List<?> configList = config.getList("Worlds.Enabled Worlds");
