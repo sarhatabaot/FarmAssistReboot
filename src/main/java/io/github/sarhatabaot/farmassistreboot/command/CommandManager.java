@@ -2,6 +2,7 @@ package io.github.sarhatabaot.farmassistreboot.command;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -16,10 +17,13 @@ import java.util.Map;
 public class CommandManager {
     private Map<String, Method> commands;
     private Map<Method, Object> instances;
+    private JavaPlugin plugin;
 
-    public CommandManager() {
+
+    public CommandManager(JavaPlugin plugin) {
         commands = new HashMap<>();
         instances = new HashMap<>();
+        this.plugin = plugin;
     }
 
     public void register(Class<?> cls, Object obj) {
@@ -100,16 +104,22 @@ public class CommandManager {
         try {
             method.invoke(instances.get(method), methodArgs);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Invalid methods on command!");
+            plugin.getLogger().warning(e.getMessage());
+            throw new InvalidMethodsRuntimeException("Invalid methods on command!");
         } catch (InvocationTargetException e) {
             if (e.getCause() instanceof Exception) {
                 sender.sendMessage("Invalid arguments");
                 sender.sendMessage("/farmingassist"+ command.aliases()[0]+ command.usage());
             } else {
-                e.printStackTrace();
-                throw new RuntimeException("Invalid methods on command!");
+                plugin.getLogger().warning(e.getMessage());
+                throw new InvalidMethodsRuntimeException("Invalid methods on command!");
             }
+        }
+    }
+
+    private class InvalidMethodsRuntimeException extends RuntimeException {
+        public InvalidMethodsRuntimeException(String message) {
+            super(message);
         }
     }
 }
