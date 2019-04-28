@@ -32,7 +32,7 @@ public class PlayerInteractionListener implements Listener {
             return;
         if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
             return;
-        if(this.plugin.disabledPlayerList.contains(event.getPlayer().getName()))
+        if(this.plugin.getDisabledPlayerList().contains(event.getPlayer().getName()))
             return;
         if (!(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event))) {
             FarmAssistReboot.debug("Is Block Farmable: "+isPlayerBlockFarmable(event));
@@ -51,6 +51,7 @@ public class PlayerInteractionListener implements Listener {
         Player player = event.getPlayer();
         FarmAssistReboot.debug("Config.Wheat: "+config.getEnabled(Material.WHEAT));
         FarmAssistReboot.debug("Config.Plant on Till: "+config.getPlantOnTill());
+
         if (Util.isWorldEnabled(event.getPlayer().getWorld()) && config.getEnabled(Material.WHEAT) && config.getPlantOnTill()) {
             if (Util.inventoryContains(event.getPlayer(), Material.WHEAT)) {
                 // override block type TODO: Better way to implement this
