@@ -4,6 +4,7 @@ import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import io.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
 import io.github.sarhatabaot.farmassistreboot.Util;
 import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -35,8 +36,6 @@ public class PlayerInteractionListener implements Listener {
         if(this.plugin.getDisabledPlayerList().contains(event.getPlayer().getName()))
             return;
         if (!(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event))) {
-            FarmAssistReboot.debug("Is Block Farmable: "+isPlayerBlockFarmable(event));
-            FarmAssistReboot.debug("Is Item Hoe: "+isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()));
             return;
         }
         // Permission Checks
@@ -101,7 +100,7 @@ public class PlayerInteractionListener implements Listener {
     /**
      * Checks if the block is farmable.
      * @param event PlayerInteractEvent
-     * @return
+     * @return Returns if the block is farmable.
      */
     private boolean isPlayerBlockFarmable(PlayerInteractEvent event) {
         boolean isGrassOrDirt = event.getClickedBlock().getType() == Material.GRASS_BLOCK || event.getClickedBlock().getType() == Material.DIRT;
