@@ -1,14 +1,22 @@
 package io.github.sarhatabaot.farmassistreboot;
 
+import com.sun.istack.internal.NotNull;
 import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
+import io.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * @author sarhatabaot
  */
 public class Util {
+    private Util() {
+        throw new IllegalStateException("Utility class");
+    }
+
     private static FarmAssistConfig config = FarmAssistConfig.getInstance();
 
     public static boolean inventoryContains(Player player, Material material){
@@ -36,10 +44,9 @@ public class Util {
             case ATTACHED_MELON_STEM:
                 FarmAssistReboot.debug("MELON_SEEDS:"+player.getInventory().contains(Material.MELON_SEEDS));
                 return player.getInventory().contains(Material.MELON_SEEDS);
-            default: {
+            default:
                 FarmAssistReboot.debug(material.name()+":"+player.getInventory().contains(material));
                 return player.getInventory().contains(material);
-            }
         }
     }
 
@@ -50,6 +57,5 @@ public class Util {
         FarmAssistReboot.debug(localWorld);
         return !config.getWorldEnabled() || config.getWorlds().contains(world);
     }
-
 
 }
