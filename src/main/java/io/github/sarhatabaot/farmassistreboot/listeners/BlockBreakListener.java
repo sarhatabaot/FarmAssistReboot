@@ -1,5 +1,6 @@
 package io.github.sarhatabaot.farmassistreboot.listeners;
 
+import com.sun.istack.internal.NotNull;
 import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import io.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
 import io.github.sarhatabaot.farmassistreboot.Util;
@@ -14,7 +15,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 public class BlockBreakListener implements Listener {
     private FarmAssistReboot plugin;
@@ -32,7 +32,7 @@ public class BlockBreakListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         if (!plugin.isGlobalEnabled())
             return;
-        if (this.plugin.disabledPlayerList.contains(event.getPlayer().getName()))
+        if (this.plugin.getDisabledPlayerList().contains(event.getPlayer().getName()))
             return;
         if (config.isPermissionEnabled() && !hasMaterialPermission(event)){
             String playerName = "Player: "+event.getPlayer().getDisplayName();
