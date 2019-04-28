@@ -19,11 +19,11 @@ public class CommandToggle {
             permissions = "farmassist.toggle"
     )
     public void toggle(CommandSender sender, String[] args){
-        if (plugin.disabledPlayerList.contains(sender.getName())) {
-            plugin.disabledPlayerList.remove(sender.getName());
+        if (plugin.getDisabledPlayerList().contains(sender.getName())) {
+            plugin.getDisabledPlayerList().remove(sender.getName());
             sender.sendMessage(ChatColor.GREEN + "FarmAssistReboot functions are now on for you!");
         } else {
-            plugin.disabledPlayerList.add(sender.getName());
+            plugin.getDisabledPlayerList().add(sender.getName());
             sender.sendMessage(ChatColor.GREEN + "FarmAssistReboot functions turned off for you!");
         }
     }
