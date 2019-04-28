@@ -1,6 +1,5 @@
 package io.github.sarhatabaot.farmassistreboot.listeners;
 
-import com.sun.istack.internal.NotNull;
 import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import io.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
 import io.github.sarhatabaot.farmassistreboot.Util;
@@ -56,7 +55,7 @@ public class BlockBreakListener implements Listener {
      * @param block    Block broken
      * @param material Material to remove from inventory
      */
-    private void replant(@NotNull Player player, Block block, Material material) {
+    private void replant(Player player, Block block, Material material) {
         int spot = player.getInventory().first(getCrop(material));
         ItemStack next;
         if (spot >= 0) {
@@ -142,7 +141,7 @@ public class BlockBreakListener implements Listener {
         }
     }
 
-    private boolean isRipe(@NotNull Block block) {
+    private boolean isRipe(Block block) {
         Ageable age = (Ageable) block.getBlockData();
         return (age.getAge() == age.getMaximumAge());
     }

@@ -6,7 +6,6 @@ import io.github.sarhatabaot.farmassistreboot.command.commands.CommandReload;
 import io.github.sarhatabaot.farmassistreboot.command.commands.CommandToggle;
 import io.github.sarhatabaot.farmassistreboot.command.commands.CommandUpdate;
 import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
-import io.github.sarhatabaot.farmassistreboot.config.FarmAssistCrops;
 import io.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
 import io.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
 import io.github.sarhatabaot.farmassistreboot.tasks.SimpleUpdateCheckerTask;
