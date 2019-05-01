@@ -2,7 +2,6 @@ package io.github.sarhatabaot.farmassistreboot.command;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -10,6 +9,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * CommandManager, based off mineresetlite
@@ -17,13 +17,13 @@ import java.util.Map;
 public class CommandManager {
     private Map<String, Method> commands;
     private Map<Method, Object> instances;
-    private JavaPlugin plugin;
+    private Logger logger;
 
 
-    public CommandManager(JavaPlugin plugin) {
+    public CommandManager(Logger logger) {
         commands = new HashMap<>();
         instances = new HashMap<>();
-        this.plugin = plugin;
+        this.logger = logger;
     }
 
     public void register(Class<?> cls, Object obj) {
@@ -104,14 +104,14 @@ public class CommandManager {
         try {
             method.invoke(instances.get(method), methodArgs);
         } catch (IllegalAccessException e) {
-            plugin.getLogger().warning(e.getMessage());
+            logger.warning(e.getMessage());
             throw new InvalidMethodsRuntimeException("Invalid methods on command!");
         } catch (InvocationTargetException e) {
             if (e.getCause() instanceof Exception) {
                 sender.sendMessage("Invalid arguments");
                 sender.sendMessage("/farmingassist"+ command.aliases()[0]+ command.usage());
             } else {
-                plugin.getLogger().warning(e.getMessage());
+                logger.warning(e.getMessage());
                 throw new InvalidMethodsRuntimeException("Invalid methods on command!");
             }
         }
