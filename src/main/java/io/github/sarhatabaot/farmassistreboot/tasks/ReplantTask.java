@@ -19,7 +19,7 @@ public class ReplantTask implements Runnable {
         this.block = block;
         this.material = block.getType();
 
-        if(block.getType() == Material.COCOA){
+        if (block.getType() == Material.COCOA) {
             this.cocoa = (Cocoa) block.getBlockData().clone();
             this.cocoa.setAge(0);
         }
@@ -28,114 +28,150 @@ public class ReplantTask implements Runnable {
 
     @Override
     public void run() {
-        FarmAssistReboot.debug("Block: "+block.getType().name()+",Material: "+material.name());
-        switch (material){
-            case WHEAT:{
-                if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
-                    this.block.setType(material);
-                    this.block.setBlockData(setCropAge());
-                } else{
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.WHEAT));
-                }
+        FarmAssistReboot.debug("Block: " + block.getType().name() + ",Material: " + material.name());
+        replantByMaterial();
+    }
+
+    private void replantByMaterial() {
+        switch (material) {
+            case WHEAT:
+                replantWheat();
                 break;
-            }
-            case CARROTS:{
-                if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
-                    this.block.setType(material);
-                } else{
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.CARROT));
-                }
+            case CARROTS:
+                replantCarrots();
                 break;
-            }
-            case POTATOES:{
-                if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
-                    this.block.setType(material);
-                } else{
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.POTATO));
-                }
+            case POTATOES:
+                replantPotatoes();
                 break;
-            }
-            case CACTUS: {
-                if(isBottomBlock(Material.SAND) && this.block.getType() == Material.AIR){
-                    this.block.setType(material);
-                } else {
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.CACTUS));
-                }
+            case CACTUS:
+                replantCactus();
                 break;
-            }
-            case SUGAR_CANE:{
-                if ((isBottomBlock(Material.GRASS) || isBottomBlock(Material.DIRT) || isBottomBlock(Material.SAND))
-                        && this.block.getType() == Material.AIR) {
-                    this.block.setType(material);
-                } else{
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.SUGAR_CANE));
-                }
+            case SUGAR_CANE:
+                replantSugarCane();
                 break;
-            }
-            case NETHER_WART:{
-                if (isBottomBlock(Material.SOUL_SAND) && this.block.getType() == Material.AIR) {
-                    this.block.setType(material);
-                    this.block.setBlockData(setCropAge());
-                } else{
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.NETHER_WART));
-                }
+            case NETHER_WART:
+                replantNetherWart();
                 break;
-            }
-            case COCOA:{
-                if (this.block.getType() == Material.AIR) {
-                    if(this.block.getRelative(cocoa.getFacing()).getType() == Material.JUNGLE_LOG){
-                        this.block.setType(material);
-                        this.block.setBlockData(cocoa);
-                    }
-                    else {
-                        this.block.getWorld().dropItemNaturally(this.block.getLocation(), new ItemStack(Material.COCOA_BEANS));
-                    }
-                }
+            case COCOA:
+                replantCocoa();
                 break;
-            }
             case ATTACHED_PUMPKIN_STEM:
-            case PUMPKIN_STEM:{
-                if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
-                    this.block.setType(Material.PUMPKIN_STEM);
-                } else{
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.PUMPKIN_SEEDS));
-                }
+            case PUMPKIN_STEM:
+                replantPumpkin();
                 break;
-            }
             case ATTACHED_MELON_STEM:
-            case MELON_STEM:{
-                if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
-                    this.block.setType(Material.MELON_STEM);
-                } else{
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.MELON_SEEDS));
-                }
+            case MELON_STEM:
+                replantMelon();
                 break;
-            }
-            case BEETROOTS: {
-                if(isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
-                    this.block.setType(material);
-                } else {
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.BEETROOT_SEEDS));
-                }
+            case BEETROOTS:
+                replantBeetroots();
                 break;
-            }
-            case FARMLAND: {
-                if(this.block.getRelative(BlockFace.UP).getType() == Material.AIR)
-                    this.block.getRelative(BlockFace.UP).setType(Material.WHEAT);
+            case FARMLAND:
+                replantWheatFarmland();
                 break;
-            }
-            default:{
-                FarmAssistReboot.debug("Error while getting material."+material.name());
+            default:
+                FarmAssistReboot.debug("Error while getting material." + material.name());
                 break;
+
+        }
+    }
+
+    private void replantWheat() {
+        if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
+            this.block.setType(material);
+            this.block.setBlockData(setCropAge());
+        } else {
+            this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.WHEAT));
+        }
+    }
+
+    private void replantCarrots() {
+        if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
+            this.block.setType(material);
+        } else {
+            this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.CARROT));
+        }
+    }
+
+    private void replantPotatoes() {
+        if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
+            this.block.setType(material);
+        } else {
+            this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.POTATO));
+        }
+    }
+
+    private void replantCactus() {
+        if (isBottomBlock(Material.SAND) && this.block.getType() == Material.AIR) {
+            this.block.setType(material);
+        } else {
+            this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.CACTUS));
+        }
+    }
+
+    private void replantSugarCane() {
+        if ((isBottomBlock(Material.GRASS) || isBottomBlock(Material.DIRT) || isBottomBlock(Material.SAND))
+                && this.block.getType() == Material.AIR) {
+            this.block.setType(material);
+        } else {
+            this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.SUGAR_CANE));
+        }
+    }
+
+    private void replantNetherWart() {
+        if (isBottomBlock(Material.SOUL_SAND) && this.block.getType() == Material.AIR) {
+            this.block.setType(material);
+            this.block.setBlockData(setCropAge());
+        } else {
+            this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.NETHER_WART));
+        }
+    }
+
+    private void replantCocoa() {
+        if (this.block.getType() == Material.AIR) {
+            if (this.block.getRelative(cocoa.getFacing()).getType() == Material.JUNGLE_LOG) {
+                this.block.setType(material);
+                this.block.setBlockData(cocoa);
+            } else {
+                this.block.getWorld().dropItemNaturally(this.block.getLocation(), new ItemStack(Material.COCOA_BEANS));
             }
         }
     }
 
-    private boolean isBottomBlock(Material material){
+    private void replantPumpkin() {
+        if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
+            this.block.setType(Material.PUMPKIN_STEM);
+        } else {
+            this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.PUMPKIN_SEEDS));
+        }
+    }
+
+    private void replantMelon() {
+        if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
+            this.block.setType(Material.MELON_STEM);
+        } else {
+            this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.MELON_SEEDS));
+        }
+    }
+
+    private void replantBeetroots() {
+        if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
+            this.block.setType(material);
+        } else {
+            this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.BEETROOT_SEEDS));
+        }
+    }
+
+    private void replantWheatFarmland() {
+        if (this.block.getRelative(BlockFace.UP).getType() == Material.AIR)
+            this.block.getRelative(BlockFace.UP).setType(Material.WHEAT);
+    }
+
+    private boolean isBottomBlock(Material material) {
         return this.block.getRelative(BlockFace.DOWN).getType() == material;
     }
 
-    private BlockData setCropAge(){
+    private BlockData setCropAge() {
         Ageable age = (Ageable) this.block.getBlockData();
         age.setAge(0);
         return age;
