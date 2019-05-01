@@ -5,6 +5,8 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
+import static io.github.sarhatabaot.farmassistreboot.FarmAssistReboot.debug;
+
 /**
  * @author sarhatabaot
  */
@@ -18,30 +20,33 @@ public class Util {
     public static boolean inventoryContains(Player player, Material material){
         switch (material){
             case COCOA:
-                FarmAssistReboot.debug("COCOA_BEANS:"+player.getInventory().contains(Material.COCOA_BEANS));
+                debug("COCOA_BEANS:"+player.getInventory().contains(Material.COCOA_BEANS));
                 return player.getInventory().contains(Material.COCOA_BEANS);
             case POTATOES:
-                FarmAssistReboot.debug("POTATO:"+player.getInventory().contains(Material.POTATO));
+                debug("POTATO:"+player.getInventory().contains(Material.POTATO));
                 return player.getInventory().contains(Material.POTATO);
             case CARROTS:
-                FarmAssistReboot.debug("CARROT"+player.getInventory().contains(Material.CARROT));
+                debug("CARROT"+player.getInventory().contains(Material.CARROT));
                 return player.getInventory().contains(Material.CARROT);
             case WHEAT:
-                FarmAssistReboot.debug("WHEAT_SEEDS:"+player.getInventory().contains(Material.WHEAT_SEEDS));
+                debug("WHEAT_SEEDS:"+player.getInventory().contains(Material.WHEAT_SEEDS));
                 return player.getInventory().contains(Material.WHEAT_SEEDS);
             case BEETROOTS:
-                FarmAssistReboot.debug("BEETROOT_SEEDS:"+player.getInventory().contains(Material.BEETROOT_SEEDS));
+                debug("BEETROOT_SEEDS:"+player.getInventory().contains(Material.BEETROOT_SEEDS));
                 return player.getInventory().contains(Material.BEETROOT_SEEDS);
             case PUMPKIN_STEM:
             case ATTACHED_PUMPKIN_STEM:
-                FarmAssistReboot.debug("PUMPKIN_SEEDS:"+player.getInventory().contains(Material.PUMPKIN_SEEDS));
+                debug("PUMPKIN_SEEDS:"+player.getInventory().contains(Material.PUMPKIN_SEEDS));
                 return player.getInventory().contains(Material.PUMPKIN_SEEDS);
             case MELON_STEM:
             case ATTACHED_MELON_STEM:
-                FarmAssistReboot.debug("MELON_SEEDS:"+player.getInventory().contains(Material.MELON_SEEDS));
+                debug("MELON_SEEDS:"+player.getInventory().contains(Material.MELON_SEEDS));
                 return player.getInventory().contains(Material.MELON_SEEDS);
+            case SWEET_BERRY_BUSH:
+                debug("SWEET_BERRIES"+player.getInventory().contains(Material.SWEET_BERRIES));
+                return player.getInventory().contains(Material.SWEET_BERRIES);
             default:
-                FarmAssistReboot.debug(material.name()+":"+player.getInventory().contains(material));
+                debug(material.name()+":"+player.getInventory().contains(material));
                 return player.getInventory().contains(material);
         }
     }
@@ -49,8 +54,8 @@ public class Util {
     public static boolean isWorldEnabled(World world) {
         String globalWorld = "Config.Enabled per World:"+config.getWorldEnabled();
         String localWorld = "Is "+"\u001b[36m"+world.getName()+"\u001b[0m enabled: "+config.getWorlds().contains(world);
-        FarmAssistReboot.debug(globalWorld);
-        FarmAssistReboot.debug(localWorld);
+        debug(globalWorld);
+        debug(localWorld);
         return !config.getWorldEnabled() || config.getWorlds().contains(world);
     }
 
