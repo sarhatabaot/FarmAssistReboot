@@ -1,9 +1,8 @@
 package io.github.sarhatabaot.farmassistreboot.tasks;
 
+import com.google.gson.JsonObject;
 import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
+import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -13,30 +12,30 @@ import java.net.URLConnection;
 /**
  * @author sarhatabaot
  */
-public class SimpleUpdateCheckerTask implements Runnable {
+public class SimpleVersionChecker implements Runnable {
     private FarmAssistReboot plugin;
     private String versionNumber;
 
-    private final String latest = "https://api.github.com/repos/sarhatabaot/FarmAssistReboot/releases/latest";
+    private final static String LATEST = "https://api.github.com/repos/sarhatabaot/FarmAssistReboot/releases/latest";
 
-    public SimpleUpdateCheckerTask(FarmAssistReboot plugin) {
+    public SimpleVersionChecker(FarmAssistReboot plugin) {
         this.plugin = plugin;
         this.versionNumber = plugin.getDescription().getVersion();
     }
 
     @Override
     public void run() {
-        JSONParser parser = new JSONParser();
+        JsonParser parser = new JsonParser();
         try {
-            URL url = new URL(latest);
+            URL url = new URL(LATEST);
             URLConnection urlConnection = url.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             Object obj = parser.parse(in);
-            JSONObject jsonObject = (JSONObject) obj;
-            String remoteVer = (String) jsonObject.get("tag_name");
+            JsonObject jsonObject = (JsonObject) obj;
+            String remoteVer = jsonObject.get("tag_name").getAsString();
             remoteVer = remoteVer.replace("v","");
-            int remoteVal = Integer.valueOf(remoteVer.replace(".", ""));
-            int localVer = Integer.valueOf(versionNumber.replace(".", ""));
+            int remoteVal = Integer.parseInt(remoteVer.replace(".", ""));
+            int localVer = Integer.parseInt(versionNumber.replace(".", ""));
             if (remoteVal > localVer) {
                 plugin.setNeedsUpdate(true);
                 plugin.setNewVersion(remoteVer);
@@ -45,9 +44,10 @@ public class SimpleUpdateCheckerTask implements Runnable {
                 plugin.setNeedsUpdate(false);
                 plugin.getLogger().info("You are running the latest version: " + versionNumber);
             }
-        } catch (Throwable t){
+        } catch (Exception e){
             plugin.getLogger().info("Could not get new version.");
-            t.printStackTrace();
+            plugin.getLogger().warning(e.getMessage());
         }
     }
+
 }

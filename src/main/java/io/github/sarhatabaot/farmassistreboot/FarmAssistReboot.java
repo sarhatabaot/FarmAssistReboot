@@ -8,7 +8,7 @@ import io.github.sarhatabaot.farmassistreboot.command.commands.CommandUpdate;
 import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import io.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
 import io.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
-import io.github.sarhatabaot.farmassistreboot.tasks.SimpleUpdateCheckerTask;
+import io.github.sarhatabaot.farmassistreboot.tasks.SimpleVersionChecker;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -65,7 +65,7 @@ public class FarmAssistReboot extends JavaPlugin {
         registerListeners();
 
         if (FarmAssistConfig.getInstance().getCheckForUpdates()) {
-           Bukkit.getScheduler().runTaskAsynchronously(this, new SimpleUpdateCheckerTask(this));
+           Bukkit.getScheduler().runTaskAsynchronously(this, new SimpleVersionChecker(this));
         }
 
         Metrics metrics = new Metrics(this);
@@ -96,7 +96,7 @@ public class FarmAssistReboot extends JavaPlugin {
      * Registers commands
      */
     private void registerCommands() {
-        commandManager = new CommandManager(this);
+        commandManager = new CommandManager(getLogger());
         commandManager.register(CommandManager.class,commandManager);
         commandManager.register(CommandGlobal.class,new CommandGlobal(this));
         commandManager.register(CommandReload.class,new CommandReload());
