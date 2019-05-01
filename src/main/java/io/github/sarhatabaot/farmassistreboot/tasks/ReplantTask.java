@@ -78,7 +78,7 @@ public class ReplantTask implements Runnable {
 
     private void replantWheat() {
         if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
-            this.block.setType(material);
+            this.block.setType(Material.WHEAT);
             this.block.setBlockData(setCropAge());
         } else {
             this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.WHEAT));
@@ -87,7 +87,7 @@ public class ReplantTask implements Runnable {
 
     private void replantCarrots() {
         if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
-            this.block.setType(material);
+            this.block.setType(Material.CARROTS);
         } else {
             this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.CARROT));
         }
@@ -95,7 +95,7 @@ public class ReplantTask implements Runnable {
 
     private void replantPotatoes() {
         if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
-            this.block.setType(material);
+            this.block.setType(Material.POTATOES);
         } else {
             this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.POTATO));
         }
@@ -103,7 +103,7 @@ public class ReplantTask implements Runnable {
 
     private void replantCactus() {
         if (isBottomBlock(Material.SAND) && this.block.getType() == Material.AIR) {
-            this.block.setType(material);
+            this.block.setType(Material.CACTUS);
         } else {
             this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.CACTUS));
         }
@@ -112,7 +112,7 @@ public class ReplantTask implements Runnable {
     private void replantSugarCane() {
         if ((isBottomBlock(Material.GRASS) || isBottomBlock(Material.DIRT) || isBottomBlock(Material.SAND))
                 && this.block.getType() == Material.AIR) {
-            this.block.setType(material);
+            this.block.setType(Material.SUGAR_CANE);
         } else {
             this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.SUGAR_CANE));
         }
@@ -120,7 +120,7 @@ public class ReplantTask implements Runnable {
 
     private void replantNetherWart() {
         if (isBottomBlock(Material.SOUL_SAND) && this.block.getType() == Material.AIR) {
-            this.block.setType(material);
+            this.block.setType(Material.NETHER_WART);
             this.block.setBlockData(setCropAge());
         } else {
             this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.NETHER_WART));
@@ -130,7 +130,7 @@ public class ReplantTask implements Runnable {
     private void replantCocoa() {
         if (this.block.getType() == Material.AIR) {
             if (this.block.getRelative(cocoa.getFacing()).getType() == Material.JUNGLE_LOG) {
-                this.block.setType(material);
+                this.block.setType(Material.COCOA);
                 this.block.setBlockData(cocoa);
             } else {
                 this.block.getWorld().dropItemNaturally(this.block.getLocation(), new ItemStack(Material.COCOA_BEANS));
@@ -156,7 +156,7 @@ public class ReplantTask implements Runnable {
 
     private void replantBeetroots() {
         if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
-            this.block.setType(material);
+            this.block.setType(Material.BEETROOTS);
         } else {
             this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.BEETROOT_SEEDS));
         }
