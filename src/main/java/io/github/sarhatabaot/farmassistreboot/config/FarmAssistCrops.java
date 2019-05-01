@@ -9,6 +9,10 @@ import java.util.List;
  * @author sarhatabaot
  */
 public class FarmAssistCrops {
+    private FarmAssistCrops() {
+        throw new IllegalStateException("Utility class");
+    }
+
     private static List<Material> cropList = createCropList();
 
     private static List<Material> createCropList(){
@@ -25,6 +29,7 @@ public class FarmAssistCrops {
         cropList.add(Material.MELON_STEM);
         cropList.add(Material.BEETROOTS);
         cropList.add(Material.CACTUS);
+        cropList.add(Material.SWEET_BERRY_BUSH);
         return cropList;
     }
 
