@@ -1,10 +1,8 @@
 package io.github.sarhatabaot.farmassistreboot.listeners;
 
 import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import io.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
 import io.github.sarhatabaot.farmassistreboot.Util;
 import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -13,7 +11,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
+
+import static io.github.sarhatabaot.farmassistreboot.FarmAssistReboot.debug;
+import static io.github.sarhatabaot.farmassistreboot.Util.*;
 
 public class PlayerInteractionListener implements Listener {
     private FarmAssistReboot plugin;
@@ -29,9 +29,7 @@ public class PlayerInteractionListener implements Listener {
      */
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if(!plugin.isGlobalEnabled())
-            return;
-        if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
+        if(!plugin.isGlobalEnabled() && !event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
             return;
         if(this.plugin.getDisabledPlayerList().contains(event.getPlayer().getName()))
             return;
@@ -43,16 +41,16 @@ public class PlayerInteractionListener implements Listener {
             String wheatPermission = "\u001b[36m farmassist.wheat\u001b[0m";
             String tillPermission ="\u001b[36m farmassist.till\u001b[0m";
             String playerName = "Player: "+event.getPlayer().getDisplayName();
-            FarmAssistReboot.debug(playerName+","+tillPermission+": "+event.getPlayer().hasPermission("farmassist.till"));
-            FarmAssistReboot.debug(playerName+","+wheatPermission+": "+event.getPlayer().hasPermission("farmassist.wheat"));
+            debug(playerName+","+tillPermission+": "+event.getPlayer().hasPermission("farmassist.till"));
+            debug(playerName+","+wheatPermission+": "+event.getPlayer().hasPermission("farmassist.wheat"));
             return;
         }
         Player player = event.getPlayer();
-        FarmAssistReboot.debug("Config.Wheat: "+config.getEnabled(Material.WHEAT));
-        FarmAssistReboot.debug("Config.Plant on Till: "+config.getPlantOnTill());
+        debug("Config.Wheat: "+config.getEnabled(Material.WHEAT));
+        debug("Config.Plant on Till: "+config.getPlantOnTill());
 
-        if (Util.isWorldEnabled(event.getPlayer().getWorld()) && config.getEnabled(Material.WHEAT) && config.getPlantOnTill()) {
-            if (Util.inventoryContains(event.getPlayer(), Material.WHEAT)) {
+        if (isWorldEnabled(event.getPlayer().getWorld()) && config.getEnabled(Material.WHEAT) && config.getPlantOnTill()) {
+            if (inventoryContains(event.getPlayer(), Material.WHEAT)) {
                 // override block type TODO: Better way to implement this
                 Block block = event.getClickedBlock();
                 block.setType(Material.FARMLAND);
@@ -61,28 +59,6 @@ public class PlayerInteractionListener implements Listener {
         }
     }
 
-
-    /**
-     * @param player Player that replants.
-     * @param block Block that's being set.
-     * @param material Material to replant.
-     */
-    private void replant(Player player, Block block, Material material) {
-        int spot = player.getInventory().first(material);
-        ItemStack next;
-        if (spot >= 0) {
-            next = player.getInventory().getItem(spot);
-            if (next.getAmount() > 1) {
-                next.setAmount(next.getAmount() - 1);
-                player.getInventory().setItem(spot, next);
-            } else {
-                player.getInventory().setItem(spot, new ItemStack(Material.AIR));
-            }
-
-            ReplantTask b = new ReplantTask(block);
-            this.plugin.getServer().getScheduler().scheduleSyncDelayedTask(this.plugin, b, 20L);
-        }
-    }
 
     /**
      * Checks if the material is a hoe

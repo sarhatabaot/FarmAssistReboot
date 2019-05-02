@@ -1,9 +1,12 @@
 package io.github.sarhatabaot.farmassistreboot;
 
 import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
+import io.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import static io.github.sarhatabaot.farmassistreboot.FarmAssistReboot.debug;
 
@@ -54,9 +57,72 @@ public class Util {
     public static boolean isWorldEnabled(World world) {
         String globalWorld = "Config.Enabled per World:"+config.getWorldEnabled();
         String localWorld = "Is "+"\u001b[36m"+world.getName()+"\u001b[0m enabled: "+config.getWorlds().contains(world);
-        debug(globalWorld);
-        debug(localWorld);
+        debug(globalWorld+localWorld);
         return !config.getWorldEnabled() || config.getWorlds().contains(world);
+    }
+
+
+    public static Material getMaterialFromCrops(Material material) {
+        switch (material) {
+            case MELON_STEM:
+            case ATTACHED_MELON_STEM:
+                return Material.MELON;
+            case PUMPKIN_STEM:
+            case ATTACHED_PUMPKIN_STEM:
+                return Material.PUMPKIN;
+            default:
+                return material;
+        }
+    }
+
+    /**
+     * Gets the plantable version of a material
+     *
+     * @param material
+     * @return - The material that the player can plant
+     */
+    public static Material getCrop(Material material) {
+        switch (material) {
+            case COCOA:
+                return Material.COCOA_BEANS;
+            case CARROTS:
+                return Material.CARROT;
+            case POTATOES:
+                return Material.POTATO;
+            case BEETROOTS:
+                return Material.BEETROOT_SEEDS;
+            case PUMPKIN_STEM:
+            case ATTACHED_PUMPKIN_STEM:
+                return Material.PUMPKIN_SEEDS;
+            case MELON_STEM:
+            case ATTACHED_MELON_STEM:
+                return Material.MELON_SEEDS;
+            case WHEAT:
+                return Material.WHEAT_SEEDS;
+            default:
+                return material;
+        }
+    }
+
+    /**
+     * @param player
+     * @param block    Block broken
+     * @param material Material to remove from inventory
+     */
+    public static void replant(Player player, Block block, Material material) {
+        int spot = player.getInventory().first(getCrop(material));
+        ItemStack next;
+        if (spot >= 0) {
+            next = player.getInventory().getItem(spot);
+            if (next.getAmount() > 1) {
+                next.setAmount(next.getAmount() - 1);
+                player.getInventory().setItem(spot, next);
+            } else {
+                player.getInventory().setItem(spot, new ItemStack(Material.AIR));
+            }
+            ReplantTask b = new ReplantTask(block);
+            FarmAssistReboot.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(FarmAssistReboot.getInstance(), b, 20L);
+        }
     }
 
 }
