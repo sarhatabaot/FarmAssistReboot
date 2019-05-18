@@ -15,7 +15,8 @@ public class CommandUpdate {
     @Command(
             aliases = {"updates","update"},
             description = "check for updates",
-            permissions = "farmassist.update"
+            permissions = "farmassist.update",
+            usage = "/farmassist update"
     )
     public void update(CommandSender sender, String[] args) {
         if (!FarmAssistConfig.getInstance().getCheckForUpdates()) {

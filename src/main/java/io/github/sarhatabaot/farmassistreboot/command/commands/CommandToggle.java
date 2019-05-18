@@ -16,7 +16,8 @@ public class CommandToggle {
             aliases = "toggle",
             description = "toggle farmassist",
             help="toggle usage of FarmAssist",
-            permissions = "farmassist.toggle"
+            permissions = "farmassist.toggle",
+            usage = "/farmassist toggle"
     )
     public void toggle(CommandSender sender, String[] args){
         if (plugin.getDisabledPlayerList().contains(sender.getName())) {

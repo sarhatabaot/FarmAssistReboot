@@ -10,7 +10,8 @@ public class CommandReload {
     @Command(
             aliases = "reload",
             description = "Reload FarmAssistReboot",
-            permissions ="farmassist.reload"
+            permissions ="farmassist.reload",
+            usage="/farmassist reload"
     )
     public void reload(CommandSender sender, String[] args){
         FarmAssistConfig.getInstance().reloadConfig();

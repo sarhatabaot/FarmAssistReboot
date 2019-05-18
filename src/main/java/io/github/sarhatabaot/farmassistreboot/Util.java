@@ -29,7 +29,7 @@ public class Util {
                 debug("POTATO:"+player.getInventory().contains(Material.POTATO));
                 return player.getInventory().contains(Material.POTATO);
             case CARROTS:
-                debug("CARROT"+player.getInventory().contains(Material.CARROT));
+                debug("CARROT:"+player.getInventory().contains(Material.CARROT));
                 return player.getInventory().contains(Material.CARROT);
             case WHEAT:
                 debug("WHEAT_SEEDS:"+player.getInventory().contains(Material.WHEAT_SEEDS));
@@ -46,7 +46,7 @@ public class Util {
                 debug("MELON_SEEDS:"+player.getInventory().contains(Material.MELON_SEEDS));
                 return player.getInventory().contains(Material.MELON_SEEDS);
             case SWEET_BERRY_BUSH:
-                debug("SWEET_BERRIES"+player.getInventory().contains(Material.SWEET_BERRIES));
+                debug("SWEET_BERRIES:"+player.getInventory().contains(Material.SWEET_BERRIES));
                 return player.getInventory().contains(Material.SWEET_BERRIES);
             default:
                 debug(material.name()+":"+player.getInventory().contains(material));
@@ -70,6 +70,8 @@ public class Util {
             case PUMPKIN_STEM:
             case ATTACHED_PUMPKIN_STEM:
                 return Material.PUMPKIN;
+            case SWEET_BERRY_BUSH:
+                return Material.SWEET_BERRIES;
             default:
                 return material;
         }
@@ -99,6 +101,8 @@ public class Util {
                 return Material.MELON_SEEDS;
             case WHEAT:
                 return Material.WHEAT_SEEDS;
+            case SWEET_BERRIES:
+                return Material.SWEET_BERRY_BUSH;
             default:
                 return material;
         }

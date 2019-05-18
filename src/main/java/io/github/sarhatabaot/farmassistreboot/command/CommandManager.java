@@ -1,7 +1,9 @@
 package io.github.sarhatabaot.farmassistreboot.command;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -17,13 +19,38 @@ import java.util.logging.Logger;
 public class CommandManager {
     private Map<String, Method> commands;
     private Map<Method, Object> instances;
+    private JavaPlugin plugin;
     private Logger logger;
 
+    private ChatColor usageColor = getDefaultColor();
+    private ChatColor descriptionColor = getDefaultColor();
 
-    public CommandManager(Logger logger) {
+
+    public CommandManager(JavaPlugin plugin) {
         commands = new HashMap<>();
         instances = new HashMap<>();
-        this.logger = logger;
+        this.logger = plugin.getLogger();
+        this.plugin = plugin;
+    }
+
+    public ChatColor getUsageColor() {
+        return usageColor;
+    }
+
+    public void setUsageColor(ChatColor usageColor) {
+        this.usageColor = usageColor;
+    }
+
+    public ChatColor getDescriptionColor() {
+        return descriptionColor;
+    }
+
+    public void setDescriptionColor(ChatColor descriptionColor) {
+        this.descriptionColor = descriptionColor;
+    }
+
+    private ChatColor getDefaultColor() {
+        return ChatColor.WHITE;
     }
 
     public void register(Class<?> cls, Object obj) {
@@ -41,29 +68,30 @@ public class CommandManager {
         }
     }
 
-    private void showHelpByPermission(CommandSender sender){
+    public void showHelpByPermission(CommandSender sender) {
         List<Method> seenMethods = new LinkedList<>();
+        sender.sendMessage("\n"+plugin.getName()+" "+plugin.getDescription().getVersion());
+        sender.sendMessage("\n");
         for (Map.Entry<String, Method> entry : commands.entrySet()) {
             if (!seenMethods.contains(entry.getValue())) {
                 seenMethods.add(entry.getValue());
                 Command command = entry.getValue().getAnnotation(Command.class);
                 //Only show help if the sender can use the command anyway
-                if ((command.onlyPlayers() && !(sender instanceof Player)) || !checkPermission(command,sender)) {
+                if ((command.onlyPlayers() && !(sender instanceof Player)) || !checkPermission(command, sender)) {
                     continue;
                 }
-                sender.sendMessage("helpUsage"+ command.aliases()[0]+ command.usage());
-                sender.sendMessage("helpDesc"+ command.description());
+                sender.sendMessage(usageColor + command.usage() +" "+descriptionColor + command.description());
             }
         }
     }
 
     private boolean checkPermission(Command command, CommandSender sender) {
         boolean hasPermission = false;
-        if(command.permissions().length == 0) {
+        if (command.permissions().length == 0) {
             hasPermission = true;
         }
-        for (String permission: command.permissions()){
-            if(sender.hasPermission(permission)){
+        for (String permission : command.permissions()) {
+            if (sender.hasPermission(permission)) {
                 hasPermission = true;
             }
         }
@@ -72,9 +100,11 @@ public class CommandManager {
 
     public void callCommand(String cmdName, CommandSender sender, String[] args) {
         Method method = commands.get(cmdName.toLowerCase());
+        String baseCommand = "/farmassist";
 
         if (method == null) {
-            sender.sendMessage("unknownCommand");
+            sender.sendMessage("Unknown command");
+            showHelpByPermission(sender);
             return;
         }
         //Get annotation
@@ -83,7 +113,7 @@ public class CommandManager {
         //Validate arguments
         if (!(command.min() <= args.length && (command.max() == -1 || command.max() >= args.length))) {
             sender.sendMessage("invalidArguments");
-            sender.sendMessage("/farmingassist"+ command.aliases()[0]+ command.usage());
+            sender.sendMessage(baseCommand + command.aliases()[0] + command.usage());
             return;
         }
 
@@ -94,7 +124,7 @@ public class CommandManager {
         }
 
         //Permission checks
-        if (!checkPermission(command,sender)){
+        if (!checkPermission(command, sender)) {
             sender.sendMessage("No permission");
             return;
         }
@@ -109,7 +139,7 @@ public class CommandManager {
         } catch (InvocationTargetException e) {
             if (e.getCause() instanceof Exception) {
                 sender.sendMessage("Invalid arguments");
-                sender.sendMessage("/farmingassist"+ command.aliases()[0]+ command.usage());
+                sender.sendMessage(baseCommand + command.aliases()[0] + command.usage());
             } else {
                 logger.warning(e.getMessage());
                 throw new InvalidMethodsRuntimeException("Invalid methods on command!");

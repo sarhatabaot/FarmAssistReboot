@@ -15,7 +15,8 @@ public class CommandGlobal {
     @Command(
             aliases = "global",
             description = "turn farmassist off/on globally",
-            permissions = "farmassist.toggle.global"
+            permissions = "farmassist.toggle.global",
+            usage = "/farmassist global"
     )
     public void global(CommandSender sender, String[] args){
         if(!plugin.isGlobalEnabled()){

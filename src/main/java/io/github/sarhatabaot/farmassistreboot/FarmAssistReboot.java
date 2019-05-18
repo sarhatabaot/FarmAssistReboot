@@ -11,6 +11,7 @@ import io.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListene
 import io.github.sarhatabaot.farmassistreboot.tasks.SimpleVersionChecker;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -96,7 +97,9 @@ public class FarmAssistReboot extends JavaPlugin {
      * Registers commands
      */
     private void registerCommands() {
-        commandManager = new CommandManager(getLogger());
+        commandManager = new CommandManager(this);
+        commandManager.setUsageColor(ChatColor.DARK_GREEN);
+        commandManager.setDescriptionColor(ChatColor.GREEN);
         commandManager.register(CommandManager.class,commandManager);
         commandManager.register(CommandGlobal.class,new CommandGlobal(this));
         commandManager.register(CommandReload.class,new CommandReload());
@@ -114,7 +117,8 @@ public class FarmAssistReboot extends JavaPlugin {
             commandManager.callCommand(args[0], sender, spoofedArgs);
             return true;
         }
-        return false;
+        commandManager.showHelpByPermission(sender);
+        return true;
     }
 
     public void setGlobalEnabled(boolean enabled) {

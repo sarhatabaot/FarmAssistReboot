@@ -4,7 +4,7 @@ version: ${project.version}
 author: sarhatbaot
 website: https://www.spigotmc.org/resources/farmassistreboot.64064/
 description: FarmAssistReboot Rebooted
-api-version: 1.13
+api-version: "1.13"
 commands:
   FarmAssist:
     description: Turn FarmAssistReboot Featues on or off
@@ -23,6 +23,7 @@ permissions:
       farmassist.potatoes: true
       farmassist.beetroots: true
       farmassist.cactus: true
+      farmassist.sweet_berries: true
   farmassist.wheat:
     default: false
   farmassist.sugar_cane:
@@ -42,6 +43,8 @@ permissions:
   farmassist.cactus:
     default: false
   farmassist.melon:
+    default: false
+  farmassist.sweet_berries:
     default: false
   farmassist.reload:
     default: op

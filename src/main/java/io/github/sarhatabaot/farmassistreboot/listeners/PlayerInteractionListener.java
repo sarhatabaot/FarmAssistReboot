@@ -1,9 +1,9 @@
 package io.github.sarhatabaot.farmassistreboot.listeners;
 
 import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import io.github.sarhatabaot.farmassistreboot.Util;
 import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
@@ -25,43 +25,49 @@ public class PlayerInteractionListener implements Listener {
 
     /**
      * On till event
+     *
      * @param event PlayerInteractEvent
      */
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if(!plugin.isGlobalEnabled() && !event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
+        if (!plugin.isGlobalEnabled() ||
+                !event.getAction().equals(Action.RIGHT_CLICK_BLOCK) ||
+                plugin.getDisabledPlayerList().contains(event.getPlayer().getName()) ||
+                !canPlayerFarmBlock(event))
             return;
-        if(this.plugin.getDisabledPlayerList().contains(event.getPlayer().getName()))
-            return;
-        if (!(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event))) {
-            return;
-        }
-        // Permission Checks
-        if (config.isPermissionEnabled() && (!event.getPlayer().hasPermission("farmassist.wheat")) || !event.getPlayer().hasPermission("farmassist.till")) {
-            String wheatPermission = "\u001b[36m farmassist.wheat\u001b[0m";
-            String tillPermission ="\u001b[36m farmassist.till\u001b[0m";
-            String playerName = "Player: "+event.getPlayer().getDisplayName();
-            debug(playerName+","+tillPermission+": "+event.getPlayer().hasPermission("farmassist.till"));
-            debug(playerName+","+wheatPermission+": "+event.getPlayer().hasPermission("farmassist.wheat"));
-            return;
-        }
-        Player player = event.getPlayer();
-        debug("Config.Wheat: "+config.getEnabled(Material.WHEAT));
-        debug("Config.Plant on Till: "+config.getPlantOnTill());
+        if (!checkPermissions(event)) return;
 
-        if (isWorldEnabled(event.getPlayer().getWorld()) && config.getEnabled(Material.WHEAT) && config.getPlantOnTill()) {
-            if (inventoryContains(event.getPlayer(), Material.WHEAT)) {
-                // override block type TODO: Better way to implement this
-                Block block = event.getClickedBlock();
-                block.setType(Material.FARMLAND);
-                replant(player, block, Material.WHEAT_SEEDS);
-            }
+        Player player = event.getPlayer();
+        debug("Config.Wheat: " + config.getEnabled(Material.WHEAT));
+        debug("Config.Plant on Till: " + config.getPlantOnTill());
+
+        if (isPlantOnTillEnabled(player.getWorld()) && inventoryContains(player, Material.WHEAT)) {
+            Block block = event.getClickedBlock();
+            block.setType(Material.FARMLAND); //should be covered by minecraft
+            replant(player, block, Material.WHEAT_SEEDS);
         }
     }
 
+    private boolean checkPermissions(PlayerInteractEvent event){
+        if (config.isPermissionEnabled() &&
+                (!event.getPlayer().hasPermission("farmassist.wheat")) || !event.getPlayer().hasPermission("farmassist.till")) {
+            debug(event.getPlayer().getName() + " has no permission");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isPlantOnTillEnabled(World world) {
+        return isWorldEnabled(world) && config.getEnabled(Material.WHEAT) && config.getPlantOnTill();
+    }
+
+    private boolean canPlayerFarmBlock(PlayerInteractEvent event) {
+        return isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event);
+    }
 
     /**
      * Checks if the material is a hoe
+     *
      * @param material Material
      * @return Return if material is a hoe
      */
@@ -75,13 +81,25 @@ public class PlayerInteractionListener implements Listener {
 
     /**
      * Checks if the block is farmable.
+     *
      * @param event PlayerInteractEvent
      * @return Returns if the block is farmable.
      */
     private boolean isPlayerBlockFarmable(PlayerInteractEvent event) {
-        boolean isGrassOrDirt = event.getClickedBlock().getType() == Material.GRASS_BLOCK || event.getClickedBlock().getType() == Material.DIRT;
-        boolean isTopBlockAir = event.getClickedBlock().getRelative(BlockFace.UP).getType() == Material.AIR;
-        return event.hasBlock() && isGrassOrDirt && isTopBlockAir;
+        Block block = event.getClickedBlock();
+        boolean isTopBlockAir = block.getRelative(BlockFace.UP).getType() == Material.AIR;
+        return event.hasBlock() && isBlockFarmable(block) && isTopBlockAir;
+    }
+
+    private boolean isBlockFarmable(Block block) {
+        switch (block.getType()) {
+            case GRASS_BLOCK:
+            case DIRT:
+            case FARMLAND:
+                return true;
+            default:
+                return false;
+        }
     }
 }
 

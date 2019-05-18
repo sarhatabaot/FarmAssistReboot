@@ -16,7 +16,7 @@ public class SimpleVersionChecker implements Runnable {
     private FarmAssistReboot plugin;
     private String versionNumber;
 
-    private final static String LATEST = "https://api.github.com/repos/sarhatabaot/FarmAssistReboot/releases/latest";
+    private static final String LATEST = "https://api.github.com/repos/sarhatabaot/FarmAssistReboot/releases/latest";
 
     public SimpleVersionChecker(FarmAssistReboot plugin) {
         this.plugin = plugin;
