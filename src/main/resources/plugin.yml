@@ -3,7 +3,7 @@ name: FarmAssist
 version: @version@
 author: sarhatbaot
 website: https://www.spigotmc.org/resources/farmassistreboot.64064/
-description: FarmAssistReboot Rebooted
+description: FarmAssist Rebooted
 api-version: "1.13"
 commands:
   FarmAssist:
