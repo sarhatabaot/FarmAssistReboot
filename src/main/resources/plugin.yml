@@ -1,6 +1,6 @@
-main: io.github.sarhatabaot.farmassistreboot.FarmAssistReboot
-name: FarmAssistReboot
-version: ${project.version}
+main: io.github.sarhatabaot.farmassist.FarmAssist
+name: FarmAssist
+version: @version@
 author: sarhatbaot
 website: https://www.spigotmc.org/resources/farmassistreboot.64064/
 description: FarmAssistReboot Rebooted

@@ -1,14 +1,13 @@
-package io.github.sarhatabaot.farmassistreboot;
+package io.github.sarhatabaot.farmassist;
 
-import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
-import io.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
+import io.github.sarhatabaot.farmassist.config.FarmAssistConfig;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import static io.github.sarhatabaot.farmassistreboot.FarmAssistReboot.debug;
+import static io.github.sarhatabaot.farmassist.FarmAssist.debug;
 
 /**
  * @author sarhatabaot
@@ -125,7 +124,7 @@ public class Util {
                 player.getInventory().setItem(spot, new ItemStack(Material.AIR));
             }
             ReplantTask b = new ReplantTask(block);
-            FarmAssistReboot.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(FarmAssistReboot.getInstance(), b, 20L);
+            FarmAssist.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(FarmAssist.getInstance(), b, 20L);
         }
     }
 

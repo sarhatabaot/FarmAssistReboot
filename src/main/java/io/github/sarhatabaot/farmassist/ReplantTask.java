@@ -1,4 +1,4 @@
-package io.github.sarhatabaot.farmassistreboot.tasks;
+package io.github.sarhatabaot.farmassist;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -8,7 +8,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Cocoa;
 import org.bukkit.inventory.ItemStack;
 
-import static io.github.sarhatabaot.farmassistreboot.FarmAssistReboot.debug;
+import static io.github.sarhatabaot.farmassist.FarmAssist.debug;
 
 public class ReplantTask implements Runnable {
     private Block block;
@@ -92,7 +92,7 @@ public class ReplantTask implements Runnable {
         }
     }
     private void replantSweetBerries(){
-        if(isBottomBlock(Material.DIRT,Material.COARSE_DIRT,Material.GRASS_BLOCK)){
+        if(isBottomBlock(Material.DIRT, Material.COARSE_DIRT, Material.GRASS_BLOCK)){
             this.block.setType(Material.SWEET_BERRY_BUSH);
         } else {
             this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.SWEET_BERRIES));
@@ -133,7 +133,7 @@ public class ReplantTask implements Runnable {
     }
 
     private void replantSugarCane() {
-        if ((isBottomBlock(Material.GRASS,Material.DIRT,Material.SAND))
+        if ((isBottomBlock(Material.GRASS, Material.DIRT, Material.SAND))
                 && this.block.getType() == Material.AIR) {
             this.block.setType(Material.SUGAR_CANE);
         } else {

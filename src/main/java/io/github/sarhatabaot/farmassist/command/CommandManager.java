@@ -1,4 +1,4 @@
-package io.github.sarhatabaot.farmassistreboot.command;
+package io.github.sarhatabaot.farmassist.command;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;

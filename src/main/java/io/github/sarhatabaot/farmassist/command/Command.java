@@ -1,4 +1,4 @@
-package io.github.sarhatabaot.farmassistreboot.command;
+package io.github.sarhatabaot.farmassist.command;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

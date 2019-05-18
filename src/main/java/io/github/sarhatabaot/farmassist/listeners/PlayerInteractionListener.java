@@ -1,7 +1,7 @@
-package io.github.sarhatabaot.farmassistreboot.listeners;
+package io.github.sarhatabaot.farmassist.listeners;
 
-import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
+import io.github.sarhatabaot.farmassist.FarmAssist;
+import io.github.sarhatabaot.farmassist.config.FarmAssistConfig;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -12,14 +12,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import static io.github.sarhatabaot.farmassistreboot.FarmAssistReboot.debug;
-import static io.github.sarhatabaot.farmassistreboot.Util.*;
+import static io.github.sarhatabaot.farmassist.FarmAssist.debug;
+import static io.github.sarhatabaot.farmassist.Util.*;
 
 public class PlayerInteractionListener implements Listener {
-    private FarmAssistReboot plugin;
+    private FarmAssist plugin;
     private FarmAssistConfig config = FarmAssistConfig.getInstance();
 
-    public PlayerInteractionListener(FarmAssistReboot plugin) {
+    public PlayerInteractionListener(FarmAssist plugin) {
         this.plugin = plugin;
     }
 

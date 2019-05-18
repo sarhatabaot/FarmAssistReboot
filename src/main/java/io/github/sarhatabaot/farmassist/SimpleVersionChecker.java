@@ -1,7 +1,6 @@
-package io.github.sarhatabaot.farmassistreboot.tasks;
+package io.github.sarhatabaot.farmassist;
 
 import com.google.gson.JsonObject;
-import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
@@ -13,12 +12,12 @@ import java.net.URLConnection;
  * @author sarhatabaot
  */
 public class SimpleVersionChecker implements Runnable {
-    private FarmAssistReboot plugin;
+    private FarmAssist plugin;
     private String versionNumber;
 
     private static final String LATEST = "https://api.github.com/repos/sarhatabaot/FarmAssistReboot/releases/latest";
 
-    public SimpleVersionChecker(FarmAssistReboot plugin) {
+    public SimpleVersionChecker(FarmAssist plugin) {
         this.plugin = plugin;
         this.versionNumber = plugin.getDescription().getVersion();
     }

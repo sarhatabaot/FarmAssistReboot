@@ -1,14 +1,13 @@
-package io.github.sarhatabaot.farmassistreboot;
+package io.github.sarhatabaot.farmassist;
 
-import io.github.sarhatabaot.farmassistreboot.command.CommandManager;
-import io.github.sarhatabaot.farmassistreboot.command.commands.CommandGlobal;
-import io.github.sarhatabaot.farmassistreboot.command.commands.CommandReload;
-import io.github.sarhatabaot.farmassistreboot.command.commands.CommandToggle;
-import io.github.sarhatabaot.farmassistreboot.command.commands.CommandUpdate;
-import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
-import io.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
-import io.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
-import io.github.sarhatabaot.farmassistreboot.tasks.SimpleVersionChecker;
+import io.github.sarhatabaot.farmassist.command.CommandManager;
+import io.github.sarhatabaot.farmassist.command.commands.CommandGlobal;
+import io.github.sarhatabaot.farmassist.command.commands.CommandReload;
+import io.github.sarhatabaot.farmassist.command.commands.CommandToggle;
+import io.github.sarhatabaot.farmassist.command.commands.CommandUpdate;
+import io.github.sarhatabaot.farmassist.config.FarmAssistConfig;
+import io.github.sarhatabaot.farmassist.listeners.BlockBreakListener;
+import io.github.sarhatabaot.farmassist.listeners.PlayerInteractionListener;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,8 +26,8 @@ import java.util.logging.Logger;
  * @author sarhatabaot
  */
 
-public class FarmAssistReboot extends JavaPlugin {
-    private static FarmAssistReboot instance;
+public final class FarmAssist extends JavaPlugin {
+    private static FarmAssist instance;
     private Logger logger = getLogger();
 
     private List<String> disabledPlayerList = new ArrayList<>();
@@ -45,12 +44,12 @@ public class FarmAssistReboot extends JavaPlugin {
 
     @Override
     public void onLoad() {
-        logger.info("FarmAssistReboot Loaded");
+        logger.info("FarmAssist Loaded");
     }
 
     @Override
     public void onDisable() {
-        logger.info("FarmAssistReboot Disabled!");
+        logger.info("FarmAssist Disabled!");
     }
 
     @Override
@@ -71,7 +70,7 @@ public class FarmAssistReboot extends JavaPlugin {
 
         Metrics metrics = new Metrics(this);
 
-        logger.info("FarmAssistReboot Enabled!");
+        logger.info("FarmAssist Enabled!");
     }
 
     /**
@@ -157,7 +156,7 @@ public class FarmAssistReboot extends JavaPlugin {
         return Collections.emptyList();
     }
 
-    public static FarmAssistReboot getInstance(){
+    public static FarmAssist getInstance(){
         return instance;
     }
 
