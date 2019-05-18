@@ -24,12 +24,14 @@ repositories {
         name = 'code-mc'
         url = 'https://repo.codemc.org/repository/maven-public'
     }
+    maven { url = 'https://jitpack.io' }
 }
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compileOnly 'org.spigotmc:spigot-api:1.14-R0.1-SNAPSHOT'
     compile 'org.bstats:bstats-bukkit:1.5'
+    compile 'com.github.sarhatabaot:CommandManager:0b54e72c83'
 }
 
 
@@ -41,7 +43,12 @@ processResources {
     }
 }
 
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 shadowJar {
     minimize()
     relocate('org.bstats', 'io.github.sarhatabaot.farmassist.bstats')
+    relocate('com.github.sarhatabaot', 'io.github.sarhatabaot.farmassist.command.commandmanager')
 }

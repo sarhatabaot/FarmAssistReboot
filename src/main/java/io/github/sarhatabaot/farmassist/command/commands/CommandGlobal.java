@@ -1,7 +1,6 @@
 package io.github.sarhatabaot.farmassist.command.commands;
 
 import io.github.sarhatabaot.farmassist.FarmAssist;
-import io.github.sarhatabaot.farmassist.command.Command;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 

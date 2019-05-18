@@ -1,6 +1,5 @@
 package io.github.sarhatabaot.farmassist;
 
-import io.github.sarhatabaot.farmassist.command.CommandManager;
 import io.github.sarhatabaot.farmassist.command.commands.CommandGlobal;
 import io.github.sarhatabaot.farmassist.command.commands.CommandReload;
 import io.github.sarhatabaot.farmassist.command.commands.CommandToggle;
