@@ -31,6 +31,7 @@ dependencies {
     implementation 'org.spigotmc:spigot-api:1.14.2-R0.1-SNAPSHOT'
     compile 'com.github.sarhatabaot:CommandManager:-SNAPSHOT'
     compile 'org.bstats:bstats-bukkit:1.5'
+    compile group: 'org.jetbrains', name: 'annotations', version: '16.0.1'
 }
 
 import org.apache.tools.ant.filters.ReplaceTokens
@@ -44,8 +45,8 @@ processResources {
 shadowJar {
     classifier = ""
     configurations = [project.configurations.compile]
-    relocate('org.bstats', 'io.github.sarhatabaot.farmassist.bstats')
-    relocate('com.github.sarhatabaot', 'io.github.sarhatabaot.farmassist.command')
+    relocate('org.bstats', 'com.github.sarhatabaot.farmassist.bstats')
+    relocate('com.github.sarhatabaot.commandmanager', 'com.github.sarhatabaot.farmassist.command.commandmanager')
 }
 
 wrapper {
