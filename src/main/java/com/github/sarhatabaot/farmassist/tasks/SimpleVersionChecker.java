@@ -1,5 +1,6 @@
-package io.github.sarhatabaot.farmassist;
+package com.github.sarhatabaot.farmassist.tasks;
 
+import com.github.sarhatabaot.farmassist.FarmAssist;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 

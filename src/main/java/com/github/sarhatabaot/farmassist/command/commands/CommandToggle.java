@@ -1,6 +1,7 @@
-package io.github.sarhatabaot.farmassist.command.commands;
+package com.github.sarhatabaot.farmassist.command.commands;
 
-import io.github.sarhatabaot.farmassist.FarmAssist;
+import com.github.sarhatabaot.commandmanager.Command;
+import com.github.sarhatabaot.farmassist.FarmAssist;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -11,6 +12,12 @@ public class CommandToggle {
         this.plugin = plugin;
     }
 
+    @Command(
+            aliases = {"toggle","t"},
+            description = "Lets a player turn off FarmAssist features",
+            permissions = "farmassist.toggle",
+            usage = "/farmassist global"
+    )
     public void toggle(CommandSender sender, String[] args){
         if (plugin.getDisabledPlayerList().contains(sender.getName())) {
             plugin.getDisabledPlayerList().remove(sender.getName());

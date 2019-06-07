@@ -1,6 +1,6 @@
-package io.github.sarhatabaot.farmassist.config;
+package com.github.sarhatabaot.farmassist.config;
 
-import io.github.sarhatabaot.farmassist.FarmAssist;
+import com.github.sarhatabaot.farmassist.FarmAssist;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -8,8 +8,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static io.github.sarhatabaot.farmassist.FarmAssist.debug;
 
 /**
  * @author sarhatabaot
@@ -28,7 +26,7 @@ public class FarmAssistConfig {
     public void reloadConfig() {
         plugin.reloadConfig();
         config = plugin.getConfig();
-        debug("Config reloaded ");
+        FarmAssist.debug("Config reloaded ");
     }
 
 

@@ -1,6 +1,6 @@
-package io.github.sarhatabaot.farmassist.listeners;
+package com.github.sarhatabaot.farmassist.listeners;
 
-import io.github.sarhatabaot.farmassist.FarmAssist;
+import com.github.sarhatabaot.farmassist.FarmAssist;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 

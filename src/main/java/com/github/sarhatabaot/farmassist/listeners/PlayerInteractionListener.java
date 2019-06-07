@@ -1,7 +1,8 @@
-package io.github.sarhatabaot.farmassist.listeners;
+package com.github.sarhatabaot.farmassist.listeners;
 
-import io.github.sarhatabaot.farmassist.FarmAssist;
-import io.github.sarhatabaot.farmassist.config.FarmAssistConfig;
+import com.github.sarhatabaot.farmassist.FarmAssist;
+import com.github.sarhatabaot.farmassist.Util;
+import com.github.sarhatabaot.farmassist.config.FarmAssistConfig;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -11,9 +12,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-
-import static io.github.sarhatabaot.farmassist.FarmAssist.debug;
-import static io.github.sarhatabaot.farmassist.Util.*;
 
 public class PlayerInteractionListener implements Listener {
     private FarmAssist plugin;
@@ -38,27 +36,27 @@ public class PlayerInteractionListener implements Listener {
         if (!checkPermissions(event)) return;
 
         Player player = event.getPlayer();
-        debug("Config.Wheat: " + config.getEnabled(Material.WHEAT));
-        debug("Config.Plant on Till: " + config.getPlantOnTill());
+        FarmAssist.debug("Config.Wheat: " + config.getEnabled(Material.WHEAT));
+        FarmAssist.debug("Config.Plant on Till: " + config.getPlantOnTill());
 
-        if (isPlantOnTillEnabled(player.getWorld()) && inventoryContains(player, Material.WHEAT)) {
+        if (isPlantOnTillEnabled(player.getWorld()) && Util.inventoryContains(player, Material.WHEAT)) {
             Block block = event.getClickedBlock();
             block.setType(Material.FARMLAND); //should be covered by minecraft
-            replant(player, block, Material.WHEAT_SEEDS);
+            Util.replant(player, block, Material.WHEAT_SEEDS);
         }
     }
 
     private boolean checkPermissions(PlayerInteractEvent event){
         if (config.isPermissionEnabled() &&
                 (!event.getPlayer().hasPermission("farmassist.wheat")) || !event.getPlayer().hasPermission("farmassist.till")) {
-            debug(event.getPlayer().getName() + " has no permission");
+            FarmAssist.debug(event.getPlayer().getName() + " has no permission");
             return false;
         }
         return true;
     }
 
     private boolean isPlantOnTillEnabled(World world) {
-        return isWorldEnabled(world) && config.getEnabled(Material.WHEAT) && config.getPlantOnTill();
+        return Util.isWorldEnabled(world) && config.getEnabled(Material.WHEAT) && config.getPlantOnTill();
     }
 
     private boolean canPlayerFarmBlock(PlayerInteractEvent event) {

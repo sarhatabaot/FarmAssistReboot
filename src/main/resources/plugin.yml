@@ -1,4 +1,4 @@
-main: io.github.sarhatabaot.farmassist.FarmAssist
+main: com.github.sarhatabaot.farmassist.FarmAssist
 name: FarmAssist
 version: @version@
 author: sarhatbaot

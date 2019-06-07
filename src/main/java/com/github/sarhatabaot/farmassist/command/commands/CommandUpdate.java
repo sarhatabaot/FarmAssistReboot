@@ -1,7 +1,8 @@
-package io.github.sarhatabaot.farmassist.command.commands;
+package com.github.sarhatabaot.farmassist.command.commands;
 
-import io.github.sarhatabaot.farmassist.FarmAssist;
-import io.github.sarhatabaot.farmassist.config.FarmAssistConfig;
+import com.github.sarhatabaot.commandmanager.Command;
+import com.github.sarhatabaot.farmassist.FarmAssist;
+import com.github.sarhatabaot.farmassist.config.FarmAssistConfig;
 import org.bukkit.command.CommandSender;
 
 public class CommandUpdate {
@@ -11,6 +12,12 @@ public class CommandUpdate {
         this.plugin = plugin;
     }
 
+    @Command(
+            aliases = {"update","u"},
+            description = "Check for updates.",
+            permissions = "farmassist.update",
+            usage = "/farmassist update"
+    )
     public void update(CommandSender sender, String[] args) {
         if (!FarmAssistConfig.getInstance().getCheckForUpdates()) {
             sender.sendMessage("Check for updates is disabled.");

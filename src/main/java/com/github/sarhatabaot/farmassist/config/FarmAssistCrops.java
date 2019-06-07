@@ -1,4 +1,4 @@
-package io.github.sarhatabaot.farmassist.config;
+package com.github.sarhatabaot.farmassist.config;
 
 import org.bukkit.Material;
 

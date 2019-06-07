@@ -1,17 +1,16 @@
 plugins {
-    id 'com.github.johnrengelman.shadow' version '4.0.2'
+    id 'com.github.johnrengelman.shadow' version '5.0.0'
     id 'java'
 }
 
-group = "io.github.sarhatabaot.farmassist"
-version = '1.0.3'
+group = "com.github.sarhatabaot.farmassist"
+version = '1.0.4'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    jcenter()
     maven {
         name = 'spigotmc-repo'
         url = 'https://hub.spigotmc.org/nexus/content/groups/public/'
@@ -29,11 +28,10 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    compileOnly 'org.spigotmc:spigot-api:1.14-R0.1-SNAPSHOT'
+    implementation 'org.spigotmc:spigot-api:1.14.2-R0.1-SNAPSHOT'
+    compile 'com.github.sarhatabaot:CommandManager:-SNAPSHOT'
     compile 'org.bstats:bstats-bukkit:1.5'
-    compile 'com.github.sarhatabaot:CommandManager:0b54e72c83'
 }
-
 
 import org.apache.tools.ant.filters.ReplaceTokens
 
@@ -43,12 +41,14 @@ processResources {
     }
 }
 
-configurations.all {
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+shadowJar {
+    classifier = ""
+    configurations = [project.configurations.compile]
+    relocate('org.bstats', 'io.github.sarhatabaot.farmassist.bstats')
+    relocate('com.github.sarhatabaot', 'io.github.sarhatabaot.farmassist.command')
 }
 
-shadowJar {
-    minimize()
-    relocate('org.bstats', 'io.github.sarhatabaot.farmassist.bstats')
-    relocate('com.github.sarhatabaot', 'io.github.sarhatabaot.farmassist.command.commandmanager')
+wrapper {
+    gradleVersion = '5.4.1'
+    distributionType = Wrapper.DistributionType.ALL
 }

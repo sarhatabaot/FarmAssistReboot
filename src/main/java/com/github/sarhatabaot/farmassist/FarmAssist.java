@@ -1,12 +1,14 @@
-package io.github.sarhatabaot.farmassist;
+package com.github.sarhatabaot.farmassist;
 
-import io.github.sarhatabaot.farmassist.command.commands.CommandGlobal;
-import io.github.sarhatabaot.farmassist.command.commands.CommandReload;
-import io.github.sarhatabaot.farmassist.command.commands.CommandToggle;
-import io.github.sarhatabaot.farmassist.command.commands.CommandUpdate;
-import io.github.sarhatabaot.farmassist.config.FarmAssistConfig;
-import io.github.sarhatabaot.farmassist.listeners.BlockBreakListener;
-import io.github.sarhatabaot.farmassist.listeners.PlayerInteractionListener;
+import com.github.sarhatabaot.commandmanager.CommandManager;
+import com.github.sarhatabaot.farmassist.command.commands.CommandGlobal;
+import com.github.sarhatabaot.farmassist.command.commands.CommandReload;
+import com.github.sarhatabaot.farmassist.command.commands.CommandToggle;
+import com.github.sarhatabaot.farmassist.command.commands.CommandUpdate;
+import com.github.sarhatabaot.farmassist.config.FarmAssistConfig;
+import com.github.sarhatabaot.farmassist.listeners.BlockBreakListener;
+import com.github.sarhatabaot.farmassist.listeners.PlayerInteractionListener;
+import com.github.sarhatabaot.farmassist.tasks.SimpleVersionChecker;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

@@ -1,5 +1,6 @@
-package io.github.sarhatabaot.farmassist;
+package com.github.sarhatabaot.farmassist.tasks;
 
+import com.github.sarhatabaot.farmassist.FarmAssist;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -7,8 +8,6 @@ import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Cocoa;
 import org.bukkit.inventory.ItemStack;
-
-import static io.github.sarhatabaot.farmassist.FarmAssist.debug;
 
 public class ReplantTask implements Runnable {
     private Block block;
@@ -29,64 +28,64 @@ public class ReplantTask implements Runnable {
 
     @Override
     public void run() {
-        debug("Block: " + block.getType().name() + ",Material: " + material.name());
+        FarmAssist.debug("Block: " + block.getType().name() + ",Material: " + material.name());
         replantByMaterial();
     }
 
     private void replantByMaterial() {
         switch (material) {
             case WHEAT:
-                debug("Planting wheat...");
+                FarmAssist.debug("Planting wheat...");
                 replantWheat();
                 break;
             case CARROTS:
-                debug("Planting carrot...");
+                FarmAssist.debug("Planting carrot...");
                 replantCarrots();
                 break;
             case POTATOES:
-                debug("Planting potato...");
+                FarmAssist.debug("Planting potato...");
                 replantPotatoes();
                 break;
             case CACTUS:
-                debug("Planting cactus...");
+                FarmAssist.debug("Planting cactus...");
                 replantCactus();
                 break;
             case SUGAR_CANE:
-                debug("Planting sugar cane...");
+                FarmAssist.debug("Planting sugar cane...");
                 replantSugarCane();
                 break;
             case NETHER_WART:
-                debug("Planting nether wart...");
+                FarmAssist.debug("Planting nether wart...");
                 replantNetherWart();
                 break;
             case COCOA:
-                debug("Planting cocoa...");
+                FarmAssist.debug("Planting cocoa...");
                 replantCocoa();
                 break;
             case ATTACHED_PUMPKIN_STEM:
             case PUMPKIN_STEM:
-                debug("Planting pumpkin...");
+                FarmAssist.debug("Planting pumpkin...");
                 replantPumpkin();
                 break;
             case ATTACHED_MELON_STEM:
             case MELON_STEM:
-                debug("Planting melon...");
+                FarmAssist.debug("Planting melon...");
                 replantMelon();
                 break;
             case BEETROOTS:
-                debug("Planting beetroot...");
+                FarmAssist.debug("Planting beetroot...");
                 replantBeetroots();
                 break;
             case FARMLAND:
-                debug("Planting wheat...");
+                FarmAssist.debug("Planting wheat...");
                 replantWheatFarmland();
                 break;
             case SWEET_BERRY_BUSH:
-                debug("Planting sweet berries...");
+                FarmAssist.debug("Planting sweet berries...");
                 replantSweetBerries();
                 break;
             default:
-                debug("Error while getting material." + material.name());
+                FarmAssist.debug("Error while getting material." + material.name());
                 break;
 
         }
