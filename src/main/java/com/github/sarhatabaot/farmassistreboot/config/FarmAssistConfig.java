@@ -17,9 +17,9 @@ public class FarmAssistConfig {
     private FarmAssistReboot plugin;
     private FileConfiguration config;
 
-    public FarmAssistConfig() {
+    public FarmAssistConfig(final FarmAssistReboot plugin) {
         instance = this;
-        this.plugin = FarmAssistReboot.getInstance();
+        this.plugin = plugin;
         config = plugin.getConfig();
     }
 

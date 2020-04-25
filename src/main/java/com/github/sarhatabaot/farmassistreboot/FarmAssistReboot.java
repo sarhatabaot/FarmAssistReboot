@@ -8,23 +8,17 @@ import com.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
 import com.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * @author sarhatabaot
  */
 
 public class FarmAssistReboot extends JavaPlugin {
-    private static FarmAssistReboot instance;
-    private Logger logger = getLogger();
 
     public List<String> disabledPlayerList = new ArrayList<>();
 
@@ -50,17 +44,11 @@ public class FarmAssistReboot extends JavaPlugin {
         this.newVersion = newVersion;
     }
 
-    @Override
-    public void onDisable() {
-        instance = null;
-    }
 
     @Override
     public void onEnable() {
-        instance = this;
-
         saveDefaultConfig();
-        new FarmAssistConfig();
+        new FarmAssistConfig(this);
 
         this.enabled = true;
 
@@ -98,7 +86,7 @@ public class FarmAssistReboot extends JavaPlugin {
     public void setGlobalEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-    
+
 
     public static FarmAssistReboot getInstance(){
         return instance;
