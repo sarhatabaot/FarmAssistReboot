@@ -18,6 +18,7 @@ public class FarmAssistConfig {
     public static boolean DEBUG;
     public static boolean CHECK_FOR_UPDATES;
     public static boolean PLANT_WHEAT_ON_TILL;
+    public static boolean ENABLED_PER_WORLD;
     public static List<World> ENABLED_WORLDS;
 
 
@@ -29,6 +30,7 @@ public class FarmAssistConfig {
         DEBUG = config.getBoolean("debug",false);
         CHECK_FOR_UPDATES = config.getBoolean("check-for-updates",true);
         PLANT_WHEAT_ON_TILL = config.getBoolean("wheat.plant-on-till",true);
+        ENABLED_PER_WORLD = config.getBoolean("worlds.enable-per-world",true);
         ENABLED_WORLDS = getWorlds();
     }
 
@@ -41,9 +43,6 @@ public class FarmAssistConfig {
         return config.getBoolean(material.name().toLowerCase() + ".Enabled");
     }
 
-    public static boolean getWorldEnabled() {
-        return config.getBoolean("worlds.enable-per-world");
-    }
 
     private List<World> getWorlds() {
         ArrayList<World> worldsList = new ArrayList<>();

@@ -38,22 +38,17 @@ public class PlayerInteractionListener implements Listener {
         }
         // Permission Checks
         if (FarmAssistConfig.USE_PERMISSIONS && (!event.getPlayer().hasPermission("farmassist.wheat")) || !event.getPlayer().hasPermission("farmassist.till")) {
-            String wheatPermission = "\u001b[36m farmassist.wheat\u001b[0m";
-            String tillPermission ="\u001b[36m farmassist.till\u001b[0m";
-            String playerName = "Player: "+event.getPlayer().getDisplayName();
-            FarmAssistReboot.debug(playerName+","+tillPermission+": "+event.getPlayer().hasPermission("farmassist.till"));
-            FarmAssistReboot.debug(playerName+","+wheatPermission+": "+event.getPlayer().hasPermission("farmassist.wheat"));
             return;
         }
-        Player player = event.getPlayer();
+        final Player player = event.getPlayer();
         FarmAssistReboot.debug("Config.Wheat: "+ FarmAssistConfig.getEnabled(Material.WHEAT));
         FarmAssistReboot.debug("Config.Plant on Till: "+ FarmAssistConfig.PLANT_WHEAT_ON_TILL);
-        if (Util.isWorldEnabled(event.getPlayer().getWorld()) && FarmAssistConfig.getEnabled(Material.WHEAT) && FarmAssistConfig.PLANT_WHEAT_ON_TILL) {
+        if (Util.isWorldEnabled(event.getPlayer().getWorld())
+                && FarmAssistConfig.getEnabled(Material.WHEAT)
+                && FarmAssistConfig.PLANT_WHEAT_ON_TILL) {
             if (Util.inventoryContains(event.getPlayer(), Material.WHEAT)) {
-                // override block type TODO: Better way to implement this
-                Block block = event.getClickedBlock();
-                block.setType(Material.FARMLAND);
-                replant(player, block, Material.WHEAT_SEEDS);
+                event.getClickedBlock().setType(Material.FARMLAND);
+                replant(player, event.getClickedBlock(), Material.WHEAT_SEEDS);
             }
         }
     }

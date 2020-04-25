@@ -42,11 +42,11 @@ public class Util {
     }
 
     public static boolean isWorldEnabled(World world) {
-        String globalWorld = "Config.Enabled per World:"+ FarmAssistConfig.getWorldEnabled();
+        String globalWorld = "Config.Enabled per World:"+ FarmAssistConfig.ENABLED_PER_WORLD;
         String localWorld = "Is "+"\u001b[36m"+world.getName()+"\u001b[0m enabled: "+FarmAssistConfig.ENABLED_WORLDS.contains(world);
         FarmAssistReboot.debug(globalWorld);
         FarmAssistReboot.debug(localWorld);
-        return !FarmAssistConfig.getWorldEnabled() || FarmAssistConfig.ENABLED_WORLDS.contains(world);
+        return !FarmAssistConfig.ENABLED_PER_WORLD || FarmAssistConfig.ENABLED_WORLDS.contains(world);
     }
 
 
