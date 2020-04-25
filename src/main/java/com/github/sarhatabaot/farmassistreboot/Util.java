@@ -9,8 +9,6 @@ import org.bukkit.entity.Player;
  * @author sarhatabaot
  */
 public class Util {
-    private static FarmAssistConfig config = FarmAssistConfig.getInstance();
-
     public static boolean inventoryContains(Player player, Material material){
         switch (material){
             case COCOA:
@@ -44,11 +42,11 @@ public class Util {
     }
 
     public static boolean isWorldEnabled(World world) {
-        String globalWorld = "Config.Enabled per World:"+config.getWorldEnabled();
-        String localWorld = "Is "+"\u001b[36m"+world.getName()+"\u001b[0m enabled: "+config.getWorlds().contains(world);
+        String globalWorld = "Config.Enabled per World:"+ FarmAssistConfig.getWorldEnabled();
+        String localWorld = "Is "+"\u001b[36m"+world.getName()+"\u001b[0m enabled: "+FarmAssistConfig.ENABLED_WORLDS.contains(world);
         FarmAssistReboot.debug(globalWorld);
         FarmAssistReboot.debug(localWorld);
-        return !config.getWorldEnabled() || config.getWorlds().contains(world);
+        return !FarmAssistConfig.getWorldEnabled() || FarmAssistConfig.ENABLED_WORLDS.contains(world);
     }
 
 

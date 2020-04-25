@@ -18,10 +18,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class BlockBreakListener implements Listener {
     private FarmAssistReboot plugin;
-    private FarmAssistConfig config;
 
     public BlockBreakListener(FarmAssistReboot plugin) {
-        config = FarmAssistConfig.getInstance();
         this.plugin = plugin;
     }
 
@@ -34,7 +32,7 @@ public class BlockBreakListener implements Listener {
             return;
         if (this.plugin.disabledPlayerList.contains(event.getPlayer().getName()))
             return;
-        if (config.isPermissionEnabled() && !hasMaterialPermission(event)){
+        if (FarmAssistConfig.USE_PERMISSIONS && !hasMaterialPermission(event)){
             String playerName = "Player: "+event.getPlayer().getDisplayName();
             String permission = "farmassist."+getMaterialFromCrops(event.getBlock().getType()).name();
             FarmAssistReboot.debug(playerName+", "+"doesn't have permission "+"\u001b[36m"+permission+"\u001b[0m");
@@ -81,7 +79,7 @@ public class BlockBreakListener implements Listener {
         }
         FarmAssistReboot.debug("Crop List contains: " + material.name());
 
-        if (config.getEnabled(getMaterialFromCrops(material))) {
+        if (FarmAssistConfig.getEnabled(getMaterialFromCrops(material))) {
 
             if (!Util.inventoryContains(event.getPlayer(), material)) {
                 FarmAssistReboot.debug("Player doesn't have the correct seeds/material to replant");
@@ -91,7 +89,7 @@ public class BlockBreakListener implements Listener {
                 replant(event.getPlayer(), event.getBlock(), material);
                 return;
             }
-            if (!config.getRipe(material) || isRipe(event.getBlock())) {
+            if (!FarmAssistConfig.getRipe(material) || isRipe(event.getBlock())) {
                 replant(event.getPlayer(), event.getBlock(), material);
                 return;
             }
