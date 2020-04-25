@@ -5,6 +5,7 @@ import com.github.sarhatabaot.farmassistreboot.Util;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import com.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
 import com.google.common.collect.ImmutableList;
+import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
@@ -16,6 +17,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+@RequiredArgsConstructor
 public class BlockBreakListener implements Listener {
     private final ImmutableList<Material> cropList = ImmutableList.of(
             Material.WHEAT,
@@ -31,11 +33,8 @@ public class BlockBreakListener implements Listener {
             Material.BEETROOTS,
             Material.CACTUS
     );
-    private FarmAssistReboot plugin;
 
-    public BlockBreakListener(FarmAssistReboot plugin) {
-        this.plugin = plugin;
-    }
+    private final FarmAssistReboot plugin;
 
     @EventHandler(
             priority = EventPriority.HIGHEST,
