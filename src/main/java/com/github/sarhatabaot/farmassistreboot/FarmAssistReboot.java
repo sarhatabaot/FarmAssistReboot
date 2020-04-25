@@ -37,18 +37,11 @@ public class FarmAssistReboot extends JavaPlugin {
     // State
     private boolean enabled;
 
-    // Update Info
-    private boolean needsUpdate;
-    private String newVersion;
 
-    @Override
-    public void onLoad() {
-        logger.info("FarmAssistReboot Loaded");
-    }
 
     @Override
     public void onDisable() {
-        logger.info("FarmAssistReboot Disabled!");
+        instance = null;
     }
 
     @Override
@@ -57,7 +50,6 @@ public class FarmAssistReboot extends JavaPlugin {
 
         saveDefaultConfig();
         new FarmAssistConfig();
-        new CropsUtil();
 
         this.enabled = true;
 
@@ -70,7 +62,6 @@ public class FarmAssistReboot extends JavaPlugin {
 
         Metrics metrics = new Metrics(this);
 
-        logger.info("FarmAssistReboot Enabled!");
     }
 
     /**
@@ -121,13 +112,6 @@ public class FarmAssistReboot extends JavaPlugin {
         this.enabled = enabled;
     }
 
-    public boolean isNeedsUpdate() {
-        return needsUpdate;
-    }
-
-    public String getNewVersion() {
-        return newVersion;
-    }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
@@ -160,12 +144,5 @@ public class FarmAssistReboot extends JavaPlugin {
     public boolean isGlobalEnabled() {
         return enabled;
     }
-
-    public void setNeedsUpdate(boolean needsUpdate) {
-        this.needsUpdate = needsUpdate;
-    }
-
-    public void setNewVersion(String newVersion) {
-        this.newVersion = newVersion;
-    }
+    
 }
