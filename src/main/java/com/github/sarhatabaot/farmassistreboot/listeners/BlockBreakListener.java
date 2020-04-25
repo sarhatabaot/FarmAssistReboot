@@ -3,7 +3,7 @@ package com.github.sarhatabaot.farmassistreboot.listeners;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.github.sarhatabaot.farmassistreboot.Util;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
-import com.github.sarhatabaot.farmassistreboot.config.FarmAssistCrops;
+import com.github.sarhatabaot.farmassistreboot.config.CropsUtil;
 import com.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -75,7 +75,7 @@ public class BlockBreakListener implements Listener {
     private void applyReplant(BlockBreakEvent event) {
         Material material = event.getBlock().getType();
         FarmAssistReboot.debug("Block broken: "+material.name());
-        if (!FarmAssistCrops.getCropList().contains(material)) {
+        if (!CropsUtil.cropList.contains(material)) {
             FarmAssistReboot.debug("Crop List doesn't contain: " + material.name());
             return;
         }
