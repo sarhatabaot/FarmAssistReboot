@@ -6,18 +6,15 @@ import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Description;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
+import lombok.RequiredArgsConstructor;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-
+@RequiredArgsConstructor
 @CommandAlias("farmassist|fa")
 public class FarmAssistCommand extends BaseCommand {
 	private final FarmAssistReboot plugin;
-
-	public FarmAssistCommand(final FarmAssistReboot plugin) {
-		this.plugin = plugin;
-	}
 
 	@Default
 	@CommandAlias("toggle")
