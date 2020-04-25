@@ -19,8 +19,8 @@ import java.util.List;
  */
 
 public class FarmAssistReboot extends JavaPlugin {
-
     public List<String> disabledPlayerList = new ArrayList<>();
+    private FarmAssistConfig assistConfig;
 
     // State
     private boolean enabled;
@@ -30,6 +30,10 @@ public class FarmAssistReboot extends JavaPlugin {
 
     public boolean isNeedsUpdate() {
         return needsUpdate;
+    }
+
+    public FarmAssistConfig getAssistConfig() {
+        return assistConfig;
     }
 
     public void setNeedsUpdate(final boolean needsUpdate) {
@@ -48,7 +52,7 @@ public class FarmAssistReboot extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        new FarmAssistConfig(this);
+        this.assistConfig = new FarmAssistConfig(this);
 
         this.enabled = true;
 
@@ -56,7 +60,7 @@ public class FarmAssistReboot extends JavaPlugin {
         commandManager.registerCommand(new FarmAssistCommand(this));
         registerListeners();
 
-        if (FarmAssistConfig.getInstance().getCheckForUpdates()) {
+        if (FarmAssistConfig.CHECK_FOR_UPDATES) {
            Bukkit.getScheduler().runTaskAsynchronously(this, new SimpleUpdateCheckerTask(this));
         }
 
@@ -69,7 +73,7 @@ public class FarmAssistReboot extends JavaPlugin {
      * @param msg Message to send
      */
     public static void debug(String msg) {
-        if(FarmAssistConfig.getInstance().getDebug())
+        if(FarmAssistConfig.DEBUG)
             Bukkit.getPluginManager().getPlugin("FarmAssistReboot").getLogger().warning("\u001B[33m"+"[DEBUG] "+msg+"\u001B[0m");
     }
 
@@ -86,8 +90,6 @@ public class FarmAssistReboot extends JavaPlugin {
     public void setGlobalEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-
-    
 
     public boolean isGlobalEnabled() {
         return enabled;

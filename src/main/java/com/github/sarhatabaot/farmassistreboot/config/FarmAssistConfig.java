@@ -9,67 +9,52 @@ import org.bukkit.configuration.file.FileConfiguration;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author sarhatabaot
- */
+
 public class FarmAssistConfig {
-    private static FarmAssistConfig instance;
-    private FarmAssistReboot plugin;
-    private FileConfiguration config;
+    private final FarmAssistReboot plugin;
+    private static FileConfiguration config;
+
+    public static boolean USE_PERMISSIONS;
+    public static boolean DEBUG;
+    public static boolean CHECK_FOR_UPDATES;
+    public static boolean PLANT_WHEAT_ON_TILL;
+    public static List<World> ENABLED_WORLDS;
+
 
     public FarmAssistConfig(final FarmAssistReboot plugin) {
-        instance = this;
         this.plugin = plugin;
-        config = plugin.getConfig();
+        FarmAssistConfig.config = plugin.getConfig();
+
+        USE_PERMISSIONS = config.getBoolean("use-permissions", true);
+        DEBUG = config.getBoolean("debug",false);
+        CHECK_FOR_UPDATES = config.getBoolean("check-for-updates",true);
+        PLANT_WHEAT_ON_TILL = config.getBoolean("wheat.plant-on-till",true);
+        ENABLED_WORLDS = getWorlds();
     }
 
     public void reloadConfig() {
         plugin.reloadConfig();
         config = plugin.getConfig();
-        FarmAssistReboot.debug("Config reloaded ");
     }
 
-
-    public boolean isPermissionEnabled() {
-        return config.getBoolean("Use Permissions");
-    }
-
-    public boolean getDebug() {
-        return config.getBoolean("debug");
-    }
-
-    public boolean getCheckForUpdates() {
-        return config.getBoolean("Check for updates");
-    }
-
-    public static FarmAssistConfig getInstance() {
-        return instance;
-    }
-
-    public boolean getEnabled(Material material) {
+    public static boolean getEnabled(Material material) {
         return config.getBoolean(material.name().toLowerCase() + ".Enabled");
     }
 
-    public boolean getWorldEnabled() {
-        return config.getBoolean("Worlds.Enable per world");
+    public static boolean getWorldEnabled() {
+        return config.getBoolean("worlds.enable-per-world");
     }
 
-    //TODO:
-    public List<World> getWorlds() {
+    private List<World> getWorlds() {
         ArrayList<World> worldsList = new ArrayList<>();
-        List<?> configList = config.getList("Worlds.Enabled Worlds");
-        for (Object obj : configList) {
-            World tmp = Bukkit.getWorld((String) obj);
-            worldsList.add(tmp);
+        for(String world: config.getStringList("worlds.enabled-worlds")){
+            if(Bukkit.getWorld(world) != null)
+                worldsList.add(Bukkit.getWorld(world));
         }
         return worldsList;
     }
 
-    public boolean getRipe(Material material) {
-        return config.getBoolean(material.name().toLowerCase() + ".Replant when ripe");
-    }
-
-    public boolean getPlantOnTill() {
-        return config.getBoolean("wheat.Plant on till");
+    public static boolean getRipe(Material material) {
+        return config.getBoolean(material.name().toLowerCase() + ".replant-when-ripe");
     }
 }

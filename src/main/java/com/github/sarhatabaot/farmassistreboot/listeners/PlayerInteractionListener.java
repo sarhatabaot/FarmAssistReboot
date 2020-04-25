@@ -16,7 +16,6 @@ import org.bukkit.inventory.ItemStack;
 
 public class PlayerInteractionListener implements Listener {
     private FarmAssistReboot plugin;
-    private FarmAssistConfig config = FarmAssistConfig.getInstance();
 
     public PlayerInteractionListener(FarmAssistReboot plugin) {
         this.plugin = plugin;
@@ -40,7 +39,7 @@ public class PlayerInteractionListener implements Listener {
             return;
         }
         // Permission Checks
-        if (config.isPermissionEnabled() && (!event.getPlayer().hasPermission("farmassist.wheat")) || !event.getPlayer().hasPermission("farmassist.till")) {
+        if (FarmAssistConfig.USE_PERMISSIONS && (!event.getPlayer().hasPermission("farmassist.wheat")) || !event.getPlayer().hasPermission("farmassist.till")) {
             String wheatPermission = "\u001b[36m farmassist.wheat\u001b[0m";
             String tillPermission ="\u001b[36m farmassist.till\u001b[0m";
             String playerName = "Player: "+event.getPlayer().getDisplayName();
@@ -49,9 +48,9 @@ public class PlayerInteractionListener implements Listener {
             return;
         }
         Player player = event.getPlayer();
-        FarmAssistReboot.debug("Config.Wheat: "+config.getEnabled(Material.WHEAT));
-        FarmAssistReboot.debug("Config.Plant on Till: "+config.getPlantOnTill());
-        if (Util.isWorldEnabled(event.getPlayer().getWorld()) && config.getEnabled(Material.WHEAT) && config.getPlantOnTill()) {
+        FarmAssistReboot.debug("Config.Wheat: "+ FarmAssistConfig.getEnabled(Material.WHEAT));
+        FarmAssistReboot.debug("Config.Plant on Till: "+ FarmAssistConfig.PLANT_WHEAT_ON_TILL);
+        if (Util.isWorldEnabled(event.getPlayer().getWorld()) && FarmAssistConfig.getEnabled(Material.WHEAT) && FarmAssistConfig.PLANT_WHEAT_ON_TILL) {
             if (Util.inventoryContains(event.getPlayer(), Material.WHEAT)) {
                 // override block type TODO: Better way to implement this
                 Block block = event.getClickedBlock();

@@ -6,7 +6,6 @@ import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Description;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -58,7 +57,7 @@ public class FarmAssistCommand extends BaseCommand {
 	@CommandPermission("farmassist.reload")
 	@Description("Reload FarmAssistReboot")
 	public void onReload(final CommandSender sender){
-		FarmAssistConfig.getInstance().reloadConfig();
+		plugin.getAssistConfig().reloadConfig();
 		sender.sendMessage(ChatColor.GREEN + "FarmAssistReboot has been reloaded.");
 		FarmAssistReboot.debug("FarmAssistReboot Reloaded.");
 	}

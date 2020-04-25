@@ -1,7 +1,7 @@
 ##################################################################
 #                          FarmAssist                            #
 ##################################################################
-Use Permissions: true
+use-permissions: true
 ##################################################################
 #                        Global Settings                         #
 ##################################################################
@@ -13,37 +13,37 @@ Use Permissions: true
 #   Enabled: false
 # player won't be able to auto-replant wheat.
 wheat:
-    Enabled: true
-    Replant when ripe: false
-    Plant on till: true
+    enabled: true
+    replant-when-ripe: false
+    plant-on-till: true
 sugar_cane:
-    Enabled: true
+    enabled: true
 nether_wart:
-    Enabled: true
-    Replant when ripe: false
+    enabled: true
+    replant-when-ripe: false
 cocoa:
-    Enabled: true
-    Replant when ripe: false
+    enabled: true
+    replant-when-ripe: false
 carrots:
-    Enabled: true
-    Replant when ripe: false
+    enabled: true
+    replant-when-ripe: false
 potatoes:
-    Enabled: true
-    Replant when ripe: false
+    enabled: true
+    replant-when-ripe: false
 pumpkin:
-    Enabled: true
-    Replant when ripe: false
+    enabled: true
+    replant-when-ripe: false
 melon:
-    Enabled: true
-    Replant when ripe: false
+    enabled: true
+    replant-when-ripe: false
 beetroots:
-    Enabled: true
-    Replant when ripe: false
+    enabled: true
+    replant-when-ripe: false
 cactus:
-    Enabled: true
-Worlds:
-    Enable per world: false
-    Enabled Worlds:
+    enabled: true
+worlds:
+    enable-per-world: false
+    enabled-worlds:
     - ExampleWorld
-Check for updates: true
+check-for-updates: true
 debug: false
