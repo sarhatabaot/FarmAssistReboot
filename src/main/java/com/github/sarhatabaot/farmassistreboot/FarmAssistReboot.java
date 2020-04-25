@@ -1,13 +1,13 @@
 package com.github.sarhatabaot.farmassistreboot;
 
+import co.aikar.commands.BukkitCommandManager;
 import com.github.sarhatabaot.farmassistreboot.command.CommandManager;
+import com.github.sarhatabaot.farmassistreboot.command.FarmAssistCommand;
 import com.github.sarhatabaot.farmassistreboot.command.commands.CommandGlobal;
 import com.github.sarhatabaot.farmassistreboot.command.commands.CommandReload;
 import com.github.sarhatabaot.farmassistreboot.command.commands.CommandToggle;
-import com.github.sarhatabaot.farmassistreboot.command.commands.CommandUpdate;
 import com.github.sarhatabaot.farmassistreboot.tasks.SimpleUpdateCheckerTask;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
-import com.github.sarhatabaot.farmassistreboot.config.CropsUtil;
 import com.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
 import com.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
 import org.bukkit.Bukkit;
@@ -53,6 +53,8 @@ public class FarmAssistReboot extends JavaPlugin {
 
         this.enabled = true;
 
+        BukkitCommandManager commandManager = new BukkitCommandManager(this);
+        commandManager.registerCommand(new FarmAssistCommand(this));
         registerCommands();
         registerListeners();
 
@@ -92,7 +94,6 @@ public class FarmAssistReboot extends JavaPlugin {
         commandManager.register(CommandGlobal.class,new CommandGlobal(this));
         commandManager.register(CommandReload.class,new CommandReload(this));
         commandManager.register(CommandToggle.class,new CommandToggle(this));
-        commandManager.register(CommandUpdate.class,new CommandUpdate(this));
         getLogger().info("Registered commands");
     }
 
@@ -144,5 +145,5 @@ public class FarmAssistReboot extends JavaPlugin {
     public boolean isGlobalEnabled() {
         return enabled;
     }
-    
+
 }

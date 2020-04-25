@@ -1,7 +1,7 @@
 main: io.github.sarhatabaot.farmassistreboot.FarmAssistReboot
 name: FarmAssistReboot
 version: ${project.version}
-author: sarhatbaot
+authors: [sarhatbaot]
 website: https://www.spigotmc.org/resources/farmassistreboot.64064/
 description: FarmAssistReboot Rebooted
 api-version: 1.13
