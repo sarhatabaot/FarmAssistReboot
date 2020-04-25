@@ -46,7 +46,6 @@ public class FarmAssistReboot extends JavaPlugin {
         }
 
         Metrics metrics = new Metrics(this,3885);
-
     }
 
     /**
