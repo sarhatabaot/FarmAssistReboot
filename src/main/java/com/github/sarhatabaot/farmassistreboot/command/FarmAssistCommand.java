@@ -24,11 +24,11 @@ public class FarmAssistCommand extends BaseCommand {
 	@CommandPermission("farmassist.toggle")
 	@Description("toggle usage of FarmAssist")
 	public void onToggle(final Player player){
-		if (plugin.disabledPlayerList.contains(player.getName())) {
-			plugin.disabledPlayerList.remove(player.getName());
+		if (plugin.getDisabledPlayerList().contains(player.getUniqueId())) {
+			plugin.getDisabledPlayerList().remove(player.getUniqueId());
 			player.sendMessage(ChatColor.GREEN + "FarmAssistReboot functions are now on for you!");
 		} else {
-			plugin.disabledPlayerList.add(player.getName());
+			plugin.getDisabledPlayerList().add(player.getUniqueId());
 			player.sendMessage(ChatColor.GREEN + "FarmAssistReboot functions turned off for you!");
 		}
 	}

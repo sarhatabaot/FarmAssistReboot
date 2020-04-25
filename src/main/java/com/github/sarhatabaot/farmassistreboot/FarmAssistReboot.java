@@ -15,13 +15,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author sarhatabaot
  */
 @Getter @Setter
 public class FarmAssistReboot extends JavaPlugin {
-    public List<String> disabledPlayerList = new ArrayList<>();
+    private List<UUID> disabledPlayerList = new ArrayList<>();
     private FarmAssistConfig assistConfig;
 
     // State
@@ -34,7 +35,6 @@ public class FarmAssistReboot extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
         this.assistConfig = new FarmAssistConfig(this);
-
         this.globalEnabled = true;
 
         BukkitCommandManager commandManager = new BukkitCommandManager(this);

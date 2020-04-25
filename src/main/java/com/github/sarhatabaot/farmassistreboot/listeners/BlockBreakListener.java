@@ -43,7 +43,7 @@ public class BlockBreakListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         if (!plugin.isGlobalEnabled())
             return;
-        if (this.plugin.disabledPlayerList.contains(event.getPlayer().getName()))
+        if (this.plugin.getDisabledPlayerList().contains(event.getPlayer().getUniqueId()))
             return;
         if (FarmAssistConfig.USE_PERMISSIONS && !hasMaterialPermission(event)){
             String playerName = "Player: "+event.getPlayer().getDisplayName();

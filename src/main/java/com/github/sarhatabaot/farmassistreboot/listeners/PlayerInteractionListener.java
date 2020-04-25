@@ -31,7 +31,7 @@ public class PlayerInteractionListener implements Listener {
             return;
         if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
             return;
-        if(this.plugin.disabledPlayerList.contains(event.getPlayer().getName()))
+        if(plugin.getDisabledPlayerList().contains(event.getPlayer().getUniqueId()))
             return;
         if (!(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event))) {
             FarmAssistReboot.debug("Is Block Farmable: "+isPlayerBlockFarmable(event));
