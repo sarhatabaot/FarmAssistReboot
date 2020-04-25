@@ -6,11 +6,8 @@ import org.bukkit.Material;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author sarhatabaot
- */
-public class FarmAssistCrops {
-    private static ImmutableList<Material> cropList = ImmutableList.of(
+public class CropsUtil {
+    public static final ImmutableList<Material> cropList = ImmutableList.of(
             Material.WHEAT,
             Material.SUGAR_CANE,
             Material.NETHER_WART,
@@ -24,9 +21,4 @@ public class FarmAssistCrops {
             Material.BEETROOTS,
             Material.CACTUS
     );
-
-
-    public static ImmutableList<Material> getCropList() {
-        return cropList;
-    }
 }
