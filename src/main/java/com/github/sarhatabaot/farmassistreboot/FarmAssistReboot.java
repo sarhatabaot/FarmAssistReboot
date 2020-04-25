@@ -7,7 +7,7 @@ import com.github.sarhatabaot.farmassistreboot.command.commands.CommandToggle;
 import com.github.sarhatabaot.farmassistreboot.command.commands.CommandUpdate;
 import com.github.sarhatabaot.farmassistreboot.tasks.SimpleUpdateCheckerTask;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
-import com.github.sarhatabaot.farmassistreboot.config.FarmAssistCrops;
+import com.github.sarhatabaot.farmassistreboot.config.CropsUtil;
 import com.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
 import com.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
 import org.bukkit.Bukkit;
@@ -57,7 +57,7 @@ public class FarmAssistReboot extends JavaPlugin {
 
         saveDefaultConfig();
         new FarmAssistConfig();
-        new FarmAssistCrops();
+        new CropsUtil();
 
         this.enabled = true;
 
