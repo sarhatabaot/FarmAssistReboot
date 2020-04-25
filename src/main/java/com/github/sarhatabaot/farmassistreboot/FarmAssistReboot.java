@@ -64,6 +64,5 @@ public class FarmAssistReboot extends JavaPlugin {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerInteractionListener(this),this);
         pluginManager.registerEvents(new BlockBreakListener(this),this);
-        getLogger().info("Registered listeners");
     }
 }
