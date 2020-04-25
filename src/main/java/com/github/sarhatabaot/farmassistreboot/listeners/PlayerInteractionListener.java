@@ -41,8 +41,8 @@ public class PlayerInteractionListener implements Listener {
             return;
         }
         final Player player = event.getPlayer();
-        FarmAssistReboot.debug("Config.Wheat: "+ FarmAssistConfig.getEnabled(Material.WHEAT));
-        FarmAssistReboot.debug("Config.Plant on Till: "+ FarmAssistConfig.PLANT_WHEAT_ON_TILL);
+        FarmAssistReboot.debug("config.wheat: "+ FarmAssistConfig.getEnabled(Material.WHEAT));
+        FarmAssistReboot.debug("config.plant-on-till: "+ FarmAssistConfig.PLANT_WHEAT_ON_TILL);
         if (Util.isWorldEnabled(event.getPlayer().getWorld())
                 && FarmAssistConfig.getEnabled(Material.WHEAT)
                 && FarmAssistConfig.PLANT_WHEAT_ON_TILL) {

@@ -1,6 +1,7 @@
 package com.github.sarhatabaot.farmassistreboot;
 
 import co.aikar.commands.BukkitCommandManager;
+import co.aikar.commands.PaperCommandManager;
 import com.github.sarhatabaot.farmassistreboot.command.FarmAssistCommand;
 import com.github.sarhatabaot.farmassistreboot.tasks.SimpleUpdateCheckerTask;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
@@ -37,15 +38,15 @@ public class FarmAssistReboot extends JavaPlugin {
         this.assistConfig = new FarmAssistConfig(this);
         this.globalEnabled = true;
 
-        BukkitCommandManager commandManager = new BukkitCommandManager(this);
+        PaperCommandManager commandManager = new PaperCommandManager(this);
         commandManager.registerCommand(new FarmAssistCommand(this));
         registerListeners();
 
         if (FarmAssistConfig.CHECK_FOR_UPDATES) {
-           Bukkit.getScheduler().runTaskAsynchronously(this, new SimpleUpdateCheckerTask(this));
+            new SimpleUpdateCheckerTask(this).runTaskAsynchronously(this);
         }
 
-        Metrics metrics = new Metrics(this,3885);
+        new Metrics(this,3885);
     }
 
     /**
