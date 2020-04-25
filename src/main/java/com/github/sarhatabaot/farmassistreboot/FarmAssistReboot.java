@@ -6,6 +6,8 @@ import com.github.sarhatabaot.farmassistreboot.tasks.SimpleUpdateCheckerTask;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import com.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
 import com.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
+import lombok.Getter;
+import lombok.Setter;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -17,44 +19,23 @@ import java.util.List;
 /**
  * @author sarhatabaot
  */
-
+@Getter @Setter
 public class FarmAssistReboot extends JavaPlugin {
     public List<String> disabledPlayerList = new ArrayList<>();
     private FarmAssistConfig assistConfig;
 
     // State
-    private boolean enabled;
+    private boolean globalEnabled;
 
     private boolean needsUpdate;
     private String newVersion;
-
-    public boolean isNeedsUpdate() {
-        return needsUpdate;
-    }
-
-    public FarmAssistConfig getAssistConfig() {
-        return assistConfig;
-    }
-
-    public void setNeedsUpdate(final boolean needsUpdate) {
-        this.needsUpdate = needsUpdate;
-    }
-
-    public String getNewVersion() {
-        return newVersion;
-    }
-
-    public void setNewVersion(final String newVersion) {
-        this.newVersion = newVersion;
-    }
-
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         this.assistConfig = new FarmAssistConfig(this);
 
-        this.enabled = true;
+        this.globalEnabled = true;
 
         BukkitCommandManager commandManager = new BukkitCommandManager(this);
         commandManager.registerCommand(new FarmAssistCommand(this));
@@ -86,13 +67,4 @@ public class FarmAssistReboot extends JavaPlugin {
         pluginManager.registerEvents(new BlockBreakListener(this),this);
         getLogger().info("Registered listeners");
     }
-
-    public void setGlobalEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public boolean isGlobalEnabled() {
-        return enabled;
-    }
-
 }
