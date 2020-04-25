@@ -1,15 +1,15 @@
-package io.github.sarhatabaot.farmassistreboot;
+package com.github.sarhatabaot.farmassistreboot;
 
-import io.github.sarhatabaot.farmassistreboot.command.CommandManager;
-import io.github.sarhatabaot.farmassistreboot.command.commands.CommandGlobal;
-import io.github.sarhatabaot.farmassistreboot.command.commands.CommandReload;
-import io.github.sarhatabaot.farmassistreboot.command.commands.CommandToggle;
-import io.github.sarhatabaot.farmassistreboot.command.commands.CommandUpdate;
-import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
-import io.github.sarhatabaot.farmassistreboot.config.FarmAssistCrops;
-import io.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
-import io.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
-import io.github.sarhatabaot.farmassistreboot.tasks.SimpleUpdateCheckerTask;
+import com.github.sarhatabaot.farmassistreboot.command.CommandManager;
+import com.github.sarhatabaot.farmassistreboot.command.commands.CommandGlobal;
+import com.github.sarhatabaot.farmassistreboot.command.commands.CommandReload;
+import com.github.sarhatabaot.farmassistreboot.command.commands.CommandToggle;
+import com.github.sarhatabaot.farmassistreboot.command.commands.CommandUpdate;
+import com.github.sarhatabaot.farmassistreboot.tasks.SimpleUpdateCheckerTask;
+import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
+import com.github.sarhatabaot.farmassistreboot.config.FarmAssistCrops;
+import com.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
+import com.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

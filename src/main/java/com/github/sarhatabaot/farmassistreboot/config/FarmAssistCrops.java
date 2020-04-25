@@ -1,4 +1,4 @@
-package io.github.sarhatabaot.farmassistreboot.config;
+package com.github.sarhatabaot.farmassistreboot.config;
 
 import org.bukkit.Material;
 

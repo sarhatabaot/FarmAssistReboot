@@ -1,6 +1,6 @@
-package io.github.sarhatabaot.farmassistreboot.listeners;
+package com.github.sarhatabaot.farmassistreboot.listeners;
 
-import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
+import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 

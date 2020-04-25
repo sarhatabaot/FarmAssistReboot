@@ -1,8 +1,8 @@
-package io.github.sarhatabaot.farmassistreboot.command.commands;
+package com.github.sarhatabaot.farmassistreboot.command.commands;
 
-import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import io.github.sarhatabaot.farmassistreboot.command.Command;
-import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
+import com.github.sarhatabaot.farmassistreboot.command.Command;
+import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
+import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import org.bukkit.command.CommandSender;
 
 public class CommandUpdate {

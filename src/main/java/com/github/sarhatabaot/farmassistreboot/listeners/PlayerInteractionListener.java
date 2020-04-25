@@ -1,9 +1,9 @@
-package io.github.sarhatabaot.farmassistreboot.listeners;
+package com.github.sarhatabaot.farmassistreboot.listeners;
 
-import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import io.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
-import io.github.sarhatabaot.farmassistreboot.Util;
-import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
+import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
+import com.github.sarhatabaot.farmassistreboot.Util;
+import com.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
+import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;

@@ -1,6 +1,6 @@
-package io.github.sarhatabaot.farmassistreboot;
+package com.github.sarhatabaot.farmassistreboot;
 
-import io.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
+import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;

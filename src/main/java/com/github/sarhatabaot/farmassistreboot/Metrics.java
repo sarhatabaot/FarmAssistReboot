@@ -1,4 +1,4 @@
-package io.github.sarhatabaot.farmassistreboot;
+package com.github.sarhatabaot.farmassistreboot;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;

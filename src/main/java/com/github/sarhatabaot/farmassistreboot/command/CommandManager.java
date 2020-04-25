@@ -1,4 +1,4 @@
-package io.github.sarhatabaot.farmassistreboot.command;
+package com.github.sarhatabaot.farmassistreboot.command;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

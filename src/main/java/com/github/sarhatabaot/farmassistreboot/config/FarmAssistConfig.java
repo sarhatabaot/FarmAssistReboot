@@ -1,13 +1,11 @@
-package io.github.sarhatabaot.farmassistreboot.config;
+package com.github.sarhatabaot.farmassistreboot.config;
 
-import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
+import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 

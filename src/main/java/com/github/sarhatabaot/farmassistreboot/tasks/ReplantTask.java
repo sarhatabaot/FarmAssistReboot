@@ -1,6 +1,6 @@
-package io.github.sarhatabaot.farmassistreboot.tasks;
+package com.github.sarhatabaot.farmassistreboot.tasks;
 
-import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
+import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;

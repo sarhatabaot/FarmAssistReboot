@@ -1,6 +1,6 @@
-package io.github.sarhatabaot.farmassistreboot.tasks;
+package com.github.sarhatabaot.farmassistreboot.tasks;
 
-import io.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
+import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
