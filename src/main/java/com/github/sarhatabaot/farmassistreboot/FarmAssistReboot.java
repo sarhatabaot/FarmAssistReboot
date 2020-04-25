@@ -87,10 +87,7 @@ public class FarmAssistReboot extends JavaPlugin {
         this.enabled = enabled;
     }
 
-
-    public static FarmAssistReboot getInstance(){
-        return instance;
-    }
+    
 
     public boolean isGlobalEnabled() {
         return enabled;
