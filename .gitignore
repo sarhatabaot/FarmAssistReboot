@@ -5,4 +5,5 @@ target
 
 # IntelliJ #
 .idea
-FarmAssistReboot.iml
+*.iml
+dependency-reduced-pom.xml
