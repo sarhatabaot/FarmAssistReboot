@@ -3,8 +3,8 @@ package com.github.sarhatabaot.farmassistreboot.listeners;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.github.sarhatabaot.farmassistreboot.Util;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
-import com.github.sarhatabaot.farmassistreboot.config.CropsUtil;
 import com.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
+import com.google.common.collect.ImmutableList;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
@@ -17,6 +17,20 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public class BlockBreakListener implements Listener {
+    private final ImmutableList<Material> cropList = ImmutableList.of(
+            Material.WHEAT,
+            Material.SUGAR_CANE,
+            Material.NETHER_WART,
+            Material.COCOA,
+            Material.CARROTS,
+            Material.POTATOES,
+            Material.ATTACHED_MELON_STEM,
+            Material.ATTACHED_PUMPKIN_STEM,
+            Material.PUMPKIN_STEM,
+            Material.MELON_STEM,
+            Material.BEETROOTS,
+            Material.CACTUS
+    );
     private FarmAssistReboot plugin;
 
     public BlockBreakListener(FarmAssistReboot plugin) {
@@ -73,7 +87,7 @@ public class BlockBreakListener implements Listener {
     private void applyReplant(BlockBreakEvent event) {
         Material material = event.getBlock().getType();
         FarmAssistReboot.debug("Block broken: "+material.name());
-        if (!CropsUtil.cropList.contains(material)) {
+        if (!cropList.contains(material)) {
             FarmAssistReboot.debug("Crop List doesn't contain: " + material.name());
             return;
         }
