@@ -6,6 +6,7 @@ import com.github.sarhatabaot.farmassistreboot.tasks.SimpleUpdateCheckerTask;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import com.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
 import com.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -71,7 +72,7 @@ public class FarmAssistReboot extends JavaPlugin {
            Bukkit.getScheduler().runTaskAsynchronously(this, new SimpleUpdateCheckerTask(this));
         }
 
-        Metrics metrics = new Metrics(this);
+        Metrics metrics = new Metrics(this,3885);
 
     }
 
