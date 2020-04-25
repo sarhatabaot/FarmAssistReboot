@@ -14,8 +14,8 @@ import java.net.URLConnection;
  * @author sarhatabaot
  */
 public class SimpleUpdateCheckerTask implements Runnable {
-    private FarmAssistReboot plugin;
-    private String versionNumber;
+    private final FarmAssistReboot plugin;
+    private final String versionNumber;
 
     private final String latest = "https://api.github.com/repos/sarhatabaot/FarmAssistReboot/releases/latest";
 
@@ -35,8 +35,8 @@ public class SimpleUpdateCheckerTask implements Runnable {
             JSONObject jsonObject = (JSONObject) obj;
             String remoteVer = (String) jsonObject.get("tag_name");
             remoteVer = remoteVer.replace("v","");
-            int remoteVal = Integer.valueOf(remoteVer.replace(".", ""));
-            int localVer = Integer.valueOf(versionNumber.replace(".", ""));
+            int remoteVal = Integer.parseInt(remoteVer.replace(".", ""));
+            int localVer = Integer.parseInt(versionNumber.replace(".", ""));
             if (remoteVal > localVer) {
                 plugin.setNeedsUpdate(true);
                 plugin.setNewVersion(remoteVer);
@@ -45,7 +45,7 @@ public class SimpleUpdateCheckerTask implements Runnable {
                 plugin.setNeedsUpdate(false);
                 plugin.getLogger().info("You are running the latest version: " + versionNumber);
             }
-        } catch (Throwable t){
+        } catch (Exception t){
             plugin.getLogger().info("Could not get new version.");
             t.printStackTrace();
         }
