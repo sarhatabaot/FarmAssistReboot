@@ -1,11 +1,7 @@
 package com.github.sarhatabaot.farmassistreboot;
 
 import co.aikar.commands.BukkitCommandManager;
-import com.github.sarhatabaot.farmassistreboot.command.CommandManager;
 import com.github.sarhatabaot.farmassistreboot.command.FarmAssistCommand;
-import com.github.sarhatabaot.farmassistreboot.command.commands.CommandGlobal;
-import com.github.sarhatabaot.farmassistreboot.command.commands.CommandReload;
-import com.github.sarhatabaot.farmassistreboot.command.commands.CommandToggle;
 import com.github.sarhatabaot.farmassistreboot.tasks.SimpleUpdateCheckerTask;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import com.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
@@ -34,7 +30,24 @@ public class FarmAssistReboot extends JavaPlugin {
     // State
     private boolean enabled;
 
+    private boolean needsUpdate;
+    private String newVersion;
 
+    public boolean isNeedsUpdate() {
+        return needsUpdate;
+    }
+
+    public void setNeedsUpdate(final boolean needsUpdate) {
+        this.needsUpdate = needsUpdate;
+    }
+
+    public String getNewVersion() {
+        return newVersion;
+    }
+
+    public void setNewVersion(final String newVersion) {
+        this.newVersion = newVersion;
+    }
 
     @Override
     public void onDisable() {
