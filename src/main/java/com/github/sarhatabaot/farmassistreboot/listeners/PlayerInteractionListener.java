@@ -4,6 +4,7 @@ import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.github.sarhatabaot.farmassistreboot.Util;
 import com.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
+import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -14,12 +15,9 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+@RequiredArgsConstructor
 public class PlayerInteractionListener implements Listener {
-    private FarmAssistReboot plugin;
-
-    public PlayerInteractionListener(FarmAssistReboot plugin) {
-        this.plugin = plugin;
-    }
+    private final FarmAssistReboot plugin;
 
     /**
      * On till event
@@ -99,7 +97,7 @@ public class PlayerInteractionListener implements Listener {
     /**
      * Checks if the block is farmable.
      * @param event PlayerInteractEvent
-     * @return
+     * @return true if block is farmable
      */
     private boolean isPlayerBlockFarmable(PlayerInteractEvent event) {
         boolean isGrassOrDirt = event.getClickedBlock().getType() == Material.GRASS_BLOCK || event.getClickedBlock().getType() == Material.DIRT;
