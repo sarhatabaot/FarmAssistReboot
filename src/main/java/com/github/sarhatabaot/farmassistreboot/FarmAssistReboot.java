@@ -98,31 +98,7 @@ public class FarmAssistReboot extends JavaPlugin {
     public void setGlobalEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (command.getName().equalsIgnoreCase("farmassist")) {
-            List<String> commands = new ArrayList<>();
-            if (sender instanceof Player) {
-                Player player = (Player) sender;
-                if (player.hasPermission("farmassist.reload")) {
-                    commands.add("reload");
-                }
-                if (player.hasPermission("farmassist.toggle.global")) {
-                    commands.add("global");
-                }
-                if (player.hasPermission("farmassist.toggle")) {
-                    commands.add("toggle");
-                }
-                if (player.hasPermission("farmassist.update")) {
-                    commands.add("update");
-                }
-            }
-            return commands;
-        }
-        return null;
-    }
+    
 
     public static FarmAssistReboot getInstance(){
         return instance;
