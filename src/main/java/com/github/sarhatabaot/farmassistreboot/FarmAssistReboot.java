@@ -31,9 +31,6 @@ public class FarmAssistReboot extends JavaPlugin {
 
     public List<String> disabledPlayerList = new ArrayList<>();
 
-    // Commands
-    private CommandManager commandManager;
-
     // State
     private boolean enabled;
 
@@ -55,7 +52,6 @@ public class FarmAssistReboot extends JavaPlugin {
 
         BukkitCommandManager commandManager = new BukkitCommandManager(this);
         commandManager.registerCommand(new FarmAssistCommand(this));
-        registerCommands();
         registerListeners();
 
         if (FarmAssistConfig.getInstance().getCheckForUpdates()) {
@@ -83,30 +79,6 @@ public class FarmAssistReboot extends JavaPlugin {
         pluginManager.registerEvents(new PlayerInteractionListener(this),this);
         pluginManager.registerEvents(new BlockBreakListener(this),this);
         getLogger().info("Registered listeners");
-    }
-
-    /**
-     * Registers commands
-     */
-    private void registerCommands() {
-        commandManager = new CommandManager();
-        commandManager.register(CommandManager.class,commandManager);
-        commandManager.register(CommandGlobal.class,new CommandGlobal(this));
-        commandManager.register(CommandReload.class,new CommandReload(this));
-        commandManager.register(CommandToggle.class,new CommandToggle(this));
-        getLogger().info("Registered commands");
-    }
-
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("FarmAssist") && args.length > 0) {
-            //Spoof args array to account for the initial sub-command specification
-            String[] spoofedArgs = new String[args.length - 1];
-            System.arraycopy(args, 1, spoofedArgs, 0, args.length - 1);
-            commandManager.callCommand(args[0], sender, spoofedArgs);
-            return true;
-        }
-        return false;
     }
 
     public void setGlobalEnabled(boolean enabled) {
