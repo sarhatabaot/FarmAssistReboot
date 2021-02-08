@@ -1,6 +1,5 @@
 package com.github.sarhatabaot.farmassistreboot;
 
-import co.aikar.commands.BukkitCommandManager;
 import co.aikar.commands.PaperCommandManager;
 import com.github.sarhatabaot.farmassistreboot.command.FarmAssistCommand;
 import com.github.sarhatabaot.farmassistreboot.tasks.SimpleUpdateCheckerTask;
@@ -26,7 +25,6 @@ public class FarmAssistReboot extends JavaPlugin {
     private List<UUID> disabledPlayerList = new ArrayList<>();
     private FarmAssistConfig assistConfig;
 
-    // State
     private boolean globalEnabled;
 
     private boolean needsUpdate;
@@ -50,12 +48,11 @@ public class FarmAssistReboot extends JavaPlugin {
     }
 
     /**
-     * Sends colored debug message.
      * @param msg Message to send
      */
     public static void debug(String msg) {
         if(FarmAssistConfig.DEBUG)
-            Bukkit.getPluginManager().getPlugin("FarmAssistReboot").getLogger().warning("\u001B[33m"+"[DEBUG] "+msg+"\u001B[0m");
+            Bukkit.getPluginManager().getPlugin("FarmAssistReboot").getLogger().warning("DEBUG "+msg);
     }
 
     /**
