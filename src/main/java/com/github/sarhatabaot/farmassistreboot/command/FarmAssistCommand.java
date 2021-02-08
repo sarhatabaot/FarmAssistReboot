@@ -5,6 +5,7 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Description;
+import co.aikar.commands.annotation.Subcommand;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.ChatColor;
@@ -17,7 +18,7 @@ public class FarmAssistCommand extends BaseCommand {
 	private final FarmAssistReboot plugin;
 
 	@Default
-	@CommandAlias("toggle")
+	@Subcommand("toggle")
 	@CommandPermission("farmassist.toggle")
 	@Description("toggle usage of FarmAssist")
 	public void onToggle(final Player player){
@@ -30,7 +31,7 @@ public class FarmAssistCommand extends BaseCommand {
 		}
 	}
 
-	@CommandAlias("global|g")
+	@Subcommand("global|g")
 	@CommandPermission("farmassist.toggle.global")
 	@Description("turn farmassist off/on globally")
 	public void onGlobal(final CommandSender sender){
@@ -43,14 +44,14 @@ public class FarmAssistCommand extends BaseCommand {
 		}
 	}
 
-	@CommandAlias("info|about")
+	@Subcommand("info|about")
 	@CommandPermission("farmassist.info")
 	public void onInfo(final CommandSender sender){
 		sender.sendMessage(String.format("%s version: %s",plugin.getName(),plugin.getDescription().getVersion()));
 		sender.sendMessage(String.format("Maintainers: %s", plugin.getDescription().getAuthors()));
 	}
 
-	@CommandAlias("reload")
+	@Subcommand("reload")
 	@CommandPermission("farmassist.reload")
 	@Description("Reload FarmAssistReboot")
 	public void onReload(final CommandSender sender){
