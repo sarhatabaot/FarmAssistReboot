@@ -10,8 +10,8 @@ import org.bukkit.block.data.type.Cocoa;
 import org.bukkit.inventory.ItemStack;
 
 public class ReplantTask implements Runnable {
-    private Block block;
-    private Material material;
+    private final Block block;
+    private final Material material;
 
     private Cocoa cocoa;
 
