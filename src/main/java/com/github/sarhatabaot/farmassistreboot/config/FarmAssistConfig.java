@@ -40,7 +40,7 @@ public class FarmAssistConfig {
     }
 
     public static boolean getEnabled(Material material) {
-        return config.getBoolean(material.name().toLowerCase() + ".Enabled");
+        return config.getBoolean(material.name().toLowerCase() + ".enabled");
     }
 
 
