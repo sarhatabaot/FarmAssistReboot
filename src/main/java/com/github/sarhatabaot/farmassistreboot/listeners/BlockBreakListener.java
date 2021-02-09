@@ -114,20 +114,8 @@ public class BlockBreakListener implements Listener {
         FarmAssistReboot.debug("Fallthrough");
     }
 
-
-    private Material getMaterialFromCrops(Material material) {
-        switch (material) {
-            case MELON_STEM:
-            case ATTACHED_MELON_STEM:
-                return Material.MELON;
-            case PUMPKIN_STEM:
-            case ATTACHED_PUMPKIN_STEM:
-                return Material.PUMPKIN;
-            default:
-                return material;
-        }
-    }
     
+
     private boolean isRipe(@NotNull Block block) {
         Ageable age = (Ageable) block.getBlockData();
         return (age.getAge() == age.getMaximumAge());
