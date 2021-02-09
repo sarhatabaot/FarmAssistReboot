@@ -1,5 +1,6 @@
 package com.github.sarhatabaot.farmassistreboot.tasks;
 
+import com.github.sarhatabaot.farmassistreboot.Crop;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -26,110 +27,61 @@ public class ReplantTask extends BukkitRunnable {
         }
     }
 
+    private void setBlockAndDropItem(final Material material){
+        Crop crop = Crop.valueOf(material.name());
+        if(isBottomBlock(crop.getPlantedOn()) && block.getType() == Material.AIR){
+            setBlock(material);
+        } else {
+            dropItem(material);
+        }
+    }
+
+    private void setBlock(final Material material){
+        this.block.setType(material);
+        this.block.setBlockData(setCropAge());
+    }
+
+    private void dropItem(final Material material) {
+        Crop crop = Crop.valueOf(material.name());
+        this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(crop.getSeed()));
+    }
 
     @Override
     public void run() {
         FarmAssistReboot.debug("Block: "+block.getType().name()+",Material: "+material.name());
         switch (material){
-            case WHEAT:{
-                if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
-                    this.block.setType(material);
-                    this.block.setBlockData(setCropAge());
-                } else{
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.WHEAT));
-                }
+            case COCOA:
+                setCocoaOrDropSeed();
                 break;
-            }
-            case CARROTS:{
-                if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
-                    this.block.setType(material);
-                } else{
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.CARROT));
-                }
-                break;
-            }
-            case POTATOES:{
-                if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
-                    this.block.setType(material);
-                } else{
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.POTATO));
-                }
-                break;
-            }
-            case CACTUS: {
-                if(isBottomBlock(Material.SAND) && this.block.getType() == Material.AIR){
-                    this.block.setType(material);
-                } else {
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.CACTUS));
-                }
-                break;
-            }
-            case SUGAR_CANE:{
-                if ((isBottomBlock(Material.GRASS) || isBottomBlock(Material.DIRT) || isBottomBlock(Material.SAND))
-                        && this.block.getType() == Material.AIR) {
-                    this.block.setType(material);
-                } else{
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.SUGAR_CANE));
-                }
-                break;
-            }
-            case NETHER_WART:{
-                if (isBottomBlock(Material.SOUL_SAND) && this.block.getType() == Material.AIR) {
-                    this.block.setType(material);
-                    this.block.setBlockData(setCropAge());
-                } else{
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.NETHER_WART));
-                }
-                break;
-            }
-            case COCOA:{
-                if (this.block.getType() == Material.AIR) {
-                    if(this.block.getRelative(cocoa.getFacing()).getType() == Material.JUNGLE_LOG){
-                        this.block.setType(material);
-                        this.block.setBlockData(cocoa);
-                    }
-                    else {
-                        this.block.getWorld().dropItemNaturally(this.block.getLocation(), new ItemStack(Material.COCOA_BEANS));
-                    }
-                }
-                break;
-            }
-            case ATTACHED_PUMPKIN_STEM:
-            case PUMPKIN_STEM:{
-                if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
-                    this.block.setType(Material.PUMPKIN_STEM);
-                } else{
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.PUMPKIN_SEEDS));
-                }
-                break;
-            }
-            case ATTACHED_MELON_STEM:
-            case MELON_STEM:{
-                if (isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
-                    this.block.setType(Material.MELON_STEM);
-                } else{
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.MELON_SEEDS));
-                }
-                break;
-            }
-            case BEETROOTS: {
-                if(isBottomBlock(Material.FARMLAND) && this.block.getType() == Material.AIR) {
-                    this.block.setType(material);
-                } else {
-                    this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(Material.BEETROOT_SEEDS));
-                }
-                break;
-            }
-            case FARMLAND: {
+            case FARMLAND:
                 if(this.block.getRelative(BlockFace.UP).getType() == Material.AIR)
                     this.block.getRelative(BlockFace.UP).setType(Material.WHEAT);
                 break;
-            }
-            default:{
-                FarmAssistReboot.debug("Error while getting material."+material.name());
+            default:
+                setBlockAndDropItem(material);
                 break;
+
+        }
+    }
+
+    private void setCocoaOrDropSeed(){
+        if (this.block.getType() == Material.AIR) {
+            if(this.block.getRelative(cocoa.getFacing()).getType() == Material.JUNGLE_LOG){
+                this.block.setType(material);
+                this.block.setBlockData(cocoa);
+            }
+            else {
+                this.block.getWorld().dropItemNaturally(this.block.getLocation(), new ItemStack(Material.COCOA_BEANS));
             }
         }
+    }
+
+    private boolean isBottomBlock(Material[] materials) {
+        for(Material bottomMaterial:materials){
+            if(isBottomBlock(bottomMaterial))
+                return true;
+        }
+        return false;
     }
 
     private boolean isBottomBlock(Material material){
