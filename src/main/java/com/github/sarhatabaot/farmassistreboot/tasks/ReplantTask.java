@@ -30,7 +30,7 @@ public class ReplantTask extends BukkitRunnable {
     private void setBlockAndDropItem(final Material material){
         Crop crop = Crop.valueOf(material.name());
         if(isBottomBlock(crop.getPlantedOn()) && block.getType() == Material.AIR){
-            setBlock(material);
+            setBlock(crop.getPlanted());
         } else {
             dropItem(material);
         }
