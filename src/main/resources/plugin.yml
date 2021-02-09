@@ -1,4 +1,4 @@
-main: io.github.sarhatabaot.farmassistreboot.FarmAssistReboot
+main: com.github.sarhatabaot.farmassistreboot.FarmAssistReboot
 name: FarmAssistReboot
 version: ${project.version}
 authors: [sarhatbaot]
