@@ -43,14 +43,17 @@ public class BlockBreakListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         if (!plugin.isGlobalEnabled())
             return;
+
         if (this.plugin.getDisabledPlayerList().contains(event.getPlayer().getUniqueId()))
             return;
+
         if (FarmAssistConfig.USE_PERMISSIONS && !hasMaterialPermission(event)){
             String playerName = "Player: "+event.getPlayer().getDisplayName();
             String permission = "farmassist."+getMaterialFromCrops(event.getBlock().getType()).name();
             FarmAssistReboot.debug(playerName+", "+"doesn't have permission "+"\u001b[36m"+permission+"\u001b[0m");
             return;
         }
+
         if (Util.isWorldEnabled(event.getPlayer().getWorld())) {
             FarmAssistReboot.debug("Is"+event.getPlayer().getWorld().getName()+" enabled: " + Util.isWorldEnabled(event.getPlayer().getWorld()));
             applyReplant(event);
@@ -94,7 +97,7 @@ public class BlockBreakListener implements Listener {
 
         if (FarmAssistConfig.getEnabled(getMaterialFromCrops(material))) {
 
-            if (!Util.inventoryContains(event.getPlayer(), material)) {
+            if (!Util.inventoryContains(event.getPlayer().getInventory(), material)) {
                 FarmAssistReboot.debug("Player doesn't have the correct seeds/material to replant");
                 return;
             }
