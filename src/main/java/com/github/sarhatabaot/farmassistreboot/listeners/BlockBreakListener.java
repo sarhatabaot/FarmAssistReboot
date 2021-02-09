@@ -1,5 +1,6 @@
 package com.github.sarhatabaot.farmassistreboot.listeners;
 
+import com.github.sarhatabaot.farmassistreboot.Crop;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.github.sarhatabaot.farmassistreboot.Util;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
@@ -71,18 +72,21 @@ public class BlockBreakListener implements Listener {
      * @param material Material to remove from inventory
      */
     private void replant(@NotNull Player player, Block block, Material material) {
-        int spot = player.getInventory().first(getCrop(material));
-        ItemStack next;
+        Crop crop = Crop.valueOf(material.name());
+        int spot = player.getInventory().first(crop.getSeed());
         if (spot >= 0) {
-            next = player.getInventory().getItem(spot);
-            if (next.getAmount() > 1) {
-                next.setAmount(next.getAmount() - 1);
-                player.getInventory().setItem(spot, next);
-            } else {
-                player.getInventory().setItem(spot, new ItemStack(Material.AIR));
-            }
-            ReplantTask b = new ReplantTask(block);
-            this.plugin.getServer().getScheduler().scheduleSyncDelayedTask(this.plugin, b, 20L);
+            removeOrSubtractItem(player,spot);
+            new ReplantTask(block).runTaskLater(this.plugin,5L);
+        }
+    }
+
+    private void removeOrSubtractItem(Player player,int spot) {
+        ItemStack next = player.getInventory().getItem(spot);
+        if (next.getAmount() > 1) {
+            next.setAmount(next.getAmount() - 1);
+            player.getInventory().setItem(spot, next);
+        } else {
+            player.getInventory().setItem(spot, new ItemStack(Material.AIR));
         }
     }
 
@@ -94,8 +98,7 @@ public class BlockBreakListener implements Listener {
             return;
         }
         FarmAssistReboot.debug("Crop List contains: " + material.name());
-
-        if (FarmAssistConfig.getEnabled(getMaterialFromCrops(material))) {
+        if (FarmAssistConfig.getEnabled(material)) {
 
             if (!Util.inventoryContains(event.getPlayer().getInventory(), material)) {
                 FarmAssistReboot.debug("Player doesn't have the correct seeds/material to replant");
