@@ -27,10 +27,6 @@ public class BlockBreakListener implements Listener {
             Material.COCOA,
             Material.CARROTS,
             Material.POTATOES,
-            Material.ATTACHED_MELON_STEM,
-            Material.ATTACHED_PUMPKIN_STEM,
-            Material.PUMPKIN_STEM,
-            Material.MELON_STEM,
             Material.BEETROOTS,
             Material.CACTUS
     );
@@ -114,7 +110,7 @@ public class BlockBreakListener implements Listener {
         FarmAssistReboot.debug("Fallthrough");
     }
 
-    
+
 
     private boolean isRipe(@NotNull Block block) {
         Ageable age = (Ageable) block.getBlockData();
