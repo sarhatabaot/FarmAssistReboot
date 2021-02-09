@@ -46,7 +46,7 @@ public class PlayerInteractionListener implements Listener {
         if (Util.isWorldEnabled(event.getPlayer().getWorld())
                 && FarmAssistConfig.getEnabled(Material.WHEAT)
                 && FarmAssistConfig.PLANT_WHEAT_ON_TILL) {
-            if (Util.inventoryContains(event.getPlayer(), Material.WHEAT)) {
+            if (Util.inventoryContains(event.getPlayer().getInventory(), Material.WHEAT)) {
                 event.getClickedBlock().setType(Material.FARMLAND);
                 replant(player, event.getClickedBlock(), Material.WHEAT_SEEDS);
             }
