@@ -50,7 +50,7 @@ public class BlockBreakListener implements Listener {
 
         if (FarmAssistConfig.USE_PERMISSIONS && !hasMaterialPermission(event)){
             String playerName = "Player: "+event.getPlayer().getDisplayName();
-            String permission = "farmassist."+getMaterialFromCrops(event.getBlock().getType()).name();
+            String permission = "farmassist."+event.getBlock().getType().name();
             FarmAssistReboot.debug(playerName+", "+"doesn't have permission "+"\u001b[36m"+permission+"\u001b[0m");
             return;
         }
@@ -62,9 +62,7 @@ public class BlockBreakListener implements Listener {
     }
 
     private boolean hasMaterialPermission(BlockBreakEvent event){
-        Material material = event.getBlock().getType();
-        material = getMaterialFromCrops(material);
-        return event.getPlayer().hasPermission("farmassist."+material.name());
+        return event.getPlayer().hasPermission("farmassist."+event.getBlock().getType().name());
     }
     /**
      * @param player
@@ -129,36 +127,7 @@ public class BlockBreakListener implements Listener {
                 return material;
         }
     }
-
-    /**
-     * Gets the plantable version of a material
-     *
-     * @param material
-     * @return - The material that the player can plant
-     */
-    private Material getCrop(Material material) {
-        switch (material) {
-            case COCOA:
-                return Material.COCOA_BEANS;
-            case CARROTS:
-                return Material.CARROT;
-            case POTATOES:
-                return Material.POTATO;
-            case BEETROOTS:
-                return Material.BEETROOT_SEEDS;
-            case PUMPKIN_STEM:
-            case ATTACHED_PUMPKIN_STEM:
-                return Material.PUMPKIN_SEEDS;
-            case MELON_STEM:
-            case ATTACHED_MELON_STEM:
-                return Material.MELON_SEEDS;
-            case WHEAT:
-                return Material.WHEAT_SEEDS;
-            default:
-                return material;
-        }
-    }
-
+    
     private boolean isRipe(@NotNull Block block) {
         Ageable age = (Ageable) block.getBlockData();
         return (age.getAge() == age.getMaximumAge());
