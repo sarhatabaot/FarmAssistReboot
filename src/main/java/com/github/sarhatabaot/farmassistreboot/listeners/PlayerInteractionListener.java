@@ -40,6 +40,7 @@ public class PlayerInteractionListener implements Listener {
         if (FarmAssistConfig.USE_PERMISSIONS && (!event.getPlayer().hasPermission("farmassist.wheat")) || !event.getPlayer().hasPermission("farmassist.till")) {
             return;
         }
+
         final Player player = event.getPlayer();
         FarmAssistReboot.debug("config.wheat: "+ FarmAssistConfig.getEnabled(Material.WHEAT));
         FarmAssistReboot.debug("config.plant-on-till: "+ FarmAssistConfig.PLANT_WHEAT_ON_TILL);
@@ -48,33 +49,11 @@ public class PlayerInteractionListener implements Listener {
                 && FarmAssistConfig.PLANT_WHEAT_ON_TILL) {
             if (Util.inventoryContains(event.getPlayer().getInventory(), Material.WHEAT)) {
                 event.getClickedBlock().setType(Material.FARMLAND);
-                replant(player, event.getClickedBlock(), Material.WHEAT_SEEDS);
+                Util.replant(player, event.getClickedBlock(), Material.WHEAT);
             }
         }
     }
 
-
-    /**
-     * @param player Player that replants.
-     * @param block Block that's being set.
-     * @param material Material to replant.
-     */
-    private void replant(Player player, Block block, Material material) {
-        int spot = player.getInventory().first(material);
-        ItemStack next;
-        if (spot >= 0) {
-            next = player.getInventory().getItem(spot);
-            if (next.getAmount() > 1) {
-                next.setAmount(next.getAmount() - 1);
-                player.getInventory().setItem(spot, next);
-            } else {
-                player.getInventory().setItem(spot, new ItemStack(Material.AIR));
-            }
-
-            ReplantTask b = new ReplantTask(block);
-            this.plugin.getServer().getScheduler().scheduleSyncDelayedTask(this.plugin, b, 20L);
-        }
-    }
 
     /**
      * Checks if the material is a hoe

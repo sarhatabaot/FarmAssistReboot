@@ -39,7 +39,7 @@ public class FarmAssistReboot extends JavaPlugin {
         PaperCommandManager commandManager = new PaperCommandManager(this);
         commandManager.registerCommand(new FarmAssistCommand(this));
         registerListeners();
-
+        Util.init(this);
         if (FarmAssistConfig.CHECK_FOR_UPDATES) {
             new SimpleUpdateCheckerTask(this).runTaskAsynchronously(this);
         }

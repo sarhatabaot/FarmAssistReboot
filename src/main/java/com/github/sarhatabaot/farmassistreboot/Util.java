@@ -1,15 +1,23 @@
 package com.github.sarhatabaot.farmassistreboot;
 
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
+import com.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author sarhatabaot
  */
 public class Util {
+    private static FarmAssistReboot plugin;
+    public static void init(final FarmAssistReboot plugin){
+        Util.plugin= plugin;
+    }
     public static boolean inventoryContains(PlayerInventory playerInventory, Material material){
         switch (material){
             case COCOA:
@@ -41,6 +49,25 @@ public class Util {
         FarmAssistReboot.debug(globalWorld);
         FarmAssistReboot.debug(localWorld);
         return !FarmAssistConfig.ENABLED_PER_WORLD || FarmAssistConfig.ENABLED_WORLDS.contains(world);
+    }
+
+    public static void replant(@NotNull Player player, Block block, Material material) {
+        Crop crop = Crop.valueOf(material.name());
+        int spot = player.getInventory().first(crop.getSeed());
+        if (spot >= 0) {
+            removeOrSubtractItem(player, spot);
+            new ReplantTask(block).runTaskLater(plugin, 5L);
+        }
+    }
+
+    public static void removeOrSubtractItem(Player player, int spot) {
+        ItemStack next = player.getInventory().getItem(spot);
+        if (next.getAmount() > 1) {
+            next.setAmount(next.getAmount() - 1);
+            player.getInventory().setItem(spot, next);
+        } else {
+            player.getInventory().setItem(spot, new ItemStack(Material.AIR));
+        }
     }
 
 

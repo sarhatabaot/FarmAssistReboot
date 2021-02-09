@@ -61,30 +61,6 @@ public class BlockBreakListener implements Listener {
 		return event.getPlayer().hasPermission("farmassist." + event.getBlock().getType().name());
 	}
 
-	/**
-	 * @param player
-	 * @param block    Block broken
-	 * @param material Material to remove from inventory
-	 */
-	private void replant(@NotNull Player player, Block block, Material material) {
-		Crop crop = Crop.valueOf(material.name());
-		int spot = player.getInventory().first(crop.getSeed());
-		if (spot >= 0) {
-			removeOrSubtractItem(player, spot);
-			new ReplantTask(block).runTaskLater(this.plugin, 5L);
-		}
-	}
-
-	private void removeOrSubtractItem(Player player, int spot) {
-		ItemStack next = player.getInventory().getItem(spot);
-		if (next.getAmount() > 1) {
-			next.setAmount(next.getAmount() - 1);
-			player.getInventory().setItem(spot, next);
-		} else {
-			player.getInventory().setItem(spot, new ItemStack(Material.AIR));
-		}
-	}
-
 	private void applyReplant(BlockBreakEvent event) {
 		Material material = event.getBlock().getType();
 		FarmAssistReboot.debug("Block broken: " + material.name());
@@ -105,12 +81,12 @@ public class BlockBreakListener implements Listener {
 		}
 
 		if (material == Material.SUGAR_CANE || material == Material.CACTUS) {
-			replant(event.getPlayer(), event.getBlock(), material);
+			Util.replant(event.getPlayer(), event.getBlock(), material);
 			return;
 		}
 
 		if (!FarmAssistConfig.getRipe(material) || isRipe(event.getBlock())) {
-			replant(event.getPlayer(), event.getBlock(), material);
+			Util.replant(event.getPlayer(), event.getBlock(), material);
 		}
 
 
