@@ -8,8 +8,9 @@ import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Cocoa;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
-public class ReplantTask implements Runnable {
+public class ReplantTask extends BukkitRunnable {
     private final Block block;
     private final Material material;
 
