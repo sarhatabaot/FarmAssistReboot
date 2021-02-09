@@ -52,7 +52,7 @@ public class FarmAssistReboot extends JavaPlugin {
      */
     public static void debug(String msg) {
         if(FarmAssistConfig.DEBUG)
-            Bukkit.getPluginManager().getPlugin("FarmAssistReboot").getLogger().warning("DEBUG "+msg);
+            Bukkit.getPluginManager().getPlugin("FarmAssistReboot").getLogger().info("DEBUG "+msg);
     }
 
     /**
