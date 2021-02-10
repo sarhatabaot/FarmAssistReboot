@@ -97,6 +97,10 @@
                             <pattern>co.aikar.commands</pattern>
                             <shadedPattern>com.github.sarhatabaot.farmassistreboot</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>co.aikar.locales</pattern>
+                            <shadedPattern>com.github.sarhatabaot.farmassistreboot</shadedPattern>
+                        </relocation>
                     </relocations>
                 </configuration>
                 <executions>
