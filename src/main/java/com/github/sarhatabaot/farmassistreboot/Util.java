@@ -36,10 +36,10 @@ public class Util {
             case MELON_STEM:
             case ATTACHED_MELON_STEM:
                 return playerInventory.contains(Material.MELON_SEEDS);
-            default: {
+            default:
                 FarmAssistReboot.debug(material.name()+":"+playerInventory.contains(material));
                 return playerInventory.contains(material);
-            }
+
         }
     }
 
