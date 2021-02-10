@@ -70,11 +70,7 @@ public class PlayerInteractionListener implements Listener {
 	 * @return Return if material is a hoe
 	 */
 	private boolean isHoe(Material material) {
-		return material == Material.WOODEN_HOE
-				|| material == Material.STONE_HOE
-				|| material == Material.IRON_HOE
-				|| material == Material.GOLDEN_HOE
-				|| material == Material.DIAMOND_HOE;
+		return material.name().contains("_HOE");
 	}
 
 	/**
