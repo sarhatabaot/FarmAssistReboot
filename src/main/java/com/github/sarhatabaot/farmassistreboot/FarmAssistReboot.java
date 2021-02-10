@@ -2,6 +2,7 @@ package com.github.sarhatabaot.farmassistreboot;
 
 import co.aikar.commands.PaperCommandManager;
 import com.github.sarhatabaot.farmassistreboot.command.FarmAssistCommand;
+import com.github.sarhatabaot.farmassistreboot.listeners.JoinListener;
 import com.github.sarhatabaot.farmassistreboot.tasks.SimpleUpdateCheckerTask;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import com.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
@@ -39,7 +40,7 @@ public class FarmAssistReboot extends JavaPlugin {
         PaperCommandManager commandManager = new PaperCommandManager(this);
         commandManager.registerCommand(new FarmAssistCommand(this));
         registerListeners();
-
+        Util.init(this);
         if (FarmAssistConfig.CHECK_FOR_UPDATES) {
             new SimpleUpdateCheckerTask(this).runTaskAsynchronously(this);
         }
@@ -52,7 +53,7 @@ public class FarmAssistReboot extends JavaPlugin {
      */
     public static void debug(String msg) {
         if(FarmAssistConfig.DEBUG)
-            Bukkit.getPluginManager().getPlugin("FarmAssistReboot").getLogger().warning("DEBUG "+msg);
+            Bukkit.getPluginManager().getPlugin("FarmAssistReboot").getLogger().info("DEBUG "+msg);
     }
 
     /**
@@ -62,5 +63,6 @@ public class FarmAssistReboot extends JavaPlugin {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerInteractionListener(this),this);
         pluginManager.registerEvents(new BlockBreakListener(this),this);
+        pluginManager.registerEvents(new JoinListener(this),this);
     }
 }
