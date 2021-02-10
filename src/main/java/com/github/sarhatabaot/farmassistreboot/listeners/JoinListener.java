@@ -17,7 +17,7 @@ public class JoinListener implements Listener {
 	@EventHandler
 	public void onPlayerJoin(final PlayerJoinEvent event){
 		final Player player = event.getPlayer();
-		if(!player.hasPermission("farmassistreboot.notify.update"))
+		if(!player.hasPermission("farmassist.notify.update"))
 			return;
 
 		if(!plugin.isNeedsUpdate()) {
