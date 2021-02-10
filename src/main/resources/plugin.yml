@@ -45,3 +45,5 @@ permissions:
     default: op
   farmassist.update:
     default: op
+  farmassist.notify.update:
+    default: op
