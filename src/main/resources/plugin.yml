@@ -15,8 +15,6 @@ permissions:
     children:
       farmassist.wheat: true
       farmassist.sugar_cane: true
-      farmassist.pumkin: true
-      farmassist.melon: true
       farmassist.cocoa: true
       farmassist.nether_wart: true
       farmassist.carrots: true
@@ -26,8 +24,6 @@ permissions:
   farmassist.wheat:
     default: false
   farmassist.sugar_cane:
-    default: false
-  farmassist.pumpkin:
     default: false
   farmassist.cocoa:
     default: false
@@ -40,8 +36,6 @@ permissions:
   farmassist.beetroots:
     default: false
   farmassist.cactus:
-    default: false
-  farmassist.melon:
     default: false
   farmassist.reload:
     default: op
