@@ -30,12 +30,6 @@ carrots:
 potatoes:
     enabled: true
     replant-when-ripe: false
-pumpkin:
-    enabled: true
-    replant-when-ripe: false
-melon:
-    enabled: true
-    replant-when-ripe: false
 beetroots:
     enabled: true
     replant-when-ripe: false
