@@ -51,6 +51,18 @@ public class FarmAssistCommand extends BaseCommand {
 		sender.sendMessage(String.format("Maintainers: %s", plugin.getDescription().getAuthors()));
 	}
 
+	@Subcommand("update|u")
+	@CommandPermission("farmassist.update")
+	public void onUpdate(final CommandSender sender){
+		if(!plugin.isNeedsUpdate()) {
+			sender.sendMessage(String.format("You are running the latest version: %s" ,plugin.getDescription().getVersion()));
+			return;
+		}
+
+		sender.sendMessage(String.format("New update: %s Current version: %s",plugin.getNewVersion(),plugin.getDescription().getVersion()));
+		sender.sendMessage(String.format("Get at %s",plugin.getDescription().getWebsite()));
+	}
+
 	@Subcommand("reload")
 	@CommandPermission("farmassist.reload")
 	@Description("Reload FarmAssistReboot")
