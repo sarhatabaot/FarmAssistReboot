@@ -10,7 +10,7 @@ public enum Crop {
 	COCOA(new Material[]{Material.JUNGLE_LOG}, Material.COCOA, Material.COCOA),
 	CARROTS(new Material[]{Material.FARMLAND}, Material.CARROTS, Material.CARROT),
 	POTATOES(new Material[]{Material.FARMLAND}, Material.POTATOES, Material.POTATO),
-	BEETROOT(new Material[]{Material.FARMLAND},Material.BEETROOTS,Material.BEETROOT_SEEDS),
+	BEETROOTS(new Material[]{Material.FARMLAND},Material.BEETROOTS,Material.BEETROOT_SEEDS),
 	CACTUS(new Material[]{Material.SAND},Material.CACTUS,Material.CACTUS)
 	;
 
