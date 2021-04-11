@@ -30,12 +30,6 @@ public class Util {
                 return playerInventory.contains(Material.WHEAT_SEEDS);
             case BEETROOTS:
                 return playerInventory.contains(Material.BEETROOT_SEEDS);
-            case PUMPKIN_STEM:
-            case ATTACHED_PUMPKIN_STEM:
-                return playerInventory.contains(Material.PUMPKIN_SEEDS);
-            case MELON_STEM:
-            case ATTACHED_MELON_STEM:
-                return playerInventory.contains(Material.MELON_SEEDS);
             default:
                 FarmAssistReboot.debug(material.name()+":"+playerInventory.contains(material));
                 return playerInventory.contains(material);
