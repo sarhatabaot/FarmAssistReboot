@@ -1,21 +1,17 @@
 package com.github.sarhatabaot.farmassistreboot.listeners;
 
-import com.github.sarhatabaot.farmassistreboot.Crop;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.github.sarhatabaot.farmassistreboot.Util;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
-import com.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
 import com.google.common.collect.ImmutableList;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
@@ -43,6 +39,12 @@ public class BlockBreakListener implements Listener {
 
 		if (this.plugin.getDisabledPlayerList().contains(event.getPlayer().getUniqueId()))
 			return;
+
+
+		if (!cropList.contains(event.getBlock().getType())) {
+			FarmAssistReboot.debug("Crop List doesn't contain: " + event.getBlock().getType().name());
+			return;
+		}
 
 		if (FarmAssistConfig.USE_PERMISSIONS && !hasMaterialPermission(event)) {
 			String playerName = "Player: " + event.getPlayer().getDisplayName();
