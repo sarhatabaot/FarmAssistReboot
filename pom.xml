@@ -6,12 +6,12 @@
 
     <groupId>com.github.sarhatabaot</groupId>
     <artifactId>FarmAssistReboot</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
 
 
     <properties>
         <finalName>${project.artifactId}-${project.version}</finalName>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
         <!-- Encoding Properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
@@ -47,7 +47,7 @@
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
-            <version>1.7</version>
+            <version>2.2.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -59,7 +59,7 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>20.1.0</version>
+            <version>21.0.1</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
