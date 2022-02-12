@@ -1,5 +1,5 @@
 # FarmAssistReboot
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/15cf526f01f64e6e956b1b3996636e72)](https://www.codacy.com/app/sarhatabaot/FarmAssistReboot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=sarhatabaot/FarmAssistReboot&amp;utm_campaign=Badge_Grade)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sarhatabaot_FarmAssistReboot&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=sarhatabaot_FarmAssistReboot)
 ![Java CI with Maven](https://github.com/sarhatabaot/FarmAssistReboot/workflows/Java%20CI%20with%20Maven/badge.svg)
 
 A 1.13.2-1.18.1 version of FarmAssist. 
