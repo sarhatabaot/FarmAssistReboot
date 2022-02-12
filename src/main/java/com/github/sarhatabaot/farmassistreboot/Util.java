@@ -15,6 +15,11 @@ import org.jetbrains.annotations.NotNull;
  */
 public class Util {
     private static FarmAssistReboot plugin;
+
+    private Util() {
+        throw new UnsupportedOperationException();
+    }
+
     public static void init(final FarmAssistReboot plugin){
         Util.plugin= plugin;
     }
