@@ -23,7 +23,7 @@ public class Util {
     public static void init(final FarmAssistReboot plugin){
         Util.plugin= plugin;
     }
-    public static boolean inventoryContains(PlayerInventory playerInventory, Material material){
+    public static boolean inventoryContains(PlayerInventory playerInventory, @NotNull Material material){
         switch (material){
             case COCOA:
                 return playerInventory.contains(Material.COCOA_BEANS);
@@ -42,7 +42,7 @@ public class Util {
         }
     }
 
-    public static boolean isWorldEnabled(World world) {
+    public static boolean isWorldEnabled(@NotNull World world) {
         String globalWorld = "Config.Enabled per World:"+ FarmAssistConfig.ENABLED_PER_WORLD;
         String localWorld = "Is "+"\u001b[36m"+world.getName()+"\u001b[0m enabled: "+FarmAssistConfig.ENABLED_WORLDS.contains(world);
         FarmAssistReboot.debug(globalWorld);
@@ -50,7 +50,7 @@ public class Util {
         return !FarmAssistConfig.ENABLED_PER_WORLD || FarmAssistConfig.ENABLED_WORLDS.contains(world);
     }
 
-    public static void replant(@NotNull Player player, Block block, Material material) {
+    public static void replant(@NotNull Player player, Block block, @NotNull Material material) {
         Crop crop = Crop.valueOf(material.name());
         int spot = player.getInventory().first(crop.getSeed());
         if (spot >= 0) {
@@ -59,9 +59,9 @@ public class Util {
         }
     }
 
-    public static void removeOrSubtractItem(Player player, int spot) {
+    public static void removeOrSubtractItem(@NotNull Player player, int spot) {
         ItemStack next = player.getInventory().getItem(spot);
-        if (next.getAmount() > 1) {
+        if (next != null && next.getAmount() > 1) {
             next.setAmount(next.getAmount() - 1);
             player.getInventory().setItem(spot, next);
         } else {
