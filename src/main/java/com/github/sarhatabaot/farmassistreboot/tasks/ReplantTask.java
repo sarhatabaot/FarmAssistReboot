@@ -10,6 +10,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Cocoa;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 public class ReplantTask extends BukkitRunnable {
     private final Block block;
@@ -17,7 +18,7 @@ public class ReplantTask extends BukkitRunnable {
 
     private Cocoa cocoa;
 
-    public ReplantTask(Block block) {
+    public ReplantTask(@NotNull Block block) {
         this.block = block;
         this.material = block.getType();
 
@@ -27,7 +28,7 @@ public class ReplantTask extends BukkitRunnable {
         }
     }
 
-    private void setBlockAndDropItem(final Material material){
+    private void setBlockAndDropItem(final @NotNull Material material){
         Crop crop = Crop.valueOf(material.name());
         if(isBottomBlock(crop.getPlantedOn()) && block.getType() == Material.AIR){
             setBlock(crop.getPlanted());
@@ -41,7 +42,7 @@ public class ReplantTask extends BukkitRunnable {
         this.block.setBlockData(setCropAge());
     }
 
-    private void dropItem(final Material material) {
+    private void dropItem(final @NotNull Material material) {
         Crop crop = Crop.valueOf(material.name());
         this.block.getWorld().dropItemNaturally(block.getLocation(),new ItemStack(crop.getSeed()));
     }
@@ -76,7 +77,7 @@ public class ReplantTask extends BukkitRunnable {
         }
     }
 
-    private boolean isBottomBlock(Material[] materials) {
+    private boolean isBottomBlock(Material @NotNull [] materials) {
         for(Material bottomMaterial:materials){
             if(isBottomBlock(bottomMaterial))
                 return true;
@@ -88,7 +89,7 @@ public class ReplantTask extends BukkitRunnable {
         return this.block.getRelative(BlockFace.DOWN).getType() == material;
     }
 
-    private BlockData setCropAge(){
+    private @NotNull BlockData setCropAge(){
         Ageable age = (Ageable) this.block.getBlockData();
         age.setAge(0);
         return age;

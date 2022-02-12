@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
 @CommandAlias("farmassist|fa")
@@ -21,7 +22,7 @@ public class FarmAssistCommand extends BaseCommand {
 	@Subcommand("toggle")
 	@CommandPermission("farmassist.toggle")
 	@Description("toggle usage of FarmAssist")
-	public void onToggle(final Player player){
+	public void onToggle(final @NotNull Player player){
 		if (plugin.getDisabledPlayerList().contains(player.getUniqueId())) {
 			plugin.getDisabledPlayerList().remove(player.getUniqueId());
 			player.sendMessage(ChatColor.GREEN + "FarmAssistReboot functions are now on for you!");
@@ -46,7 +47,7 @@ public class FarmAssistCommand extends BaseCommand {
 
 	@Subcommand("info|about")
 	@CommandPermission("farmassist.info")
-	public void onInfo(final CommandSender sender){
+	public void onInfo(final @NotNull CommandSender sender){
 		sender.sendMessage(String.format("%s version: %s",plugin.getName(),plugin.getDescription().getVersion()));
 		sender.sendMessage(String.format("Maintainers: %s", plugin.getDescription().getAuthors()));
 	}
@@ -66,7 +67,7 @@ public class FarmAssistCommand extends BaseCommand {
 	@Subcommand("reload")
 	@CommandPermission("farmassist.reload")
 	@Description("Reload FarmAssistReboot")
-	public void onReload(final CommandSender sender){
+	public void onReload(final @NotNull CommandSender sender){
 		plugin.getAssistConfig().reloadConfig();
 		sender.sendMessage(ChatColor.GREEN + "FarmAssistReboot has been reloaded.");
 		FarmAssistReboot.debug("FarmAssistReboot Reloaded.");

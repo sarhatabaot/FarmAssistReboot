@@ -59,11 +59,11 @@ public class BlockBreakListener implements Listener {
 		}
 	}
 
-	private boolean hasMaterialPermission(BlockBreakEvent event) {
+	private boolean hasMaterialPermission(@NotNull BlockBreakEvent event) {
 		return event.getPlayer().hasPermission("farmassist." + event.getBlock().getType().name());
 	}
 
-	private void applyReplant(BlockBreakEvent event) {
+	private void applyReplant(@NotNull BlockBreakEvent event) {
 		Material material = event.getBlock().getType();
 		FarmAssistReboot.debug("Block broken: " + material.name());
 		if (!cropList.contains(material)) {

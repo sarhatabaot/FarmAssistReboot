@@ -2,6 +2,7 @@ package com.github.sarhatabaot.farmassistreboot.tasks;
 
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -15,7 +16,7 @@ public class SimpleUpdateCheckerTask extends BukkitRunnable {
     private final FarmAssistReboot plugin;
     private final String versionNumber;
 
-    public SimpleUpdateCheckerTask(FarmAssistReboot plugin) {
+    public SimpleUpdateCheckerTask(@NotNull FarmAssistReboot plugin) {
         this.plugin = plugin;
         this.versionNumber = plugin.getDescription().getVersion();
     }

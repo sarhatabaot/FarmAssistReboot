@@ -23,6 +23,7 @@ public class Util {
     public static void init(final FarmAssistReboot plugin){
         Util.plugin= plugin;
     }
+
     public static boolean inventoryContains(PlayerInventory playerInventory, @NotNull Material material){
         switch (material){
             case COCOA:
