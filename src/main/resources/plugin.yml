@@ -5,10 +5,6 @@ authors: [sarhatabaot]
 website: https://www.spigotmc.org/resources/farmassistreboot.64064/
 description: FarmAssistReboot Rebooted
 api-version: 1.13
-commands:
-  FarmAssist:
-    description: Turn FarmAssistReboot Featues on or off
-    usage: /<command> toggle/global
 permissions:
   farmassist.crops:
     default: false
