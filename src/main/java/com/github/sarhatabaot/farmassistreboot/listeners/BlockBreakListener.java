@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 public class BlockBreakListener implements Listener {
 	private final ImmutableList<Material> cropList = ImmutableList.of(
 			Material.WHEAT,
-			Material.SUGAR_CANE,
+			Material.SUGAR_CANE, //doesn't work - the only one, others are all tested
 			Material.NETHER_WART,
 			Material.COCOA,
 			Material.CARROTS,
@@ -42,19 +42,19 @@ public class BlockBreakListener implements Listener {
 
 
 		if (!cropList.contains(event.getBlock().getType())) {
-			FarmAssistReboot.debug("Crop List doesn't contain: " + event.getBlock().getType().name());
+			debug("Crop List doesn't contain: " + event.getBlock().getType().name());
 			return;
 		}
 
 		if (FarmAssistConfig.USE_PERMISSIONS && !hasMaterialPermission(event)) {
 			String playerName = "Player: " + event.getPlayer().getDisplayName();
 			String permission = "farmassist." + event.getBlock().getType().name();
-			FarmAssistReboot.debug(playerName + ", " + "doesn't have permission " + "\u001b[36m" + permission + "\u001b[0m");
+			debug(playerName + ", " + "doesn't have permission " + permission);
 			return;
 		}
 
 		if (Util.isWorldEnabled(event.getPlayer().getWorld())) {
-			FarmAssistReboot.debug("Is" + event.getPlayer().getWorld().getName() + " enabled: " + Util.isWorldEnabled(event.getPlayer().getWorld()));
+			debug("Is" + event.getPlayer().getWorld().getName() + " enabled: " + Util.isWorldEnabled(event.getPlayer().getWorld()));
 			applyReplant(event);
 		}
 	}
@@ -65,20 +65,20 @@ public class BlockBreakListener implements Listener {
 
 	private void applyReplant(@NotNull BlockBreakEvent event) {
 		Material material = event.getBlock().getType();
-		FarmAssistReboot.debug("Block broken: " + material.name());
+		debug("Block broken: " + material.name());
 		if (!cropList.contains(material)) {
-			FarmAssistReboot.debug("Crop List doesn't contain: " + material.name());
+			debug("Crop List doesn't contain: " + material.name());
 			return;
 		}
-		FarmAssistReboot.debug("Crop List contains: " + material.name());
+		debug("Crop List contains: " + material.name());
 		if (!FarmAssistConfig.getEnabled(material)) {
-			FarmAssistReboot.debug("Material="+material.name()+" is disabled.");
+			debug("Material="+material.name()+" is disabled.");
 			return;
 		}
 
 
-		if (!Util.inventoryContains(event.getPlayer().getInventory(), material)) {
-			FarmAssistReboot.debug("Player doesn't have the correct seeds/material to replant");
+		if (!Util.inventoryContainsSeeds(event.getPlayer().getInventory(), material)) {
+			debug("Player doesn't have the correct seeds/material to replant");
 			return;
 		}
 
@@ -90,13 +90,16 @@ public class BlockBreakListener implements Listener {
 		if (!FarmAssistConfig.getRipe(material) || isRipe(event.getBlock())) {
 			Util.replant(event.getPlayer(), event.getBlock(), material);
 		}
-
-
 	}
 
 
 	private boolean isRipe(@NotNull Block block) {
 		Ageable age = (Ageable) block.getBlockData();
 		return (age.getAge() == age.getMaximumAge());
+	}
+
+
+	private void debug(final String message) {
+		plugin.debug(BlockBreakListener.class,message);
 	}
 }

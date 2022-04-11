@@ -24,7 +24,7 @@ public class Util {
         Util.plugin= plugin;
     }
 
-    public static boolean inventoryContains(PlayerInventory playerInventory, @NotNull Material material){
+    public static boolean inventoryContainsSeeds(PlayerInventory playerInventory, @NotNull Material material){
         switch (material){
             case COCOA:
                 return playerInventory.contains(Material.COCOA_BEANS);
@@ -37,17 +37,15 @@ public class Util {
             case BEETROOTS:
                 return playerInventory.contains(Material.BEETROOT_SEEDS);
             default:
-                FarmAssistReboot.debug(material.name()+":"+playerInventory.contains(material));
+                debug(material.name()+":"+playerInventory.contains(material));
                 return playerInventory.contains(material);
 
         }
     }
 
     public static boolean isWorldEnabled(@NotNull World world) {
-        String globalWorld = "Config.Enabled per World:"+ FarmAssistConfig.ENABLED_PER_WORLD;
-        String localWorld = "Is "+"\u001b[36m"+world.getName()+"\u001b[0m enabled: "+FarmAssistConfig.ENABLED_WORLDS.contains(world);
-        FarmAssistReboot.debug(globalWorld);
-        FarmAssistReboot.debug(localWorld);
+        debug("Config.Enabled per World:"+ FarmAssistConfig.ENABLED_PER_WORLD);
+        debug("Is "+world.getName()+"enabled: "+FarmAssistConfig.ENABLED_WORLDS.contains(world));
         return !FarmAssistConfig.ENABLED_PER_WORLD || FarmAssistConfig.ENABLED_WORLDS.contains(world);
     }
 
@@ -56,7 +54,7 @@ public class Util {
         int spot = player.getInventory().first(crop.getSeed());
         if (spot >= 0) {
             removeOrSubtractItem(player, spot);
-            new ReplantTask(block).runTaskLater(plugin, 5L);
+            new ReplantTask(block, plugin).runTaskLater(plugin, 5L);
         }
     }
 
@@ -70,5 +68,8 @@ public class Util {
         }
     }
 
+    private static void debug(final String message) {
+        Util.plugin.debug(Util.class, message);
+    }
 
 }

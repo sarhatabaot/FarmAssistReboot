@@ -13,12 +13,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 public class ReplantTask extends BukkitRunnable {
+    private final FarmAssistReboot plugin;
     private final Block block;
     private final Material material;
 
     private Cocoa cocoa;
 
-    public ReplantTask(@NotNull Block block) {
+    public ReplantTask(@NotNull Block block, final FarmAssistReboot plugin) {
+        this.plugin = plugin;
         this.block = block;
         this.material = block.getType();
 
@@ -49,7 +51,7 @@ public class ReplantTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        FarmAssistReboot.debug("Block: "+block.getType().name()+",Material: "+material.name());
+        plugin.debug(ReplantTask.class,"Block: "+block.getType().name()+",Material: "+material.name());
         switch (material){
             case COCOA:
                 setCocoaOrDropSeed();

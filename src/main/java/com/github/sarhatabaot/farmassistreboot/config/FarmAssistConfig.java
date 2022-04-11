@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class FarmAssistConfig {
     public static List<World> ENABLED_WORLDS;
 
 
-    public FarmAssistConfig(final FarmAssistReboot plugin) {
+    public FarmAssistConfig(final @NotNull FarmAssistReboot plugin) {
         this.plugin = plugin;
         FarmAssistConfig.config = plugin.getConfig();
 
@@ -39,12 +40,12 @@ public class FarmAssistConfig {
         config = plugin.getConfig();
     }
 
-    public static boolean getEnabled(Material material) {
+    public static boolean getEnabled(@NotNull Material material) {
         return config.getBoolean(material.name().toLowerCase() + ".enabled");
     }
 
 
-    private List<World> getWorlds() {
+    private @NotNull List<World> getWorlds() {
         ArrayList<World> worldsList = new ArrayList<>();
         for(String world: config.getStringList("worlds.enabled-worlds")){
             if(Bukkit.getWorld(world) != null)
@@ -53,7 +54,7 @@ public class FarmAssistConfig {
         return worldsList;
     }
 
-    public static boolean getRipe(Material material) {
+    public static boolean getRipe(@NotNull Material material) {
         return config.getBoolean(material.name().toLowerCase() + ".replant-when-ripe");
     }
 }

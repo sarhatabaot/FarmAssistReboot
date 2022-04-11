@@ -70,6 +70,6 @@ public class FarmAssistCommand extends BaseCommand {
 	public void onReload(final @NotNull CommandSender sender){
 		plugin.getAssistConfig().reloadConfig();
 		sender.sendMessage(ChatColor.GREEN + "FarmAssistReboot has been reloaded.");
-		FarmAssistReboot.debug("FarmAssistReboot Reloaded.");
+		plugin.debug(FarmAssistCommand.class,"FarmAssistReboot Reloaded.");
 	}
 }

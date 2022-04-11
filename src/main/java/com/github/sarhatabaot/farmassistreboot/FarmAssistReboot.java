@@ -2,15 +2,14 @@ package com.github.sarhatabaot.farmassistreboot;
 
 import co.aikar.commands.PaperCommandManager;
 import com.github.sarhatabaot.farmassistreboot.command.FarmAssistCommand;
-import com.github.sarhatabaot.farmassistreboot.listeners.JoinListener;
-import com.github.sarhatabaot.farmassistreboot.tasks.SimpleUpdateCheckerTask;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import com.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
+import com.github.sarhatabaot.farmassistreboot.listeners.JoinListener;
 import com.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
+import com.github.sarhatabaot.farmassistreboot.tasks.SimpleUpdateCheckerTask;
 import lombok.Getter;
 import lombok.Setter;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -48,12 +47,10 @@ public class FarmAssistReboot extends JavaPlugin {
         new Metrics(this,3885);
     }
 
-    /**
-     * @param msg Message to send
-     */
-    public static void debug(String msg) {
-        if(FarmAssistConfig.DEBUG)
-            Bukkit.getPluginManager().getPlugin("FarmAssistReboot").getLogger().info("DEBUG "+msg);
+    public void debug(final Class<?> clazz,final String message) {
+        if(FarmAssistConfig.DEBUG) {
+            getLogger().info(() -> "DEBUG " + clazz.getSimpleName() + " " + message);
+        }
     }
 
     /**

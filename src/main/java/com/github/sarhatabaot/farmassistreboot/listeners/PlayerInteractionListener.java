@@ -31,8 +31,8 @@ public class PlayerInteractionListener implements Listener {
 		if (plugin.getDisabledPlayerList().contains(event.getPlayer().getUniqueId()))
 			return;
 		if (!(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event))) {
-			FarmAssistReboot.debug("Is Block Farmable: " + isPlayerBlockFarmable(event));
-			FarmAssistReboot.debug("Is Item Hoe: " + isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()));
+			debug("Is Block Farm-able: " + isPlayerBlockFarmable(event));
+			debug("Is Item Hoe: " + isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()));
 			return;
 		}
 		// Permission Checks
@@ -41,19 +41,19 @@ public class PlayerInteractionListener implements Listener {
 		}
 
 		final Player player = event.getPlayer();
-		FarmAssistReboot.debug("config.wheat: " + FarmAssistConfig.getEnabled(Material.WHEAT));
-		FarmAssistReboot.debug("config.plant-on-till: " + FarmAssistConfig.PLANT_WHEAT_ON_TILL);
+		debug("config.wheat: " + FarmAssistConfig.getEnabled(Material.WHEAT));
+		debug("config.plant-on-till: " + FarmAssistConfig.PLANT_WHEAT_ON_TILL);
 		if (!Util.isWorldEnabled(event.getPlayer().getWorld())) {
-			FarmAssistReboot.debug("world=" + event.getPlayer().getWorld().getName() + " is disabled.");
+			debug("world=" + event.getPlayer().getWorld().getName() + " is disabled.");
 			return;
 		}
 		if (!FarmAssistConfig.getEnabled(Material.WHEAT) || !FarmAssistConfig.PLANT_WHEAT_ON_TILL) {
-			FarmAssistReboot.debug("Wheat is=" + FarmAssistConfig.getEnabled(Material.WHEAT));
-			FarmAssistReboot.debug("Till is" + !FarmAssistConfig.PLANT_WHEAT_ON_TILL);
+			debug("Wheat is=" + FarmAssistConfig.getEnabled(Material.WHEAT));
+			debug("Till is" + !FarmAssistConfig.PLANT_WHEAT_ON_TILL);
 			return;
 		}
 
-		if (Util.inventoryContains(event.getPlayer().getInventory(), Material.WHEAT)) {
+		if (Util.inventoryContainsSeeds(event.getPlayer().getInventory(), Material.WHEAT)) {
 			event.getClickedBlock().setType(Material.FARMLAND);
 			Util.replant(player, event.getClickedBlock(), Material.WHEAT);
 		}
@@ -81,6 +81,10 @@ public class PlayerInteractionListener implements Listener {
 		boolean isGrassOrDirt = event.getClickedBlock().getType() == Material.GRASS_BLOCK || event.getClickedBlock().getType() == Material.DIRT;
 		boolean isTopBlockAir = event.getClickedBlock().getRelative(BlockFace.UP).getType() == Material.AIR;
 		return event.hasBlock() && isGrassOrDirt && isTopBlockAir;
+	}
+
+	private void debug(final String message) {
+		plugin.debug(PlayerInteractionListener.class,message);
 	}
 }
 

@@ -10,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 public class JoinListener implements Listener {
 	private final FarmAssistReboot plugin;
 
-
 	public JoinListener(final FarmAssistReboot plugin) {
 		this.plugin = plugin;
 	}
