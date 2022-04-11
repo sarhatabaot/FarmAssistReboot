@@ -10,9 +10,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * @author sarhatabaot
- */
 public class Util {
     private static FarmAssistReboot plugin;
 
