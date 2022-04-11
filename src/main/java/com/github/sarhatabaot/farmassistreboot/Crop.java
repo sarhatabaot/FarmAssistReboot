@@ -5,7 +5,7 @@ import org.bukkit.Material;
 
 public enum Crop {
 	WHEAT(new Material[]{Material.FARMLAND}, Material.WHEAT, Material.WHEAT_SEEDS),
-	SUGAR_CANE(new Material[]{Material.GRASS,Material.SAND,Material.DIRT}, Material.SUGAR_CANE, Material.SUGAR_CANE),
+	SUGAR_CANE(new Material[]{Material.GRASS_BLOCK,Material.SAND,Material.DIRT}, Material.SUGAR_CANE, Material.SUGAR_CANE),
 	NETHER_WART(new Material[]{Material.SOUL_SAND}, Material.NETHER_WART, Material.NETHER_WART),
 	COCOA(new Material[]{Material.JUNGLE_LOG}, Material.COCOA, Material.COCOA),
 	CARROTS(new Material[]{Material.FARMLAND}, Material.CARROTS, Material.CARROT),
@@ -37,4 +37,5 @@ public enum Crop {
 	public Material getSeed() {
 		return seed;
 	}
+
 }
