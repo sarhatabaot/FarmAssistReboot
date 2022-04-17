@@ -96,11 +96,6 @@ public class BlockBreakListener implements Listener {
 		return (age.getAge() == age.getMaximumAge());
 	}
 
-
-	private void debug(final String message) {
-		plugin.debug(BlockBreakListener.class,message);
-	}
-
 	private void debug(final String message, Object... args){
 		plugin.debug(BlockBreakListener.class,String.format(message,args));
 	}
