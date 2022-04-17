@@ -1,6 +1,7 @@
 package com.github.sarhatabaot.farmassistreboot.tasks;
 
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
+import com.github.sarhatabaot.farmassistreboot.messages.InternalMessages;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONObject;
@@ -28,23 +29,23 @@ public class SimpleUpdateCheckerTask extends BukkitRunnable {
             final String latest = "https://api.github.com/repos/sarhatabaot/FarmAssistReboot/releases/latest";
             URL url = new URL(latest);
             URLConnection urlConnection = url.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-            Object obj = parser.parse(in);
-            JSONObject jsonObject = (JSONObject) obj;
-            String remoteVer = (String) jsonObject.get("tag_name");
-            remoteVer = remoteVer.replace("v","");
-            int remoteVal = Integer.parseInt(remoteVer.replace(".", ""));
-            int localVer = Integer.parseInt(versionNumber.replace(".", ""));
-            if (remoteVal > localVer) {
-                plugin.setNeedsUpdate(true);
-                plugin.setNewVersion(remoteVer);
-                plugin.getLogger().info(String.format("New update: %s Current version: %s",remoteVer,versionNumber));
-            } else {
-                plugin.setNeedsUpdate(false);
-                plugin.getLogger().info(String.format("You are running the latest version: %s" ,versionNumber));
+            try(BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()))) {
+                Object obj = parser.parse(in);
+                JSONObject jsonObject = (JSONObject) obj;
+                final String remoteVer = ((String) jsonObject.get("tag_name")).replace("v", "");
+                int remoteVal = Integer.parseInt(remoteVer.replace(".", ""));
+                int localVer = Integer.parseInt(versionNumber.replace(".", ""));
+                if (remoteVal > localVer) {
+                    plugin.setNeedsUpdate(true);
+                    plugin.setNewVersion(remoteVer);
+                    plugin.getLogger().info(() -> String.format(InternalMessages.Update.NEW_UPDATE, remoteVer, versionNumber));
+                } else {
+                    plugin.setNeedsUpdate(false);
+                    plugin.getLogger().info(() -> String.format(InternalMessages.Update.RUNNING_LATEST_VERSION, versionNumber));
+                }
             }
         } catch (Exception t){
-            plugin.getLogger().info("Could not get new version.");
+            plugin.getLogger().info(() -> InternalMessages.Update.NEW_VERSION_FAIL);
             t.printStackTrace();
         }
     }
