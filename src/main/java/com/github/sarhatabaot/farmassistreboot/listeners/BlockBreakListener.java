@@ -3,6 +3,8 @@ package com.github.sarhatabaot.farmassistreboot.listeners;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.github.sarhatabaot.farmassistreboot.Util;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
+import com.github.sarhatabaot.farmassistreboot.messages.Debug;
+import com.github.sarhatabaot.farmassistreboot.messages.Permissions;
 import com.google.common.collect.ImmutableList;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
@@ -18,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 public class BlockBreakListener implements Listener {
 	private final ImmutableList<Material> cropList = ImmutableList.of(
 			Material.WHEAT,
-			Material.SUGAR_CANE, //doesn't work - the only one, others are all tested
+			Material.SUGAR_CANE,
 			Material.NETHER_WART,
 			Material.COCOA,
 			Material.CARROTS,
@@ -29,10 +31,7 @@ public class BlockBreakListener implements Listener {
 
 	private final FarmAssistReboot plugin;
 
-	@EventHandler(
-			priority = EventPriority.HIGHEST,
-			ignoreCancelled = true
-	)
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onBlockBreak(BlockBreakEvent event) {
 		if (!plugin.isGlobalEnabled())
 			return;
@@ -42,43 +41,43 @@ public class BlockBreakListener implements Listener {
 
 
 		if (!cropList.contains(event.getBlock().getType())) {
-			debug("Crop List doesn't contain: " + event.getBlock().getType().name());
+			debug(Debug.OnBlockBreak.CROP_LIST_NO_MATERIAL, event.getBlock().getType().name());
 			return;
 		}
 
 		if (FarmAssistConfig.USE_PERMISSIONS && !hasMaterialPermission(event)) {
-			String playerName = "Player: " + event.getPlayer().getDisplayName();
-			String permission = "farmassist." + event.getBlock().getType().name();
-			debug(playerName + ", " + "doesn't have permission " + permission);
+			final String permission = Permissions.BASE_PERMISSION + event.getBlock().getType().name();
+			debug(Debug.OnBlockBreak.PLAYER_NO_PERMISSION,event.getPlayer().getDisplayName(),permission);
 			return;
 		}
 
 		if (Util.isWorldEnabled(event.getPlayer().getWorld())) {
-			debug("Is" + event.getPlayer().getWorld().getName() + " enabled: " + Util.isWorldEnabled(event.getPlayer().getWorld()));
+			debug(Debug.Worlds.IS_WORLD_ENABLED,event.getPlayer().getWorld().getName(),Util.isWorldEnabled(event.getPlayer().getWorld()));
 			applyReplant(event);
 		}
 	}
 
 	private boolean hasMaterialPermission(@NotNull BlockBreakEvent event) {
-		return event.getPlayer().hasPermission("farmassist." + event.getBlock().getType().name());
+		return event.getPlayer().hasPermission(Permissions.BASE_PERMISSION + event.getBlock().getType().name());
 	}
 
 	private void applyReplant(@NotNull BlockBreakEvent event) {
 		Material material = event.getBlock().getType();
-		debug("Block broken: " + material.name());
+		debug(Debug.OnBlockBreak.BLOCK_BROKEN,material.name());
 		if (!cropList.contains(material)) {
-			debug("Crop List doesn't contain: " + material.name());
+			debug(Debug.OnBlockBreak.CROP_LIST_NO_MATERIAL,material.name());
 			return;
 		}
-		debug("Crop List contains: " + material.name());
+
+		debug(Debug.OnBlockBreak.CROP_LIST_CONTAINS,material.name());
 		if (!FarmAssistConfig.getEnabled(material)) {
-			debug("Material="+material.name()+" is disabled.");
+			debug(Debug.OnBlockBreak.MATERIAL_DISABLED,material.name());
 			return;
 		}
 
 
 		if (!Util.inventoryContainsSeeds(event.getPlayer().getInventory(), material)) {
-			debug("Player doesn't have the correct seeds/material to replant");
+			debug(Debug.OnBlockBreak.NO_SEEDS,event.getPlayer().getName());
 			return;
 		}
 
@@ -101,5 +100,9 @@ public class BlockBreakListener implements Listener {
 
 	private void debug(final String message) {
 		plugin.debug(BlockBreakListener.class,message);
+	}
+
+	private void debug(final String message, Object... args){
+		plugin.debug(BlockBreakListener.class,String.format(message,args));
 	}
 }

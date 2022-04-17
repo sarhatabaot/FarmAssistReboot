@@ -3,6 +3,8 @@ package com.github.sarhatabaot.farmassistreboot.listeners;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.github.sarhatabaot.farmassistreboot.Util;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
+import com.github.sarhatabaot.farmassistreboot.messages.Debug;
+import com.github.sarhatabaot.farmassistreboot.messages.Permissions;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
@@ -31,25 +33,26 @@ public class PlayerInteractionListener implements Listener {
 		if (plugin.getDisabledPlayerList().contains(event.getPlayer().getUniqueId()))
 			return;
 		if (!(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event))) {
-			debug("Is Block Farm-able: " + isPlayerBlockFarmable(event));
-			debug("Is Item Hoe: " + isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()));
+			debug(Debug.OnPlayerInteract.BLOCK_FARMABLE,isPlayerBlockFarmable(event));
+			debug(Debug.OnPlayerInteract.IS_ITEM_HOE,isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()));
 			return;
 		}
 		// Permission Checks
-		if (FarmAssistConfig.USE_PERMISSIONS && (!event.getPlayer().hasPermission("farmassist.wheat")) || !event.getPlayer().hasPermission("farmassist.till")) {
+		if (FarmAssistConfig.USE_PERMISSIONS && (!event.getPlayer().hasPermission(Permissions.WHEAT)) || !event.getPlayer().hasPermission(Permissions.TILL)) {
 			return;
 		}
 
 		final Player player = event.getPlayer();
-		debug("config.wheat: " + FarmAssistConfig.getEnabled(Material.WHEAT));
-		debug("config.plant-on-till: " + FarmAssistConfig.PLANT_WHEAT_ON_TILL);
+		debug(Debug.OnPlayerInteract.CONFIG_WHEAT,FarmAssistConfig.getEnabled(Material.WHEAT));
+		debug(Debug.OnPlayerInteract.CONFIG_PLANT_ON_TILL,FarmAssistConfig.PLANT_WHEAT_ON_TILL);
+
 		if (!Util.isWorldEnabled(event.getPlayer().getWorld())) {
-			debug("world=" + event.getPlayer().getWorld().getName() + " is disabled.");
+			debug(Debug.OnPlayerInteract.WORLD_DISABLED,event.getPlayer().getWorld().getName());
 			return;
 		}
 		if (!FarmAssistConfig.getEnabled(Material.WHEAT) || !FarmAssistConfig.PLANT_WHEAT_ON_TILL) {
-			debug("Wheat is=" + FarmAssistConfig.getEnabled(Material.WHEAT));
-			debug("Till is" + !FarmAssistConfig.PLANT_WHEAT_ON_TILL);
+			debug(Debug.OnPlayerInteract.WHEAT_ENABLED, FarmAssistConfig.getEnabled(Material.WHEAT));
+			debug(Debug.OnPlayerInteract.TILL_ENABLED, FarmAssistConfig.PLANT_WHEAT_ON_TILL);
 			return;
 		}
 
@@ -85,6 +88,10 @@ public class PlayerInteractionListener implements Listener {
 
 	private void debug(final String message) {
 		plugin.debug(PlayerInteractionListener.class,message);
+	}
+
+	private void debug(final String message, Object... args) {
+		debug(String.format(message,args));
 	}
 }
 

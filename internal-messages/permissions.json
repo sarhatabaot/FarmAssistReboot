@@ -1,0 +1,6 @@
+{
+  "base-permission": "farmassist.",
+  "update-notify": "farmassist.notify.update",
+  "till": "farmassist.till",
+  "wheat": "farmassist.wheat"
+}

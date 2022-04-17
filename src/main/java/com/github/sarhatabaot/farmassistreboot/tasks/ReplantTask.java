@@ -2,6 +2,7 @@ package com.github.sarhatabaot.farmassistreboot.tasks;
 
 import com.github.sarhatabaot.farmassistreboot.Crop;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
+import com.github.sarhatabaot.farmassistreboot.messages.Debug;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -51,7 +52,7 @@ public class ReplantTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        plugin.debug(ReplantTask.class,"Block: "+block.getType().name()+",Material: "+material.name());
+        plugin.debug(ReplantTask.class, String.format(Debug.ReplantTask.RUN,block.getType().name(),material.name()));
         switch (material){
             case COCOA:
                 setCocoaOrDropSeed();

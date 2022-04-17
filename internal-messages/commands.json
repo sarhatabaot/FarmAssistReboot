@@ -1,0 +1,28 @@
+{
+  "base-command": "farmassist|fa",
+  "toggle-player": {
+    "sub-command": "toggle",
+    "permission": "farmassist.toggle",
+    "description": "Toggle usage of FarmAssist"
+  },
+  "toggle-global": {
+    "sub-command": "global|g",
+    "permission": "farmassist.toggle.global",
+    "description": "Turn farmassist off/on globally"
+  },
+  "info": {
+    "sub-command": "info|about",
+    "permission": "farmassist.info",
+    "description": ""
+  },
+  "update": {
+    "sub-command": "update|u",
+    "permission": "farmassist.update",
+    "description": ""
+  },
+  "reload": {
+    "sub-command": "reload",
+    "permission": "farmassist.reload",
+    "description": "Reload FarmAssistReboot"
+  }
+}

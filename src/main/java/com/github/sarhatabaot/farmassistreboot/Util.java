@@ -1,6 +1,7 @@
 package com.github.sarhatabaot.farmassistreboot;
 
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
+import com.github.sarhatabaot.farmassistreboot.messages.Debug;
 import com.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -34,15 +35,15 @@ public class Util {
             case BEETROOTS:
                 return playerInventory.contains(Material.BEETROOT_SEEDS);
             default:
-                debug(material.name()+":"+playerInventory.contains(material));
+                debug(Debug.INVENTORY_CONTAINS,material.name(),playerInventory.contains(material));
                 return playerInventory.contains(material);
 
         }
     }
 
     public static boolean isWorldEnabled(@NotNull World world) {
-        debug("Config.Enabled per World:"+ FarmAssistConfig.ENABLED_PER_WORLD);
-        debug("Is "+world.getName()+"enabled: "+FarmAssistConfig.ENABLED_WORLDS.contains(world));
+        debug(Debug.Worlds.CONFIG_PER_WORLD,FarmAssistConfig.ENABLED_PER_WORLD);
+        debug(Debug.Worlds.IS_WORLD_ENABLED,world.getName(),FarmAssistConfig.ENABLED_WORLDS.contains(world));
         return !FarmAssistConfig.ENABLED_PER_WORLD || FarmAssistConfig.ENABLED_WORLDS.contains(world);
     }
 
@@ -67,6 +68,10 @@ public class Util {
 
     private static void debug(final String message) {
         Util.plugin.debug(Util.class, message);
+    }
+
+    private static void debug(final String message,Object... args) {
+        debug(String.format(message, args));
     }
 
 }
