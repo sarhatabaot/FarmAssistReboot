@@ -44,7 +44,9 @@ public class Util {
     public static boolean isWorldEnabled(@NotNull World world) {
         debug(Debug.Worlds.CONFIG_PER_WORLD,FarmAssistConfig.ENABLED_PER_WORLD);
         debug(Debug.Worlds.IS_WORLD_ENABLED,world.getName(),FarmAssistConfig.ENABLED_WORLDS.contains(world));
-        return !FarmAssistConfig.ENABLED_PER_WORLD || FarmAssistConfig.ENABLED_WORLDS.contains(world);
+        if(!FarmAssistConfig.ENABLED_PER_WORLD)
+            return false;
+        return FarmAssistConfig.ENABLED_WORLDS.contains(world);
     }
 
     public static void replant(@NotNull Player player, Block block, @NotNull Material material) {
