@@ -52,7 +52,6 @@ public class BlockBreakListener implements Listener {
 		}
 
 		if (Util.isWorldEnabled(event.getPlayer().getWorld())) {
-			debug(Debug.Worlds.IS_WORLD_ENABLED,event.getPlayer().getWorld().getName(),Util.isWorldEnabled(event.getPlayer().getWorld()));
 			applyReplant(event);
 		}
 	}
