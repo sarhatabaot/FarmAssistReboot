@@ -2,7 +2,7 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sarhatabaot_FarmAssistReboot&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=sarhatabaot_FarmAssistReboot)
 ![Java CI with Maven](https://github.com/sarhatabaot/FarmAssistReboot/workflows/Java%20CI%20with%20Maven/badge.svg)
 
-A 1.13.2-1.18.1 version of FarmAssist. 
+A 1.13.2-1.18.2 version of FarmAssist. 
 ## Commands:
 * **/farmassist toggle** - Lets a player turn off FarmAssist features.
 * **/farmassist global** - Turns off FarmAssist globally without disabling the plugin.
