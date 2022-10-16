@@ -83,7 +83,7 @@ public class ReplantTask extends BukkitRunnable {
             this.block.getWorld().dropItemNaturally(this.block.getLocation(), new ItemStack(Material.COCOA_BEANS));
         }
     }
-    
+
     private boolean matchedRelativeType(final Material[] materials, final Material relativeType) {
         return Arrays.stream(materials).anyMatch(m -> m == relativeType);
     }
