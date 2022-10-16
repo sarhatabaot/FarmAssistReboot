@@ -23,22 +23,8 @@ public class Util {
     }
 
     public static boolean inventoryContainsSeeds(PlayerInventory playerInventory, @NotNull Material material){
-        switch (material){
-            case COCOA:
-                return playerInventory.contains(Material.COCOA_BEANS);
-            case POTATOES:
-                return playerInventory.contains(Material.POTATO);
-            case CARROTS:
-                return playerInventory.contains(Material.CARROT);
-            case WHEAT:
-                return playerInventory.contains(Material.WHEAT_SEEDS);
-            case BEETROOTS:
-                return playerInventory.contains(Material.BEETROOT_SEEDS);
-            default:
-                debug(Debug.INVENTORY_CONTAINS,material.name(),playerInventory.contains(material));
-                return playerInventory.contains(material);
-
-        }
+        Crop crop = Crop.valueOf(material.name());
+        return playerInventory.contains(crop.getSeed());
     }
 
     public static boolean isWorldEnabled(@NotNull World world) {
@@ -53,6 +39,7 @@ public class Util {
     public static void replant(@NotNull Player player, Block block, @NotNull Material material) {
         Crop crop = Crop.valueOf(material.name());
         int spot = player.getInventory().first(crop.getSeed());
+        debug("Spot:" + spot);
         if (spot >= 0) {
             removeOrSubtractItem(player, spot);
             new ReplantTask(block, plugin).runTaskLater(plugin, 5L);
