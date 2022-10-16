@@ -10,6 +10,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
         <build.number>${maven.build.timestamp}</build.number> <!-- overwritten if jenkins -->
         <!-- Encoding Properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -99,9 +100,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>${maven.jar.plugin.version}</version>
-                    <configuration>
-                        <finalName>${finalName}</finalName>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
