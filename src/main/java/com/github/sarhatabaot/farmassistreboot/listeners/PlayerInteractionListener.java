@@ -7,6 +7,7 @@ import com.github.sarhatabaot.farmassistreboot.messages.Debug;
 import com.github.sarhatabaot.farmassistreboot.messages.Permissions;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -80,9 +81,20 @@ public class PlayerInteractionListener implements Listener {
      * @return true if block is farmable
      */
     private boolean isPlayerBlockFarmable(@NotNull PlayerInteractEvent event) {
-        boolean isGrassOrDirt = event.getClickedBlock().getType() == Material.GRASS_BLOCK || event.getClickedBlock().getType() == Material.DIRT;
-        boolean isTopBlockAir = event.getClickedBlock().getRelative(BlockFace.UP).getType() == Material.AIR;
-        return event.hasBlock() && isGrassOrDirt && isTopBlockAir;
+        if(!event.hasBlock() || event.getClickedBlock() == null)
+            return false;
+
+        final Block clickedBlock = event.getClickedBlock();
+
+        return event.hasBlock() && isGrassOrDirt(clickedBlock) && isTopBlockAir(clickedBlock);
+    }
+
+    private boolean isGrassOrDirt(final Block block) {
+        return block.getType() == Material.GRASS_BLOCK || block.getType() == Material.DIRT;
+    }
+
+    private boolean isTopBlockAir(final @NotNull Block block) {
+        return block.getRelative(BlockFace.UP).getType() == Material.AIR;
     }
 
     private void debug(final String message) {
