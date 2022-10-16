@@ -89,7 +89,7 @@ public class PlayerInteractionListener implements Listener {
         return event.hasBlock() && isGrassOrDirt(clickedBlock) && isTopBlockAir(clickedBlock);
     }
 
-    private boolean isGrassOrDirt(final Block block) {
+    private boolean isGrassOrDirt(final @NotNull Block block) {
         return block.getType() == Material.GRASS_BLOCK || block.getType() == Material.DIRT;
     }
 
