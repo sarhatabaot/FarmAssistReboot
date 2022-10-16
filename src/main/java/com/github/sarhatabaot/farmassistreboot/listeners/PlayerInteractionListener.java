@@ -17,82 +17,81 @@ import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
 public class PlayerInteractionListener implements Listener {
-	private final FarmAssistReboot plugin;
+    private final FarmAssistReboot plugin;
 
-	/**
-	 * On till event
-	 *
-	 * @param event PlayerInteractEvent
-	 */
-	@EventHandler
-	public void onPlayerInteract(PlayerInteractEvent event) {
-		if (!plugin.isGlobalEnabled())
-			return;
-		if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
-			return;
-		if (plugin.getDisabledPlayerList().contains(event.getPlayer().getUniqueId()))
-			return;
-		if (!(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event))) {
-			debug(Debug.OnPlayerInteract.BLOCK_FARMABLE,isPlayerBlockFarmable(event));
-			debug(Debug.OnPlayerInteract.IS_ITEM_HOE,isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()));
-			return;
-		}
-		// Permission Checks
-		if (FarmAssistConfig.USE_PERMISSIONS && (!event.getPlayer().hasPermission(Permissions.WHEAT)) || !event.getPlayer().hasPermission(Permissions.TILL)) {
-			return;
-		}
+    /**
+     * On till event
+     *
+     * @param event PlayerInteractEvent
+     */
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        if (!plugin.isGlobalEnabled()
+                || !event.getAction().equals(Action.RIGHT_CLICK_BLOCK)
+                || plugin.getDisabledPlayerList().contains(event.getPlayer().getUniqueId()))
+            return;
 
-		final Player player = event.getPlayer();
-		debug(Debug.OnPlayerInteract.CONFIG_WHEAT,FarmAssistConfig.getEnabled(Material.WHEAT));
-		debug(Debug.OnPlayerInteract.CONFIG_PLANT_ON_TILL,FarmAssistConfig.PLANT_WHEAT_ON_TILL);
+        if (!(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event))) {
+            debug(Debug.OnPlayerInteract.BLOCK_FARMABLE, isPlayerBlockFarmable(event));
+            debug(Debug.OnPlayerInteract.IS_ITEM_HOE, isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()));
+            return;
+        }
+        // Permission Checks
+        if (FarmAssistConfig.USE_PERMISSIONS && (!event.getPlayer().hasPermission(Permissions.WHEAT)) || !event.getPlayer().hasPermission(Permissions.TILL)) {
+            return;
+        }
 
-		if (!Util.isWorldEnabled(event.getPlayer().getWorld())) {
-			debug(Debug.OnPlayerInteract.WORLD_DISABLED,event.getPlayer().getWorld().getName());
-			return;
-		}
-		if (!FarmAssistConfig.getEnabled(Material.WHEAT) || !FarmAssistConfig.PLANT_WHEAT_ON_TILL) {
-			debug(Debug.OnPlayerInteract.WHEAT_ENABLED, FarmAssistConfig.getEnabled(Material.WHEAT));
-			debug(Debug.OnPlayerInteract.TILL_ENABLED, FarmAssistConfig.PLANT_WHEAT_ON_TILL);
-			return;
-		}
+        final Player player = event.getPlayer();
+        debug(Debug.OnPlayerInteract.CONFIG_WHEAT, FarmAssistConfig.getEnabled(Material.WHEAT));
+        debug(Debug.OnPlayerInteract.CONFIG_PLANT_ON_TILL, FarmAssistConfig.PLANT_WHEAT_ON_TILL);
 
-		if (Util.inventoryContainsSeeds(event.getPlayer().getInventory(), Material.WHEAT)) {
-			event.getClickedBlock().setType(Material.FARMLAND);
-			Util.replant(player, event.getClickedBlock(), Material.WHEAT);
-		}
+        if (!Util.isWorldEnabled(event.getPlayer().getWorld())) {
+            debug(Debug.OnPlayerInteract.WORLD_DISABLED, event.getPlayer().getWorld().getName());
+            return;
+        }
+        if (!FarmAssistConfig.getEnabled(Material.WHEAT) || !FarmAssistConfig.PLANT_WHEAT_ON_TILL) {
+            debug(Debug.OnPlayerInteract.WHEAT_ENABLED, FarmAssistConfig.getEnabled(Material.WHEAT));
+            debug(Debug.OnPlayerInteract.TILL_ENABLED, FarmAssistConfig.PLANT_WHEAT_ON_TILL);
+            return;
+        }
 
-	}
+        if (Util.inventoryContainsSeeds(event.getPlayer().getInventory(), Material.WHEAT)) {
+            event.getClickedBlock().setType(Material.FARMLAND);
+            Util.replant(player, event.getClickedBlock(), Material.WHEAT);
+        }
+
+    }
 
 
-	/**
-	 * Checks if the material is a hoe
-	 *
-	 * @param material Material
-	 * @return Return if material is a hoe
-	 */
-	private boolean isHoe(@NotNull Material material) {
-		return material.name().contains("_HOE");
-	}
+    /**
+     * Checks if the material is a hoe
+     *
+     * @param material Material
+     * @return Return if material is a hoe
+     */
+    private boolean isHoe(@NotNull Material material) {
+        return material.name().contains("_HOE");
+    }
 
-	/**
-	 * Checks if the block is farmable.
-	 *
-	 * @param event PlayerInteractEvent
-	 * @return true if block is farmable
-	 */
-	private boolean isPlayerBlockFarmable(@NotNull PlayerInteractEvent event) {
-		boolean isGrassOrDirt = event.getClickedBlock().getType() == Material.GRASS_BLOCK || event.getClickedBlock().getType() == Material.DIRT;
-		boolean isTopBlockAir = event.getClickedBlock().getRelative(BlockFace.UP).getType() == Material.AIR;
-		return event.hasBlock() && isGrassOrDirt && isTopBlockAir;
-	}
+    /**
+     * Checks if the block is farmable.
+     *
+     * @param event PlayerInteractEvent
+     * @return true if block is farmable
+     */
+    private boolean isPlayerBlockFarmable(@NotNull PlayerInteractEvent event) {
+        boolean isGrassOrDirt = event.getClickedBlock().getType() == Material.GRASS_BLOCK || event.getClickedBlock().getType() == Material.DIRT;
+        boolean isTopBlockAir = event.getClickedBlock().getRelative(BlockFace.UP).getType() == Material.AIR;
+        return event.hasBlock() && isGrassOrDirt && isTopBlockAir;
+    }
 
-	private void debug(final String message) {
-		plugin.debug(PlayerInteractionListener.class,message);
-	}
+    private void debug(final String message) {
+        plugin.debug(PlayerInteractionListener.class, message);
+    }
 
-	private void debug(final String message, Object... args) {
-		debug(String.format(message,args));
-	}
+    private void debug(final String message, Object... args) {
+        debug(String.format(message, args));
+    }
 }
 
 
