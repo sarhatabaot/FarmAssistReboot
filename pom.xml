@@ -18,10 +18,10 @@
         <spigot.version>1.13.2-R0.1-SNAPSHOT</spigot.version>
         <acf.version>0.5.1-SNAPSHOT</acf.version>
         <bstats.version>3.0.0</bstats.version>
-        <lombok.version>1.18.22</lombok.version>
+        <lombok.version>1.18.24</lombok.version>
         <jetbrains.annotations.version>23.0.0</jetbrains.annotations.version>
 
-        <messages.version>1.0.2</messages.version>
+        <messages.version>1.2.3</messages.version>
         <formatter.version>2.16.0</formatter.version>
         <maven.jar.plugin.version>3.2.0</maven.jar.plugin.version>
         <maven.shade.plugin.version>3.3.0</maven.shade.plugin.version>
@@ -93,7 +93,6 @@
                         <relocations>
                             <relocation>
                                 <pattern>org.bstats</pattern>
-                                <!-- Replace this with your package! -->
                                 <shadedPattern>${project.groupId}.farmassistreboot</shadedPattern>
                             </relocation>
                             <relocation>
@@ -118,14 +117,26 @@
                 </plugin>
                 <plugin>
                     <groupId>com.github.sarhatabaot</groupId>
-                    <artifactId>messages</artifactId>
+                    <artifactId>messages-maven-plugin</artifactId>
                     <version>${messages.version}</version>
                     <configuration>
+                        <fileType>JSON</fileType>
                         <overwriteClasses>true</overwriteClasses>
                         <sourceFolder>internal-messages</sourceFolder>
                         <targetPackage>com.github.sarhatabaot.farmassistreboot.messages</targetPackage>
+                        <privateConstructor>Debug.UTIL_CLASS</privateConstructor>
                     </configuration>
                 </plugin>
+<!--                <plugin>-->
+<!--                    <groupId>com.github.sarhatabaot</groupId>-->
+<!--                    <artifactId>messages</artifactId>-->
+<!--                    <version>${messages.version}</version>-->
+<!--                    <configuration>-->
+<!--                        <overwriteClasses>true</overwriteClasses>-->
+<!--                        <sourceFolder>internal-messages</sourceFolder>-->
+<!--                        <targetPackage>com.github.sarhatabaot.farmassistreboot.messages</targetPackage>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
                 <plugin>
                     <groupId>net.revelc.code.formatter</groupId>
                     <artifactId>formatter-maven-plugin</artifactId>
@@ -169,7 +180,7 @@
             </plugin>
             <plugin>
                 <groupId>com.github.sarhatabaot</groupId>
-                <artifactId>messages</artifactId>
+                <artifactId>messages-maven-plugin</artifactId>
                 <version>${messages.version}</version>
             </plugin>
         </plugins>

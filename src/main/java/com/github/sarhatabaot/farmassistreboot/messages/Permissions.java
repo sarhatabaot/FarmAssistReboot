@@ -6,4 +6,7 @@ public final class Permissions {
     public static final String TILL = "farmassist.till";
     public static final String WHEAT = "farmassist.wheat";
 
+    private Permissions() {
+        throw new UnsupportedOperationException(Debug.UTIL_CLASS);
+    }
 }

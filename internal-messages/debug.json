@@ -23,5 +23,6 @@
   },
   "replant-task": {
     "run": "Block: %s, Material: %s"
-  }
+  },
+  "util-class": "Util class."
 }
