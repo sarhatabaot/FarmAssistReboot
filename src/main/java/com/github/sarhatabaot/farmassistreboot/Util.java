@@ -22,7 +22,7 @@ public class Util {
         Util.plugin= plugin;
     }
 
-    public static boolean inventoryContainsSeeds(PlayerInventory playerInventory, @NotNull Material material){
+    public static boolean inventoryContainsSeeds(@NotNull PlayerInventory playerInventory, @NotNull Material material){
         Crop crop = Crop.valueOf(material.name());
         return playerInventory.contains(crop.getSeed());
     }
