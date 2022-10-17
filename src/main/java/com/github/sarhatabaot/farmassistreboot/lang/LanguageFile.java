@@ -47,7 +47,7 @@ public class LanguageFile extends ConfigFile<FarmAssistReboot> {
         this.updateLatestVersion = getConfig().getString("update.running-latest-version");
         this.updateNew = getConfig().getString("update.new-update");
         this.updateGetNew = getConfig().getString("update.get-new-update");
-        this.updateNewVersionFail = getConfig().getString("new-version-fail");
+        this.updateNewVersionFail = getConfig().getString("update.new-version-fail");
 
         this.langUnsupported = getConfig().getString("lang.unsupported");
         this.langChanged = getConfig().getString("lang.changed");
