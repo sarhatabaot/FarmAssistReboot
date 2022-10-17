@@ -9,22 +9,8 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.security.CodeSource;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 public class Util {
     private static FarmAssistReboot plugin;
@@ -78,14 +64,4 @@ public class Util {
     public static void debug(final String message, Object... args) {
         debug(String.format(message, args));
     }
-
-
-    public static void saveFileFromJar(JavaPlugin plugin, final String destinationPath, final String fileName, final File folder, final boolean replace) {
-        File file = new File(folder, fileName);
-
-        if (!file.exists()) {
-            plugin.saveResource(destinationPath + fileName, replace);
-        }
-    }
-
 }

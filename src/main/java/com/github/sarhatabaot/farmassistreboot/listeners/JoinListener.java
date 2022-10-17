@@ -1,7 +1,6 @@
 package com.github.sarhatabaot.farmassistreboot.listeners;
 
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import com.github.sarhatabaot.farmassistreboot.messages.InternalMessages;
 import com.github.sarhatabaot.farmassistreboot.messages.Permissions;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -36,10 +36,14 @@ public class FarmAssistReboot extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
         this.assistConfig = new FarmAssistConfig(this);
+        this.languageManager = new LanguageManager(this);
+
         this.globalEnabled = true;
 
         PaperCommandManager commandManager = new PaperCommandManager(this);
         commandManager.registerCommand(new FarmAssistCommand(this));
+        commandManager.getCommandCompletions().registerCompletion("supported-lang", c -> languageManager.getSupportedLanguages());
+
         registerListeners();
         Util.init(this);
         if (FarmAssistConfig.CHECK_FOR_UPDATES) {
@@ -47,8 +51,6 @@ public class FarmAssistReboot extends JavaPlugin {
         }
 
         new Metrics(this,3885);
-
-        languageManager = new LanguageManager(this);
     }
 
     public void debug(final Class<?> clazz,final String message) {

@@ -1,7 +1,6 @@
 package com.github.sarhatabaot.farmassistreboot.tasks;
 
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import com.github.sarhatabaot.farmassistreboot.messages.InternalMessages;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONObject;
