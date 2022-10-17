@@ -23,11 +23,11 @@ public class JoinListener implements Listener {
 			return;
 
 		if(!plugin.isNeedsUpdate()) {
-			player.sendMessage(String.format(InternalMessages.Update.RUNNING_LATEST_VERSION ,plugin.getDescription().getVersion()));
+			player.sendMessage(String.format(plugin.getLanguageManager().getActiveLanguage().getUpdateLatestVersion() ,plugin.getDescription().getVersion()));
 			return;
 		}
 
-		player.sendMessage(String.format(InternalMessages.Update.NEW_UPDATE,plugin.getNewVersion(),plugin.getDescription().getVersion()));
-		player.sendMessage(String.format(InternalMessages.Update.GET_NEW_UPDATE,plugin.getDescription().getWebsite()));
+		player.sendMessage(String.format(plugin.getLanguageManager().getActiveLanguage().getUpdateNew(),plugin.getNewVersion(),plugin.getDescription().getVersion()));
+		player.sendMessage(String.format(plugin.getLanguageManager().getActiveLanguage().getUpdateGetNew(),plugin.getDescription().getWebsite()));
 	}
 }

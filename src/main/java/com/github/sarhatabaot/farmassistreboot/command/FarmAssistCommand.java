@@ -27,10 +27,10 @@ public class FarmAssistCommand extends BaseCommand {
 	public void onToggle(final @NotNull Player player){
 		if (plugin.getDisabledPlayerList().contains(player.getUniqueId())) {
 			plugin.getDisabledPlayerList().remove(player.getUniqueId());
-			player.sendMessage(ChatColor.GREEN + InternalMessages.TogglePlayer.ON);
+			player.sendMessage(ChatColor.GREEN + plugin.getLanguageManager().getActiveLanguage().getTogglePlayerOn());
 		} else {
 			plugin.getDisabledPlayerList().add(player.getUniqueId());
-			player.sendMessage(ChatColor.GREEN + InternalMessages.TogglePlayer.OFF);
+			player.sendMessage(ChatColor.GREEN + plugin.getLanguageManager().getActiveLanguage().getTogglePlayerOff());
 		}
 	}
 
@@ -40,10 +40,10 @@ public class FarmAssistCommand extends BaseCommand {
 	public void onGlobal(final CommandSender sender){
 		if(!plugin.isGlobalEnabled()){
 			plugin.setGlobalEnabled(true);
-			sender.sendMessage(ChatColor.GREEN + InternalMessages.ToggleGlobal.ON);
+			sender.sendMessage(ChatColor.GREEN + plugin.getLanguageManager().getActiveLanguage().getToggleGlobalOn());
 		} else {
 			plugin.setGlobalEnabled(false);
-			sender.sendMessage(ChatColor.GREEN + InternalMessages.ToggleGlobal.OFF);
+			sender.sendMessage(ChatColor.GREEN + plugin.getLanguageManager().getActiveLanguage().getToggleGlobalOff());
 		}
 	}
 
@@ -51,8 +51,8 @@ public class FarmAssistCommand extends BaseCommand {
 	@CommandPermission(Commands.Info.PERMISSION)
 	@Description(Commands.Info.DESCRIPTION)
 	public void onInfo(final @NotNull CommandSender sender){
-		sender.sendMessage(String.format(InternalMessages.Info.VERSION,plugin.getName(),plugin.getDescription().getVersion()));
-		sender.sendMessage(String.format(InternalMessages.Info.MAINTAINERS, plugin.getDescription().getAuthors()));
+		sender.sendMessage(String.format(plugin.getLanguageManager().getActiveLanguage().getInfoVersion(),plugin.getName(),plugin.getDescription().getVersion()));
+		sender.sendMessage(String.format(plugin.getLanguageManager().getActiveLanguage().getInfoMaintainers(), plugin.getDescription().getAuthors()));
 	}
 
 	@Subcommand(Commands.Update.SUB_COMMAND)
@@ -60,12 +60,12 @@ public class FarmAssistCommand extends BaseCommand {
 	@Description(Commands.Update.DESCRIPTION)
 	public void onUpdate(final CommandSender sender){
 		if(!plugin.isNeedsUpdate()) {
-			sender.sendMessage(String.format(InternalMessages.Update.RUNNING_LATEST_VERSION ,plugin.getDescription().getVersion()));
+			sender.sendMessage(String.format(plugin.getLanguageManager().getActiveLanguage().getUpdateLatestVersion() ,plugin.getDescription().getVersion()));
 			return;
 		}
 
-		sender.sendMessage(String.format(InternalMessages.Update.NEW_UPDATE,plugin.getNewVersion(),plugin.getDescription().getVersion()));
-		sender.sendMessage(String.format(InternalMessages.Update.GET_NEW_UPDATE,plugin.getDescription().getWebsite()));
+		sender.sendMessage(String.format(plugin.getLanguageManager().getActiveLanguage().getUpdateNew(),plugin.getNewVersion(),plugin.getDescription().getVersion()));
+		sender.sendMessage(String.format(plugin.getLanguageManager().getActiveLanguage().getUpdateGetNew(),plugin.getDescription().getWebsite()));
 	}
 
 	@Subcommand(Commands.Reload.SUB_COMMAND)
