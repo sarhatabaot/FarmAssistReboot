@@ -4,6 +4,7 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -56,11 +57,12 @@ public class FarmAssistPlaceholderExpansion extends PlaceholderExpansion {
         return "1.0.0";
     }
 
-    private boolean isUuid(final String string) {
+    @Contract(pure = true)
+    private boolean isUuid(final @NotNull String string) {
         return string.split("-").length == 5;
     }
 
-    private UUID getUuid(final String potential) {
+    private @Nullable UUID getUuid(final String potential) {
         if (isUuid(potential)) {
             return UUID.fromString(potential);
         }
