@@ -5,6 +5,7 @@ authors: [sarhatabaot]
 website: ${project.url}
 description: ${project.description}
 api-version: 1.13
+softdepend: [PlaceholderAPI]
 permissions:
   farmassist.crops:
     default: false

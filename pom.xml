@@ -21,6 +21,8 @@
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
 
         <spigot.version>1.13.2-R0.1-SNAPSHOT</spigot.version>
+        <papi.version>2.11.2</papi.version>
+
         <acf.version>0.5.1-SNAPSHOT</acf.version>
         <bstats.version>3.0.0</bstats.version>
         <lombok.version>1.18.24</lombok.version>
@@ -64,12 +66,22 @@
             <id>CodeMC</id>
             <url>https://repo.codemc.org/repository/maven-public</url>
         </repository>
+        <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
     </repositories>
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>${spigot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>${papi.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
