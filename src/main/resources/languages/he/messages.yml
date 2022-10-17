@@ -1,0 +1,12 @@
+toggle:
+  player:
+    on: "FarmAssistReboot functions are now on for you!"
+    off: "FarmAssistReboot functions turned off for you!"
+  global:
+    on: "FarmAssistReboot functions are globally back on!"
+    off: "FarmAssistReboot functions turned off globally!"
+info:
+  version: "%s version: %s"
+  maintainers: "Maintainers: %s"
+update:
+  running-latest-version: "You are running the latest version: %s"
