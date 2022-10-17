@@ -1,5 +1,6 @@
 package com.github.sarhatabaot.farmassistreboot.messages;
 
+@Deprecated
 public final class InternalMessages {
     public static class TogglePlayer {
         public static final String ON = "FarmAssistReboot functions are now on for you!";

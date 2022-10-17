@@ -10,3 +10,6 @@ info:
   maintainers: "Maintainers: %s"
 update:
   running-latest-version: "You are running the latest version: %s"
+  new-update: "New update: %s Current version: %s"
+  get-new-update: "Get at %s"
+  new-version-fail: "Could not get new version."

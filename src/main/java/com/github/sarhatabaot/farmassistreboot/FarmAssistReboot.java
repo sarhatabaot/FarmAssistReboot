@@ -3,6 +3,7 @@ package com.github.sarhatabaot.farmassistreboot;
 import co.aikar.commands.PaperCommandManager;
 import com.github.sarhatabaot.farmassistreboot.command.FarmAssistCommand;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
+import com.github.sarhatabaot.farmassistreboot.lang.LanguageManager;
 import com.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
 import com.github.sarhatabaot.farmassistreboot.listeners.JoinListener;
 import com.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
@@ -22,6 +23,7 @@ import java.util.UUID;
  */
 @Getter @Setter
 public class FarmAssistReboot extends JavaPlugin {
+    private LanguageManager languageManager;
     private List<UUID> disabledPlayerList = new ArrayList<>();
     private FarmAssistConfig assistConfig;
 
@@ -45,6 +47,8 @@ public class FarmAssistReboot extends JavaPlugin {
         }
 
         new Metrics(this,3885);
+
+        languageManager = new LanguageManager(this);
     }
 
     public void debug(final Class<?> clazz,final String message) {
