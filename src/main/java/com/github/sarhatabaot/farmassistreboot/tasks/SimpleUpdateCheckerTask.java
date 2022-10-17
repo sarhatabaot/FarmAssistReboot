@@ -1,7 +1,6 @@
 package com.github.sarhatabaot.farmassistreboot.tasks;
 
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import com.github.sarhatabaot.farmassistreboot.messages.InternalMessages;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONObject;
@@ -38,14 +37,14 @@ public class SimpleUpdateCheckerTask extends BukkitRunnable {
                 if (remoteVal > localVer) {
                     plugin.setNeedsUpdate(true);
                     plugin.setNewVersion(remoteVer);
-                    plugin.getLogger().info(() -> String.format(InternalMessages.Update.NEW_UPDATE, remoteVer, versionNumber));
+                    plugin.getLogger().info(() -> String.format(plugin.getLanguageManager().getActiveLanguage().getUpdateNew(), remoteVer, versionNumber));
                 } else {
                     plugin.setNeedsUpdate(false);
-                    plugin.getLogger().info(() -> String.format(InternalMessages.Update.RUNNING_LATEST_VERSION, versionNumber));
+                    plugin.getLogger().info(() -> String.format(plugin.getLanguageManager().getActiveLanguage().getUpdateLatestVersion(), versionNumber));
                 }
             }
         } catch (Exception t){
-            plugin.getLogger().info(() -> InternalMessages.Update.NEW_VERSION_FAIL);
+            plugin.getLogger().info(() -> plugin.getLanguageManager().getActiveLanguage().getUpdateNewVersionFail());
             t.printStackTrace();
         }
     }

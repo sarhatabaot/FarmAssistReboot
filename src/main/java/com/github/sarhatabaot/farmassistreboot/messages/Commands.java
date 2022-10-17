@@ -23,6 +23,16 @@ public final class Commands {
         }
     }
 
+    public static class Language {
+        public static final String SUB_COMMAND = "language|lang";
+        public static final String PERMISSION = "farmassist.lang";
+        public static final String DESCRIPTION = "Change the active plugin language.";
+
+        private Language() {
+            throw new UnsupportedOperationException(Debug.UTIL_CLASS);
+        }
+    }
+
     public static class Info {
         public static final String SUB_COMMAND = "info|about";
         public static final String PERMISSION = "farmassist.info";

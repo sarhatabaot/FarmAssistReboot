@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.jetbrains.annotations.NotNull;
 
+
 public class Util {
     private static FarmAssistReboot plugin;
 
@@ -18,21 +19,21 @@ public class Util {
         throw new UnsupportedOperationException();
     }
 
-    public static void init(final FarmAssistReboot plugin){
-        Util.plugin= plugin;
+    public static void init(final FarmAssistReboot plugin) {
+        Util.plugin = plugin;
     }
 
-    public static boolean inventoryContainsSeeds(@NotNull PlayerInventory playerInventory, @NotNull Material material){
+    public static boolean inventoryContainsSeeds(@NotNull PlayerInventory playerInventory, @NotNull Material material) {
         Crop crop = Crop.valueOf(material.name());
         return playerInventory.contains(crop.getSeed());
     }
 
     public static boolean isWorldEnabled(@NotNull World world) {
-        debug(Debug.Worlds.CONFIG_PER_WORLD,FarmAssistConfig.ENABLED_PER_WORLD);
-        if(!FarmAssistConfig.ENABLED_PER_WORLD)
+        debug(Debug.Worlds.CONFIG_PER_WORLD, FarmAssistConfig.ENABLED_PER_WORLD);
+        if (!FarmAssistConfig.ENABLED_PER_WORLD)
             return true;
 
-        debug(Debug.Worlds.IS_WORLD_ENABLED,world.getName(),FarmAssistConfig.ENABLED_WORLDS.contains(world));
+        debug(Debug.Worlds.IS_WORLD_ENABLED, world.getName(), FarmAssistConfig.ENABLED_WORLDS.contains(world));
         return FarmAssistConfig.ENABLED_WORLDS.contains(world);
     }
 
@@ -60,8 +61,7 @@ public class Util {
         Util.plugin.debug(Util.class, message);
     }
 
-    private static void debug(final String message,Object... args) {
+    public static void debug(final String message, Object... args) {
         debug(String.format(message, args));
     }
-
 }

@@ -10,6 +10,11 @@
     "permission": "farmassist.toggle.global",
     "description": "Turn farmassist off/on globally"
   },
+  "language": {
+    "sub-command": "language|lang",
+    "permission": "farmassist.lang",
+    "description": "Change the active plugin language."
+  },
   "info": {
     "sub-command": "info|about",
     "permission": "farmassist.info",

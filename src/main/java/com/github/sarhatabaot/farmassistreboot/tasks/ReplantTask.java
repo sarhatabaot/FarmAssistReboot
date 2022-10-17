@@ -33,25 +33,6 @@ public class ReplantTask extends BukkitRunnable {
         }
     }
 
-    private void setBlockAndDropItem(final @NotNull Material material) {
-        Crop crop = Crop.valueOf(material.name());
-        if (isBottomBlock(crop.getPlantedOn()) && block.getType() == Material.AIR) {
-            setBlock(crop.getPlanted());
-        } else {
-            dropItem(material);
-        }
-    }
-
-    private void setBlock(final Material material) {
-        this.block.setType(material);
-        this.block.setBlockData(setCropAge());
-    }
-
-    private void dropItem(final @NotNull Material material) {
-        Crop crop = Crop.valueOf(material.name());
-        this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(crop.getSeed()));
-    }
-
     @Override
     public void run() {
         plugin.debug(ReplantTask.class, String.format(Debug.ReplantTask.RUN, block.getType().name(), material.name()));
@@ -70,6 +51,15 @@ public class ReplantTask extends BukkitRunnable {
         }
     }
 
+    private void setBlockAndDropItem(final @NotNull Material material) {
+        Crop crop = Crop.valueOf(material.name());
+        if (isBottomBlock(crop.getPlantedOn()) && block.getType() == Material.AIR) {
+            setBlock(crop.getPlanted());
+        } else {
+            dropItem(material);
+        }
+    }
+
     private void setCocoaOrDropSeed() {
         if (this.block.getType() != Material.AIR) {
             return;
@@ -82,6 +72,16 @@ public class ReplantTask extends BukkitRunnable {
         } else {
             this.block.getWorld().dropItemNaturally(this.block.getLocation(), new ItemStack(Material.COCOA_BEANS));
         }
+    }
+
+    private void setBlock(final Material material) {
+        this.block.setType(material);
+        this.block.setBlockData(setCropAge());
+    }
+
+    private void dropItem(final @NotNull Material material) {
+        Crop crop = Crop.valueOf(material.name());
+        this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(crop.getSeed()));
     }
 
     private boolean matchedRelativeType(final Material[] materials, final Material relativeType) {

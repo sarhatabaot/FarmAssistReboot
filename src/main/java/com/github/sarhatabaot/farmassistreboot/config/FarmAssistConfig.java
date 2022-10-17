@@ -22,6 +22,8 @@ public class FarmAssistConfig {
     public static boolean ENABLED_PER_WORLD;
     public static List<World> ENABLED_WORLDS;
 
+    public static String ACTIVE_LANGUAGE;
+
 
     public FarmAssistConfig(final @NotNull FarmAssistReboot plugin) {
         this.plugin = plugin;
@@ -31,8 +33,9 @@ public class FarmAssistConfig {
         DEBUG = config.getBoolean("debug",false);
         CHECK_FOR_UPDATES = config.getBoolean("check-for-updates",true);
         PLANT_WHEAT_ON_TILL = config.getBoolean("wheat.plant-on-till",true);
-        ENABLED_PER_WORLD = config.getBoolean("worlds.enable-per-world",true);
+        ENABLED_PER_WORLD = config.getBoolean("worlds.enable-per-world",false);
         ENABLED_WORLDS = getWorlds();
+        ACTIVE_LANGUAGE = config.getString("language", "en");
     }
 
     public void reloadConfig() {
@@ -56,5 +59,11 @@ public class FarmAssistConfig {
 
     public static boolean getRipe(@NotNull Material material) {
         return config.getBoolean(material.name().toLowerCase() + ".replant-when-ripe");
+    }
+
+    public void setActiveLanguage(final String locale) {
+        config.set("language",locale);
+        reloadConfig();
+        ACTIVE_LANGUAGE = config.getString("language", "en");
     }
 }

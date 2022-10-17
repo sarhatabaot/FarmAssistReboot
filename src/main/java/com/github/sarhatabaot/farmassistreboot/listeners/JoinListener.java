@@ -1,7 +1,6 @@
 package com.github.sarhatabaot.farmassistreboot.listeners;
 
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import com.github.sarhatabaot.farmassistreboot.messages.InternalMessages;
 import com.github.sarhatabaot.farmassistreboot.messages.Permissions;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,11 +22,11 @@ public class JoinListener implements Listener {
 			return;
 
 		if(!plugin.isNeedsUpdate()) {
-			player.sendMessage(String.format(InternalMessages.Update.RUNNING_LATEST_VERSION ,plugin.getDescription().getVersion()));
+			player.sendMessage(String.format(plugin.getLanguageManager().getActiveLanguage().getUpdateLatestVersion() ,plugin.getDescription().getVersion()));
 			return;
 		}
 
-		player.sendMessage(String.format(InternalMessages.Update.NEW_UPDATE,plugin.getNewVersion(),plugin.getDescription().getVersion()));
-		player.sendMessage(String.format(InternalMessages.Update.GET_NEW_UPDATE,plugin.getDescription().getWebsite()));
+		player.sendMessage(String.format(plugin.getLanguageManager().getActiveLanguage().getUpdateNew(),plugin.getNewVersion(),plugin.getDescription().getVersion()));
+		player.sendMessage(String.format(plugin.getLanguageManager().getActiveLanguage().getUpdateGetNew(),plugin.getDescription().getWebsite()));
 	}
 }

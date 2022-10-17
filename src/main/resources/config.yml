@@ -40,4 +40,5 @@ worlds:
     enabled-worlds:
     - ExampleWorld
 check-for-updates: true
+language: en
 debug: false
