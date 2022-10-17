@@ -1,7 +1,6 @@
 package com.github.sarhatabaot.farmassistreboot.lang;
 
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import com.github.sarhatabaot.farmassistreboot.Util;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -85,5 +84,13 @@ public class LanguageManager {
 
     public LanguageFile getActiveLanguage() {
         return activeLanguage;
+    }
+
+    public boolean isSupported(final String locale) {
+        return supportedLanguages.contains(locale);
+    }
+
+    public List<String> getSupportedLanguages() {
+        return supportedLanguages;
     }
 }

@@ -13,3 +13,6 @@ update:
   new-update: "New update: %s Current version: %s"
   get-new-update: "Get at %s"
   new-version-fail: "Could not get new version."
+lang:
+  unsupported: "Unsupported locale: %s"
+  changed: "Changed locale from %s to %s."

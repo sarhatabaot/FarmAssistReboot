@@ -24,6 +24,9 @@ public class LanguageFile extends ConfigFile<FarmAssistReboot> {
     private String updateGetNew;
     private String updateNewVersionFail;
 
+    private String langUnsupported;
+    private String langChanged;
+
 
     public LanguageFile(final FarmAssistReboot plugin, final String locale, final String fileName) {
         super(plugin, "languages" + File.separator + locale + File.separator, fileName, "languages" + File.separator + locale);
@@ -45,6 +48,9 @@ public class LanguageFile extends ConfigFile<FarmAssistReboot> {
         this.updateNew = getConfig().getString("update.new-update");
         this.updateGetNew = getConfig().getString("update.get-new-update");
         this.updateNewVersionFail = getConfig().getString("new-version-fail");
+
+        this.langUnsupported = getConfig().getString("lang.unsupported");
+        this.langChanged = getConfig().getString("lang.changed");
     }
 
     @Override
@@ -95,5 +101,13 @@ public class LanguageFile extends ConfigFile<FarmAssistReboot> {
 
     public String getLocale() {
         return locale;
+    }
+
+    public String getLangUnsupported() {
+        return langUnsupported;
+    }
+
+    public String getLangChanged() {
+        return langChanged;
     }
 }
