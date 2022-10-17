@@ -1,9 +1,9 @@
 main: com.github.sarhatabaot.farmassistreboot.FarmAssistReboot
-name: FarmAssistReboot
+name: ${project.name}
 version: ${project.version}
 authors: [sarhatabaot]
-website: https://www.spigotmc.org/resources/farmassistreboot.64064/
-description: FarmAssistReboot Rebooted
+website: ${project.url}
+description: ${project.description}
 api-version: 1.13
 permissions:
   farmassist.crops:
@@ -42,4 +42,6 @@ permissions:
   farmassist.update:
     default: op
   farmassist.notify.update:
+    default: op
+  farmassist.lang:
     default: op
