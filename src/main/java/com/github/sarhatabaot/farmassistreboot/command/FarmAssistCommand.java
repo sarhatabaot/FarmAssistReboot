@@ -91,8 +91,8 @@ public class FarmAssistCommand extends BaseCommand {
 
         final String previousLocale = plugin.getLanguageManager().getActiveLanguage().getLocale();
         plugin.getLanguageManager().switchLanguages(locale);
-        FarmAssistConfig.setActiveLanguage(locale);
-        
+        plugin.getAssistConfig().setActiveLanguage(locale);
+
         sender.sendMessage(String.format(plugin.getLanguageManager().getActiveLanguage().getLangChanged(), previousLocale, locale));
     }
 

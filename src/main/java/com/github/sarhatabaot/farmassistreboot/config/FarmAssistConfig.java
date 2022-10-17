@@ -61,8 +61,9 @@ public class FarmAssistConfig {
         return config.getBoolean(material.name().toLowerCase() + ".replant-when-ripe");
     }
 
-    public static void setActiveLanguage(final String locale) {
+    public void setActiveLanguage(final String locale) {
         config.set("language",locale);
+        reloadConfig();
         ACTIVE_LANGUAGE = config.getString("language", "en");
     }
 }
