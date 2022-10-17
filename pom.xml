@@ -6,7 +6,7 @@
 
     <groupId>com.github.sarhatabaot</groupId>
     <artifactId>farmassistreboot</artifactId>
-    <version>1.1.5</version>
+    <version>1.2.0</version>
 
     <name>FarmAssistReboot</name>
     <description>Allow players to auto-replant crops.</description>
