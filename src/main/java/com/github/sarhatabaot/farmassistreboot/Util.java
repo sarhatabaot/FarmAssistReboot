@@ -3,9 +3,13 @@ package com.github.sarhatabaot.farmassistreboot;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import com.github.sarhatabaot.farmassistreboot.messages.Debug;
 import com.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
+import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -63,5 +67,17 @@ public class Util {
 
     public static void debug(final String message, Object... args) {
         debug(String.format(message, args));
+    }
+
+    public static void sendMessage(final @NotNull CommandSender sender,final String message) {
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            sender.sendMessage(color(PlaceholderAPI.setPlaceholders(!(sender instanceof Player) ? null : (Player) sender, message)));
+            return;
+        }
+        sender.sendMessage(color(message));
+    }
+
+    public static String color(final String message) {
+        return ChatColor.translateAlternateColorCodes('&', message);
     }
 }
