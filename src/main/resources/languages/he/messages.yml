@@ -1,18 +1,18 @@
 toggle:
   player:
-    on: "FarmAssistReboot functions are now on for you!"
-    off: "FarmAssistReboot functions turned off for you!"
+    on: "&aכל פונקציות פארם אסיסט פעילות בשבילך!"
+    off: "&aכל פונקציות פארם אסיסט מכובות בשבילך!"
   global:
-    on: "FarmAssistReboot functions are globally back on!"
-    off: "FarmAssistReboot functions turned off globally!"
+    on: "&aכל פונקציות פארם אסיסט פעילות!"
+    off: "&aכל פונקציות פארם אסיסט מכובות!"
 info:
-  version: "%s version: %s"
-  maintainers: "Maintainers: %s"
+  version: "%s גרסה: %s"
+  maintainers: "מתחזקים: %s"
 update:
-  running-latest-version: "You are running the latest version: %s"
-  new-update: "New update: %s Current version: %s"
-  get-new-update: "Get at %s"
-  new-version-fail: "Could not get new version."
+  running-latest-version: "אתה מפעיל את הגירסה העדכנית ביותר: %s"
+  new-update: "עדכון חדש הינו זמין: %s הגרסה הנוכחית: %s"
+  get-new-update: "השיג ב%s"
+  new-version-fail: "לא ניתן לבדוק את הגרסה החדש."
 lang:
-  unsupported: "Unsupported locale: %s"
-  changed: "Changed locale from %s to %s."
+  unsupported: "שפה לא נתמכת: %s"
+  changed: "השפה שונתה מ-%s ל-%s."
