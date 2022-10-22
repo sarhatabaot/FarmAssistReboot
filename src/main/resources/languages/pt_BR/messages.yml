@@ -1,0 +1,18 @@
+toggle:
+  player:
+    on: "&aAs funções do FarmAssistReboot agora estão habilitadas para você!"
+    off: "&aAs funções do FarmAssistReboot estão desabilitadas para você!"
+  global:
+    on: "&aAs funções do FarmAssistReboot estão mundialmente de volta!"
+    off: "&aAs funções do FarmAssistReboot estão mundialmente desligadas!"
+info:
+  version: "%s versão: %s"
+  maintainers: "Mantenedores: %s"
+update:
+  running-latest-version: "Você está rodando a ultima versão: %s"
+  new-update: "Nova atualização: %s Versão atual: %s"
+  get-new-update: "Adquira em %s"
+  new-version-fail: "Não foi possível obter a nova versão."
+lang:
+  unsupported: "Linguagem não suportada: %s"
+  changed: "Idioma alterado de %s para %s."
