@@ -1,10 +1,8 @@
 toggle:
-  player:
-    on: "&aכל פונקציות פארם אסיסט פעילות בשבילך!"
-    off: "&aכל פונקציות פארם אסיסט מכובות בשבילך!"
-  global:
-    on: "&aכל פונקציות פארם אסיסט פעילות!"
-    off: "&aכל פונקציות פארם אסיסט מכובות!"
+  player-on: "&aFarmAssistReboot functions are now on for you!"
+  player-off: "&aFarmAssistReboot functions turned off for you!"
+  global-on: "&aFarmAssistReboot functions are globally back on!"
+  global-off: "&aFarmAssistReboot functions turned off globally!"
 info:
   version: "%s גרסה: %s"
   maintainers: "מתחזקים: %s"
