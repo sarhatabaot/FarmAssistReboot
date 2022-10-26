@@ -1,8 +1,8 @@
 toggle:
-  player-on: "&aFarmAssistReboot functions are now on for you!"
-  player-off: "&aFarmAssistReboot functions turned off for you!"
-  global-on: "&aFarmAssistReboot functions are globally back on!"
-  global-off: "&aFarmAssistReboot functions turned off globally!"
+  player-on: "&aAs funções do FarmAssistReboot agora estão habilitadas para você!"
+  player-off: "&aAs funções do FarmAssistReboot estão desabilitadas para você!"
+  global-on: "&aAs funções do FarmAssistReboot estão mundialmente de volta!"
+  global-off: "&aAs funções do FarmAssistReboot estão mundialmente desligadas!"
 info:
   version: "%s versão: %s"
   maintainers: "Mantenedores: %s"
