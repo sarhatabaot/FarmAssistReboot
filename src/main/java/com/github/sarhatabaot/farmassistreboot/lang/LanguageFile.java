@@ -2,8 +2,11 @@ package com.github.sarhatabaot.farmassistreboot.lang;
 
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.github.sarhatabaot.farmassistreboot.config.ConfigFile;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * @author sarhatabaot
@@ -36,10 +39,10 @@ public class LanguageFile extends ConfigFile<FarmAssistReboot> {
     }
 
     private void initValues() {
-        this.togglePlayerOn = getConfig().getString("toggle.player.on");
-        this.togglePlayerOff = getConfig().getString("toggle.player.off");
-        this.toggleGlobalOn = getConfig().getString("toggle.global.on");
-        this.toggleGlobalOff = getConfig().getString("toggle.global.off");
+        this.togglePlayerOn = getConfig().getString("toggle.player-on");
+        this.togglePlayerOff = getConfig().getString("toggle.player-off");
+        this.toggleGlobalOn = getConfig().getString("toggle.global-on");
+        this.toggleGlobalOff = getConfig().getString("toggle.global-off");
 
         this.infoMaintainers = getConfig().getString("info.maintainers");
         this.infoVersion = getConfig().getString("info.version");
