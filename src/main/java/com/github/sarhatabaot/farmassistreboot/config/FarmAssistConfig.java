@@ -22,6 +22,9 @@ public class FarmAssistConfig {
     public static boolean ENABLED_PER_WORLD;
     public static List<World> ENABLED_WORLDS;
 
+    public static boolean IGNORE_RENAMED;
+
+    public static boolean IGNORE_NBT;
     public static String ACTIVE_LANGUAGE;
 
 
@@ -36,6 +39,8 @@ public class FarmAssistConfig {
         ENABLED_PER_WORLD = config.getBoolean("worlds.enable-per-world",false);
         ENABLED_WORLDS = getWorlds();
         ACTIVE_LANGUAGE = config.getString("language", "en");
+        IGNORE_RENAMED = config.getBoolean("ignore-seeds.renamed", false);
+        IGNORE_NBT = config.getBoolean("ignore-seeds.nbt", false);
     }
 
     public void reloadConfig() {

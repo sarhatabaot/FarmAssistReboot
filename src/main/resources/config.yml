@@ -6,6 +6,11 @@ use-permissions: true
 #                        Global Settings                         #
 ##################################################################
 # Anything set under global settings will be globally set,
+# Set renamed/seeds with nbt to true to have farmassitreboot not
+# take renamed/seeds with nbt seeds from your inventory when
+# replanting.
+ignore-seeds:
+    renamed: false
 # Even if you give the permission these settings will override it.
 # Example:
 # player has farmassist.wheat

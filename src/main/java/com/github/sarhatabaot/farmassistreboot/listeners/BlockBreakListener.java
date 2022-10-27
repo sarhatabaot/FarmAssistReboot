@@ -80,6 +80,7 @@ public class BlockBreakListener implements Listener {
 			return;
 		}
 
+
 		if (material == Material.SUGAR_CANE || material == Material.CACTUS) {
 			Util.replant(event.getPlayer(), event.getBlock(), material);
 			return;

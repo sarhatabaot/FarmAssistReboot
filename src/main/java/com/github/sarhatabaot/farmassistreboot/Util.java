@@ -29,7 +29,16 @@ public class Util {
 
     public static boolean inventoryContainsSeeds(@NotNull PlayerInventory playerInventory, @NotNull Material material) {
         Crop crop = Crop.valueOf(material.name());
-        return playerInventory.contains(crop.getSeed());
+
+        boolean containsSeed = playerInventory.contains(crop.getSeed());
+        if(FarmAssistConfig.IGNORE_RENAMED && containsSeed) {
+            int spot = playerInventory.first(crop.getSeed());
+            final ItemStack itemStack = playerInventory.getItem(spot);
+            if(itemStack == null || itemStack.getItemMeta() == null || itemStack.getItemMeta().hasDisplayName())
+                return false;
+        }
+
+        return containsSeed;
     }
 
     public static boolean isWorldEnabled(@NotNull World world) {
