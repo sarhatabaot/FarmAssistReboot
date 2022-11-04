@@ -56,7 +56,7 @@ public class PlayerInteractionListener implements Listener {
             return;
         }
 
-        if (Util.inventoryContainsSeeds(event.getPlayer().getInventory(), Material.WHEAT)) {
+        if (Util.inventoryContainsSeeds(event.getPlayer().getInventory(), Material.WHEAT) != -1) {
             //noinspection ConstantConditions checked if null @isPlayerBlockFarmable
             event.getClickedBlock().setType(Material.FARMLAND);
             Util.replant(player, event.getClickedBlock(), Material.WHEAT);

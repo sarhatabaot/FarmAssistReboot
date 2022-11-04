@@ -34,6 +34,7 @@ public class Util {
 
     /**
      * Will return -1 if no slot is found.
+     *
      * @param playerInventory
      * @param material
      * @return
@@ -42,24 +43,26 @@ public class Util {
         Crop crop = Crop.valueOf(material.name());
 
         Map<Integer, ? extends ItemStack> itemsSlotsMap = playerInventory.all(crop.getSeed());
-        if(itemsSlotsMap.isEmpty())
+        if (itemsSlotsMap.isEmpty())
             return -1;
         List<Map.Entry<Integer, ? extends ItemStack>> list = itemsSlotsMap.entrySet().stream()
-                .filter(
-                p -> {
-                    if(FarmAssistConfig.IGNORE_RENAMED) {
+                .filter(p -> {
+                    if (FarmAssistConfig.IGNORE_RENAMED) {
                         ItemStack itemStack = p.getValue();
                         return itemStack.getItemMeta() != null || !itemStack.getItemMeta().hasDisplayName();
                     }
-                    if(FarmAssistConfig.IGNORE_NBT) {
+                    return true;
+                })
+                .filter(p -> {
+                    if (FarmAssistConfig.IGNORE_NBT) {
                         final NBTItem nbtItem = new NBTItem(p.getValue());
                         return !nbtItem.hasCustomNbtData();
                     }
                     return true;
-                }
-        ).collect(Collectors.toList());
+                })
+                .collect(Collectors.toList());
 
-        if(list.isEmpty())
+        if (list.isEmpty())
             return -1;
 
         return list.get(0).getKey();
@@ -110,8 +113,8 @@ public class Util {
         debug(String.format(message, args));
     }
 
-    public static void sendMessage(final @NotNull CommandSender sender,final String message) {
-        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+    public static void sendMessage(final @NotNull CommandSender sender, final String message) {
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             sender.sendMessage(color(PlaceholderAPI.setPlaceholders(!(sender instanceof Player) ? null : (Player) sender, message)));
             return;
         }
