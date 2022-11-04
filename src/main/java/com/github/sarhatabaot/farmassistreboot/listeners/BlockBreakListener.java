@@ -74,8 +74,8 @@ public class BlockBreakListener implements Listener {
 			return;
 		}
 
-
-		if (!Util.inventoryContainsSeeds(event.getPlayer().getInventory(), material)) {
+		int slot = Util.inventoryContainsSeeds(event.getPlayer().getInventory(), material);
+		if (slot == -1) {
 			debug(Debug.OnBlockBreak.NO_SEEDS,event.getPlayer().getName());
 			return;
 		}
@@ -87,7 +87,7 @@ public class BlockBreakListener implements Listener {
 		}
 
 		if (!FarmAssistConfig.getRipe(material) || isRipe(event.getBlock())) {
-			Util.replant(event.getPlayer(), event.getBlock(), material);
+			Util.replant(event.getPlayer(), event.getBlock(), slot);
 		}
 	}
 

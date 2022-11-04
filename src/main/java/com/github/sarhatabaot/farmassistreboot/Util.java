@@ -3,6 +3,7 @@ package com.github.sarhatabaot.farmassistreboot;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import com.github.sarhatabaot.farmassistreboot.messages.Debug;
 import com.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,6 +15,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 public class Util {
@@ -27,18 +32,37 @@ public class Util {
         Util.plugin = plugin;
     }
 
-    public static boolean inventoryContainsSeeds(@NotNull PlayerInventory playerInventory, @NotNull Material material) {
+    /**
+     * Will return -1 if no slot is found.
+     * @param playerInventory
+     * @param material
+     * @return
+     */
+    public static int inventoryContainsSeeds(@NotNull PlayerInventory playerInventory, @NotNull Material material) {
         Crop crop = Crop.valueOf(material.name());
 
-        boolean containsSeed = playerInventory.contains(crop.getSeed());
-        if(FarmAssistConfig.IGNORE_RENAMED && containsSeed) {
-            int spot = playerInventory.first(crop.getSeed());
-            final ItemStack itemStack = playerInventory.getItem(spot);
-            if(itemStack == null || itemStack.getItemMeta() == null || itemStack.getItemMeta().hasDisplayName())
-                return false;
-        }
+        Map<Integer, ? extends ItemStack> itemsSlotsMap = playerInventory.all(crop.getSeed());
+        if(itemsSlotsMap.isEmpty())
+            return -1;
+        List<Map.Entry<Integer, ? extends ItemStack>> list = itemsSlotsMap.entrySet().stream()
+                .filter(
+                p -> {
+                    if(FarmAssistConfig.IGNORE_RENAMED) {
+                        ItemStack itemStack = p.getValue();
+                        return itemStack.getItemMeta() != null || !itemStack.getItemMeta().hasDisplayName();
+                    }
+                    if(FarmAssistConfig.IGNORE_NBT) {
+                        final NBTItem nbtItem = new NBTItem(p.getValue());
+                        return !nbtItem.hasCustomNbtData();
+                    }
+                    return true;
+                }
+        ).collect(Collectors.toList());
 
-        return containsSeed;
+        if(list.isEmpty())
+            return -1;
+
+        return list.get(0).getKey();
     }
 
     public static boolean isWorldEnabled(@NotNull World world) {
@@ -53,6 +77,14 @@ public class Util {
     public static void replant(@NotNull Player player, Block block, @NotNull Material material) {
         Crop crop = Crop.valueOf(material.name());
         int spot = player.getInventory().first(crop.getSeed());
+        debug("Spot:" + spot);
+        if (spot >= 0) {
+            removeOrSubtractItem(player, spot);
+            new ReplantTask(block, plugin).runTaskLater(plugin, 5L);
+        }
+    }
+
+    public static void replant(@NotNull Player player, Block block, int spot) {
         debug("Spot:" + spot);
         if (spot >= 0) {
             removeOrSubtractItem(player, spot);

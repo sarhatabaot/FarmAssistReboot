@@ -11,6 +11,7 @@ use-permissions: true
 # replanting.
 ignore-seeds:
     renamed: false
+    nbt: false
 # Even if you give the permission these settings will override it.
 # Example:
 # player has farmassist.wheat

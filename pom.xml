@@ -24,6 +24,7 @@
         <papi.version>2.11.2</papi.version>
 
         <acf.version>0.5.1-SNAPSHOT</acf.version>
+        <nbt.api.version>2.10.0</nbt.api.version>
         <bstats.version>3.0.0</bstats.version>
         <lombok.version>1.18.24</lombok.version>
         <jetbrains.annotations.version>23.0.0</jetbrains.annotations.version>
@@ -103,6 +104,12 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>de.tr7zw</groupId>
+            <artifactId>item-nbt-api</artifactId>
+            <version>${nbt.api.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>${jetbrains.annotations.version}</version>
@@ -125,7 +132,7 @@
                         <relocations>
                             <relocation>
                                 <pattern>org.bstats</pattern>
-                                <shadedPattern>${project.groupId}.farmassistreboot</shadedPattern>
+                                <shadedPattern>${project.groupId}.farmassistreboot.metrics</shadedPattern>
                             </relocation>
                             <relocation>
                                 <pattern>co.aikar.commands</pattern>
@@ -134,6 +141,10 @@
                             <relocation>
                                 <pattern>co.aikar.locales</pattern>
                                 <shadedPattern>${project.groupId}.farmassistreboot.locales</shadedPattern>
+                            </relocation>
+                            <relocation>
+                                <pattern>de.tr7zw.changeme.nbtapi</pattern>
+                                <shadedPattern>${project.groupId}.farmassistreboot.nbt</shadedPattern>
                             </relocation>
                         </relocations>
                     </configuration>
