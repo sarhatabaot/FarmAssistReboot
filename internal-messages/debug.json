@@ -1,5 +1,4 @@
 {
-  "inventory-contains": "%s: %s",
   "worlds": {
     "is-world-enabled": "Is %s enabled: %s",
     "config-per-world": "config.enabled-per-world: %s"

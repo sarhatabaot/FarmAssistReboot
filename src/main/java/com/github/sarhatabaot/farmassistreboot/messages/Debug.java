@@ -1,8 +1,6 @@
 package com.github.sarhatabaot.farmassistreboot.messages;
 
 public final class Debug {
-    public static final String INVENTORY_CONTAINS = "%s: %s";
-
     public static class Worlds {
         public static final String IS_WORLD_ENABLED = "Is %s enabled: %s";
         public static final String CONFIG_PER_WORLD = "config.enabled-per-world: %s";

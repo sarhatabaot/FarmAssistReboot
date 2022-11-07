@@ -35,9 +35,9 @@ public class Util {
     /**
      * Will return -1 if no slot is found.
      *
-     * @param playerInventory
-     * @param material
-     * @return
+     * @param playerInventory The player inventory
+     * @param material Material to check
+     * @return Return the slot matching the material. Will return -1 if no slot is found. Check for nbt/renamed.
      */
     public static int inventoryContainsSeeds(@NotNull PlayerInventory playerInventory, @NotNull Material material) {
         Crop crop = Crop.valueOf(material.name());
