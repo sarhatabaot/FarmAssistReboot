@@ -10,8 +10,8 @@ use-permissions: true
 # take renamed/seeds with nbt seeds from your inventory when
 # replanting.
 ignore-seeds:
-    renamed: false
-    nbt: false
+    renamed: true
+    nbt: true
 # Even if you give the permission these settings will override it.
 # Example:
 # player has farmassist.wheat
