@@ -49,7 +49,7 @@ public class Util {
                 .filter(p -> {
                     if (FarmAssistConfig.IGNORE_RENAMED) {
                         ItemStack itemStack = p.getValue();
-                        return itemStack.getItemMeta() != null || !itemStack.getItemMeta().hasDisplayName();
+                        return itemStack.getItemMeta() != null && !itemStack.getItemMeta().hasDisplayName();
                     }
                     return true;
                 })
