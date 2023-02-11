@@ -14,6 +14,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -121,7 +122,8 @@ public class Util {
         sender.sendMessage(color(message));
     }
 
-    public static String color(final String message) {
+    @Contract("_ -> new")
+    public static @NotNull String color(final String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
     }
 }
