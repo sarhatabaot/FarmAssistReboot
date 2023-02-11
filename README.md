@@ -9,6 +9,7 @@ A 1.13.2-1.19.2 version of FarmAssist.
 * **/farmassist global** - Turns off FarmAssist globally without disabling the plugin.
 * **/farmassist update** - Checks for updates
 * **/farmassist reload** - reloads the config
+
 ## Permissions:
 
 * farmassist.crops - Lets players auto-replant all crops that are enabled.
@@ -27,6 +28,12 @@ A 1.13.2-1.19.2 version of FarmAssist.
 * farmassist.till - Allows player to have AutoReplant on till.
 * farmassist.notify.update - Notifies the player if there is a new update.
 
+## Placeholders: 
+`%farmassist_toggle%` - Show global farmassist state
+
+`%farmassist_player_toggle%` - Show current player toggle state. Useful for guis.
+
+`%farmassist_player_<uuid|name>` - Show specific player toggle state. Can be a name or a uuid.
 ## Configuration (config.yml):
 ```yaml
 ##################################################################
