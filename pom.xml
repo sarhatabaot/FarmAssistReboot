@@ -24,7 +24,7 @@
         <papi.version>2.11.2</papi.version>
 
         <acf.version>0.5.1-SNAPSHOT</acf.version>
-        <nbt.api.version>2.11.1</nbt.api.version>
+        <nbt.api.version>2.11.3</nbt.api.version>
         <bstats.version>3.0.0</bstats.version>
         <lombok.version>1.18.26</lombok.version>
         <jetbrains.annotations.version>24.0.0</jetbrains.annotations.version>
