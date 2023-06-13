@@ -26,7 +26,7 @@
         <acf.version>0.5.1-SNAPSHOT</acf.version>
         <nbt.api.version>2.11.3</nbt.api.version>
         <bstats.version>3.0.2</bstats.version>
-        <lombok.version>1.18.26</lombok.version>
+        <lombok.version>1.18.28</lombok.version>
         <jetbrains.annotations.version>24.0.1</jetbrains.annotations.version>
 
         <messages.version>1.2.3</messages.version>
