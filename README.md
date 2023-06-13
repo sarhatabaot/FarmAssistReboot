@@ -33,7 +33,7 @@ A 1.13.2-1.20 version of FarmAssist.
 
 `%farmassist_player_toggle%` - Show current player toggle state. Useful for guis.
 
-`%farmassist_player_<uuid|name>` - Show specific player toggle state. Can be a name or a uuid.
+`%farmassist_player_<uuid|name>` - Show specific player toggle state. Can be a name or an uuid.
 ## Configuration (config.yml):
 ```yaml
 ##################################################################
