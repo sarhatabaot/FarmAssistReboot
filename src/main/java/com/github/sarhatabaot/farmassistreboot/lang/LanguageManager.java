@@ -44,14 +44,14 @@ public class LanguageManager {
      *
      * @param plugin plugin
      */
-    public void saveLanguagesDirectories(final JavaPlugin plugin) {
+    public void saveLanguagesDirectories(final @NotNull JavaPlugin plugin) {
         File languagesFolder = new File(plugin.getDataFolder(),"languages");
         for(final String locale: supportedLanguages) {
             saveFileFromJar(plugin,"languages" + File.separator + locale,"messages.yml", languagesFolder, false);
         }
     }
 
-    public static List<String> getFolderNamesFromJar(JavaPlugin plugin) {
+    public static @NotNull List<String> getFolderNamesFromJar(@NotNull JavaPlugin plugin) {
         List<String> fileNames = new ArrayList<>();
         CodeSource src = plugin.getClass().getProtectionDomain().getCodeSource();
         if (src != null) {
