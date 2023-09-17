@@ -27,6 +27,8 @@ public class FarmAssistConfig {
     public static boolean IGNORE_NBT;
     public static String ACTIVE_LANGUAGE;
 
+    public static boolean NO_SEEDS;
+
 
     public FarmAssistConfig(final @NotNull FarmAssistReboot plugin) {
         this.plugin = plugin;
@@ -41,6 +43,7 @@ public class FarmAssistConfig {
         ACTIVE_LANGUAGE = config.getString("language", "en");
         IGNORE_RENAMED = config.getBoolean("ignore-seeds.renamed", true);
         IGNORE_NBT = config.getBoolean("ignore-seeds.nbt", true);
+        NO_SEEDS = config.getBoolean("no-seeds", false);
     }
 
     public void reloadConfig() {

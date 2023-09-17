@@ -2,6 +2,7 @@ package com.github.sarhatabaot.farmassistreboot;
 
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import com.github.sarhatabaot.farmassistreboot.messages.Debug;
+import com.github.sarhatabaot.farmassistreboot.messages.Permissions;
 import com.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -81,22 +82,23 @@ public class Util {
     public static void replant(@NotNull Player player, Block block, @NotNull Material material) {
         Crop crop = Crop.valueOf(material.name());
         int spot = player.getInventory().first(crop.getSeed());
-        debug("Spot:" + spot);
-        if (spot >= 0) {
-            removeOrSubtractItem(player, spot);
-            new ReplantTask(block, plugin).runTaskLater(plugin, 5L);
-        }
+        replant(player, block, spot);
     }
 
     public static void replant(@NotNull Player player, Block block, int spot) {
         debug("Spot:" + spot);
-        if (spot >= 0) {
+        debug("CONFIG:no-seeds: %b, PERMISSION:farmassist.no_seeds: %b", FarmAssistConfig.NO_SEEDS, player.hasPermission(Permissions.NO_SEEDS));
+        if (spot >= 0 || Util.checkNoSeeds(player)) {
             removeOrSubtractItem(player, spot);
             new ReplantTask(block, plugin).runTaskLater(plugin, 5L);
         }
     }
 
     public static void removeOrSubtractItem(@NotNull Player player, int spot) {
+        if(Util.checkNoSeeds(player)) {
+            return;
+        }
+
         ItemStack next = player.getInventory().getItem(spot);
         if (next != null && next.getAmount() > 1) {
             next.setAmount(next.getAmount() - 1);
@@ -125,5 +127,15 @@ public class Util {
     @Contract("_ -> new")
     public static @NotNull String color(final String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
+    }
+
+    /**
+     * Checks if the "no-seeds" config option is enabled
+     * or if the player has the "no-seeds" permission.
+     * @param player Player to check
+     * @return true if the config option is enabled or if the player has the permission
+     */
+    public static boolean checkNoSeeds(final Player player) {
+        return FarmAssistConfig.NO_SEEDS || player.hasPermission(Permissions.NO_SEEDS);
     }
 }
