@@ -46,3 +46,5 @@ permissions:
     default: op
   farmassist.lang:
     default: op
+  farmassist.noseeds:
+    default: false

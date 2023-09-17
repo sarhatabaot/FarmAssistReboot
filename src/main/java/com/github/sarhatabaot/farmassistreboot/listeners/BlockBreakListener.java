@@ -75,7 +75,7 @@ public class BlockBreakListener implements Listener {
 		}
 
 		int slot = Util.inventoryContainsSeeds(event.getPlayer().getInventory(), material);
-		if (slot == -1) {
+		if (!Util.checkNoSeeds(event.getPlayer()) && slot == -1) {
 			debug(Debug.OnBlockBreak.NO_SEEDS,event.getPlayer().getName());
 			return;
 		}

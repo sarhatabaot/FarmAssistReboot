@@ -5,6 +5,7 @@ public final class Permissions {
     public static final String UPDATE_NOTIFY = "farmassist.notify.update";
     public static final String TILL = "farmassist.till";
     public static final String WHEAT = "farmassist.wheat";
+    public static final String NO_SEEDS = "farmassist.noseeds";
 
     private Permissions() {
         throw new UnsupportedOperationException(Debug.UTIL_CLASS);
