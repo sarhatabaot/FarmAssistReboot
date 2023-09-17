@@ -3,7 +3,7 @@
 ![Java CI with Maven](https://github.com/sarhatabaot/FarmAssistReboot/workflows/Java%20CI%20with%20Maven/badge.svg)
 [![Crowdin](https://badges.crowdin.net/farmassistreboot/localized.svg)](https://crowdin.com/project/farmassistreboot)
 
-A 1.13.2-1.20 version of FarmAssist. 
+A 1.13.2-1.20.1 version of FarmAssist. 
 ## Commands:
 * **/farmassist toggle** - Lets a player turn off FarmAssist features.
 * **/farmassist global** - Turns off FarmAssist globally without disabling the plugin.
