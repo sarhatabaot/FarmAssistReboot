@@ -1,8 +1,10 @@
 package com.github.sarhatabaot.farmassistreboot;
 
 
+import lombok.Getter;
 import org.bukkit.Material;
 
+@Getter
 public enum Crop {
 	WHEAT(new Material[]{Material.FARMLAND}, Material.WHEAT, Material.WHEAT_SEEDS),
 	SUGAR_CANE(new Material[]{Material.GRASS_BLOCK,Material.SAND,Material.DIRT}, Material.SUGAR_CANE, Material.SUGAR_CANE),
@@ -25,17 +27,5 @@ public enum Crop {
 		this.seed = seed;
 	}
 
-
-	public Material[] getPlantedOn() {
-		return plantedOn;
-	}
-
-	public Material getPlanted() {
-		return planted;
-	}
-
-	public Material getSeed() {
-		return seed;
-	}
 
 }

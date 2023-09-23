@@ -2,12 +2,14 @@ package com.github.sarhatabaot.farmassistreboot.lang;
 
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.github.sarhatabaot.farmassistreboot.config.ConfigFile;
+import lombok.Getter;
 
 import java.io.File;
 
 /**
  * @author sarhatabaot
  */
+@Getter
 public class LanguageFile extends ConfigFile<FarmAssistReboot> {
     private final String locale;
     private String togglePlayerOn;
@@ -59,55 +61,4 @@ public class LanguageFile extends ConfigFile<FarmAssistReboot> {
         initValues();
     }
 
-    public String getTogglePlayerOn() {
-        return togglePlayerOn;
-    }
-
-    public String getTogglePlayerOff() {
-        return togglePlayerOff;
-    }
-
-    public String getToggleGlobalOn() {
-        return toggleGlobalOn;
-    }
-
-    public String getToggleGlobalOff() {
-        return toggleGlobalOff;
-    }
-
-    public String getInfoVersion() {
-        return infoVersion;
-    }
-
-    public String getInfoMaintainers() {
-        return infoMaintainers;
-    }
-
-    public String getUpdateLatestVersion() {
-        return updateLatestVersion;
-    }
-
-    public String getUpdateNew() {
-        return updateNew;
-    }
-
-    public String getUpdateGetNew() {
-        return updateGetNew;
-    }
-
-    public String getUpdateNewVersionFail() {
-        return updateNewVersionFail;
-    }
-
-    public String getLocale() {
-        return locale;
-    }
-
-    public String getLangUnsupported() {
-        return langUnsupported;
-    }
-
-    public String getLangChanged() {
-        return langChanged;
-    }
 }

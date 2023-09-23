@@ -1,7 +1,6 @@
 package com.github.sarhatabaot.farmassistreboot.tasks;
 
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -11,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.logging.Level;
 
 public class SimpleUpdateCheckerTask implements Runnable {
     private final FarmAssistReboot plugin;
@@ -45,7 +45,7 @@ public class SimpleUpdateCheckerTask implements Runnable {
             }
         } catch (Exception t){
             plugin.getLogger().info(() -> plugin.getLanguageManager().getActiveLanguage().getUpdateNewVersionFail());
-            t.printStackTrace();
+            plugin.getLogger().log(Level.WARNING,t.getMessage(), t.getCause());
         }
     }
 }

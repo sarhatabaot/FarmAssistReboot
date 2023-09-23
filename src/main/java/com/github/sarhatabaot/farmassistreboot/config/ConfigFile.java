@@ -6,13 +6,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.StandardCharsets;
-import java.util.logging.Level;
-
 /**
  * @author sarhatabaot
  * Extracted from KrakenCore, since it only supports JDK 16+
@@ -46,20 +39,6 @@ public class ConfigFile<T extends JavaPlugin> {
         reloadConfig();
     }
 
-    public void saveConfig() {
-        if (this.config == null)
-            return;
-
-        if (file == null)
-            return;
-
-        try {
-            config.save(file);
-        } catch (IOException ex) {
-            plugin.getLogger().warning(ex.getMessage());
-        }
-    }
-
 
     public void reloadConfig() {
         if (file == null) {
@@ -67,26 +46,6 @@ public class ConfigFile<T extends JavaPlugin> {
         }
 
         config = YamlConfiguration.loadConfiguration(file);
-    }
-
-    public void reloadDefaultConfig() {
-        if (file == null) {
-            file = new File(folder, fileName);
-        }
-
-        if (!file.exists()) {
-            config = YamlConfiguration.loadConfiguration(file);
-            try (InputStream resource = plugin.getResource(resourcePath + fileName)) {
-                if (resource != null) {
-                    try (Reader defConfigStream = new InputStreamReader(resource, StandardCharsets.UTF_8)) {
-                        YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
-                        config.setDefaults(defConfig);
-                    }
-                }
-            } catch (IOException e) {
-                plugin.getLogger().log(Level.SEVERE,e.getMessage(),e);
-            }
-        }
     }
 
     @NotNull

@@ -48,9 +48,8 @@ public class LanguageManager {
      * @param plugin plugin
      */
     public void saveLanguagesDirectories(final @NotNull JavaPlugin plugin) {
-        File languagesFolder = new File(plugin.getDataFolder(),"languages");
         for(final String locale: supportedLanguages) {
-            saveFileFromJar(plugin,"languages" + File.separator + locale,"messages.yml", languagesFolder);
+            saveFileFromJar(plugin,"languages" + File.separator + locale,"messages.yml");
         }
     }
 
@@ -77,7 +76,7 @@ public class LanguageManager {
         return fileNames;
     }
 
-    public static void saveFileFromJar(@NotNull JavaPlugin plugin, final String resourcePath, final String fileName, final File folder) {
+    public static void saveFileFromJar(@NotNull JavaPlugin plugin, final String resourcePath, final String fileName) {
         final String path = resourcePath + File.separator + fileName;
         final File file = new File(plugin.getDataFolder(), path);
 
