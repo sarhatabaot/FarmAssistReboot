@@ -1,7 +1,6 @@
 package com.github.sarhatabaot.farmassistreboot.lang;
 
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import com.github.sarhatabaot.farmassistreboot.Util;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,7 +12,6 @@ import java.net.URL;
 import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -78,7 +76,7 @@ public class LanguageManager {
         }
         return fileNames;
     }
-    
+
     public static void saveFileFromJar(@NotNull JavaPlugin plugin, final String resourcePath, final String fileName, final File folder) {
         final String path = resourcePath + File.separator + fileName;
         final File file = new File(plugin.getDataFolder(), path);
