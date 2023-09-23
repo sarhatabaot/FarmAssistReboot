@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class SimpleUpdateCheckerTask extends BukkitRunnable {
+public class SimpleUpdateCheckerTask implements Runnable {
     private final FarmAssistReboot plugin;
     private final String versionNumber;
 
