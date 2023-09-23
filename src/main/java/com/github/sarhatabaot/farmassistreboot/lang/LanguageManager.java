@@ -1,7 +1,9 @@
 package com.github.sarhatabaot.farmassistreboot.lang;
 
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
+import com.github.sarhatabaot.farmassistreboot.Util;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
+import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,6 +13,7 @@ import java.net.URL;
 import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -20,7 +23,9 @@ import java.util.zip.ZipInputStream;
 public class LanguageManager {
     private final FarmAssistReboot plugin;
 
+    @Getter
     private final List<String> supportedLanguages;
+    @Getter
     private LanguageFile activeLanguage;
 
     public LanguageManager(final FarmAssistReboot plugin) {
@@ -47,7 +52,7 @@ public class LanguageManager {
     public void saveLanguagesDirectories(final @NotNull JavaPlugin plugin) {
         File languagesFolder = new File(plugin.getDataFolder(),"languages");
         for(final String locale: supportedLanguages) {
-            saveFileFromJar(plugin,"languages" + File.separator + locale,"messages.yml", languagesFolder, false);
+            saveFileFromJar(plugin,"languages" + File.separator + locale,"messages.yml", languagesFolder);
         }
     }
 
@@ -73,24 +78,18 @@ public class LanguageManager {
         }
         return fileNames;
     }
-
-    public static void saveFileFromJar(JavaPlugin plugin, final String resourcePath, final String fileName, final File folder, final boolean replace) {
-        File file = new File(folder, fileName);
+    
+    public static void saveFileFromJar(@NotNull JavaPlugin plugin, final String resourcePath, final String fileName, final File folder) {
+        final String path = resourcePath + File.separator + fileName;
+        final File file = new File(plugin.getDataFolder(), path);
 
         if (!file.exists()) {
-            plugin.saveResource(resourcePath + File.separator + fileName, replace);
+            plugin.saveResource(path, false);
         }
-    }
-
-    public LanguageFile getActiveLanguage() {
-        return activeLanguage;
     }
 
     public boolean isSupported(final String locale) {
         return supportedLanguages.contains(locale);
     }
 
-    public List<String> getSupportedLanguages() {
-        return supportedLanguages;
-    }
 }
