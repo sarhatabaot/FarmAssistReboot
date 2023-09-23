@@ -10,12 +10,11 @@ import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Cocoa;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
-public class ReplantTask extends BukkitRunnable {
+public class ReplantTask implements Runnable {
     private final FarmAssistReboot plugin;
     private final Block block;
     private final Material material;
