@@ -21,7 +21,7 @@
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
 
         <xseries.version>9.6.0</xseries.version>
-        <spigot.version>1.13.2-R0.1-SNAPSHOT</spigot.version>
+        <spigot.version>1.8.8-R0.1-SNAPSHOT</spigot.version>
         <papi.version>2.11.5</papi.version>
 
         <acf.version>0.5.1-SNAPSHOT</acf.version>
