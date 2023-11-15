@@ -28,7 +28,7 @@
         <folialib.version>0.2.5</folialib.version>
         <bstats.version>3.0.2</bstats.version>
         <lombok.version>1.18.30</lombok.version>
-        <jetbrains.annotations.version>24.0.1</jetbrains.annotations.version>
+        <jetbrains.annotations.version>24.1.0</jetbrains.annotations.version>
 
         <messages.version>1.2.3</messages.version>
         <formatter.version>2.16.0</formatter.version>
