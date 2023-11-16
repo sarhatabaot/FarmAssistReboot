@@ -32,9 +32,10 @@ public class PlayerInteractionListener implements Listener {
                 || plugin.getDisabledPlayerList().contains(event.getPlayer().getUniqueId()))
             return;
 
-        if (!(isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()) && isPlayerBlockFarmable(event))) {
+        final Material itemInMainHandType = event.getPlayer().getInventory().getItemInMainHand().getType();
+        if (!(isHoe(itemInMainHandType) && isPlayerBlockFarmable(event))) {
             debug(Debug.OnPlayerInteract.BLOCK_FARMABLE, isPlayerBlockFarmable(event));
-            debug(Debug.OnPlayerInteract.IS_ITEM_HOE, isHoe(event.getPlayer().getInventory().getItemInMainHand().getType()));
+            debug(Debug.OnPlayerInteract.IS_ITEM_HOE, isHoe(itemInMainHandType));
             return;
         }
         // Permission Checks
