@@ -24,7 +24,7 @@
         <papi.version>2.11.5</papi.version>
 
         <acf.version>0.5.1-SNAPSHOT</acf.version>
-        <nbt.api.version>2.12.1</nbt.api.version>
+        <nbt.api.version>2.12.2</nbt.api.version>
         <folialib.version>0.2.5</folialib.version>
         <bstats.version>3.0.2</bstats.version>
         <lombok.version>1.18.30</lombok.version>
