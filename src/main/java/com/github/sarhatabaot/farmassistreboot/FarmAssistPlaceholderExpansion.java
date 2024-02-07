@@ -30,18 +30,18 @@ public class FarmAssistPlaceholderExpansion extends PlaceholderExpansion {
         }
         
         if ("player_toggle".equalsIgnoreCase(params)) {
-            if(player == null) {
+            if (player == null) {
                 return "PLAYER IS NULL";
             }
             
-            UUID uuid = player.getUniqueId();
+            final UUID uuid = player.getUniqueId();
             return isFarmAssistEnabledForUuid(uuid);
         }
         
         if (params.startsWith("player_")) {
             final String name = params.split("_")[1];
             if (name != null) {
-                UUID uuid = getUuid(name);
+                final UUID uuid = getUuid(name);
                 if (uuid == null)
                     return "";
                 
