@@ -90,7 +90,7 @@ public class Util {
         debug("CONFIG:no-seeds: %b, PERMISSION:farmassist.no_seeds: %b", FarmAssistConfig.NO_SEEDS, player.hasPermission(Permissions.NO_SEEDS));
         if (spot >= 0 || Util.checkNoSeeds(player)) {
             removeOrSubtractItem(player, spot);
-            plugin.getFoliaLib().getImpl().runAtLocationLater(block.getLocation(), new ReplantTask(block,plugin),  5L);
+            plugin.getPaperLib().scheduling().regionSpecificScheduler(block.getLocation()).runDelayed(new ReplantTask(block,plugin), 5L);
         }
     }
 

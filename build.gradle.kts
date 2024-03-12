@@ -16,6 +16,7 @@ repositories {
     maven("https://repo.codemc.org/repository/maven-public")
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     maven("https://nexuslite.gcnt.net/repos/other/")
+    maven("https://mvn-repo.arim.space/lesser-gpl3/")
 }
 
 dependencies {
@@ -25,14 +26,14 @@ dependencies {
     implementation(libs.nbt.api)
     implementation(libs.bstats)
     implementation(libs.acf.paper)
-    implementation(libs.folia.lib)
+    implementation(libs.more.paper)
     implementation(libs.annotations)
 }
 
 bukkit {
     main = "com.github.sarhatabaot.farmassistreboot.FarmAssistReboot"
     name = "FarmAssistReboot"
-    authors = listOf("sarhatabaot")
+    authors = listOf("Friendly Baron","sarhatabaot")
     website = "https://github.com/sarhatabaot/FarmAssistReboot"
     description = "Allow players to auto-replant crops."
     apiVersion = "1.13"
@@ -108,6 +109,7 @@ tasks {
 
     shadowJar {
         minimize()
+        archiveClassifier.set("")
 
         relocate("org.bstats", "com.github.sarhatabaot.farmassistreboot.metrics")
         relocate("co.aikar.commands", "com.github.sarhatabaot.farmassistreboot.acf")

@@ -8,13 +8,13 @@ import com.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
 import com.github.sarhatabaot.farmassistreboot.listeners.JoinListener;
 import com.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
 import com.github.sarhatabaot.farmassistreboot.tasks.SimpleUpdateCheckerTask;
-import com.tcoded.folialib.FoliaLib;
 import lombok.Getter;
 import lombok.Setter;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import space.arim.morepaperlib.MorePaperLib;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ import java.util.UUID;
  */
 @Getter @Setter
 public class FarmAssistReboot extends JavaPlugin {
-    private FoliaLib foliaLib = new FoliaLib(this);
+    private MorePaperLib paperLib = new MorePaperLib(this);
     private LanguageManager languageManager;
     private List<UUID> disabledPlayerList = new ArrayList<>();
     private FarmAssistConfig assistConfig;
@@ -50,7 +50,7 @@ public class FarmAssistReboot extends JavaPlugin {
         registerListeners();
         Util.init(this);
         if (FarmAssistConfig.CHECK_FOR_UPDATES) {
-            foliaLib.getImpl().runAsync(new SimpleUpdateCheckerTask(this));
+            this.paperLib.scheduling().asyncScheduler().run(new SimpleUpdateCheckerTask(this));
         }
 
         new Metrics(this,3885);
