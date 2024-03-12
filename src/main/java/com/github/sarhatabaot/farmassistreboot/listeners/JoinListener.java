@@ -23,7 +23,7 @@ public class JoinListener implements Listener {
 			return;
 
 		if(!plugin.isNeedsUpdate()) {
-			Util.sendMessage(player, String.format(plugin.getLanguageManager().getActiveLanguage().getUpdateLatestVersion() ,plugin.getDescription().getVersion()));
+			Util.sendMessage(player, String.format(plugin.getLanguageManager().getActiveLanguage().getUpdateLatestVersion(),plugin.getDescription().getVersion()));
 			return;
 		}
 

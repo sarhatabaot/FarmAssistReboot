@@ -118,10 +118,15 @@ public class Util {
 
     public static void sendMessage(final @NotNull CommandSender sender, final String message) {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            sender.sendMessage(color(PlaceholderAPI.setPlaceholders(!(sender instanceof Player) ? null : (Player) sender, message)));
+            sendPrefixedAndColoredMessage(sender, PlaceholderAPI.setPlaceholders(!(sender instanceof Player) ? null : (Player) sender, message));
             return;
         }
-        sender.sendMessage(color(message));
+
+        sendPrefixedAndColoredMessage(sender, message);
+    }
+
+    public static void sendPrefixedAndColoredMessage(final @NotNull CommandSender sender, final String message) {
+        sender.sendMessage(color("&7[&aFarmAssistReboot&7] " + message)); //Add this to lang manager
     }
 
     @Contract("_ -> new")
