@@ -29,6 +29,8 @@ public class LanguageFile extends ConfigFile<FarmAssistReboot> {
     private String langUnsupported;
     private String langChanged;
 
+    private String prefix;
+
 
     public LanguageFile(final FarmAssistReboot plugin, final String locale, final String fileName) {
         super(plugin, "languages" + File.separator + locale + File.separator, fileName, "languages" + File.separator + locale);
@@ -53,6 +55,8 @@ public class LanguageFile extends ConfigFile<FarmAssistReboot> {
 
         this.langUnsupported = getConfig().getString("lang.unsupported");
         this.langChanged = getConfig().getString("lang.changed");
+
+        this.prefix = getConfig().getString("prefix", "&7[&aFarmAssistReboot&7]&r ");
     }
 
     @Override
