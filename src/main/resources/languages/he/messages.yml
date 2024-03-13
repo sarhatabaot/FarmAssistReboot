@@ -14,3 +14,4 @@ update:
 lang:
   unsupported: "שפה לא נתמכת: %s"
   changed: "השפה שונתה מ-%s ל-%s."
+prefix: "&7[&aFarmAssistReboot&7]&r "
