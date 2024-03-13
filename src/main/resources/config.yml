@@ -15,7 +15,7 @@ ignore-seeds:
 # Setting this to true will make it so players are no longer required to have seeds in their inventory to replant.
 # Want to have this per player? Set this to false and give them the permission "farmassit.noseeds"
 no-seeds: false
-# Even if you give the permission these settings will override it.
+# Even if you give the permission, these settings will override it.
 # Example:
 # player has farmassist.wheat
 # wheat:
