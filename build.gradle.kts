@@ -41,7 +41,7 @@ bukkit {
 
     permissions {
         register("farmassist.crops") {
-            default = BukkitPluginDescription.Permission.Default.FALSE
+            default = BukkitPluginDescription.Permission.Default.TRUE
             children = listOf(
                 "farmassist.wheat",
                 "farmassist.sugar_cane",
