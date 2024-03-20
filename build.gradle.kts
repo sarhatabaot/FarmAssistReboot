@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.github.sarhatabaot.farmassistreboot"
-version = "1.4.3"
+version = "1.4.4"
 
 repositories {
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
