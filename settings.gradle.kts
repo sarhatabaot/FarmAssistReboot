@@ -9,7 +9,7 @@ dependencyResolutionManagement {
             library("bstats", "org.bstats:bstats-bukkit:3.0.2")
             library("nbt-api", "de.tr7zw:item-nbt-api:2.12.2")
             library("annotations", "org.jetbrains:annotations:24.1.0")
-            library("more-paper", "space.arim.morepaperlib:morepaperlib:0.4.3")
+            library("more-paper", "space.arim.morepaperlib:morepaperlib:0.4.4")
 
             version("plugin-yml", "0.6.0")
             plugin("plugin-yml-bukkit", "net.minecrell.plugin-yml.bukkit").versionRef("plugin-yml")
