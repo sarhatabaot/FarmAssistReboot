@@ -87,6 +87,8 @@ public class BlockBreakListener implements Listener {
 		}
 
 		if (!FarmAssistConfig.getRipe(material) || isRipe(event.getBlock())) {
+			debug(String.format("isRipeConfig %s: ", material) + FarmAssistConfig.getRipe(material));
+			debug(String.format("isRipe %s: ", material) + isRipe(event.getBlock()));
 			Util.replant(event.getPlayer(), event.getBlock(), slot);
 		}
 	}
