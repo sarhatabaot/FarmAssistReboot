@@ -52,7 +52,7 @@ public class FarmAssistConfig {
     }
 
     public static boolean getEnabled(@NotNull Material material) {
-        return config.getBoolean(material.name().toLowerCase() + ".enabled");
+        return config.getBoolean(material.name().toLowerCase() + ".enabled", true);
     }
 
 
@@ -66,7 +66,7 @@ public class FarmAssistConfig {
     }
 
     public static boolean getRipe(@NotNull Material material) {
-        return config.getBoolean(material.name().toLowerCase() + ".replant-when-ripe");
+        return config.getBoolean(material.name().toLowerCase() + ".replant-when-ripe", false);
     }
 
     public void setActiveLanguage(final String locale) {

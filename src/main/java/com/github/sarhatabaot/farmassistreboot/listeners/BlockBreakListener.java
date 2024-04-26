@@ -92,7 +92,7 @@ public class BlockBreakListener implements Listener {
 			Util.replant(event.getPlayer(), event.getBlock(), slot);
 		}
 	}
-
+	
 
 	private boolean isRipe(@NotNull Block block) {
 		Ageable age = (Ageable) block.getBlockData();
