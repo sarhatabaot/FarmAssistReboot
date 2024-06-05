@@ -44,6 +44,12 @@ beetroots:
     replant-when-ripe: false
 cactus:
     enabled: true
+pitcher_plant:
+    enabled: true
+    replant-when-ripe: true
+torch_flower:
+    enabled: true
+    replant-when-ripe: true
 worlds:
     enable-per-world: false
     enabled-worlds:
