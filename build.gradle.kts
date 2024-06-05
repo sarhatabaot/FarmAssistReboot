@@ -11,6 +11,7 @@ group = "com.github.sarhatabaot.farmassistreboot"
 version = "1.4.4"
 
 repositories {
+    mavenCentral()
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://repo.aikar.co/content/groups/aikar/")
     maven("https://repo.codemc.org/repository/maven-public")
@@ -28,6 +29,7 @@ dependencies {
     implementation(libs.acf.paper)
     implementation(libs.more.paper)
     implementation(libs.annotations)
+    implementation(libs.xseries)
 }
 
 bukkit {
@@ -115,8 +117,7 @@ tasks {
         relocate("co.aikar.commands", "com.github.sarhatabaot.farmassistreboot.acf")
         relocate("co.aikar.locales", "com.github.sarhatabaot.farmassistreboot.locales")
         relocate("de.tr7zw.changeme.nbtapi", "com.github.sarhatabaot.farmassistreboot.nbt")
-
-        relocate("com.tcoded.folialib", "com.github.sarhatabaot.farmassistreboot.folialib")
+        relocate("com.cryptomorin.xseries", "com.github.sarhatabaot.farmassistreboot.xseries")
     }
 }
 

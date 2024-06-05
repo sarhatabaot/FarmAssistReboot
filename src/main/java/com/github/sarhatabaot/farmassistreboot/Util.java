@@ -44,7 +44,7 @@ public class Util {
     public static int inventoryContainsSeeds(@NotNull PlayerInventory playerInventory, @NotNull Material material) {
         Crop crop = Crop.valueOf(material.name());
 
-        Map<Integer, ? extends ItemStack> itemsSlotsMap = playerInventory.all(crop.getSeed());
+        Map<Integer, ? extends ItemStack> itemsSlotsMap = playerInventory.all(crop.getSeed().parseMaterial());
         if (itemsSlotsMap.isEmpty())
             return -1;
         List<Map.Entry<Integer, ? extends ItemStack>> list = itemsSlotsMap.entrySet().stream()
@@ -81,7 +81,7 @@ public class Util {
 
     public static void replant(@NotNull Player player, Block block, @NotNull Material material) {
         Crop crop = Crop.valueOf(material.name());
-        int spot = player.getInventory().first(crop.getSeed());
+        int spot = player.getInventory().first(crop.getSeed().parseMaterial());
         replant(player, block, spot);
     }
 
