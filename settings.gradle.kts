@@ -10,7 +10,7 @@ dependencyResolutionManagement {
             library("nbt-api", "de.tr7zw:item-nbt-api:2.12.4")
             library("annotations", "org.jetbrains:annotations:24.1.0")
             library("more-paper", "space.arim.morepaperlib:morepaperlib:0.4.4")
-            library("xseries", "com.github.cryptomorin:XSeries:10.0.0")
+            library("xseries", "com.github.cryptomorin:XSeries:11.1.0")
             version("plugin-yml", "0.6.0")
             plugin("plugin-yml-bukkit", "net.minecrell.plugin-yml.bukkit").versionRef("plugin-yml")
 
