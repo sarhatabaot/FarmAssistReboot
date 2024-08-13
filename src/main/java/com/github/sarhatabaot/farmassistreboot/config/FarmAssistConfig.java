@@ -20,6 +20,8 @@ public class FarmAssistConfig {
     public static boolean CHECK_FOR_UPDATES;
     public static boolean PLANT_WHEAT_ON_TILL;
     public static boolean ENABLED_PER_WORLD;
+
+
     public static List<World> ENABLED_WORLDS;
 
     public static boolean IGNORE_RENAMED;
@@ -28,7 +30,7 @@ public class FarmAssistConfig {
     public static String ACTIVE_LANGUAGE;
 
     public static boolean NO_SEEDS;
-
+    public static boolean USE_SEEDS_FROM_DROPS;
 
     public FarmAssistConfig(final @NotNull FarmAssistReboot plugin) {
         this.plugin = plugin;
@@ -44,6 +46,7 @@ public class FarmAssistConfig {
         IGNORE_RENAMED = config.getBoolean("ignore-seeds.renamed", true);
         IGNORE_NBT = config.getBoolean("ignore-seeds.nbt", true);
         NO_SEEDS = config.getBoolean("no-seeds", false);
+        FarmAssistConfig.USE_SEEDS_FROM_DROPS = config.getBoolean("use-seeds-from-drops", false);
     }
 
     public void reloadConfig() {

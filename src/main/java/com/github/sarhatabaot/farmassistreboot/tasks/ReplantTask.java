@@ -1,6 +1,5 @@
 package com.github.sarhatabaot.farmassistreboot.tasks;
 
-import com.cryptomorin.xseries.XBlock;
 import com.cryptomorin.xseries.XMaterial;
 import com.github.sarhatabaot.farmassistreboot.Crop;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
@@ -38,6 +37,7 @@ public class ReplantTask implements Runnable {
     public void run() {
         plugin.debug(ReplantTask.class, String.format(Debug.ReplantTask.RUN, block.getType().name(), material.name()));
         switch (material) {
+            //TODO possibly also for pitcher plant
             case COCOA:
                 setCocoaOrDropSeed();
                 break;

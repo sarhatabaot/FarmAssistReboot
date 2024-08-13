@@ -34,6 +34,14 @@ public class Util {
         Util.plugin = plugin;
     }
 
+
+    public static boolean dropsContainSeeds(final Block block) {
+
+        final Material material = block.getType();
+
+
+    }
+
     /**
      * Will return -1 if no slot is found.
      *
@@ -77,6 +85,28 @@ public class Util {
 
         debug(Debug.Worlds.IS_WORLD_ENABLED, world.getName(), FarmAssistConfig.ENABLED_WORLDS.contains(world));
         return FarmAssistConfig.ENABLED_WORLDS.contains(world);
+    }
+
+    public void replantUsingDrops(@NotNull final Player player, Block block) {
+        final Material seed = Crop.valueOf(block.getType().name()).getSeed().parseMaterial();
+        final List<ItemStack> restOfDrops = block.getDrops().stream()
+                .filter(i -> i.getType() != seed)
+                .collect(Collectors.toList());
+
+        int amount = block.getDrops().stream()
+                .filter(i -> i.getType() == seed)
+                .map(ItemStack::getAmount)
+                .mapToInt(Integer::intValue)
+                .sum();
+        if (amount >= 0) {
+            /*
+            todo
+            cancel drop event, break the block, replant, and drop the remaining seeds + additional drops
+             */
+        }
+        block.getDrops()
+        plugin.getPaperLib().scheduling().regionSpecificScheduler(block.getLocation()).runDelayed(new ReplantTask(block,plugin), 5L);
+
     }
 
     public static void replant(@NotNull Player player, Block block, @NotNull Material material) {

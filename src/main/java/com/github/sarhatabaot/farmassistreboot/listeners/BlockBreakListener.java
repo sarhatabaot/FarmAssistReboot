@@ -1,5 +1,6 @@
 package com.github.sarhatabaot.farmassistreboot.listeners;
 
+import com.github.sarhatabaot.farmassistreboot.Crop;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.github.sarhatabaot.farmassistreboot.Util;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
@@ -71,6 +72,11 @@ public class BlockBreakListener implements Listener {
 		debug(Debug.OnBlockBreak.CROP_LIST_CONTAINS,material.name());
 		if (!FarmAssistConfig.getEnabled(material)) {
 			debug(Debug.OnBlockBreak.MATERIAL_DISABLED,material.name());
+			return;
+		}
+
+		if (FarmAssistConfig.USE_SEEDS_FROM_DROPS && Util.dropsContainSeeds(event.getBlock())) {
+			Util.replantUsingDrops(event.getPlayer(), event.getBlock(), material);
 			return;
 		}
 
