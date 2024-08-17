@@ -2,6 +2,7 @@ package com.github.sarhatabaot.farmassistreboot.listeners;
 
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.github.sarhatabaot.farmassistreboot.Util;
+import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import com.github.sarhatabaot.farmassistreboot.lang.LanguageFile;
 import com.github.sarhatabaot.farmassistreboot.messages.Permissions;
 import org.bukkit.entity.Player;
@@ -21,7 +22,7 @@ public class JoinListener implements Listener {
     public void onPlayerJoin(final @NotNull PlayerJoinEvent event) {
         final Player player = event.getPlayer();
         final LanguageFile activeLang = plugin.getLanguageManager().getActiveLanguage();
-		if (!player.hasPermission(Permissions.UPDATE_NOTIFY)) {
+		if (!player.hasPermission(Permissions.UPDATE_NOTIFY) || FarmAssistConfig.DISABLE_LATEST_VERSION) {
 			return;
 		}
 

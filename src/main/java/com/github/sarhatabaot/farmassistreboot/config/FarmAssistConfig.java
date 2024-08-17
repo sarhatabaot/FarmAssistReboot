@@ -29,6 +29,8 @@ public class FarmAssistConfig {
 
     public static boolean NO_SEEDS;
 
+    public static boolean DISABLE_LATEST_VERSION;
+
 
     public FarmAssistConfig(final @NotNull FarmAssistReboot plugin) {
         this.plugin = plugin;
@@ -44,6 +46,7 @@ public class FarmAssistConfig {
         IGNORE_RENAMED = config.getBoolean("ignore-seeds.renamed", true);
         IGNORE_NBT = config.getBoolean("ignore-seeds.nbt", true);
         NO_SEEDS = config.getBoolean("no-seeds", false);
+        DISABLE_LATEST_VERSION = config.getBoolean("disable-latest-version", false);
     }
 
     public void reloadConfig() {

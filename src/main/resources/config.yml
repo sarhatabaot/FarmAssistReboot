@@ -6,6 +6,10 @@ use-permissions: true
 #                        Global Settings                         #
 ##################################################################
 # Anything set under global settings will be globally set,
+# Disables the "You are running the latest version message"
+# Note that this outright disables the message,
+# if you want to hide it, negate the farmassist.notify.update permission.
+disable-latest-version: false
 # Set renamed/seeds with nbt to true to have farmassitreboot not
 # take renamed/seeds with nbt seeds from your inventory when
 # replanting.
