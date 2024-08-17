@@ -4,6 +4,7 @@ import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import com.github.sarhatabaot.farmassistreboot.messages.Debug;
 import com.github.sarhatabaot.farmassistreboot.messages.Permissions;
 import com.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
+import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
@@ -62,8 +63,9 @@ public class Util {
                 })
                 .filter(p -> {
                     if (FarmAssistConfig.IGNORE_NBT) {
-                        final NBTItem nbtItem = new NBTItem(p.getValue());
-                        return !nbtItem.hasCustomNbtData();
+                        return NBT.get(p.getValue(), r -> {
+                            return r.hasNBTData();
+                        });
                     }
                     return true;
                 })

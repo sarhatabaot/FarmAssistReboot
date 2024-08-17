@@ -1,6 +1,5 @@
 package com.github.sarhatabaot.farmassistreboot.tasks;
 
-import com.cryptomorin.xseries.XBlock;
 import com.cryptomorin.xseries.XMaterial;
 import com.github.sarhatabaot.farmassistreboot.Crop;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
@@ -15,6 +14,8 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+
+import static com.github.sarhatabaot.farmassistreboot.Util.debug;
 
 public class ReplantTask implements Runnable {
     private final FarmAssistReboot plugin;
@@ -82,7 +83,13 @@ public class ReplantTask implements Runnable {
 
     private void dropItem(final @NotNull Material material) {
         Crop crop = Crop.valueOf(material.name());
-        this.block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(crop.getSeed().parseItem()));
+        final ItemStack seedItem = crop.getSeed().parseItem();
+        if (seedItem == null) {
+            debug("There was a problem parsing the crop or the seed item for: %s", material.name());
+            return;
+        }
+
+        this.block.getWorld().dropItemNaturally(block.getLocation(), seedItem);
     }
 
     private boolean matchedRelativeType(final XMaterial[] materials, final XMaterial relativeType) {

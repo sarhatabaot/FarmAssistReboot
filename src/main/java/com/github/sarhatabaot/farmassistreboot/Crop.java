@@ -3,7 +3,6 @@ package com.github.sarhatabaot.farmassistreboot;
 
 import com.cryptomorin.xseries.XMaterial;
 import lombok.Getter;
-import org.bukkit.Material;
 
 @Getter
 public enum Crop {
