@@ -69,7 +69,6 @@ bukkit {
         register("farmassist.cactus") {
             default = BukkitPluginDescription.Permission.Default.FALSE
         }
-
         register("farmassist.reload") {
             default = BukkitPluginDescription.Permission.Default.OP
         }
