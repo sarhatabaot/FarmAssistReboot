@@ -43,8 +43,13 @@ public class Util {
      */
     public static int inventoryContainsSeeds(@NotNull PlayerInventory playerInventory, @NotNull Material material) {
         Crop crop = Crop.valueOf(material.name());
+        final Material seedMaterial = crop.getSeed().parseMaterial();
+        if (seedMaterial == null) {
+            debug("There was a problem parsing the crop or the seed material for: %s", material.name());
+            return -1;
+        }
 
-        Map<Integer, ? extends ItemStack> itemsSlotsMap = playerInventory.all(crop.getSeed().parseMaterial());
+        Map<Integer, ? extends ItemStack> itemsSlotsMap = playerInventory.all(seedMaterial);
         if (itemsSlotsMap.isEmpty())
             return -1;
         List<Map.Entry<Integer, ? extends ItemStack>> list = itemsSlotsMap.entrySet().stream()
@@ -80,8 +85,14 @@ public class Util {
     }
 
     public static void replant(@NotNull Player player, Block block, @NotNull Material material) {
-        Crop crop = Crop.valueOf(material.name());
-        int spot = player.getInventory().first(crop.getSeed().parseMaterial());
+        final Crop crop = Crop.valueOf(material.name());
+        final Material seedMaterial = crop.getSeed().parseMaterial();
+        if (seedMaterial == null) {
+            debug("There was a problem parsing the crop or the seed material for: %s", material.name());
+            return;
+        }
+
+        int spot = player.getInventory().first(seedMaterial);
         replant(player, block, spot);
     }
 
