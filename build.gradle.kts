@@ -10,16 +10,6 @@ plugins {
 group = "com.github.sarhatabaot.farmassistreboot"
 version = "1.4.4"
 
-repositories {
-    mavenCentral()
-    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
-    maven("https://repo.aikar.co/content/groups/aikar/")
-    maven("https://repo.codemc.org/repository/maven-public")
-    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
-    maven("https://nexuslite.gcnt.net/repos/other/")
-    maven("https://mvn-repo.arim.space/lesser-gpl3/")
-}
-
 dependencies {
     compileOnly(libs.spigot.api)
     compileOnly(libs.papi.api)

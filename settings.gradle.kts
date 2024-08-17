@@ -1,6 +1,16 @@
 rootProject.name = "FarmAssistReboot"
 
 dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+        maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+        maven("https://repo.aikar.co/content/groups/aikar/")
+        maven("https://repo.codemc.org/repository/maven-public")
+        maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
+        maven("https://mvn-repo.arim.space/lesser-gpl3/")
+        maven("https://nexuslite.gcnt.net/repos/other/")
+    }
+
     versionCatalogs {
         create("libs") {
             library("spigot-api", "org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT")
@@ -14,7 +24,7 @@ dependencyResolutionManagement {
             version("plugin-yml", "0.6.0")
             plugin("plugin-yml-bukkit", "net.minecrell.plugin-yml.bukkit").versionRef("plugin-yml")
 
-            plugin("shadow", "com.github.johnrengelman.shadow").version("8.1.1")
+            plugin("shadow", "com.gradleup.shadow").version("8.3.0")
             plugin("lombok", "io.freefair.lombok").version("8.7.1")
 
             //Add our in-house messages plugin or find an alternative compat with java8
