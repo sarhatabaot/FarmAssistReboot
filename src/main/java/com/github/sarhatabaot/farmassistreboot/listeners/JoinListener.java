@@ -22,11 +22,11 @@ public class JoinListener implements Listener {
     public void onPlayerJoin(final @NotNull PlayerJoinEvent event) {
         final Player player = event.getPlayer();
         final LanguageFile activeLang = plugin.getLanguageManager().getActiveLanguage();
-		if (!player.hasPermission(Permissions.UPDATE_NOTIFY) || FarmAssistConfig.DISABLE_LATEST_VERSION) {
+		if (!player.hasPermission(Permissions.UPDATE_NOTIFY)) {
 			return;
 		}
 
-        if (!plugin.isNeedsUpdate()) {
+        if (!plugin.isNeedsUpdate() || FarmAssistConfig.DISABLE_LATEST_VERSION) {
             Util.sendMessage(player, String.format(activeLang.getUpdateLatestVersion(), plugin.getDescription().getVersion()));
             return;
         }
