@@ -3,6 +3,11 @@ package com.github.sarhatabaot.farmassistreboot;
 
 import com.cryptomorin.xseries.XMaterial;
 import lombok.Getter;
+import org.bukkit.Material;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public enum Crop {
@@ -26,6 +31,10 @@ public enum Crop {
         this.plantedOn = plantedOn;
         this.planted = planted;
         this.seed = seed;
+    }
+
+    public static List<Material> getCropList() {
+        return Arrays.stream(Crop.values()).map(crop -> crop.planted.parseMaterial()).collect(Collectors.toList());
     }
 
 

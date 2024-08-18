@@ -1,5 +1,7 @@
 package com.github.sarhatabaot.farmassistreboot.listeners;
 
+import com.cryptomorin.xseries.XMaterial;
+import com.github.sarhatabaot.farmassistreboot.Crop;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.github.sarhatabaot.farmassistreboot.Util;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
@@ -18,17 +20,6 @@ import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
 public class BlockBreakListener implements Listener {
-	private final ImmutableList<Material> cropList = ImmutableList.of(
-			Material.WHEAT,
-			Material.SUGAR_CANE,
-			Material.NETHER_WART,
-			Material.COCOA,
-			Material.CARROTS,
-			Material.POTATOES,
-			Material.BEETROOTS,
-			Material.CACTUS
-	);
-
 	private final FarmAssistReboot plugin;
 
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -40,7 +31,7 @@ public class BlockBreakListener implements Listener {
 			return;
 
 
-		if (!cropList.contains(event.getBlock().getType())) {
+		if (!Crop.getCropList().contains(event.getBlock().getType())) {
 			debug(Debug.OnBlockBreak.CROP_LIST_NO_MATERIAL, event.getBlock().getType().name());
 			return;
 		}
@@ -63,7 +54,7 @@ public class BlockBreakListener implements Listener {
 	private void applyReplant(@NotNull BlockBreakEvent event) {
 		Material material = event.getBlock().getType();
 		debug(Debug.OnBlockBreak.BLOCK_BROKEN,material.name());
-		if (!cropList.contains(material)) {
+		if (!Crop.getCropList().contains(material)) {
 			debug(Debug.OnBlockBreak.CROP_LIST_NO_MATERIAL,material.name());
 			return;
 		}
