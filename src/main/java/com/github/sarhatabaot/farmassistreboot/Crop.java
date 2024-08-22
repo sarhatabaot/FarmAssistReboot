@@ -19,7 +19,7 @@ public enum Crop {
     POTATOES(new XMaterial[]{XMaterial.FARMLAND}, XMaterial.POTATOES, XMaterial.POTATO),
     BEETROOTS(new XMaterial[]{XMaterial.FARMLAND}, XMaterial.BEETROOTS, XMaterial.BEETROOT_SEEDS),
     CACTUS(new XMaterial[]{XMaterial.SAND}, XMaterial.CACTUS, XMaterial.CACTUS),
-    TORCH_FLOWER(new XMaterial[]{XMaterial.FARMLAND}, XMaterial.TORCHFLOWER, XMaterial.TORCHFLOWER_SEEDS),
+    TORCHFLOWER(new XMaterial[]{XMaterial.FARMLAND}, XMaterial.TORCHFLOWER, XMaterial.TORCHFLOWER_SEEDS),
     PITCHER_PLANT(new XMaterial[]{XMaterial.FARMLAND}, XMaterial.PITCHER_PLANT, XMaterial.PITCHER_POD);
 
     private final XMaterial[] plantedOn;
