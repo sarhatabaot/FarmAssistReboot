@@ -23,6 +23,12 @@ public class SimpleUpdateCheckerTask implements Runnable {
 
     @Override
     public void run() {
+        if (versionNumber.contains("BETA") || versionNumber.contains("SNAPSHOT") || versionNumber.contains("DEV")) {
+            plugin.setNeedsUpdate(false);
+            plugin.getLogger().log(Level.INFO, "You are running a development version of FarmAssistReboot. Not checking for updates.");
+            return;
+        }
+
         JSONParser parser = new JSONParser();
         try {
             final String latest = "https://api.github.com/repos/sarhatabaot/FarmAssistReboot/releases/latest";
