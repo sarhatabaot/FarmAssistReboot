@@ -16,7 +16,7 @@ dependencyResolutionManagement {
             library("spigot-api", "org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT")
             library("papi-api", "me.clip:placeholderapi:2.11.6")
             library("acf-paper", "co.aikar:acf-paper:0.5.1-SNAPSHOT")
-            library("bstats", "org.bstats:bstats-bukkit:3.0.2")
+            library("bstats", "org.bstats:bstats-bukkit:3.1.0")
             library("nbt-api", "de.tr7zw:item-nbt-api:2.13.2")
             library("annotations", "org.jetbrains:annotations:24.1.0")
             library("more-paper", "space.arim.morepaperlib:morepaperlib:0.4.4")
