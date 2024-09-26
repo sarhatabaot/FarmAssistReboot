@@ -1,0 +1,17 @@
+{
+  "torchflower": {
+    "crop": "torchflower",
+    "seeds": "torchflower_seeds",
+    "planted-on": [
+      "FARMLAND"
+    ]
+  },
+  "pitcher_plant": {
+    "crop": "pitcher_plant",
+    "seeds": "pitched_pod",
+    "max-age": 4,
+    "planted-on": [
+      "FARMLAND"
+    ]
+  }
+}

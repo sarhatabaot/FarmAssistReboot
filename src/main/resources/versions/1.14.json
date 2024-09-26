@@ -1,0 +1,20 @@
+{
+  "bamboo": {
+    "crop": "bamboo",
+    "seeds": "bamboo",
+    "planted-on": [
+      "MOSS_BLOCK",
+      "GRASS_BLOCK",
+      "COARSE_DIRT",
+      "DIRT",
+      "ROOTED_DIRT",
+      "GRAVEL",
+      "MYCELIUM",
+      "PODZOL",
+      "SAND",
+      "RED_SAND",
+      "SUSPICIOUS_SAND",
+      "MUD"
+    ]
+  }
+}

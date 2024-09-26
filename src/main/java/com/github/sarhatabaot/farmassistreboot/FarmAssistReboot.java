@@ -1,81 +1,40 @@
 package com.github.sarhatabaot.farmassistreboot;
 
 import co.aikar.commands.PaperCommandManager;
-import com.github.sarhatabaot.farmassistreboot.command.FarmAssistCommand;
-import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
-import com.github.sarhatabaot.farmassistreboot.lang.LanguageManager;
-import com.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
-import com.github.sarhatabaot.farmassistreboot.listeners.JoinListener;
-import com.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
-import com.github.sarhatabaot.farmassistreboot.tasks.SimpleUpdateCheckerTask;
-import lombok.Getter;
-import lombok.Setter;
-import org.bstats.bukkit.Metrics;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.PluginManager;
+import com.github.sarhatabaot.farmassistreboot.commands.FarmAssistRebootCommand;
+import com.github.sarhatabaot.farmassistreboot.crop.CropManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import space.arim.morepaperlib.MorePaperLib;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-/**
- * @author sarhatabaot
- */
-@Getter @Setter
-public class FarmAssistReboot extends JavaPlugin {
-    private MorePaperLib paperLib = new MorePaperLib(this);
-    private LanguageManager languageManager;
-    private List<UUID> disabledPlayerList = new ArrayList<>();
-    private FarmAssistConfig assistConfig;
-
-    private boolean globalEnabled;
-
-    private boolean needsUpdate;
-    private String newVersion;
+public final class FarmAssistReboot extends JavaPlugin {
+    private MainConfig mainConfig;
+    private CropManager cropManager;
 
     @Override
     public void onEnable() {
-        saveDefaultConfig();
-        this.assistConfig = new FarmAssistConfig(this);
-        this.languageManager = new LanguageManager(this);
+        this.mainConfig = new MainConfig(this);
+        this.mainConfig.createAndLoad();
 
-        this.globalEnabled = true;
+        this.cropManager = new CropManager(mainConfig);
+        this.cropManager.load();
+        // Command Logic
 
-        PaperCommandManager commandManager = new PaperCommandManager(this);
-        commandManager.registerCommand(new FarmAssistCommand(this));
-        commandManager.getCommandCompletions().registerCompletion("supported-lang", c -> languageManager.getSupportedLanguages());
+        final PaperCommandManager commandManager = new PaperCommandManager(this);
+        commandManager.enableUnstableAPI("help");
+        commandManager.registerCommand(new FarmAssistRebootCommand());
 
-        registerListeners();
-        Util.init(this);
-        if (FarmAssistConfig.CHECK_FOR_UPDATES) {
-            this.paperLib.scheduling().asyncScheduler().run(new SimpleUpdateCheckerTask(this));
-        }
+        // Plugin startup logic
 
-        new Metrics(this,3885);
-        registerPapi();
+        logBetaVersion();
     }
 
-    public void debug(final Class<?> clazz,final String message) {
-        if(FarmAssistConfig.DEBUG) {
-            getLogger().info(() -> "DEBUG " + clazz.getSimpleName() + " " + message);
-        }
+    @Override
+    public void onDisable() {
+        // Plugin shutdown logic
     }
 
-    private void registerPapi() {
-        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new FarmAssistPlaceholderExpansion(this).register();
-        }
-    }
-
-    /**
-     * Register Listeners
-     */
-    private void registerListeners(){
-        PluginManager pluginManager = getServer().getPluginManager();
-        pluginManager.registerEvents(new PlayerInteractionListener(this),this);
-        pluginManager.registerEvents(new BlockBreakListener(this),this);
-        pluginManager.registerEvents(new JoinListener(this),this);
+    private void logBetaVersion() {
+        this.getLogger().info("====================");
+        this.getLogger().info("=   BETA VERSION   =");
+        this.getLogger().info("====================");
     }
 }

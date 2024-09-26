@@ -1,98 +1,82 @@
 package com.github.sarhatabaot.farmassistreboot.listeners;
 
+import com.cryptomorin.xseries.XBlock;
 import com.cryptomorin.xseries.XMaterial;
-import com.github.sarhatabaot.farmassistreboot.Crop;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import com.github.sarhatabaot.farmassistreboot.Util;
-import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
-import com.github.sarhatabaot.farmassistreboot.messages.Debug;
-import com.github.sarhatabaot.farmassistreboot.messages.Permissions;
-import com.google.common.collect.ImmutableList;
-import lombok.RequiredArgsConstructor;
+import com.github.sarhatabaot.farmassistreboot.crop.Crop;
+import com.github.sarhatabaot.farmassistreboot.crop.CropManager;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.data.Ageable;
+import org.bukkit.block.BlockState;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
-@RequiredArgsConstructor
+import java.util.Arrays;
+
+
 public class BlockBreakListener implements Listener {
     private final FarmAssistReboot plugin;
+    private final CropManager cropManager;
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onBlockBreak(BlockBreakEvent event) {
-		if (!plugin.isGlobalEnabled()) {
-			return;
-		}
-
-		if (this.plugin.getDisabledPlayerList().contains(event.getPlayer().getUniqueId())) {
-			return;
-		}
-
-
-        if (!Crop.getCropList().contains(event.getBlock().getType())) {
-            debug(Debug.OnBlockBreak.CROP_LIST_NO_MATERIAL, event.getBlock().getType().name());
-            return;
-        }
-
-        if (FarmAssistConfig.USE_PERMISSIONS && !hasMaterialPermission(event)) {
-            final String permission = Permissions.BASE_PERMISSION + event.getBlock().getType().name();
-            debug(Debug.OnBlockBreak.PLAYER_NO_PERMISSION, event.getPlayer().getDisplayName(), permission);
-            return;
-        }
-
-        if (Util.isWorldEnabled(event.getPlayer().getWorld())) {
-            applyReplant(event);
-        }
+    public BlockBreakListener(FarmAssistReboot plugin, CropManager cropManager) {
+        this.plugin = plugin;
+        this.cropManager = cropManager;
     }
 
-    private boolean hasMaterialPermission(@NotNull BlockBreakEvent event) {
-        return event.getPlayer().hasPermission(Permissions.BASE_PERMISSION + event.getBlock().getType().name());
+    @EventHandler
+    public void onBlockBreak(final @NotNull BlockBreakEvent event) {
+        final Block block = event.getBlock();
+        if (!this.cropManager.isNotSupportedCrop(block.getType())) {
+            return;
+        }
+
+        if (!isFullyGrownCrop(block)) {
+            return;
+        }
+
+
+        replant(block);
     }
 
-    private void applyReplant(@NotNull BlockBreakEvent event) {
-        Material material = event.getBlock().getType();
-        debug(Debug.OnBlockBreak.BLOCK_BROKEN, material.name());
-        if (!Crop.getCropList().contains(material)) {
-            debug(Debug.OnBlockBreak.CROP_LIST_NO_MATERIAL, material.name());
-            return;
-        }
+    //this should just replant, not checks or anything
+    private void replant(final @NotNull Block block) {
+        final Crop crop = cropManager.getCropFromItem(block.getType());
 
-        debug(Debug.OnBlockBreak.CROP_LIST_CONTAINS, material.name());
-        if (!FarmAssistConfig.getEnabled(material)) {
-            debug(Debug.OnBlockBreak.MATERIAL_DISABLED, material.name());
-            return;
-        }
+        // Schedule the replanting after 1 tick (to ensure the block has been broken)
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                block.setType(crop.getCropItem());
+                BlockState state = block.getState();
+                XBlock.setType(block, XMaterial.matchXMaterial(crop.getCropItem()));
+                XBlock.setAge(block, 0);
+                state.update(true);
+            }
+        }.runTaskLater(plugin, 1L);
+    }
 
-        int slot = Util.inventoryContainsSeeds(event.getPlayer().getInventory(), material);
-        if (!Util.checkNoSeeds(event.getPlayer()) && slot == -1) {
-            debug(Debug.OnBlockBreak.NO_SEEDS, event.getPlayer().getName());
-            return;
-        }
-
-
-        if (material == Material.SUGAR_CANE || material == Material.CACTUS) {
-            Util.replant(event.getPlayer(), event.getBlock(), material);
-            return;
-        }
-
-        if (!FarmAssistConfig.getRipe(material) || isRipe(event.getBlock())) {
-            debug(String.format("isRipeConfig %s: ", material) + FarmAssistConfig.getRipe(material));
-            debug(String.format("isRipe %s: ", material) + isRipe(event.getBlock()));
-            Util.replant(event.getPlayer(), event.getBlock(), slot);
-        }
+    private boolean isFullyGrownCrop(@NotNull Block block) {
+        return XBlock.getAge(block) == cropManager.getCropFromItem(block.getType()).getMaximumAge();
     }
 
 
-    private boolean isRipe(@NotNull Block block) {
-        Ageable age = (Ageable) block.getBlockData();
-        return (age.getAge() == age.getMaximumAge());
+    //todo implement later
+//    private void setCocoaOrDropSeed(final Block block) {
+//        final Crop cocoa;
+//        final Material relativeType = block.getRelative(cocoa.getFacing()).getType();
+//        if (matchedRelativeType(cocoa.getPlantedOn(), relativeType)) {
+//            block.setType(cocoa.getCropItem());
+//            block.setBlockData(block.getBlockData());
+//        } else {
+//            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(XMaterial.COCOA_BEANS.parseMaterial()));
+//        }
+//    }
+
+    private boolean matchedRelativeType(final Material[] materials, final Material relativeType) {
+        return Arrays.stream(materials).anyMatch(m -> m == relativeType);
     }
 
-    private void debug(final String message, Object... args) {
-        plugin.debug(BlockBreakListener.class, String.format(message, args));
-    }
 }
