@@ -1,6 +1,7 @@
 plugins {
     java
     alias(libs.plugins.shadow)
+    alias(libs.plugins.plugin.yml.bukkit)
 }
 
 group = "com.github.sarhatabaot"
@@ -64,11 +65,13 @@ tasks {
     }
 }
 
+bukkit {
+    main = "com.github.sarhatabaot.farmassistreboot.FarmAssistReboot"
+    name = "FarmAssistReboot"
+    authors = listOf("FriendlyBaron", "sarhatabaot")
+    website = "https://github.com/sarhatabaot/FarmAssistReboot"
+    description = "Auto replant crops. Customizable."
+    softDepend = listOf("PlaceholderAPI")
+//    foliaSupported = true
 
-//tasks.withType(JavaCompile).configureEach {
-//    options.encoding = 'UTF-8'
-//
-//    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
-//        options.release.set(targetJavaVersion)
-//    }
-//}
+}

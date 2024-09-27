@@ -9,6 +9,7 @@ locale:
   per-player-locale:
     enabled: true
     disabled-locales: []
+
 advanced-settings:
   max-cache-size: 100
   debug: false

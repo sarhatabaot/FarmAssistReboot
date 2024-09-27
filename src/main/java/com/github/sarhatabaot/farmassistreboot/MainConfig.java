@@ -56,4 +56,18 @@ public class MainConfig {
     public String getVersion() {
         return this.config.getString(Route.from("config-version"));
     }
+
+    public String getDefaultLocale() {
+        return this.config.getString(Route.from("locale", "default"));
+    }
+
+    public boolean isPerPlayerLocale() {
+        return this.config.getBoolean(Route.from("locale", "per-player-locale", "enabled"));
+    }
+
+    public List<String> getDisabledLocales() {
+        return this.config.getStringList(Route.from("locale", "per-player-locale", "disabled-locales"));
+    }
+
+
 }

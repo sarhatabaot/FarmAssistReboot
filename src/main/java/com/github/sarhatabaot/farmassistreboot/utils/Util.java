@@ -2,6 +2,7 @@ package com.github.sarhatabaot.farmassistreboot.utils;
 
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -75,6 +76,10 @@ public class Util {
 
     public static String getLangFilePath(final String locale) {
         return "languages" + File.separator + locale + File.separator + "messages.yml";
+    }
+
+    public static String color(final String text) {
+        return ChatColor.translateAlternateColorCodes('&',text);
     }
 
 }

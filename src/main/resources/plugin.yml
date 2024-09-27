@@ -1,4 +1,0 @@
-name: FarmAssistReboot
-version: '1.0.0-SNAPSHOT'
-main: com.github.sarhatabaot.farmAssistReboot.FarmAssistReboot
-api-version: '1.13'
