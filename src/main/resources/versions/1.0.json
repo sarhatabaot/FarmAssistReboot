@@ -1,6 +1,6 @@
 {
   "wheat": {
-    "crop": "WHEAT", 
+    "crop": "WHEAT",
     "seeds": "WHEAT_SEEDS",
     "max-age": 6,
     "planted-on": [
