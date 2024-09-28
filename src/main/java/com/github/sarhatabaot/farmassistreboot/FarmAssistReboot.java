@@ -4,6 +4,10 @@ import co.aikar.commands.PaperCommandManager;
 import com.github.sarhatabaot.farmassistreboot.commands.FarmAssistRebootCommand;
 import com.github.sarhatabaot.farmassistreboot.crop.CropManager;
 import com.github.sarhatabaot.farmassistreboot.language.LanguageManager;
+import com.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
+import com.github.sarhatabaot.farmassistreboot.listeners.TillListener;
+import com.github.sarhatabaot.farmassistreboot.utils.ReplantUtil;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class FarmAssistReboot extends JavaPlugin {
@@ -18,10 +22,12 @@ public final class FarmAssistReboot extends JavaPlugin {
         this.mainConfig.createAndLoad();
 
         this.cropManager = new CropManager(mainConfig);
-        this.cropManager.load();
-
         this.languageManager = new LanguageManager(this, mainConfig);
         // Command Logic
+
+        ReplantUtil.init(this,cropManager);
+
+        registerListeners();
 
         final PaperCommandManager commandManager = new PaperCommandManager(this);
         commandManager.enableUnstableAPI("help");
@@ -30,6 +36,12 @@ public final class FarmAssistReboot extends JavaPlugin {
         // Plugin startup logic
 
         logBetaVersion();
+    }
+
+    private void registerListeners() {
+        PluginManager pluginManager = getServer().getPluginManager();
+        pluginManager.registerEvents(new BlockBreakListener(this,cropManager), this);
+        pluginManager.registerEvents(new TillListener(cropManager), this);
     }
 
     public void reload() {

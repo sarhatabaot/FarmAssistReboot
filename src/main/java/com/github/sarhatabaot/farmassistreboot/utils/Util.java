@@ -45,14 +45,14 @@ public class Util {
             case "1.5":
             case "1.6":
             case "1.7":
-                return "1.0";
             case "1.8":
+                return "1.0";
             case "1.9":
             case "1.10":
             case "1.11":
             case "1.12":
             case "1.13":
-                return "1.8";
+                return "1.9";
             case "1.14":
             case "1.15":
             case "1.16":

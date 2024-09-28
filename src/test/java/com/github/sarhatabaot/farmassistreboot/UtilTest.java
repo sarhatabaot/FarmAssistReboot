@@ -20,20 +20,22 @@ class UtilTest {
             "1.5, 1.0",
             "1.6, 1.0",
             "1.7, 1.0",
+            "1.8, 1.0",
 
-            // Mid-range Minecraft versions that should map to "1.8"
-            "1.8, 1.8",
-            "1.9, 1.8",
-            "1.10, 1.8",
-            "1.11, 1.8",
-            "1.12, 1.8",
-            "1.13, 1.8",
-            "1.14, 1.8",
-            "1.15, 1.8",
-            "1.16, 1.8",
-            "1.17, 1.8",
-            "1.18, 1.8",
-            "1.19, 1.8",
+            // Mid-range Minecraft versions that should map to "1.9"
+            "1.9, 1.9",
+            "1.10, 1.9",
+            "1.11, 1.9",
+            "1.12, 1.9",
+            "1.13, 1.9",
+
+            // Late-range Minecraft version that should map to "1.14"
+            "1.14, 1.14",
+            "1.15, 1.14",
+            "1.16, 1.14",
+            "1.17, 1.14",
+            "1.18, 1.14",
+            "1.19, 1.14",
 
             // Latest Minecraft versions that should map to "1.20"
             "1.20, 1.20",

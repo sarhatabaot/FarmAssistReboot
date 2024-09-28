@@ -2,6 +2,7 @@
   "torchflower": {
     "crop": "torchflower",
     "seeds": "torchflower_seeds",
+    "max-age": 0,
     "planted-on": [
       "FARMLAND"
     ]

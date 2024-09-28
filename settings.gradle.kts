@@ -26,11 +26,11 @@ dependencyResolutionManagement {
             library("jetbrains-annotations", "org.jetbrains:annotations:24.0.0")
 
             library("commands", "co.aikar:acf-paper:0.5.1-SNAPSHOT")
-            library("caffeine", "com.github.ben-manes.caffeine:caffeine:2.9.2") // Stuck on 2.9.2 for java 8
+            library("caffeine", "com.github.ben-manes.caffeine:caffeine:2.9.3") // Stuck on 2.9.3 for java 8
 
             library("bstats", "org.bstats:bstats-bukkit:3.0.2")
 
-            plugin("shadow", "com.gradleup.shadow").version("8.3.0")
+            plugin("shadow", "com.gradleup.shadow").version("8.3.1") //Stuck on 8.3.1 for java 8
             plugin("plugin-yml-bukkit", "net.minecrell.plugin-yml.bukkit").version("0.6.0")
         }
     }

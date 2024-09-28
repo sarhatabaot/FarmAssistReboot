@@ -7,17 +7,17 @@
       "FARMLAND"
     ]
   },
-  "carrots": {
-    "crop": "CARROTS",
-    "seeds": "CARROT_SEEDS",
+  "carrot": {
+    "crop": "CARROT",
+    "seeds": "CARROT",
     "max-age": 6,
     "planted-on": [
       "FARMLAND"
     ]
   },
-  "potatoes": {
-    "crop": "potatoes",
-    "seeds": "potatoe_seeds",
+  "potato": {
+    "crop": "POTATO",
+    "seeds": "POTATO",
     "max-age": 6,
     "planted-on": [
       "FARMLAND"
@@ -40,8 +40,9 @@
     ]
   },
   "sugar_cane": {
-    "crop": "sugar_cane",
-    "seeds": "sugar_cane",
+    "crop": "SUGAR_CANE",
+    "seeds": "SUGAR_CANE",
+    "max-age": 0,
     "planted-on": [
       "GRASS_BLOCK",
       "DIRT",
@@ -49,7 +50,8 @@
     ]
   },
   "cocoa_beans": {
-    "directional": true,
+    "crop": "COCOA",
+    "seeds": "COCOA",
     "max-age": 2,
     "planted-on": [
       "JUNGLE_LOG",
@@ -61,13 +63,14 @@
   "cactus": {
     "crop": "CACTUS",
     "seeds": "CACTUS",
+    "max-age": 0,
     "planted-on": [
       "SAND"
     ]
   },
-  "netherwart": {
-    "crop": "netherwart",
-    "seeds": "netherwart",
+  "nether_wart": {
+    "crop": "NETHER_WART",
+    "seeds": "NETHER_WART",
     "max-age": 2,
     "planted-on": [
       "SOUL_SAND"

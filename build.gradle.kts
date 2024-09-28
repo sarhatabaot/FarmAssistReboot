@@ -53,7 +53,16 @@ tasks {
     }
 
     shadowJar {
-        minimize()
+        relocate("co.aikar.commands", "com.github.sarhatabaot.farmassistreboot.libs.commands")
+        relocate("co.aikar.locales", "com.github.sarhatabaot.farmassistreboot.libs.locales")
+        relocate("com.cryptomorin.xseries", "com.github.sarhatabaot.farmassistreboot.libs.xseries")
+        relocate("com.github.benmanes", "com.github.sarhatabaot.farmassistreboot.libs")
+        relocate("de.tr7zw.changeme.nbtapi", "com.github.sarhatabaot.farmassistreboot.libs.nbt")
+        relocate("dev.dejvokep.boostedyaml", "com.github.sarhatabaot.farmassistreboot.libs.boostedyaml")
+
+        minimize(){
+            exclude(dependency(libs.caffeine.get()))
+        }
 
         exclude("META-INF/**")
 
@@ -72,6 +81,6 @@ bukkit {
     website = "https://github.com/sarhatabaot/FarmAssistReboot"
     description = "Auto replant crops. Customizable."
     softDepend = listOf("PlaceholderAPI")
-//    foliaSupported = true
+//    foliaSupported = true todo
 
 }

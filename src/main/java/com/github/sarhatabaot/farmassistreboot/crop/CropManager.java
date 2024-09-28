@@ -6,14 +6,12 @@ import com.github.sarhatabaot.farmassistreboot.utils.Util;
 import com.github.sarhatabaot.farmassistreboot.deserializer.CropDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import org.bukkit.Material;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class CropManager {
@@ -24,17 +22,19 @@ public class CropManager {
             .create();
     private final MainConfig config;
 
-    private final List<Crop> crops;
+    private final Map<String, Crop> crops;
 
     private CropCache cropCache;
 
 
     public CropManager(final MainConfig config) {
-        this.crops = new ArrayList<>();
+        this.crops = new HashMap<>();
         this.config = config;
+
+        load();
     }
 
-    public void load() {
+    private void load() {
         loadCrops();
         loadCache();
 
@@ -46,15 +46,19 @@ public class CropManager {
         final String jsonCropVersion = Util.getJsonCropVersionFromMinecraftVersion();
         switch (jsonCropVersion) {
             case "1.20": {
-                this.crops.addAll(readFile("1.20.json"));
+                this.crops.putAll(readFileFromJar("1.20.json"));
                 // load 1.0, 1.8, 1.20
             }
-            case "1.8": {
-                this.crops.addAll(readFile("1.8.json"));
-                // load 1.0, 1.8
+            case "1.14": {
+                this.crops.putAll(readFileFromJar("1.14.json"));
+
+            }
+            case "1.9": {
+                this.crops.putAll(readFileFromJar("1.9.json"));
+                // load 1.0, 1.9
             }
             case "1.0": {
-                this.crops.addAll(readFile("1.0.json"));
+                this.crops.putAll(readFileFromJar("1.0.json"));
                 // load 1.0
                 break;
             }
@@ -67,13 +71,34 @@ public class CropManager {
 
     private void loadCache() {
         this.cropCache = new CropCache(config.getMaxCacheSize(), crops);
+
     }
 
-    private List<Crop> readFile(final String filename) {
-        try (JsonReader reader = new JsonReader(new FileReader(filename))) {
+    //For later todo
+    private List<Crop> readCustomFile(final String filename) {
+        try (JsonReader reader = new JsonReader(new FileReader("versions" + File.separator + filename))) {
             return gson.fromJson(reader, Crop.class);
         } catch (IOException e) {
             return Collections.emptyList();
+        }
+    }
+
+    private Map<String, Crop> readFileFromJar(final String filename) {
+        // Load the JSON file as an InputStream from the JAR
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("versions/" + filename);
+
+        if (inputStream == null) {
+            // Return an empty list if the file could not be found
+            return Collections.emptyMap();
+        }
+
+        // Use JsonReader with InputStreamReader
+        try (JsonReader reader = new JsonReader(new InputStreamReader(inputStream))) {
+            // Parse the JSON into a Map of Crop objects
+            return gson.fromJson(reader, new TypeToken<Map<String, Crop>>(){}.getType());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return Collections.emptyMap();
         }
     }
 
@@ -81,8 +106,8 @@ public class CropManager {
         return cropCache.getCropByItem(cropMaterial);
     }
 
-    public List<Crop> getCrops() {
-        return crops;
+    public Collection<Crop> getCrops() {
+        return crops.values();
     }
 
     public boolean isNotSupportedCrop(final Material material) {

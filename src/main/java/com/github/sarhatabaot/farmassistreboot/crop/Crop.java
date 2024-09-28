@@ -10,22 +10,19 @@ public class Crop {
     private final Material seeds; //Item to plant
     private final Material[] plantedOn;
     private final int maximumAge;
-    private final boolean directional;
 
     public Crop(Material cropItem, Material seeds, Material[] plantedOn) {
         this.cropItem = cropItem;
         this.seeds = seeds;
         this.plantedOn = plantedOn;
-        this.directional = false;
         this.maximumAge = 0;
     }
 
-    public Crop(Material cropItem, Material seeds, Material[] plantedOn, int maximumAge, boolean directional) {
+    public Crop(Material cropItem, Material seeds, Material[] plantedOn, int maximumAge) {
         this.cropItem = cropItem;
         this.seeds = seeds;
         this.plantedOn = plantedOn;
         this.maximumAge = maximumAge;
-        this.directional = directional;
     }
 
     public Material getCropItem() {
@@ -44,9 +41,7 @@ public class Crop {
         return maximumAge;
     }
 
-    public boolean isDirectional() {
-        return directional;
-    }
+
 
     @Override
     public String toString() {
@@ -55,7 +50,6 @@ public class Crop {
                 ", seeds=" + seeds +
                 ", plantedOn=" + Arrays.toString(plantedOn) +
                 ", maximumAge=" + maximumAge +
-                ", directional=" + directional +
                 '}';
     }
 }
