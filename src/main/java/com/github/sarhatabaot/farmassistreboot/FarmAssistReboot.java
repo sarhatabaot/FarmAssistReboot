@@ -7,6 +7,7 @@ import com.github.sarhatabaot.farmassistreboot.language.LanguageManager;
 import com.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
 import com.github.sarhatabaot.farmassistreboot.listeners.TillListener;
 import com.github.sarhatabaot.farmassistreboot.utils.ReplantUtil;
+import de.tr7zw.changeme.nbtapi.NBT;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,6 +19,12 @@ public final class FarmAssistReboot extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        if (!NBT.preloadApi()) {
+            getLogger().warning("NBT-API wasn't initialized properly, disabling the plugin");
+            getPluginLoader().disablePlugin(this);
+            return;
+        }
+
         this.mainConfig = new MainConfig(this);
         this.mainConfig.createAndLoad();
 

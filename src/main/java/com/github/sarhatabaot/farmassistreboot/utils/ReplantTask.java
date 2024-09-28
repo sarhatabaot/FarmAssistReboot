@@ -3,6 +3,7 @@ package com.github.sarhatabaot.farmassistreboot.utils;
 import com.cryptomorin.xseries.XBlock;
 import com.cryptomorin.xseries.XMaterial;
 import com.github.sarhatabaot.farmassistreboot.crop.Crop;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -26,11 +27,10 @@ public class ReplantTask extends BukkitRunnable {
             //do stuff related to cocoa
         }
 
-        block.setType(crop.getCropItem());
-        BlockState state = block.getState();
         XBlock.setType(block, XMaterial.matchXMaterial(crop.getCropItem()));
         XBlock.setAge(block, 0);
-        state.update(true);
+
+        Bukkit.getLogger().info(() -> "Replanted crop " + crop);
     }
 
     //todo implement later

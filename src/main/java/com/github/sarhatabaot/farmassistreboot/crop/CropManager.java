@@ -1,6 +1,7 @@
 package com.github.sarhatabaot.farmassistreboot.crop;
 
 
+import com.cryptomorin.xseries.XMaterial;
 import com.github.sarhatabaot.farmassistreboot.MainConfig;
 import com.github.sarhatabaot.farmassistreboot.utils.Util;
 import com.github.sarhatabaot.farmassistreboot.deserializer.CropDeserializer;
@@ -103,7 +104,7 @@ public class CropManager {
     }
 
     public Crop getCropFromItem(final Material cropMaterial) {
-        return cropCache.getCropByItem(cropMaterial);
+        return cropCache.getCropByItem(XMaterial.matchXMaterial(cropMaterial).parseMaterial());
     }
 
     public Collection<Crop> getCrops() {
@@ -111,6 +112,6 @@ public class CropManager {
     }
 
     public boolean isNotSupportedCrop(final Material material) {
-        return !cropCache.hasCropItem(material);
+        return !cropCache.hasCropItem(XMaterial.matchXMaterial(material).parseMaterial());
     }
 }
