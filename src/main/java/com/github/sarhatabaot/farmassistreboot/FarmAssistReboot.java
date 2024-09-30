@@ -31,7 +31,7 @@ public final class FarmAssistReboot extends JavaPlugin {
         this.mainConfig = new MainConfig(this);
         this.mainConfig.createAndLoad();
 
-        this.cropManager = new CropManager(mainConfig);
+        this.cropManager = new CropManager(this, mainConfig);
         this.languageManager = new LanguageManager(this, mainConfig);
         // Command Logic
 
@@ -72,13 +72,13 @@ public final class FarmAssistReboot extends JavaPlugin {
 
     public void debug(String message) {
         if (mainConfig.isDebug()) {
-            this.getLogger().info(() -> "DEBUG" + message);
+            this.getLogger().info(() -> "DEBUG " + message);
         }
     }
 
     public void trace(String message) {
         if (mainConfig.isDebug() && mainConfig.getDebugLevel() == Util.DebugLevel.TRACE) {
-            this.getLogger().info(() -> "TRACE" + message);
+            this.getLogger().info(() -> "TRACE " + message);
         }
     }
 

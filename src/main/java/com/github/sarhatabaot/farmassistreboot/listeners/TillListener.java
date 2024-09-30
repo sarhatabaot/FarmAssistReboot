@@ -12,11 +12,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 
 public class TillListener implements Listener {
@@ -32,39 +37,68 @@ public class TillListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerInteract(final PlayerInteractEvent event) {
-        if (checkForNotRightClickAndHoeItem(event)) {
+    public void onPlayerInteract(final InventoryClickEvent event) {
+        if (checkForNotHoeItem(event.getWhoClicked().getItemOnCursor())) {
+            plugin.trace("Item: " + event.getWhoClicked().getItemOnCursor());
             return;
         }
 
-        final Player player = event.getPlayer();
-        final ItemStack handItem = player.getInventory().getItemInHand(); // The item in player's hand
+        if (!(event.getWhoClicked() instanceof Player)) {
+            plugin.trace("Not a player.");
+            return;
+        }
+
+        final ItemStack handItem = event.getCurrentItem(); // the item the player is "holding"
         if (this.cropManager.isNotSupportedCrop(handItem.getType())) {
             plugin.trace("Crop not supported or is not a crop: " + handItem.getType());
             return;
         }
 
-        final ItemStack clickedItem = event.getItem(); // The item/block clicked
+        final ItemStack clickedItem = event.getCursor(); // The item/block clicked
 
         NBT.modify(clickedItem, nbt -> {
             final Crop crop = this.cropManager.getCropFromItem(handItem.getType());
             final String cropName = this.cropManager.getCropName(crop);
             nbt.getOrCreateCompound(NbtUtil.FAR_COMPOUND).setString(NbtUtil.TILL_CROP, cropName);
-            nbt.modifyMeta((readableNBT, itemMeta) ->
-                    itemMeta.getLore().set(mainConfig.getLoreModifyPosition(), "Tilling Crop: " + cropName)
+            nbt.modifyMeta((readableNBT, itemMeta) -> {
+                        List<String> lore = itemMeta.getLore();
+                        if (lore == null) {
+                            lore = new ArrayList<>();
+                        }
+                        lore.addAll(fillEmptyLoreLines(lore));
+                        if (lore.size() == mainConfig.getLoreModifyPosition()) {
+                            lore.add("Tilling Crop: " + cropName);
+                        } else {
+                            lore.set(mainConfig.getLoreModifyPosition(), "Tilling Crop: " + cropName);
+                        }
+
+                        itemMeta.setLore(lore);
+                    }
             );
+
+            plugin.debug("Modified hoe with crop: " + cropName);
         });
+    }
+
+    private List<String> fillEmptyLoreLines(List<String> lore) {
+        if (lore.size() < mainConfig.getLoreModifyPosition()) {
+            for (int i = 0; i < mainConfig.getLoreModifyPosition(); i++) {
+                lore.add(" ");
+            }
+        }
+        return lore;
     }
 
     @EventHandler
     public void onPlayerTill(PlayerInteractEvent event) {
-        if (checkForNotRightClickAndHoeItem(event)) {
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK || checkForNotHoeItem(event.getItem())) {
             return;
         }
 
         final ItemStack hoe = event.getItem();
         final String tillCrop = NbtUtil.getCurrentTillCrop(hoe);
         if (tillCrop == null) {
+            plugin.trace("Could not find till crop.");
             return;
         }
 
@@ -73,7 +107,7 @@ public class TillListener implements Listener {
         });
     }
 
-    private boolean checkForNotRightClickAndHoeItem(final @NotNull PlayerInteractEvent event) {
-        return event.getAction() != Action.RIGHT_CLICK_BLOCK || !event.getItem().getType().name().contains("HOE");
+    private boolean checkForNotHoeItem(final @NotNull ItemStack itemStack) {
+        return !itemStack.getType().name().contains("HOE");
     }
 }

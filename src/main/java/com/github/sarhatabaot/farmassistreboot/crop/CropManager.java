@@ -4,6 +4,7 @@ package com.github.sarhatabaot.farmassistreboot.crop;
 import com.cryptomorin.xseries.XMaterial;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.github.sarhatabaot.farmassistreboot.MainConfig;
 import com.github.sarhatabaot.farmassistreboot.utils.Util;
 import com.github.sarhatabaot.farmassistreboot.deserializer.CropDeserializer;
@@ -18,7 +19,7 @@ import java.util.*;
 import java.util.logging.Logger;
 
 public class CropManager {
-    private final Logger logger = Logger.getLogger("FarmAssistReboot");
+    private final FarmAssistReboot plugin;
     private final Gson gson = new GsonBuilder()
             .registerTypeAdapter(Crop.class, new CropDeserializer())
             .setPrettyPrinting()
@@ -32,7 +33,8 @@ public class CropManager {
     private Cache<Crop, String> nameCache;
 
 
-    public CropManager(final MainConfig config) {
+    public CropManager(final FarmAssistReboot plugin, final MainConfig config) {
+        this.plugin = plugin;
         this.crops = new HashMap<>();
         this.config = config;
 
@@ -43,7 +45,7 @@ public class CropManager {
         loadCrops();
         loadCache();
 
-        logger.info(() -> "Loaded " + crops.size() + " crops");
+        plugin.getLogger().info(() -> "Loaded " + crops.size() + " crops");
     }
 
     // Fallthrough is on purpose. If the version is 1.20, we also want to execute the code from 1.8. If anyone has a better idea, feel free to submit a PR.
@@ -69,13 +71,13 @@ public class CropManager {
             }
 
             default: {
-                logger.warning(() -> "Unknown/Unspported Minecraft version: " + jsonCropVersion);
+                plugin.getLogger().warning(() -> "Unknown/Unspported Minecraft version: " + jsonCropVersion);
             }
         }
     }
 
     private void loadCache() {
-        this.cropCache = new CropCache(config.getMaxCacheSize(), crops);
+        this.cropCache = new CropCache(plugin, config.getMaxCacheSize(), crops);
         this.nameCache = Caffeine.newBuilder()
                 .maximumSize(config.getMaxCacheSize())
                 .build();

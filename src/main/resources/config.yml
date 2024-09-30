@@ -12,7 +12,7 @@ locale:
 
 lore:
   # Modify this to signify where the hoe lore is modified
-  lore-start: 1
+  lore-start: 0
 
 advanced-settings:
   max-cache-size: 100
