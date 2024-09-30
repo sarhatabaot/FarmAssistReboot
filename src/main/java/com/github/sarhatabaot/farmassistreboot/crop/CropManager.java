@@ -2,6 +2,8 @@ package com.github.sarhatabaot.farmassistreboot.crop;
 
 
 import com.cryptomorin.xseries.XMaterial;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.sarhatabaot.farmassistreboot.MainConfig;
 import com.github.sarhatabaot.farmassistreboot.utils.Util;
 import com.github.sarhatabaot.farmassistreboot.deserializer.CropDeserializer;
@@ -26,6 +28,8 @@ public class CropManager {
     private final Map<String, Crop> crops;
 
     private CropCache cropCache;
+
+    private Cache<Crop, String> nameCache;
 
 
     public CropManager(final MainConfig config) {
@@ -72,7 +76,13 @@ public class CropManager {
 
     private void loadCache() {
         this.cropCache = new CropCache(config.getMaxCacheSize(), crops);
+        this.nameCache = Caffeine.newBuilder()
+                .maximumSize(config.getMaxCacheSize())
+                .build();
 
+        for (Map.Entry<String, Crop> entry: crops.entrySet()) {
+            this.nameCache.put(entry.getValue(),entry.getKey());
+        }
     }
 
     //For later todo
@@ -113,6 +123,10 @@ public class CropManager {
 
     public Collection<Crop> getCrops() {
         return crops.values();
+    }
+
+    public String getCropName(final Crop crop) {
+        return nameCache.getIfPresent(crop);
     }
 
     public boolean isNotSupportedCrop(final Material material) {

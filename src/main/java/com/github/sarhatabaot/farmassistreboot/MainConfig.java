@@ -55,7 +55,7 @@ public class MainConfig {
     }
 
     public Util.DebugLevel getDebugLevel() {
-        return Util.DebugLevel.valueOf(this.config.getString(Route.from("advanced-settings", "debug", "level")));
+        return Util.DebugLevel.valueOf(this.config.getString(Route.from("advanced-settings", "debug", "level")).toUpperCase());
     }
 
     public String getVersion() {
@@ -72,6 +72,10 @@ public class MainConfig {
 
     public List<String> getDisabledLocales() {
         return this.config.getStringList(Route.from("locale", "per-player-locale", "disabled-locales"));
+    }
+
+    public int getLoreModifyPosition() {
+        return this.config.getInt(Route.from("lore", "lore-start"));
     }
 
 

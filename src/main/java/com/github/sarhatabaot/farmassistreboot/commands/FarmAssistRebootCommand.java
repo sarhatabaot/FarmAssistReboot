@@ -35,7 +35,7 @@ public class FarmAssistRebootCommand extends BaseCommand {
     public void onReload(final CommandSender sender) {
         this.plugin.reload();
         final LanguageFile languageFile = getLanguageForPlayerOrConsole(sender);
-        sender.sendMessage(Util.color(String.format(languageFile.getPrefix() + "The plugin has been reloaded.")));
+        sender.sendMessage(Util.color(String.format("%s The plugin has been reloaded.", languageFile.getPrefix())));
     }
 
     private LanguageFile getLanguageForPlayerOrConsole(final CommandSender sender) {

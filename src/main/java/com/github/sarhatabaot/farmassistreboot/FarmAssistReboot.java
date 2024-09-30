@@ -51,7 +51,7 @@ public final class FarmAssistReboot extends JavaPlugin {
     private void registerListeners() {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new BlockBreakListener(this, cropManager, mainConfig), this);
-        pluginManager.registerEvents(new TillListener(this, cropManager), this);
+        pluginManager.registerEvents(new TillListener(this, cropManager, mainConfig), this);
     }
 
     public void reload() {

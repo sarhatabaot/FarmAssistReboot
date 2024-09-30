@@ -83,9 +83,6 @@ public class Util {
         return ChatColor.translateAlternateColorCodes('&',text);
     }
 
-    public static String getCropPermission(final Crop crop) {
-        return getCropPermission(crop.getName());
-    }
 
     public static String getCropPermission(final String crop) {
         return "farmassist.crops." + crop;

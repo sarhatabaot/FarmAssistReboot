@@ -71,11 +71,11 @@ public class BlockBreakListener implements Listener {
     }
 
     private boolean isDisabled(final @NotNull Crop crop) {
-        return mainConfig.getDisabledCrops().contains(crop.getName());
+        return mainConfig.getDisabledCrops().contains(cropManager.getCropName(crop));
     }
 
     private boolean hasPermissionForCrop(final @NotNull Player player, final Crop crop) {
-        return player.hasPermission(Util.getCropPermission(crop));
+        return player.hasPermission(Util.getCropPermission(cropManager.getCropName(crop)));
     }
 
     private boolean isFullyGrownCrop(@NotNull Block block) {

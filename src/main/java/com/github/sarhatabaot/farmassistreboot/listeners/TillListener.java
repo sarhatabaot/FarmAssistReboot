@@ -2,6 +2,7 @@ package com.github.sarhatabaot.farmassistreboot.listeners;
 
 import com.cryptomorin.xseries.XMaterial;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
+import com.github.sarhatabaot.farmassistreboot.MainConfig;
 import com.github.sarhatabaot.farmassistreboot.crop.Crop;
 import com.github.sarhatabaot.farmassistreboot.crop.CropManager;
 import com.github.sarhatabaot.farmassistreboot.utils.NbtUtil;
@@ -21,12 +22,14 @@ import java.util.Collections;
 public class TillListener implements Listener {
     private final FarmAssistReboot plugin;
     private final CropManager cropManager;
+    private final MainConfig mainConfig;
 
-    public TillListener(FarmAssistReboot plugin, CropManager cropManager) {
+
+    public TillListener(FarmAssistReboot plugin, CropManager cropManager, MainConfig mainConfig) {
         this.plugin = plugin;
         this.cropManager = cropManager;
+        this.mainConfig = mainConfig;
     }
-
 
     @EventHandler
     public void onPlayerInteract(final PlayerInteractEvent event) {
@@ -45,10 +48,11 @@ public class TillListener implements Listener {
 
         NBT.modify(clickedItem, nbt -> {
             final Crop crop = this.cropManager.getCropFromItem(handItem.getType());
-            nbt.getOrCreateCompound(NbtUtil.FAR_COMPOUND).setString(NbtUtil.TILL_CROP, crop.getName());
-            nbt.modifyMeta((readableNBT, itemMeta) -> itemMeta.setLore(
-                    Collections.singletonList(itemMeta.getLore().set(1, "Tilling Crop: " + crop.getName()))
-            ));
+            final String cropName = this.cropManager.getCropName(crop);
+            nbt.getOrCreateCompound(NbtUtil.FAR_COMPOUND).setString(NbtUtil.TILL_CROP, cropName);
+            nbt.modifyMeta((readableNBT, itemMeta) ->
+                    itemMeta.getLore().set(mainConfig.getLoreModifyPosition(), "Tilling Crop: " + cropName)
+            );
         });
     }
 

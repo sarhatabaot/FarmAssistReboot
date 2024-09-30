@@ -2,6 +2,7 @@ package com.github.sarhatabaot.farmassistreboot.crop;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,8 +11,10 @@ import java.util.logging.Logger;
 
 public class CropCache {
     private final Cache<Material, Crop> cache;
+    private final FarmAssistReboot plugin;
 
-    public CropCache(final int maxCacheSize,final Map<String, Crop> crops) {
+    public CropCache(final FarmAssistReboot plugin, final int maxCacheSize,final Map<String, Crop> crops) {
+        this.plugin = plugin;
         if (crops == null) {
             throw new IllegalArgumentException("Crops map cannot be null.");
         }
@@ -24,7 +27,7 @@ public class CropCache {
 
     public void loadCrops(@NotNull Map<String, Crop> crops) {
         for (Crop crop : crops.values()) {
-            Logger.getAnonymousLogger().info("Loaded crop: " + crop);
+            plugin.debug("Loaded crop: " + crop);
             cache.put(crop.getCropItem(), crop);
         }
     }
