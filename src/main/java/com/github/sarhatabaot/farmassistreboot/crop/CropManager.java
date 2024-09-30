@@ -107,11 +107,19 @@ public class CropManager {
         return cropCache.getCropByItem(XMaterial.matchXMaterial(cropMaterial).parseMaterial());
     }
 
+    public Crop getCropFromItem(final XMaterial cropMaterial) {
+        return cropCache.getCropByItem(cropMaterial.parseMaterial());
+    }
+
     public Collection<Crop> getCrops() {
         return crops.values();
     }
 
     public boolean isNotSupportedCrop(final Material material) {
         return !cropCache.hasCropItem(XMaterial.matchXMaterial(material).parseMaterial());
+    }
+
+    public boolean isNotSupportedCrop(final XMaterial material) {
+        return !cropCache.hasCropItem(material.parseMaterial());
     }
 }

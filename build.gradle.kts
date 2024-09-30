@@ -30,6 +30,7 @@ dependencies {
 
     testImplementation(libs.junit.api)
     testImplementation(libs.junit.params)
+    testCompileOnly(libs.spigot.api)
     testRuntimeOnly(libs.junit.engine)
 }
 

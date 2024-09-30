@@ -1,8 +1,15 @@
 package com.github.sarhatabaot.farmassistreboot;
 
+import com.cryptomorin.xseries.XMaterial;
+import com.github.sarhatabaot.farmassistreboot.crop.Crop;
 import com.github.sarhatabaot.farmassistreboot.utils.Util;
+import org.bukkit.Material;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -74,6 +81,21 @@ class UtilTest {
         String actual = Util.getLangFilePath(locale);
         assertEquals(expected, actual, "The language path for locale "+ locale + "should be '" + expected + "'");
     }
+
+
+
+    // Parameterized test for getCropPermission
+    @ParameterizedTest
+    @CsvSource({
+      "wheat, farmassist.crops.wheat",
+      "carrot, farmassist.crops.carrot",
+      "potato, farmassist.crops.potato"
+    })
+    void testGetCropPermission(String crop, String expectedPermission) {
+        String actualPermission = Util.getCropPermission(crop);
+        assertEquals(expectedPermission, actualPermission);
+    }
+
 
 }
 

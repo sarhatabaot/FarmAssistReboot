@@ -1,6 +1,7 @@
 package com.github.sarhatabaot.farmassistreboot;
 
 
+import com.github.sarhatabaot.farmassistreboot.utils.Util;
 import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.route.Route;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -50,7 +51,11 @@ public class MainConfig {
     }
 
     public boolean isDebug() {
-        return this.config.getBoolean(Route.from("advanced-settings", "debug"));
+        return this.config.getBoolean(Route.from("advanced-settings", "debug", "enabled"));
+    }
+
+    public Util.DebugLevel getDebugLevel() {
+        return Util.DebugLevel.valueOf(this.config.getString(Route.from("advanced-settings", "debug", "level")));
     }
 
     public String getVersion() {

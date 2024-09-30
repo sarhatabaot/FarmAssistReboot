@@ -10,9 +10,16 @@ locale:
     enabled: true
     disabled-locales: []
 
+lore:
+  # Modify this to signify where the hoe lore is modified
+  lore-start: 1
+
 advanced-settings:
   max-cache-size: 100
-  debug: false
+  debug:
+    enabled: false
+    # Trace will show all debug messages, even for checks that may not be relevant
+    level: debug
 
 # Internal Config Version
 config-version: 1.0

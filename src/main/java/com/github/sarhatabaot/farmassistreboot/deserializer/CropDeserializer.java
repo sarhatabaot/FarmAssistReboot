@@ -15,6 +15,7 @@ import java.util.Objects;
 public class CropDeserializer implements JsonDeserializer<Crop> {
     @Override
     public Crop deserialize(@NotNull JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+        final String name = jsonElement.getAsString();
         final JsonObject jsonObject = jsonElement.getAsJsonObject();
         final Material cropMaterial = XMaterial.matchXMaterial(jsonObject.get("crop").getAsString()).orElse(XMaterial.AIR).parseMaterial();
         final Material seedMaterial = XMaterial.matchXMaterial(jsonObject.get("seeds").getAsString()).orElse(XMaterial.AIR).parseMaterial();
@@ -25,7 +26,7 @@ public class CropDeserializer implements JsonDeserializer<Crop> {
             //Log and throw an error or something
             return null;
         }
-        return new Crop(cropMaterial,seedMaterial,plantedOn, maxAge);
+        return new Crop(name, cropMaterial,seedMaterial,plantedOn, maxAge);
     }
 
     private Material @NotNull [] getPlantedOn(@NotNull JsonObject jsonObject) {

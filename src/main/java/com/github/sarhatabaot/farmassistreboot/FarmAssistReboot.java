@@ -7,9 +7,12 @@ import com.github.sarhatabaot.farmassistreboot.language.LanguageManager;
 import com.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
 import com.github.sarhatabaot.farmassistreboot.listeners.TillListener;
 import com.github.sarhatabaot.farmassistreboot.utils.ReplantUtil;
+import com.github.sarhatabaot.farmassistreboot.utils.Util;
 import de.tr7zw.changeme.nbtapi.NBT;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.function.Supplier;
 
 public final class FarmAssistReboot extends JavaPlugin {
     private MainConfig mainConfig;
@@ -32,7 +35,7 @@ public final class FarmAssistReboot extends JavaPlugin {
         this.languageManager = new LanguageManager(this, mainConfig);
         // Command Logic
 
-        ReplantUtil.init(this,cropManager);
+        ReplantUtil.init(this, cropManager);
 
         registerListeners();
 
@@ -47,8 +50,8 @@ public final class FarmAssistReboot extends JavaPlugin {
 
     private void registerListeners() {
         PluginManager pluginManager = getServer().getPluginManager();
-        pluginManager.registerEvents(new BlockBreakListener(this,cropManager), this);
-        pluginManager.registerEvents(new TillListener(cropManager), this);
+        pluginManager.registerEvents(new BlockBreakListener(this, cropManager, mainConfig), this);
+        pluginManager.registerEvents(new TillListener(this, cropManager), this);
     }
 
     public void reload() {
@@ -62,9 +65,21 @@ public final class FarmAssistReboot extends JavaPlugin {
     }
 
     private void logBetaVersion() {
-        this.getLogger().info("====================");
-        this.getLogger().info("=   BETA VERSION   =");
-        this.getLogger().info("====================");
+        this.getLogger().info(() -> "====================");
+        this.getLogger().info(() -> "=   BETA VERSION   =");
+        this.getLogger().info(() -> "====================");
+    }
+
+    public void debug(String message) {
+        if (mainConfig.isDebug()) {
+            this.getLogger().info(() -> "DEBUG" + message);
+        }
+    }
+
+    public void trace(String message) {
+        if (mainConfig.isDebug() && mainConfig.getDebugLevel() == Util.DebugLevel.TRACE) {
+            this.getLogger().info(() -> "TRACE" + message);
+        }
     }
 
 }

@@ -9,6 +9,9 @@ public class NbtUtil {
     public static final String FAR_COMPOUND = "farm-assist-reboot";
     public static final String TILL_CROP = "till-crop";
 
+    private NbtUtil() {
+        throw new IllegalStateException("Utility class");
+    }
 
     public static String getCurrentTillCrop(final ItemStack itemStack) {
         return NBT.get(itemStack, nbt -> {
@@ -24,5 +27,6 @@ public class NbtUtil {
             return farCompound.getString(TILL_CROP);
         });
     }
+
 
 }

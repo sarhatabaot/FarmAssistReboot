@@ -1,6 +1,7 @@
 package com.github.sarhatabaot.farmassistreboot.utils;
 
 
+import com.github.sarhatabaot.farmassistreboot.crop.Crop;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.jetbrains.annotations.Contract;
@@ -80,6 +81,19 @@ public class Util {
 
     public static String color(final String text) {
         return ChatColor.translateAlternateColorCodes('&',text);
+    }
+
+    public static String getCropPermission(final Crop crop) {
+        return getCropPermission(crop.getName());
+    }
+
+    public static String getCropPermission(final String crop) {
+        return "farmassist.crops." + crop;
+    }
+
+    public enum DebugLevel {
+        TRACE,
+        DEBUG;
     }
 
 }
