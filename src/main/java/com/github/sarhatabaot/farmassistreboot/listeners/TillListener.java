@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 
 public class TillListener implements Listener {
@@ -102,9 +103,14 @@ public class TillListener implements Listener {
             return;
         }
 
-        XMaterial.matchXMaterial(tillCrop).ifPresent(cropMaterial -> {
-            ReplantUtil.replant(event.getPlayer(), this.cropManager.getCropFromItem(cropMaterial), event.getClickedBlock().getLocation());
-        });
+        Optional<XMaterial> potentialTillCrop = XMaterial.matchXMaterial(tillCrop);
+        if (!potentialTillCrop.isPresent()) {
+            plugin.trace("Could not match material to till crop: " + tillCrop);
+            return;
+        }
+
+
+        ReplantUtil.replant(event.getPlayer(), this.cropManager.getCropFromItem(potentialTillCrop.get()), event.getClickedBlock().getLocation());
     }
 
     private boolean checkForNotHoeItem(final @NotNull ItemStack itemStack) {
