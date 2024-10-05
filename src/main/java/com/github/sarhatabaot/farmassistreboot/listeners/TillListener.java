@@ -108,6 +108,10 @@ public class TillListener implements Listener {
         }
 
         final ItemStack hoe = event.getItem();
+        if (checkForNotHoeItem(hoe)) {
+            plugin.trace("Not a hoe: " + hoe.getType());
+            return;
+        }
         final String tillCrop = NbtUtil.getCurrentTillCrop(hoe);
         if (tillCrop == null) {
             plugin.trace("Could not find till crop.");

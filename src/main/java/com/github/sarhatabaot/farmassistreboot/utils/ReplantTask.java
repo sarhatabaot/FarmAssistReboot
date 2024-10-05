@@ -54,6 +54,14 @@ public class ReplantTask extends BukkitRunnable {
                 }
                 break;
             }
+            case SUGAR_CANE: {
+                if (Util.getJsonCropVersionFromMinecraftVersion().equals("1.0")) {
+                    plugin.trace("Replanting legacy sugar cane.");
+                    setLegacySugarCane(block);
+                } else {
+                    setTypeAndAge(block, XMaterial.SUGAR_CANE);
+                }
+            }
             default: {
                 setTypeAndAge(block, xMaterial);
                 break;
@@ -64,14 +72,23 @@ public class ReplantTask extends BukkitRunnable {
 
     private void setTypeAndAge(Block block, XMaterial material) {
         XBlock.setType(block, material);
-        XBlock.setAge(block, 0);
+        setAge(block);
     }
 
     private void setLegacyWheat(@NotNull Block block) {
         block.setType(Material.matchMaterial("CROPS"));
+        setAge(block);
+    }
+
+    private void setLegacySugarCane(@NotNull Block block) {
+        block.setType(Material.matchMaterial("SUGAR_CANE_BLOCK"));
+        setAge(block);
+    }
+
+    private void setAge(Block block) {
         XBlock.setAge(block, 0);
     }
-    
+
     private boolean matchedRelativeType(final Material[] materials, final Material relativeType) {
         return Arrays.stream(materials).anyMatch(m -> m == relativeType);
     }
