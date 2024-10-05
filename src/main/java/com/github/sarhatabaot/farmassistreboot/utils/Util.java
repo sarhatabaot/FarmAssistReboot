@@ -1,7 +1,6 @@
 package com.github.sarhatabaot.farmassistreboot.utils;
 
 
-import com.github.sarhatabaot.farmassistreboot.crop.Crop;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.jetbrains.annotations.Contract;
@@ -75,16 +74,19 @@ public class Util {
         return getJsonCropVersion(majorMinecraftVersion);
     }
 
-    public static String getLangFilePath(final String locale) {
+    @Contract(pure = true)
+    public static @NotNull String getLangFilePath(final String locale) {
         return "languages" + File.separator + locale + File.separator + "messages.yml";
     }
 
-    public static String color(final String text) {
+    @Contract("_ -> new")
+    public static @NotNull String color(final String text) {
         return ChatColor.translateAlternateColorCodes('&',text);
     }
 
 
-    public static String getCropPermission(final String crop) {
+    @Contract(pure = true)
+    public static @NotNull String getCropPermission(final String crop) {
         return "farmassist.crops." + crop;
     }
 

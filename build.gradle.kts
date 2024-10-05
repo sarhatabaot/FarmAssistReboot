@@ -19,6 +19,7 @@ dependencies {
         exclude("org.avaje", "ebean")
         exclude("net.md-5", "bungeecord-chat")
     }
+    compileOnly(libs.placeholder.api)
 
     implementation(libs.gson)
     implementation(libs.xseries)

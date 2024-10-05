@@ -5,7 +5,7 @@ import com.cryptomorin.xseries.XMaterial;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import com.github.sarhatabaot.farmassistreboot.MainConfig;
+import com.github.sarhatabaot.farmassistreboot.config.MainConfig;
 import com.github.sarhatabaot.farmassistreboot.utils.Util;
 import com.github.sarhatabaot.farmassistreboot.deserializer.CropDeserializer;
 import com.google.gson.Gson;
@@ -16,7 +16,6 @@ import org.bukkit.Material;
 
 import java.io.*;
 import java.util.*;
-import java.util.logging.Logger;
 
 public class CropManager {
     private final FarmAssistReboot plugin;

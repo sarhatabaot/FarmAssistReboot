@@ -2,6 +2,7 @@ package com.github.sarhatabaot.farmassistreboot;
 
 import co.aikar.commands.PaperCommandManager;
 import com.github.sarhatabaot.farmassistreboot.commands.FarmAssistRebootCommand;
+import com.github.sarhatabaot.farmassistreboot.config.MainConfig;
 import com.github.sarhatabaot.farmassistreboot.crop.CropManager;
 import com.github.sarhatabaot.farmassistreboot.language.LanguageManager;
 import com.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
@@ -12,11 +13,10 @@ import de.tr7zw.changeme.nbtapi.NBT;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.function.Supplier;
-
 public final class FarmAssistReboot extends JavaPlugin {
     private MainConfig mainConfig;
     private LanguageManager languageManager;
+    private ToggleManager toggleManager;
 
     private CropManager cropManager;
 
@@ -33,6 +33,7 @@ public final class FarmAssistReboot extends JavaPlugin {
 
         this.cropManager = new CropManager(this, mainConfig);
         this.languageManager = new LanguageManager(this, mainConfig);
+        this.toggleManager = new ToggleManager();
         // Command Logic
 
         ReplantUtil.init(this, cropManager);
@@ -82,4 +83,7 @@ public final class FarmAssistReboot extends JavaPlugin {
         }
     }
 
+    public ToggleManager getToggleManager() {
+        return toggleManager;
+    }
 }

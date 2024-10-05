@@ -7,7 +7,6 @@ import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class CropCache {
     private final Cache<Material, Crop> cache;

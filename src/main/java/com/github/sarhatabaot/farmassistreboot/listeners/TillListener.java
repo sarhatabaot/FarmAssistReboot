@@ -2,7 +2,7 @@ package com.github.sarhatabaot.farmassistreboot.listeners;
 
 import com.cryptomorin.xseries.XMaterial;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import com.github.sarhatabaot.farmassistreboot.MainConfig;
+import com.github.sarhatabaot.farmassistreboot.config.MainConfig;
 import com.github.sarhatabaot.farmassistreboot.crop.Crop;
 import com.github.sarhatabaot.farmassistreboot.crop.CropManager;
 import com.github.sarhatabaot.farmassistreboot.utils.NbtUtil;
@@ -13,14 +13,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +36,7 @@ public class TillListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerInteract(final InventoryClickEvent event) {
+    public void onPlayerInteract(final @NotNull InventoryClickEvent event) {
         if (checkForNotHoeItem(event.getWhoClicked().getItemOnCursor())) {
             plugin.trace("Item: " + event.getWhoClicked().getItemOnCursor());
             return;
@@ -61,6 +59,7 @@ public class TillListener implements Listener {
             final Crop crop = this.cropManager.getCropFromItem(handItem.getType());
             final String cropName = this.cropManager.getCropName(crop);
             nbt.getOrCreateCompound(NbtUtil.FAR_COMPOUND).setString(NbtUtil.TILL_CROP, cropName);
+            plugin.trace("Added nbt to hoe itemstack.");
             nbt.modifyMeta((readableNBT, itemMeta) -> {
                         List<String> lore = itemMeta.getLore();
                         if (lore == null) {
@@ -74,6 +73,8 @@ public class TillListener implements Listener {
                         }
 
                         itemMeta.setLore(lore);
+
+                        plugin.trace("Set lore on hoe itemstack.");
                     }
             );
 
@@ -81,7 +82,8 @@ public class TillListener implements Listener {
         });
     }
 
-    private List<String> fillEmptyLoreLines(List<String> lore) {
+    @Contract("_ -> param1")
+    private @NotNull List<String> fillEmptyLoreLines(@NotNull List<String> lore) {
         if (lore.size() < mainConfig.getLoreModifyPosition()) {
             for (int i = 0; i < mainConfig.getLoreModifyPosition(); i++) {
                 lore.add(" ");
@@ -91,7 +93,7 @@ public class TillListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerTill(PlayerInteractEvent event) {
+    public void onPlayerTill(@NotNull PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK || checkForNotHoeItem(event.getItem())) {
             return;
         }

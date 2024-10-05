@@ -3,6 +3,7 @@ package com.github.sarhatabaot.farmassistreboot.commands;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.CommandCompletion;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Subcommand;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
@@ -20,6 +21,36 @@ public class FarmAssistRebootCommand extends BaseCommand {
     public FarmAssistRebootCommand(FarmAssistReboot plugin, LanguageManager languageManager) {
         this.plugin = plugin;
         this.lm = languageManager;
+    }
+
+    @Subcommand("languages|lang")
+    @CommandPermission("farmassist.player.language")
+    @CommandCompletion("@languages")
+    public void onLanguage(final Player player, final String language) {
+
+    }
+
+    @Subcommand("toggle")
+    @CommandPermission("farmassist.player.toggle")
+    public void onToggle(final Player player) {
+
+    }
+
+    @Subcommand("admin player toggle")
+    @CommandPermission("farmassist.admin.toggle.player")
+    public void onPlayerToggle(final CommandSender sender, final Player player) {
+
+    }
+
+    @Subcommand("admin global toggle")
+    @CommandPermission("farmassist.admin.toggle.global")
+    public void onGlobalToggle(final CommandSender sender) {
+        this.plugin.getToggleManager().toggleGlobalStatus();
+        if (plugin.getToggleManager().isGlobalStatus()) {
+            sender.sendMessage(String.format(this.lm.getActiveLanguage().getToggleGlobalOn()));
+        } else {
+            sender.sendMessage(String.format(this.lm.getActiveLanguage().getToggleGlobalOff()));
+        }
     }
 
     @Subcommand("admin version")

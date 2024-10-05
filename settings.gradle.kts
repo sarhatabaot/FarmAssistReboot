@@ -7,6 +7,7 @@ dependencyResolutionManagement {
         maven("https://oss.sonatype.org/content/groups/public/")
         maven("https://repo.codemc.io/repository/maven-public/")
         maven("https://repo.aikar.co/content/groups/aikar/")
+        maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     }
 
     versionCatalogs {
@@ -14,6 +15,7 @@ dependencyResolutionManagement {
             library("spigot-api", "org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
             library("xseries", "com.github.cryptomorin:XSeries:11.2.1")
             library("gson", "com.google.code.gson:gson:2.11.0")
+            library("placeholder-api", "me.clip:placeholderapi:2.11.6")
 
             version("junit", "5.11.0")
             library("junit-api", "org.junit.jupiter","junit-jupiter-api").versionRef("junit")

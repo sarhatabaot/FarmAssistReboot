@@ -1,4 +1,4 @@
-package com.github.sarhatabaot.farmassistreboot;
+package com.github.sarhatabaot.farmassistreboot.config;
 
 
 import com.github.sarhatabaot.farmassistreboot.utils.Util;

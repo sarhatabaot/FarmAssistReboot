@@ -2,7 +2,7 @@ package com.github.sarhatabaot.farmassistreboot.language;
 
 
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
-import com.github.sarhatabaot.farmassistreboot.MainConfig;
+import com.github.sarhatabaot.farmassistreboot.config.MainConfig;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +18,7 @@ public class LanguageManager {
     private final FarmAssistReboot plugin;
     private final MainConfig config;
     private final Map<String, LanguageFile> languages;
-    private final Map<UUID, String> playerLanguages;
+    private final Map<UUID, String> playerLanguages; //todo, cache online players only. Offline players will get saved to a database file.
 
     public LanguageManager(FarmAssistReboot plugin, MainConfig config) {
         this.plugin = plugin;

@@ -8,12 +8,11 @@
 6. Server wide toggle
    1. /far admin toggle
 7. Per player toggle
-   1. Ability to toggle per world: /far toggle <world-name>
-   2. Players should also be able to toggle everything at once or not /far toggle
+   1. Players should also be able to toggle everything at once or not /far toggle
 8. Placeholders:
-   1. farmassist_server_toggle
-   2. farmassist_player_toggle
-   3. farmassist_player_uuid
+   1. farmassist_server_toggle v
+   2. farmassist_player_toggle v
+   3. farmassist_player_uuid v
 9. Generic admin commands:
    1. /far admin version
       1. Lists the version & contributors
@@ -35,6 +34,7 @@
 12. Update checker (modrinth): 
       * "You are running version x version x.x is latest."
       * "There is an update available on: link"
+      * "You are running the latest version."
 13. Permissions:
     * Everything should have permissions, commands, update notifications, crop replanting, plant-on-till + command
 14. Enable / Disable per world: (perm farmassist.worlds.<name>)
