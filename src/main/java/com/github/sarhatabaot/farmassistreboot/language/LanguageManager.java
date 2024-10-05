@@ -39,6 +39,11 @@ public class LanguageManager {
         });
     }
 
+
+    public boolean isNotSupported(final String language) {
+        return !languages.containsKey(language);
+    }
+
     public LanguageFile getLanguage(String language) {
         return languages.get(language);
     }
@@ -88,5 +93,13 @@ public class LanguageManager {
             }
         }
         return fileNames;
+    }
+
+    public void setPlayerLanguage(final Player player, final String language) {
+        this.playerLanguages.put(player.getUniqueId(), language);
+    }
+
+    public void save() {
+        //todo
     }
 }

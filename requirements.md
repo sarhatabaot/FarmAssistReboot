@@ -48,7 +48,9 @@
 16. Full 1.0 -> Latest support :)
 17. Update documentation with all the latest features, also add a comparison between 1.x to 2.x
     It's important that we have GIFs displaying all the latest features as well.
-
+18. Local/Remote storage for keeping user settings: (sqllite/h2/sql database)
+    1. Language Manager
+    2. Toggle Manager
 ## Upcoming
 1. Custom crop support:
    1. Via json file:

@@ -3,6 +3,7 @@ package com.github.sarhatabaot.farmassistreboot.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -88,6 +89,10 @@ public class Util {
     @Contract(pure = true)
     public static @NotNull String getCropPermission(final String crop) {
         return "farmassist.crops." + crop;
+    }
+
+    public static void sendMessage(final @NotNull CommandSender sender, final String message, final Object... args) {
+        sender.sendMessage(color(String.format(message, args)));
     }
 
     public enum DebugLevel {

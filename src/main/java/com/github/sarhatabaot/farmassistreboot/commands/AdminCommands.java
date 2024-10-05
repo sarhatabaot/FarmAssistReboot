@@ -1,9 +1,7 @@
 package com.github.sarhatabaot.farmassistreboot.commands;
 
-
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
-import co.aikar.commands.annotation.CommandCompletion;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Subcommand;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
@@ -13,28 +11,18 @@ import com.github.sarhatabaot.farmassistreboot.utils.Util;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-@CommandAlias("far|farmassistreboot")
-public class FarmAssistRebootCommand extends BaseCommand {
+@CommandAlias("%far_main_command")
+public class AdminCommands extends BaseCommand {
+
     private final FarmAssistReboot plugin;
     private final LanguageManager lm;
 
-    public FarmAssistRebootCommand(FarmAssistReboot plugin, LanguageManager languageManager) {
+    public AdminCommands(FarmAssistReboot plugin, LanguageManager languageManager) {
         this.plugin = plugin;
         this.lm = languageManager;
     }
 
-    @Subcommand("languages|lang")
-    @CommandPermission("farmassist.player.language")
-    @CommandCompletion("@languages")
-    public void onLanguage(final Player player, final String language) {
 
-    }
-
-    @Subcommand("toggle")
-    @CommandPermission("farmassist.player.toggle")
-    public void onToggle(final Player player) {
-
-    }
 
     @Subcommand("admin player toggle")
     @CommandPermission("farmassist.admin.toggle.player")

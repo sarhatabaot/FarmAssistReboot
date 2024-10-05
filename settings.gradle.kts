@@ -17,6 +17,8 @@ dependencyResolutionManagement {
             library("gson", "com.google.code.gson:gson:2.11.0")
             library("placeholder-api", "me.clip:placeholderapi:2.11.6")
 
+            library("hikari", "com.zaxxer:HikariCP:4.0.3") //stuck on 4.0.3 for java 8
+
             version("junit", "5.11.0")
             library("junit-api", "org.junit.jupiter","junit-jupiter-api").versionRef("junit")
             library("junit-engine", "org.junit.jupiter","junit-jupiter-engine").versionRef("junit")

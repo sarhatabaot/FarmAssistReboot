@@ -1,15 +1,18 @@
 package com.github.sarhatabaot.farmassistreboot;
 
 import co.aikar.commands.PaperCommandManager;
-import com.github.sarhatabaot.farmassistreboot.commands.FarmAssistRebootCommand;
+import com.github.sarhatabaot.farmassistreboot.commands.AdminCommands;
+import com.github.sarhatabaot.farmassistreboot.commands.PlayerCommands;
 import com.github.sarhatabaot.farmassistreboot.config.MainConfig;
 import com.github.sarhatabaot.farmassistreboot.crop.CropManager;
 import com.github.sarhatabaot.farmassistreboot.language.LanguageManager;
 import com.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
 import com.github.sarhatabaot.farmassistreboot.listeners.TillListener;
+import com.github.sarhatabaot.farmassistreboot.placeholders.Placeholder;
 import com.github.sarhatabaot.farmassistreboot.utils.ReplantUtil;
 import com.github.sarhatabaot.farmassistreboot.utils.Util;
 import de.tr7zw.changeme.nbtapi.NBT;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -42,9 +45,12 @@ public final class FarmAssistReboot extends JavaPlugin {
 
         final PaperCommandManager commandManager = new PaperCommandManager(this);
         commandManager.enableUnstableAPI("help");
-        commandManager.registerCommand(new FarmAssistRebootCommand(this, languageManager));
+        commandManager.getCommandReplacements().addReplacement("far_main_command","far|farmassistreboot");
+        commandManager.registerCommand(new PlayerCommands(this, languageManager));
+        commandManager.registerCommand(new AdminCommands(this, languageManager));
 
         // Plugin startup logic
+        registerListeners();
 
         logBetaVersion();
     }
@@ -62,6 +68,8 @@ public final class FarmAssistReboot extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        this.languageManager.save();
+        this.toggleManager.save();
         // Plugin shutdown logic
     }
 
@@ -85,5 +93,11 @@ public final class FarmAssistReboot extends JavaPlugin {
 
     public ToggleManager getToggleManager() {
         return toggleManager;
+    }
+
+    private void registerPlaceholders() {
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) { //
+            new Placeholder(this).register(); //
+        }
     }
 }

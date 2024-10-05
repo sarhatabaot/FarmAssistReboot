@@ -40,4 +40,8 @@ public class ToggleManager implements Listener {
     public void togglePlayer(final UUID uuid) {
         this.toggles.put(uuid, !this.toggles.getOrDefault(uuid, true));
     }
+
+    public void save() {
+        //todo
+    }
 }

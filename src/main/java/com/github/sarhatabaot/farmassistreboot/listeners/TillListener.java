@@ -53,7 +53,7 @@ public class TillListener implements Listener {
             return;
         }
 
-        final ItemStack clickedItem = event.getCursor(); // The item/block clicked
+        final ItemStack clickedItem = event.getCursor(); // The item/block clicked, the hoe item
 
         NBT.modify(clickedItem, nbt -> {
             final Crop crop = this.cropManager.getCropFromItem(handItem.getType());
