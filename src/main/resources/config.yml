@@ -1,6 +1,8 @@
 ignore-nbt: ["itemsadder-*"]
 disabled-crops: ["pumpkin", "melons", "sweet_berries", "cactus", "sugar_cane"]
 
+enabled-worlds: ["world", "world_nether", "world_the_end"]
+
 check-for-updates: true
 
 locale:
@@ -22,4 +24,4 @@ advanced-settings:
     level: debug
 
 # Internal Config Version
-config-version: 1.0
+config-version: 1.1

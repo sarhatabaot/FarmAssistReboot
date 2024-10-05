@@ -29,6 +29,11 @@ public class BlockBreakListener implements Listener {
 
     @EventHandler
     public void onBlockBreak(final @NotNull BlockBreakEvent event) {
+        if (!mainConfig.getEnabledWorlds().contains(event.getBlock().getWorld().getName())) {
+            plugin.debug("World " + event.getBlock().getWorld().getName() + " is not enabled.");
+            return;
+        }
+
         final Block block = event.getBlock();
         if (this.cropManager.isNotSupportedCrop(block.getType())) {
             plugin.trace("Block " + block.getType() + " is not supported");

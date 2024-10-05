@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 public class MainConfig {
@@ -76,6 +77,10 @@ public class MainConfig {
 
     public int getLoreModifyPosition() {
         return this.config.getInt(Route.from("lore", "lore-start"));
+    }
+
+    public List<String> getEnabledWorlds() {
+        return this.config.getStringList(Route.from("enabled-worlds"), Collections.singletonList("world"));
     }
 
 

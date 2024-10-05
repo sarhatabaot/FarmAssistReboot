@@ -17,7 +17,7 @@ public class PlayerCommands extends BaseCommand {
     private final LanguageManager lm;
     private final ToggleManager toggleManager;
 
-    public PlayerCommands(FarmAssistReboot plugin, LanguageManager languageManager) {
+    public PlayerCommands(@NotNull FarmAssistReboot plugin, LanguageManager languageManager) {
         this.plugin = plugin;
         this.lm = languageManager;
         this.toggleManager = plugin.getToggleManager();
@@ -47,8 +47,9 @@ public class PlayerCommands extends BaseCommand {
     @CommandCompletion("@worlds")
     public void onToggle(final Player player, @Optional final String world) {
         if (world == null || world.isEmpty()) {
-
-            //toggle for current world
+            toggleManager.togglePlayer(player.getUniqueId(), player.getWorld());
+            //send a message toggling that world
+            return;
         }
 
         if (isNotWorld(world)) {
@@ -56,9 +57,8 @@ public class PlayerCommands extends BaseCommand {
             return;
         }
 
-        
-        // check for if world is a world name todo
-
+        toggleManager.togglePlayer(player.getUniqueId(), Bukkit.getWorld(world));
+        // send a message here todo
     }
 
     private boolean isNotWorld(final String world) {
