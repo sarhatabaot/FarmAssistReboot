@@ -37,7 +37,6 @@ public final class FarmAssistReboot extends JavaPlugin {
         this.cropManager = new CropManager(this, mainConfig);
         this.languageManager = new LanguageManager(this, mainConfig);
         this.toggleManager = new ToggleManager();
-        // Command Logic
 
         ReplantUtil.init(this, cropManager);
 
@@ -48,9 +47,6 @@ public final class FarmAssistReboot extends JavaPlugin {
         commandManager.getCommandReplacements().addReplacement("far_main_command","far|farmassistreboot");
         commandManager.registerCommand(new PlayerCommands(this, languageManager));
         commandManager.registerCommand(new AdminCommands(this, languageManager));
-
-        // Plugin startup logic
-        registerListeners();
 
         logBetaVersion();
     }

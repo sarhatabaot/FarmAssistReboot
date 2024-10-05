@@ -13,6 +13,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryMoveItemEvent;
+import org.bukkit.event.inventory.InventoryPickupItemEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Contract;
@@ -37,8 +40,13 @@ public class TillListener implements Listener {
 
     @EventHandler
     public void onPlayerInteract(final @NotNull InventoryClickEvent event) {
+        if (event.getSlotType() == InventoryType.SlotType.OUTSIDE) {
+            plugin.trace("Player clicked outside the inventory. Ignoring.");
+            return;
+        }
+
         if (checkForNotHoeItem(event.getWhoClicked().getItemOnCursor())) {
-            plugin.trace("Item: " + event.getWhoClicked().getItemOnCursor());
+            plugin.trace("Not hoe item: " + event.getWhoClicked().getItemOnCursor());
             return;
         }
 
@@ -47,15 +55,15 @@ public class TillListener implements Listener {
             return;
         }
 
-        final ItemStack handItem = event.getCurrentItem(); // the item the player is "holding"
+        final ItemStack handItem = event.getWhoClicked().getItemOnCursor(); // the item the player is "holding"
         if (this.cropManager.isNotSupportedCrop(handItem.getType())) {
             plugin.trace("Crop not supported or is not a crop: " + handItem.getType());
+            plugin.trace("Clicked Item: " + event.getCursor()); //should be hoe item
             return;
         }
 
-        final ItemStack clickedItem = event.getCursor(); // The item/block clicked, the hoe item
 
-        NBT.modify(clickedItem, nbt -> {
+        NBT.modify(event.getCursor(), nbt -> {
             final Crop crop = this.cropManager.getCropFromItem(handItem.getType());
             final String cropName = this.cropManager.getCropName(crop);
             nbt.getOrCreateCompound(NbtUtil.FAR_COMPOUND).setString(NbtUtil.TILL_CROP, cropName);
@@ -80,6 +88,7 @@ public class TillListener implements Listener {
 
             plugin.debug("Modified hoe with crop: " + cropName);
         });
+        event.setCancelled(true);
     }
 
     @Contract("_ -> param1")
@@ -115,7 +124,10 @@ public class TillListener implements Listener {
         ReplantUtil.replant(event.getPlayer(), this.cropManager.getCropFromItem(potentialTillCrop.get()), event.getClickedBlock().getLocation());
     }
 
-    private boolean checkForNotHoeItem(final @NotNull ItemStack itemStack) {
+    private boolean checkForNotHoeItem(final ItemStack itemStack) {
+        if (itemStack == null)
+            return false;
+
         return !itemStack.getType().name().contains("HOE");
     }
 }

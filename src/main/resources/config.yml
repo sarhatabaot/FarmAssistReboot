@@ -6,7 +6,7 @@ enabled-worlds: ["world", "world_nether", "world_the_end"]
 check-for-updates: true
 
 locale:
-  default: en
+  default: "en"
   # Allow player to have their own locales of the plugin.
   per-player-locale:
     enabled: true
@@ -24,4 +24,4 @@ advanced-settings:
     level: debug
 
 # Internal Config Version
-config-version: 1.1
+config-version: 1

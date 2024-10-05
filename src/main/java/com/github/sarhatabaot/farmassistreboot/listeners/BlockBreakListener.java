@@ -5,6 +5,7 @@ import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.github.sarhatabaot.farmassistreboot.config.MainConfig;
 import com.github.sarhatabaot.farmassistreboot.crop.Crop;
 import com.github.sarhatabaot.farmassistreboot.crop.CropManager;
+import com.github.sarhatabaot.farmassistreboot.utils.ReplantTask;
 import com.github.sarhatabaot.farmassistreboot.utils.ReplantUtil;
 import com.github.sarhatabaot.farmassistreboot.utils.Util;
 import org.bukkit.block.Block;
@@ -58,10 +59,10 @@ public class BlockBreakListener implements Listener {
             return;
         }
 
-
+        plugin.trace("Replanting crop from " + block.getType());
         event.setCancelled(true);
         dropItem(block, event.getPlayer().getItemInHand());
-        ReplantUtil.replant(block);
+        replant(block);
     }
 
     private void dropItem(final @NotNull Block block, final ItemStack itemStack) {
@@ -78,6 +79,12 @@ public class BlockBreakListener implements Listener {
 
     private boolean isFullyGrownCrop(@NotNull Block block) {
         return XBlock.getAge(block) >= cropManager.getCropFromItem(block.getType()).getMaximumAge();
+    }
+
+    public void replant(final Block blockBroken) {
+        final Crop crop = cropManager.getCropFromItem(blockBroken.getType());
+        // Schedule the replanting after 1 tick (to ensure the block has been broken)
+        new ReplantTask(plugin, crop, blockBroken).runTaskLater(plugin, 1L);
     }
 
 }

@@ -4,6 +4,7 @@ package com.github.sarhatabaot.farmassistreboot.config;
 import com.github.sarhatabaot.farmassistreboot.utils.Util;
 import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.route.Route;
+import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -21,7 +22,10 @@ public class MainConfig {
 
     public void createAndLoad() {
         try {
-            this.config = YamlDocument.create(new File(plugin.getDataFolder(), "config.yml"), plugin.getResource("config.yml"));
+            this.config = YamlDocument.create(new File(plugin.getDataFolder(), "config.yml"), plugin.getResource("config.yml"),
+                    LoaderSettings.builder()
+                            .setAutoUpdate(true)
+                            .build());
         } catch (IOException e) {
             this.plugin.getLogger().severe("Failed to load config.yml");
         }

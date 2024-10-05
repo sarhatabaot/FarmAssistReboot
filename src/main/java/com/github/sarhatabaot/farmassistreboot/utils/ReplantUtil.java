@@ -30,10 +30,6 @@ public class ReplantUtil {
 
     }
 
-    public static void replant(final Block blockBroken) {
-        final Crop crop = cropManager.getCropFromItem(blockBroken.getType());
-        // Schedule the replanting after 1 tick (to ensure the block has been broken)
-        new ReplantTask(crop, blockBroken).runTaskLater(plugin, 1L);
-    }
+
 
 }
