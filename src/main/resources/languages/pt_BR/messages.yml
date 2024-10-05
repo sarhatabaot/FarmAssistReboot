@@ -15,3 +15,4 @@ lang:
   unsupported: "Linguagem não suportada: %s"
   changed: "Idioma alterado de %s para %s."
 prefix: "&7[&aFarmAssistReboot&7]&r "
+config-version: 1

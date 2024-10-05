@@ -33,6 +33,7 @@ public class LanguageFile  {
 
     public LanguageFile(final FarmAssistReboot plugin, final String locale) throws IOException {
         this.config = YamlDocument.create(new File(plugin.getDataFolder(), Util.getLangFilePath(locale)), plugin.getResource(Util.getLangFilePath(locale)));
+        this.config.save();
         this.locale = locale;
 
         initValues();
