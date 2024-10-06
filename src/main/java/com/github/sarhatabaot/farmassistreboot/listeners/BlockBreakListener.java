@@ -53,11 +53,13 @@ public class BlockBreakListener implements Listener {
             return;
         }
 
-        if (!isFullyGrownCrop(block)) {
+        if (isNotFullyGrownCrop(block, crop)) {
             plugin.debug("Block " + block.getType() + " is not a fully grown crop.");
-            plugin.debug("Current age: " + XBlock.getAge(block) + ", Fully grown age: " + cropManager.getCropFromItem(block.getType()).getMaximumAge());
+            plugin.debug("Current age: " + XBlock.getAge(block) + ", Fully grown age: " + crop.getMaximumAge());
             return;
         }
+        plugin.trace("Block " + block.getType());
+        plugin.trace("Current age: " + XBlock.getAge(block) + ", Fully grown age: " + crop.getMaximumAge());
 
         plugin.trace("Replanting crop from " + block.getType());
         event.setCancelled(true);
@@ -77,8 +79,8 @@ public class BlockBreakListener implements Listener {
         return player.hasPermission(Util.getCropPermission(cropManager.getCropName(crop)));
     }
 
-    private boolean isFullyGrownCrop(@NotNull Block block) {
-        return XBlock.getAge(block) >= cropManager.getCropFromItem(block.getType()).getMaximumAge();
+    private boolean isNotFullyGrownCrop(final Block block, final Crop crop) {
+        return XBlock.getAge(block) < crop.getMaximumAge(); //todo bug here with cocoa
     }
 
     public void replant(final Block blockBroken) {

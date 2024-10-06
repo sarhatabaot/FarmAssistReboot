@@ -48,6 +48,7 @@ public final class FarmAssistReboot extends JavaPlugin {
         commandManager.registerCommand(new PlayerCommands(this, languageManager));
         commandManager.registerCommand(new AdminCommands(this, languageManager));
 
+        registerPlaceholders();
         logBetaVersion();
     }
 

@@ -35,11 +35,14 @@ public class ReplantTask extends BukkitRunnable {
                 plugin.trace("Replanting cocoa.");
 
                 final BlockFace direction = XBlock.getDirection(block);
-                final Material relativeType = block.getRelative(direction).getType();
+
+                final Block relativeBlock = block.getRelative(direction);
+                final BlockFace relativeBlockFace = XBlock.getDirection(relativeBlock);
+                final Material relativeType = relativeBlock.getType();
 
                 if (matchedRelativeType(crop.getPlantedOn(), relativeType)) {
-                    setTypeAndAge(block,XMaterial.COCOA_BEANS);
-                    XBlock.setDirection(block, direction);
+                    setTypeAndAge(block, XMaterial.COCOA_BEANS);
+                    XBlock.setDirection(block, relativeBlockFace.getOppositeFace());
                 } else {
                     block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(XMaterial.COCOA_BEANS.parseMaterial()));
                 }
@@ -61,6 +64,7 @@ public class ReplantTask extends BukkitRunnable {
                 } else {
                     setTypeAndAge(block, XMaterial.SUGAR_CANE);
                 }
+                break;
             }
             default: {
                 setTypeAndAge(block, xMaterial);
