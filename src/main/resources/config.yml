@@ -1,63 +1,34 @@
-##################################################################
-#                          FarmAssist                            #
-##################################################################
-use-permissions: true
-##################################################################
-#                        Global Settings                         #
-##################################################################
-# Anything set under global settings will be globally set,
-# Disables the "You are running the latest version message"
-# Note that this outright disables the message,
-# if you want to hide it, negate the farmassist.notify.update permission.
-disable-latest-version: false
-# Set renamed/seeds with nbt to true to have farmassitreboot not
-# take renamed/seeds with nbt seeds from your inventory when
-# replanting.
-ignore-seeds:
-    renamed: true
-    nbt: true
-# Setting this to true will make it so players are no longer required to have seeds in their inventory to replant.
-# Want to have this per player? Set this to false and give them the permission "farmassist.noseeds"
-no-seeds: false
-# Even if you give the permission, these settings will override it.
-# Example:
-# player has farmassist.wheat
-# wheat:
-#   Enabled: false
-# player won't be able to auto-replant wheat.
-wheat:
-    enabled: true
-    replant-when-ripe: false
-    plant-on-till: true
-sugar_cane:
-    enabled: true
-nether_wart:
-    enabled: true
-    replant-when-ripe: false
-cocoa:
-    enabled: true
-    replant-when-ripe: false
-carrots:
-    enabled: true
-    replant-when-ripe: false
-potatoes:
-    enabled: true
-    replant-when-ripe: false
-beetroots:
-    enabled: true
-    replant-when-ripe: false
-cactus:
-    enabled: true
-pitcher_plant:
-    enabled: true
-    replant-when-ripe: true
-torch_flower:
-    enabled: true
-    replant-when-ripe: true
-worlds:
-    enable-per-world: false
-    enabled-worlds:
-    - ExampleWorld
+ignore-nbt: ["itemsadder-*"]
+disabled-crops: ["pumpkin", "melons", "sweet_berries", "cactus", "sugar_cane"]
+
+enabled-worlds: ["world", "world_nether", "world_the_end"]
+# Only replant when the crop is fully grown
+replant-when-ripe: true
 check-for-updates: true
-language: en
-debug: false
+
+locale:
+  default: "en"
+  # Allow player to have their own locales of the plugin.
+  per-player-locale:
+    enabled: true
+    disabled-locales: []
+
+lore:
+  # Modify this to signify where the hoe lore is modified
+  lore-start: 0
+
+advanced-settings:
+  max-cache-size: 100
+  debug:
+    enabled: false
+    # Trace will show all debug messages, even for checks that may not be relevant
+    level: debug
+
+update-checker:
+  # release, beta
+  channel: release
+  # modrinth, github
+  website: modrinth
+
+# Internal Config Version
+config-version: 1
