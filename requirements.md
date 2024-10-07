@@ -23,7 +23,7 @@
       2. /far admin locales update—Will update all locales with the latest values. Preserving the values but advising the 
       user to back up just in case.
          1. Confirm with the user /far admin locales update confirm
-10. Disable per crop replanting globally:
+10. Disable per crop replanting globally: v
    ```yaml
   disabled-crops: ["pumpkin", "melons", "sweet_berries"]
    ```
@@ -37,7 +37,7 @@
       * "You are running the latest version."
 13. Permissions:
     * Everything should have permissions, commands, update notifications, crop replanting, plant-on-till + command
-14. Enable / Disable per world: (perm farmassist.worlds.<name>)
+14. Enable / Disable per world v: (perm farmassist.worlds.<name>)
    ```yaml
    enabled-worlds: ["world", "world_nether"]
    ```

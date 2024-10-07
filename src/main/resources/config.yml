@@ -24,5 +24,11 @@ advanced-settings:
     # Trace will show all debug messages, even for checks that may not be relevant
     level: debug
 
+update-checker:
+  # release, beta
+  channel: release
+  # modrinth, github
+  website: modrinth
+
 # Internal Config Version
 config-version: 1
