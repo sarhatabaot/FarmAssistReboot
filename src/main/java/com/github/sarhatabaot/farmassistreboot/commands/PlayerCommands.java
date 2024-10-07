@@ -46,6 +46,8 @@ public class PlayerCommands extends BaseCommand {
     @CommandPermission("farmassist.player.toggle")
     @CommandCompletion("@worlds")
     public void onToggle(final Player player, @Optional final String world) {
+
+        //todo, merge this with the admin command, or just move the checks somewhere
         if (world == null || world.isEmpty()) {
             toggleManager.togglePlayer(player.getUniqueId(), player.getWorld());
             //send a message toggling that world

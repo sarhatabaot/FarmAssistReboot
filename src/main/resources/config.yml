@@ -2,7 +2,8 @@ ignore-nbt: ["itemsadder-*"]
 disabled-crops: ["pumpkin", "melons", "sweet_berries", "cactus", "sugar_cane"]
 
 enabled-worlds: ["world", "world_nether", "world_the_end"]
-
+# Only replant when the crop is fully grown
+replant-when-ripe: true
 check-for-updates: true
 
 locale:

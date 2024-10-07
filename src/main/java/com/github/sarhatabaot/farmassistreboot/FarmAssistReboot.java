@@ -76,15 +76,15 @@ public final class FarmAssistReboot extends JavaPlugin {
         this.getLogger().info(() -> "====================");
     }
 
-    public void debug(String message) {
+    public void debug(String message, Object... args) {
         if (mainConfig.isDebug()) {
-            this.getLogger().info(() -> "DEBUG " + message);
+            this.getLogger().info(() -> "DEBUG " + String.format(message, args));
         }
     }
 
-    public void trace(String message) {
+    public void trace(String message, Object... args) {
         if (mainConfig.isDebug() && mainConfig.getDebugLevel() == Util.DebugLevel.TRACE) {
-            this.getLogger().info(() -> "TRACE " + message);
+            this.getLogger().info(() -> "TRACE " + String.format(message, args));
         }
     }
 

@@ -52,7 +52,7 @@
   "cocoa_beans": {
     "crop": "COCOA",
     "seeds": "COCOA",
-    "max-age": 8,
+    "max-age": 3,
     "planted-on": [
       "JUNGLE_LOG",
       "JUNGLE_WOOD",

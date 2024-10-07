@@ -1,25 +1,25 @@
 # Requirements
 
-1. Auto replant crops.
+1. Auto replant crops. v
 2. Plant on till (right-click hoe with crop or set with command.)
-3. Replant when ripe
+3. Replant when ripe v 
 4. Custom locale / Per player locale (crowdin + admin customizable)
 5. 1.8 → 1.21 support (technically 1.0 → 1.7 as well)
-6. Server wide toggle
+6. Server wide toggle v
    1. /far admin toggle
-7. Per player toggle
-   1. Players should also be able to toggle everything at once or not /far toggle
+7. Per player toggle v
+   1. Players should also be able to toggle everything at once or not /far toggle v
 8. Placeholders:
    1. farmassist_server_toggle v
    2. farmassist_player_toggle v
    3. farmassist_player_uuid v
 9. Generic admin commands:
-   1. /far admin version
+   1. /far admin version v
       1. Lists the version & contributors
-   2. /far admin reload
-   3. /far admin placeholders
-   4. /far admin locales:
-      1. Show the globally set locale, as well as per player locales if they have anything set.
+   2. /far admin reload v?
+   3. /far admin placeholders v
+   4. /far admin locales: 
+      1. Show the globally set locale, as well as per player locales if they have anything set. v
       2. /far admin locales update—Will update all locales with the latest values. Preserving the values but advising the 
       user to back up just in case.
          1. Confirm with the user /far admin locales update confirm

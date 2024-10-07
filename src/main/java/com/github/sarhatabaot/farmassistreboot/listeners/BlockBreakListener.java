@@ -1,10 +1,12 @@
 package com.github.sarhatabaot.farmassistreboot.listeners;
 
 import com.cryptomorin.xseries.XBlock;
+import com.cryptomorin.xseries.XMaterial;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.github.sarhatabaot.farmassistreboot.config.MainConfig;
 import com.github.sarhatabaot.farmassistreboot.crop.Crop;
 import com.github.sarhatabaot.farmassistreboot.crop.CropManager;
+import com.github.sarhatabaot.farmassistreboot.utils.DebugUtil;
 import com.github.sarhatabaot.farmassistreboot.utils.ReplantTask;
 import com.github.sarhatabaot.farmassistreboot.utils.ReplantUtil;
 import com.github.sarhatabaot.farmassistreboot.utils.Util;
@@ -31,19 +33,19 @@ public class BlockBreakListener implements Listener {
     @EventHandler
     public void onBlockBreak(final @NotNull BlockBreakEvent event) {
         if (!mainConfig.getEnabledWorlds().contains(event.getBlock().getWorld().getName())) {
-            plugin.debug("World " + event.getBlock().getWorld().getName() + " is not enabled.");
+            plugin.debug(DebugUtil.WORLD_NOT_ENABLED, event.getBlock().getWorld().getName());
             return;
         }
 
         final Block block = event.getBlock();
         if (this.cropManager.isNotSupportedCrop(block.getType())) {
-            plugin.trace("Block " + block.getType() + " is not supported");
+            plugin.trace(DebugUtil.BLOCK_NOT_SUPPORTED, block.getType());
             return;
         }
 
         final Crop crop = cropManager.getCropFromItem(block.getType());
         if (isDisabled(crop)) {
-            plugin.debug("Crop " + block.getType() + " is disabled.");
+            plugin.debug(DebugUtil.CROP_DISABLED, block.getType());
             return;
         }
 
@@ -53,11 +55,12 @@ public class BlockBreakListener implements Listener {
             return;
         }
 
-        if (isNotFullyGrownCrop(block, crop)) {
+        if (mainConfig.isReplantWhenRipe() && isNotFullyGrownCrop(block, crop)) {
             plugin.debug("Block " + block.getType() + " is not a fully grown crop.");
             plugin.debug("Current age: " + XBlock.getAge(block) + ", Fully grown age: " + crop.getMaximumAge());
             return;
         }
+
         plugin.trace("Block " + block.getType());
         plugin.trace("Current age: " + XBlock.getAge(block) + ", Fully grown age: " + crop.getMaximumAge());
 

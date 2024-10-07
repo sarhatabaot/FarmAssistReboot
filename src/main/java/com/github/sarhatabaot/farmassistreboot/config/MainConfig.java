@@ -87,5 +87,9 @@ public class MainConfig {
         return this.config.getStringList(Route.from("enabled-worlds"), Collections.singletonList("world"));
     }
 
+    public boolean isReplantWhenRipe() {
+        return this.config.getBoolean(Route.from("replant-when-ripe"), true);
+    }
+
 
 }
