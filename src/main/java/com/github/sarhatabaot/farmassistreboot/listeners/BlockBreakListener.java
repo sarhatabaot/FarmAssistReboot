@@ -82,8 +82,10 @@ public class BlockBreakListener implements Listener {
         return player.hasPermission(Util.getCropPermission(cropManager.getCropName(crop)));
     }
 
+    // TODO
+    // https://github.com/sarhatabaot/FarmAssistReboot/issues/101
     private boolean isNotFullyGrownCrop(final Block block, final Crop crop) {
-        return XBlock.getAge(block) < crop.getMaximumAge(); //todo bug here with cocoa
+        return XBlock.getAge(block) < crop.getMaximumAge();
     }
 
     public void replant(final Block blockBroken) {

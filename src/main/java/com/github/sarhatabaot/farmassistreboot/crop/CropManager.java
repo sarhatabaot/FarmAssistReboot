@@ -49,29 +49,29 @@ public class CropManager {
 
     // Fallthrough is on purpose. If the version is 1.20, we also want to execute the code from 1.8. If anyone has a better idea, feel free to submit a PR.
     private void loadCrops() {
+        final List<String> versionsToLoad = new ArrayList<>();
         final String jsonCropVersion = Util.getJsonCropVersionFromMinecraftVersion();
         switch (jsonCropVersion) {
-            case "1.20": {
-                this.crops.putAll(readFileFromJar("1.20.json"));
-                // load 1.0, 1.8, 1.20
-            }
-            case "1.14": {
-                this.crops.putAll(readFileFromJar("1.14.json"));
-
-            }
-            case "1.9": {
-                this.crops.putAll(readFileFromJar("1.9.json"));
-                // load 1.0, 1.9
-            }
-            case "1.0": {
-                this.crops.putAll(readFileFromJar("1.0.json"));
-                // load 1.0
+            case "1.20":
+                versionsToLoad.add("1.20.json");
+                // Intentional fallthrough
+            case "1.14":
+                versionsToLoad.add("1.14.json");
+                // Intentional fallthrough
+            case "1.9":
+                versionsToLoad.add("1.9.json");
+                // Intentional fallthrough
+            case "1.0":
+                versionsToLoad.add("1.0.json");
                 break;
-            }
+            default:
+                plugin.getLogger().warning(() -> "Unknown/Unsupported Minecraft version: " + jsonCropVersion);
+                return; // Exit if unsupported version
+        }
 
-            default: {
-                plugin.getLogger().warning(() -> "Unknown/Unspported Minecraft version: " + jsonCropVersion);
-            }
+        // Load all specified versions
+        for (String version : versionsToLoad) {
+            this.crops.putAll(readFileFromJar(version));
         }
     }
 
