@@ -39,7 +39,6 @@ java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(8))
     }
-
 }
 
 tasks {
