@@ -1,0 +1,79 @@
+{
+  "wheat": {
+    "crop": "WHEAT",
+    "seeds": "WHEAT_SEEDS",
+    "max-age": 6,
+    "planted-on": [
+      "FARMLAND"
+    ]
+  },
+  "carrot": {
+    "crop": "CARROT",
+    "seeds": "CARROT",
+    "max-age": 6,
+    "planted-on": [
+      "FARMLAND"
+    ]
+  },
+  "potato": {
+    "crop": "POTATO",
+    "seeds": "POTATO",
+    "max-age": 6,
+    "planted-on": [
+      "FARMLAND"
+    ]
+  },
+  "pumpkin": {
+    "crop": "PUMPKIN",
+    "seeds": "PUMPKIN_SEEDS",
+    "max-age": 6,
+    "planted-on": [
+      "FARMLAND"
+    ]
+  },
+  "melons": {
+    "crop": "MELON",
+    "seeds": "MELON_SEEDS",
+    "max-age": 6,
+    "planted-on": [
+      "FARMLAND"
+    ]
+  },
+  "sugar_cane": {
+    "crop": "SUGAR_CANE",
+    "seeds": "SUGAR_CANE",
+    "max-age": 0,
+    "planted-on": [
+      "GRASS_BLOCK",
+      "DIRT",
+      "SAND"
+    ]
+  },
+  "cocoa_beans": {
+    "crop": "COCOA",
+    "seeds": "COCOA",
+    "max-age": 3,
+    "planted-on": [
+      "JUNGLE_LOG",
+      "JUNGLE_WOOD",
+      "STRIPPED_JUNGLE_LOG",
+      "STRIPPED_JUNGLE_WOOD"
+    ]
+  },
+  "cactus": {
+    "crop": "CACTUS",
+    "seeds": "CACTUS",
+    "max-age": 0,
+    "planted-on": [
+      "SAND"
+    ]
+  },
+  "nether_wart": {
+    "crop": "NETHER_WART",
+    "seeds": "NETHER_WART",
+    "max-age": 2,
+    "planted-on": [
+      "SOUL_SAND"
+    ]
+  }
+}

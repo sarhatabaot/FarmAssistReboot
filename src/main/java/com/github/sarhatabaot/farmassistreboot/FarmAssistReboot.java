@@ -1,81 +1,100 @@
 package com.github.sarhatabaot.farmassistreboot;
 
 import co.aikar.commands.PaperCommandManager;
-import com.github.sarhatabaot.farmassistreboot.command.FarmAssistCommand;
-import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
-import com.github.sarhatabaot.farmassistreboot.lang.LanguageManager;
+import com.github.sarhatabaot.farmassistreboot.commands.AdminCommands;
+import com.github.sarhatabaot.farmassistreboot.commands.PlayerCommands;
+import com.github.sarhatabaot.farmassistreboot.config.MainConfig;
+import com.github.sarhatabaot.farmassistreboot.crop.CropManager;
+import com.github.sarhatabaot.farmassistreboot.language.LanguageManager;
 import com.github.sarhatabaot.farmassistreboot.listeners.BlockBreakListener;
-import com.github.sarhatabaot.farmassistreboot.listeners.JoinListener;
-import com.github.sarhatabaot.farmassistreboot.listeners.PlayerInteractionListener;
-import com.github.sarhatabaot.farmassistreboot.tasks.SimpleUpdateCheckerTask;
-import lombok.Getter;
-import lombok.Setter;
-import org.bstats.bukkit.Metrics;
+import com.github.sarhatabaot.farmassistreboot.listeners.TillListener;
+import com.github.sarhatabaot.farmassistreboot.placeholders.Placeholder;
+import com.github.sarhatabaot.farmassistreboot.utils.ReplantUtil;
+import com.github.sarhatabaot.farmassistreboot.utils.Util;
+import de.tr7zw.changeme.nbtapi.NBT;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import space.arim.morepaperlib.MorePaperLib;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-/**
- * @author sarhatabaot
- */
-@Getter @Setter
-public class FarmAssistReboot extends JavaPlugin {
-    private MorePaperLib paperLib = new MorePaperLib(this);
+public final class FarmAssistReboot extends JavaPlugin {
+    private MainConfig mainConfig;
     private LanguageManager languageManager;
-    private List<UUID> disabledPlayerList = new ArrayList<>();
-    private FarmAssistConfig assistConfig;
+    private ToggleManager toggleManager;
 
-    private boolean globalEnabled;
-
-    private boolean needsUpdate;
-    private String newVersion;
+    private CropManager cropManager;
 
     @Override
     public void onEnable() {
-        saveDefaultConfig();
-        this.assistConfig = new FarmAssistConfig(this);
-        this.languageManager = new LanguageManager(this);
+        if (!NBT.preloadApi()) {
+            getLogger().warning("NBT-API wasn't initialized properly, disabling the plugin");
+            getPluginLoader().disablePlugin(this);
+            return;
+        }
 
-        this.globalEnabled = true;
+        this.mainConfig = new MainConfig(this);
+        this.mainConfig.createAndLoad();
 
-        PaperCommandManager commandManager = new PaperCommandManager(this);
-        commandManager.registerCommand(new FarmAssistCommand(this));
-        commandManager.getCommandCompletions().registerCompletion("supported-lang", c -> languageManager.getSupportedLanguages());
+        this.cropManager = new CropManager(this, mainConfig);
+        this.languageManager = new LanguageManager(this, mainConfig);
+        this.toggleManager = new ToggleManager();
+
+        ReplantUtil.init(this, cropManager);
 
         registerListeners();
-        Util.init(this);
-        if (FarmAssistConfig.CHECK_FOR_UPDATES) {
-            this.paperLib.scheduling().asyncScheduler().run(new SimpleUpdateCheckerTask(this));
-        }
 
-        new Metrics(this,3885);
-        registerPapi();
+        final PaperCommandManager commandManager = new PaperCommandManager(this);
+        commandManager.enableUnstableAPI("help");
+        commandManager.getCommandReplacements().addReplacement("far_main_command","far|farmassistreboot");
+        commandManager.registerCommand(new PlayerCommands(this, languageManager));
+        commandManager.registerCommand(new AdminCommands(this, languageManager));
+
+        registerPlaceholders();
+        logBetaVersion();
     }
 
-    public void debug(final Class<?> clazz,final String message) {
-        if(FarmAssistConfig.DEBUG) {
-            getLogger().info(() -> "DEBUG " + clazz.getSimpleName() + " " + message);
-        }
-    }
-
-    private void registerPapi() {
-        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new FarmAssistPlaceholderExpansion(this).register();
-        }
-    }
-
-    /**
-     * Register Listeners
-     */
-    private void registerListeners(){
+    private void registerListeners() {
         PluginManager pluginManager = getServer().getPluginManager();
-        pluginManager.registerEvents(new PlayerInteractionListener(this),this);
-        pluginManager.registerEvents(new BlockBreakListener(this),this);
-        pluginManager.registerEvents(new JoinListener(this),this);
+        pluginManager.registerEvents(new BlockBreakListener(this, cropManager, mainConfig), this);
+        pluginManager.registerEvents(new TillListener(this, cropManager, mainConfig), this);
+    }
+
+    public void reload() {
+        this.mainConfig.reload();
+        this.languageManager.reload();
+    }
+
+    @Override
+    public void onDisable() {
+        this.languageManager.save();
+        this.toggleManager.save();
+        // Plugin shutdown logic
+    }
+
+    private void logBetaVersion() {
+        this.getLogger().info(() -> "====================");
+        this.getLogger().info(() -> "=   BETA VERSION   =");
+        this.getLogger().info(() -> "====================");
+    }
+
+    public void debug(String message, Object... args) {
+        if (mainConfig.isDebug()) {
+            this.getLogger().info(() -> "DEBUG " + String.format(message, args));
+        }
+    }
+
+    public void trace(String message, Object... args) {
+        if (mainConfig.isDebug() && mainConfig.getDebugLevel() == Util.DebugLevel.TRACE) {
+            this.getLogger().info(() -> "TRACE " + String.format(message, args));
+        }
+    }
+
+    public ToggleManager getToggleManager() {
+        return toggleManager;
+    }
+
+    private void registerPlaceholders() {
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) { //
+            new Placeholder(this, mainConfig).register(); //
+        }
     }
 }

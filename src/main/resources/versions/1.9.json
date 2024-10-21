@@ -1,0 +1,10 @@
+{
+  "beetroots": {
+    "crop": "BEETROOT",
+    "seeds": "BEETROOT_SEEDS",
+    "max-age": 2,
+    "planted-on": [
+      "FARMLAND"
+    ]
+  }
+}

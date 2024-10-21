@@ -1,0 +1,21 @@
+{
+  "bamboo": {
+    "crop": "BAMBOO",
+    "seeds": "BAMBOO",
+    "max-age": 0,
+    "planted-on": [
+      "MOSS_BLOCK",
+      "GRASS_BLOCK",
+      "COARSE_DIRT",
+      "DIRT",
+      "ROOTED_DIRT",
+      "GRAVEL",
+      "MYCELIUM",
+      "PODZOL",
+      "SAND",
+      "RED_SAND",
+      "SUSPICIOUS_SAND",
+      "MUD"
+    ]
+  }
+}
