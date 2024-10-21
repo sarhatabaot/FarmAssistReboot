@@ -26,6 +26,11 @@ public class CropCache {
 
     public void loadCrops(@NotNull Map<String, Crop> crops) {
         for (Crop crop : crops.values()) {
+            if (crop == null) {
+                plugin.trace("Null crop found in cache. Ignoring.");
+                continue;
+            }
+
             plugin.debug("Loaded crop: " + crop);
             cache.put(crop.getCropItem(), crop);
         }

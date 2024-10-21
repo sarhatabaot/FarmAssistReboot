@@ -16,4 +16,7 @@ public class DebugUtil {
     public static final String CROP_REPLANTING_FROM =  BUNDLE.getString("cropReplantingFrom");
     public static final String WORLD_NOT_ENABLED = BUNDLE.getString("worldNotEnabled");
     public static final String PLAYER_NO_PERMISSION = BUNDLE.getString("playerNoPermission");
+
+    public static final String NOT_HOE_ITEM = BUNDLE.getString("notHoeItem");
+    public static final String MATERIAL_MATCH_INCORRECT = BUNDLE.getString("materialMatchIncorrect");
 }

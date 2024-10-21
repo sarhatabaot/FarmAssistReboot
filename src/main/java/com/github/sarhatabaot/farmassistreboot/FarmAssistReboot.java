@@ -94,7 +94,7 @@ public final class FarmAssistReboot extends JavaPlugin {
 
     private void registerPlaceholders() {
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) { //
-            new Placeholder(this).register(); //
+            new Placeholder(this, mainConfig).register(); //
         }
     }
 }

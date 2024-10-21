@@ -1,7 +1,7 @@
 {
   "bamboo": {
-    "crop": "bamboo",
-    "seeds": "bamboo",
+    "crop": "BAMBOO",
+    "seeds": "BAMBOO",
     "max-age": 0,
     "planted-on": [
       "MOSS_BLOCK",

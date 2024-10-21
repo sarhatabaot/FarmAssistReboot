@@ -5,6 +5,7 @@ import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.github.sarhatabaot.farmassistreboot.config.MainConfig;
 import com.github.sarhatabaot.farmassistreboot.crop.Crop;
 import com.github.sarhatabaot.farmassistreboot.crop.CropManager;
+import com.github.sarhatabaot.farmassistreboot.utils.DebugUtil;
 import com.github.sarhatabaot.farmassistreboot.utils.NbtUtil;
 import com.github.sarhatabaot.farmassistreboot.utils.ReplantUtil;
 import de.tr7zw.changeme.nbtapi.NBT;
@@ -46,7 +47,7 @@ public class TillListener implements Listener {
         }
 
         if (checkForNotHoeItem(event.getWhoClicked().getItemOnCursor())) {
-            plugin.trace("Not hoe item: " + event.getWhoClicked().getItemOnCursor());
+            plugin.trace(DebugUtil.NOT_HOE_ITEM, event.getWhoClicked().getItemOnCursor());
             return;
         }
 
@@ -109,7 +110,7 @@ public class TillListener implements Listener {
 
         final ItemStack hoe = event.getItem();
         if (checkForNotHoeItem(hoe)) {
-            plugin.trace("Not a hoe: " + hoe.getType());
+            plugin.trace(DebugUtil.NOT_HOE_ITEM,hoe.getType());
             return;
         }
         final String tillCrop = NbtUtil.getCurrentTillCrop(hoe);
@@ -120,7 +121,7 @@ public class TillListener implements Listener {
 
         Optional<XMaterial> potentialTillCrop = XMaterial.matchXMaterial(tillCrop);
         if (!potentialTillCrop.isPresent()) {
-            plugin.trace("Could not match material to till crop: " + tillCrop);
+            plugin.trace(DebugUtil.MATERIAL_MATCH_INCORRECT, tillCrop);
             return;
         }
 
