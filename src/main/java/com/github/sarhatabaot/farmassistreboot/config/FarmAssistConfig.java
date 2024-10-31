@@ -43,8 +43,8 @@ public class FarmAssistConfig {
         ENABLED_PER_WORLD = config.getBoolean("worlds.enable-per-world",false);
         ENABLED_WORLDS = getWorlds();
         ACTIVE_LANGUAGE = config.getString("language", "en");
-        IGNORE_RENAMED = config.getBoolean("ignore-seeds.renamed", true);
-        IGNORE_NBT = config.getBoolean("ignore-seeds.nbt", true);
+        IGNORE_RENAMED = config.getBoolean("ignore-seeds.renamed", false);
+        IGNORE_NBT = config.getBoolean("ignore-seeds.nbt", false);
         NO_SEEDS = config.getBoolean("no-seeds", false);
         DISABLE_LATEST_VERSION = config.getBoolean("disable-latest-version", false);
     }

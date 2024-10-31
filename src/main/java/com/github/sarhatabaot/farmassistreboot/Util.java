@@ -6,6 +6,7 @@ import com.github.sarhatabaot.farmassistreboot.messages.Permissions;
 import com.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
 import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.NBTItem;
+import de.tr7zw.changeme.nbtapi.iface.ReadableItemNBT;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -63,9 +64,7 @@ public class Util {
                 })
                 .filter(p -> {
                     if (FarmAssistConfig.IGNORE_NBT) {
-                        return NBT.get(p.getValue(), r -> {
-                            return r.hasNBTData();
-                        });
+                        return NBT.get(p.getValue(), ReadableItemNBT::hasNBTData);
                     }
                     return true;
                 })
