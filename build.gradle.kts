@@ -19,6 +19,7 @@ dependencies {
     implementation(libs.more.paper)
     implementation(libs.annotations)
     implementation(libs.xseries)
+    implementation(libs.boosted.yml)
 }
 
 bukkit {
@@ -106,6 +107,7 @@ tasks {
         relocate("co.aikar.locales", "com.github.sarhatabaot.farmassistreboot.locales")
         relocate("de.tr7zw.changeme.nbtapi", "com.github.sarhatabaot.farmassistreboot.nbt")
         relocate("com.cryptomorin.xseries", "com.github.sarhatabaot.farmassistreboot.xseries")
+        relocate("dev.dejvokep.boostedyaml", "com.github.sarhatabaot.farmassistreboot.boostedyaml")
     }
 }
 

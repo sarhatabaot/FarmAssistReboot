@@ -160,6 +160,6 @@ public class Util {
     }
 
     public static boolean checkSeedsOrNoSeedsInInventory(final Player player, int slot) {
-        return !checkNoSeeds(player) && slot == -1;
+        return !checkNoSeeds(player) || slot == -1;
     }
 }

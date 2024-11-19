@@ -40,7 +40,7 @@ public class BlockBreakListener implements Listener {
             return;
         }
 
-        if (!Util.isWorldEnabled(event.getPlayer().getWorld())) {
+        if (Util.isWorldDisabled(event.getPlayer().getWorld())) {
             return;
         }
 

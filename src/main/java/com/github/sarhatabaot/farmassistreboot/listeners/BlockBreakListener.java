@@ -69,8 +69,9 @@ public class BlockBreakListener implements Listener {
         Material material = event.getBlock().getType();
 
         int slot = Util.inventoryContainsSeeds(event.getPlayer().getInventory(), material);
-        if (Util.checkSeedsOrNoSeedsInInventory(event.getPlayer(),material)) {
+        if (Util.checkSeedsOrNoSeedsInInventory(event.getPlayer(), slot)) {
             debug(Debug.OnBlockBreak.NO_SEEDS, event.getPlayer().getName());
+            debug("Material: %s, Seed: %s", material.name(), Crop.valueOf(material.name()).getSeed());
             return;
         }
 

@@ -60,7 +60,7 @@ public class PlayerInteractionListener implements Listener {
             return;
         }
 
-        if (Util.checkSeedsOrNoSeedsInInventory(event.getPlayer(), Material.WHEAT)) {
+        if (!Util.checkSeedsOrNoSeedsInInventory(event.getPlayer(), Material.WHEAT)) {
             return;
         }
 
