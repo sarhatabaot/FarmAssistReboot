@@ -49,7 +49,7 @@ public class PlayerInteractionListener implements Listener {
         debug(Debug.OnPlayerInteract.CONFIG_WHEAT, FarmAssistConfig.getEnabled(Material.WHEAT));
         debug(Debug.OnPlayerInteract.CONFIG_PLANT_ON_TILL, FarmAssistConfig.PLANT_WHEAT_ON_TILL);
 
-        if (!Util.isWorldEnabled(event.getPlayer().getWorld())) {
+        if (Util.isWorldDisabled(event.getPlayer().getWorld())) {
             debug(Debug.OnPlayerInteract.WORLD_DISABLED, event.getPlayer().getWorld().getName());
             return;
         }
@@ -60,7 +60,11 @@ public class PlayerInteractionListener implements Listener {
         }
 
         if (Util.checkSeedsOrNoSeedsInInventory(event.getPlayer(), Material.WHEAT)) {
-            event.getClickedBlock().setType(Material.FARMLAND);
+            final Block block = event.getClickedBlock();
+            if (block != null) {
+                event.getClickedBlock().setType(Material.FARMLAND);
+            }
+
             Util.replant(player, event.getClickedBlock(), Material.WHEAT);
         }
 

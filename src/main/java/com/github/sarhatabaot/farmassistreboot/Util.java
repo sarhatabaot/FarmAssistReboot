@@ -5,7 +5,6 @@ import com.github.sarhatabaot.farmassistreboot.messages.Debug;
 import com.github.sarhatabaot.farmassistreboot.messages.Permissions;
 import com.github.sarhatabaot.farmassistreboot.tasks.ReplantTask;
 import de.tr7zw.changeme.nbtapi.NBT;
-import de.tr7zw.changeme.nbtapi.NBTItem;
 import de.tr7zw.changeme.nbtapi.iface.ReadableItemNBT;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
@@ -76,13 +75,13 @@ public class Util {
         return list.get(0).getKey();
     }
 
-    public static boolean isWorldEnabled(@NotNull World world) {
+    public static boolean isWorldDisabled(@NotNull World world) {
         debug(Debug.Worlds.CONFIG_PER_WORLD, FarmAssistConfig.ENABLED_PER_WORLD);
         if (!FarmAssistConfig.ENABLED_PER_WORLD)
-            return true;
+            return false;
 
         debug(Debug.Worlds.IS_WORLD_ENABLED, world.getName(), FarmAssistConfig.ENABLED_WORLDS.contains(world));
-        return FarmAssistConfig.ENABLED_WORLDS.contains(world);
+        return !FarmAssistConfig.ENABLED_WORLDS.contains(world);
     }
 
     public static void replant(@NotNull Player player, Block block, @NotNull Material material) {

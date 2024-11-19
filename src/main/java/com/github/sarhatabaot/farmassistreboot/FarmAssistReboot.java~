@@ -23,9 +23,9 @@ import java.util.UUID;
  */
 public class FarmAssistReboot extends JavaPlugin {
     private final MorePaperLib paperLib = new MorePaperLib(this);
+    private LanguageManager languageManager;
     private final List<UUID> disabledPlayerList = new ArrayList<>();
     private FarmAssistConfig assistConfig;
-    private LanguageManager languageManager;
 
     private boolean globalEnabled;
 
