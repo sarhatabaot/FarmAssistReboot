@@ -3,7 +3,6 @@ import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
 plugins {
     java
     alias(libs.plugins.shadow)
-    alias(libs.plugins.lombok)
     alias(libs.plugins.plugin.yml.bukkit)
 }
 

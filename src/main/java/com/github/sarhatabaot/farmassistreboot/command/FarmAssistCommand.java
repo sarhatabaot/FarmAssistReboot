@@ -11,16 +11,18 @@ import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.github.sarhatabaot.farmassistreboot.Util;
 import com.github.sarhatabaot.farmassistreboot.messages.Commands;
 import com.github.sarhatabaot.farmassistreboot.messages.InternalMessages;
-import lombok.RequiredArgsConstructor;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-@RequiredArgsConstructor
 @CommandAlias(Commands.BASE_COMMAND)
 public class FarmAssistCommand extends BaseCommand {
     private final FarmAssistReboot plugin;
+
+    public FarmAssistCommand(FarmAssistReboot plugin) {
+        this.plugin = plugin;
+    }
 
     @Default
     @Subcommand(Commands.TogglePlayer.SUB_COMMAND)
@@ -61,7 +63,7 @@ public class FarmAssistCommand extends BaseCommand {
     @CommandPermission(Commands.Update.PERMISSION)
     @Description(Commands.Update.DESCRIPTION)
     public void onUpdate(final CommandSender sender) {
-        if (!plugin.isNeedsUpdate()) {
+        if (plugin.doesNotNeedUpdate()) {
             Util.sendMessage(sender, String.format(plugin.getLanguageManager().getActiveLanguage().getUpdateLatestVersion(), plugin.getDescription().getVersion()));
             return;
         }

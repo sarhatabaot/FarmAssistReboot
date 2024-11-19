@@ -107,12 +107,4 @@ public class FarmAssistReboot extends JavaPlugin {
     public void setGlobalEnabled(boolean globalEnabled) {
         this.globalEnabled = globalEnabled;
     }
-
-    public void setNeedsUpdate(boolean needsUpdate) {
-        this.needsUpdate = needsUpdate;
-    }
-
-    public void setNewVersion(String newVersion) {
-        this.newVersion = newVersion;
-    }
 }

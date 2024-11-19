@@ -5,7 +5,6 @@ import com.github.sarhatabaot.farmassistreboot.Util;
 import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import com.github.sarhatabaot.farmassistreboot.messages.Debug;
 import com.github.sarhatabaot.farmassistreboot.messages.Permissions;
-import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -16,9 +15,12 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.jetbrains.annotations.NotNull;
 
-@RequiredArgsConstructor
 public class PlayerInteractionListener implements Listener {
     private final FarmAssistReboot plugin;
+
+    public PlayerInteractionListener(FarmAssistReboot plugin) {
+        this.plugin = plugin;
+    }
 
     /**
      * On till event
@@ -39,7 +41,7 @@ public class PlayerInteractionListener implements Listener {
             return;
         }
         // Permission Checks
-        if (FarmAssistConfig.USE_PERMISSIONS && (!event.getPlayer().hasPermission(Permissions.WHEAT)) || !event.getPlayer().hasPermission(Permissions.TILL)) {
+        if (doesNotHaveWheatAndTillPermissions(event.getPlayer())) {
             return;
         }
 
@@ -62,6 +64,10 @@ public class PlayerInteractionListener implements Listener {
             Util.replant(player, event.getClickedBlock(), Material.WHEAT);
         }
 
+    }
+
+    private boolean doesNotHaveWheatAndTillPermissions(final Player player) {
+        return FarmAssistConfig.USE_PERMISSIONS && (!player.hasPermission(Permissions.WHEAT)) || !player.hasPermission(Permissions.TILL);
     }
 
 
