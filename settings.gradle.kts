@@ -24,7 +24,7 @@ dependencyResolutionManagement {
             version("plugin-yml", "0.6.0")
             plugin("plugin-yml-bukkit", "net.minecrell.plugin-yml.bukkit").versionRef("plugin-yml")
 
-            library("boosted-yml", "dev.dejvokep:boosted-yaml:1.3.5")
+            library("boosted-yml", "dev.dejvokep:boosted-yaml:1.3.7")
 
             plugin("shadow", "com.gradleup.shadow").version("8.3.0")
 
