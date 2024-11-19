@@ -25,7 +25,6 @@ dependencyResolutionManagement {
             plugin("plugin-yml-bukkit", "net.minecrell.plugin-yml.bukkit").versionRef("plugin-yml")
 
             plugin("shadow", "com.gradleup.shadow").version("8.3.0")
-            plugin("lombok", "io.freefair.lombok").version("8.7.1")
 
             //Add our in-house messages plugin or find an alternative compat with java8
         }
