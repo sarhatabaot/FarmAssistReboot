@@ -59,7 +59,7 @@ public class PlayerInteractionListener implements Listener {
             return;
         }
 
-        if (Util.checkNoSeeds(player) || Util.inventoryContainsSeeds(event.getPlayer().getInventory(), Material.WHEAT) != -1) {
+        if (Util.checkSeedsOrNoSeedsInInventory(event.getPlayer(), Material.WHEAT)) {
             event.getClickedBlock().setType(Material.FARMLAND);
             Util.replant(player, event.getClickedBlock(), Material.WHEAT);
         }

@@ -33,7 +33,7 @@ public class BlockBreakListener implements Listener {
             debug("Player %s with uuid %s has the far functionality disabled.", event.getPlayer().getName(), event.getPlayer().getUniqueId());
 			return;
 		}
-        
+
         if (FarmAssistConfig.USE_PERMISSIONS && !hasMaterialPermission(event)) {
             final String permission = Permissions.BASE_PERMISSION + event.getBlock().getType().name();
             debug(Debug.OnBlockBreak.PLAYER_NO_PERMISSION, event.getPlayer().getDisplayName(), permission);
@@ -44,14 +44,6 @@ public class BlockBreakListener implements Listener {
             return;
         }
 
-        applyReplant(event);
-    }
-
-    private boolean hasMaterialPermission(@NotNull BlockBreakEvent event) {
-        return event.getPlayer().hasPermission(Permissions.BASE_PERMISSION + event.getBlock().getType().name());
-    }
-
-    private void applyReplant(@NotNull BlockBreakEvent event) {
         Material material = event.getBlock().getType();
         debug(Debug.OnBlockBreak.BLOCK_BROKEN, material.name());
         if (!Crop.getCropList().contains(material)) {
@@ -65,8 +57,19 @@ public class BlockBreakListener implements Listener {
             return;
         }
 
+
+        applyReplant(event);
+    }
+
+    private boolean hasMaterialPermission(@NotNull BlockBreakEvent event) {
+        return event.getPlayer().hasPermission(Permissions.BASE_PERMISSION + event.getBlock().getType().name());
+    }
+
+    private void applyReplant(@NotNull BlockBreakEvent event) {
+        Material material = event.getBlock().getType();
+
         int slot = Util.inventoryContainsSeeds(event.getPlayer().getInventory(), material);
-        if (!Util.checkNoSeeds(event.getPlayer()) && slot == -1) {
+        if (Util.checkSeedsOrNoSeedsInInventory(event.getPlayer(),material)) {
             debug(Debug.OnBlockBreak.NO_SEEDS, event.getPlayer().getName());
             return;
         }

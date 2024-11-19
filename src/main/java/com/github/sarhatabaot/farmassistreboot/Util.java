@@ -155,4 +155,8 @@ public class Util {
     public static boolean checkNoSeeds(final Player player) {
         return FarmAssistConfig.NO_SEEDS || player.hasPermission(Permissions.NO_SEEDS);
     }
+
+    public static boolean checkSeedsOrNoSeedsInInventory(final Player player, final Material material) {
+        return !checkNoSeeds(player) || Util.inventoryContainsSeeds(player.getInventory(), material) == -1;
+    }
 }

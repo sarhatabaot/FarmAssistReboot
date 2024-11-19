@@ -24,29 +24,27 @@ public class BlockBreakListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
-		if (!plugin.isGlobalEnabled()) {
+		if (plugin.isGlobalDisabled()) {
+            debug("Plugin is globally disabled.");
 			return;
 		}
 
 		if (this.plugin.getDisabledPlayerList().contains(event.getPlayer().getUniqueId())) {
+            debug("Player %s with uuid %s has the far functionality disabled.", event.getPlayer().getName(), event.getPlayer().getUniqueId());
 			return;
 		}
-
-
-        if (!Crop.getCropList().contains(event.getBlock().getType())) {
-            debug(Debug.OnBlockBreak.CROP_LIST_NO_MATERIAL, event.getBlock().getType().name());
-            return;
-        }
-
+        
         if (FarmAssistConfig.USE_PERMISSIONS && !hasMaterialPermission(event)) {
             final String permission = Permissions.BASE_PERMISSION + event.getBlock().getType().name();
             debug(Debug.OnBlockBreak.PLAYER_NO_PERMISSION, event.getPlayer().getDisplayName(), permission);
             return;
         }
 
-        if (Util.isWorldEnabled(event.getPlayer().getWorld())) {
-            applyReplant(event);
+        if (!Util.isWorldEnabled(event.getPlayer().getWorld())) {
+            return;
         }
+
+        applyReplant(event);
     }
 
     private boolean hasMaterialPermission(@NotNull BlockBreakEvent event) {
