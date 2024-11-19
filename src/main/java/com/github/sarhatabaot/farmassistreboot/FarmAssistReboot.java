@@ -96,6 +96,10 @@ public class FarmAssistReboot extends JavaPlugin {
         return globalEnabled;
     }
 
+    public boolean isGlobalDisabled() {
+        return !globalEnabled;
+    }
+
     public boolean doesNotNeedUpdate() {
         return !needsUpdate;
     }
