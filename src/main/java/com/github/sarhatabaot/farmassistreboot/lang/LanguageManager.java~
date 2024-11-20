@@ -28,7 +28,7 @@ public class LanguageManager {
         this.supportedLanguages = loadSupportedLanguages();
 
         saveLanguagesDirectories(plugin);
-        switchLanguages(FarmAssistConfig.ACTIVE_LANGUAGE);
+        switchLanguages(plugin.getAssistConfig().activeLanguage());
     }
 
     private @NotNull List<String> loadSupportedLanguages() {
