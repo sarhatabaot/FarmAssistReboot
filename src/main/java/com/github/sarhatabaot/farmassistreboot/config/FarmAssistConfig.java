@@ -101,7 +101,7 @@ public class FarmAssistConfig {
     public boolean getRipe(@NotNull Material material) {
         return config.getBoolean(Route.from(material.name().toLowerCase(), "replant-when-ripe"), false);
     }
-    
+
     public void setActiveLanguage(final String locale) {
         config.set(Route.from("language"), locale);
     }
