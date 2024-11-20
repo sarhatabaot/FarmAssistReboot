@@ -42,7 +42,6 @@ public class FarmAssistConfig {
         this.createAndLoad();
     }
 
-
     public boolean disableLatestVersion() {
         return config.getBoolean(Route.from("disable-latest-version"), false);
     }
