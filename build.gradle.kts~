@@ -30,7 +30,6 @@ bukkit {
     description = "Allow players to auto-replant crops."
     apiVersion = "1.13"
     softDepend = listOf("PlaceholderAPI")
-    foliaSupported = true
 
     permissions {
         register("farmassist.crops") {
