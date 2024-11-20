@@ -46,7 +46,7 @@ public class FarmAssistReboot extends JavaPlugin {
 
         registerListeners();
         Util.init(this);
-        if (FarmAssistConfig.CHECK_FOR_UPDATES) {
+        if (assistConfig.checkForUpdates()) {
             this.paperLib.scheduling().asyncScheduler().run(new SimpleUpdateCheckerTask(this));
         }
 
@@ -55,7 +55,7 @@ public class FarmAssistReboot extends JavaPlugin {
     }
 
     public void debug(final Class<?> clazz,final String message) {
-        if(FarmAssistConfig.DEBUG) {
+        if(assistConfig.debug()) {
             getLogger().info(() -> "DEBUG " + clazz.getSimpleName() + " " + message);
         }
     }

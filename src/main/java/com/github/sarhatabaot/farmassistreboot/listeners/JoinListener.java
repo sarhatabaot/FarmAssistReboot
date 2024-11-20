@@ -26,7 +26,7 @@ public class JoinListener implements Listener {
 			return;
 		}
 
-        if (plugin.doesNotNeedUpdate() && !FarmAssistConfig.DISABLE_LATEST_VERSION) {
+        if (plugin.doesNotNeedUpdate() && !plugin.getAssistConfig().disableLatestVersion()) {
             Util.sendMessage(player, String.format(activeLang.getUpdateLatestVersion(), plugin.getDescription().getVersion()));
             return;
         }

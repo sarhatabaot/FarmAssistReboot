@@ -1,6 +1,7 @@
 package com.github.sarhatabaot.farmassistreboot.lang;
 
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
+import com.github.sarhatabaot.farmassistreboot.config.ConfigFile;
 
 import java.io.File;
 

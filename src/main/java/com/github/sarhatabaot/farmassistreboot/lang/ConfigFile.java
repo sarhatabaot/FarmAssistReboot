@@ -1,4 +1,4 @@
-package com.github.sarhatabaot.farmassistreboot.config;
+package com.github.sarhatabaot.farmassistreboot.lang;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;

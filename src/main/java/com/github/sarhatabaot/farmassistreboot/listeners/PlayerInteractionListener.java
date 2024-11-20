@@ -47,16 +47,16 @@ public class PlayerInteractionListener implements Listener {
         }
 
         final Player player = event.getPlayer();
-        debug(Debug.OnPlayerInteract.CONFIG_WHEAT, FarmAssistConfig.getEnabled(Material.WHEAT));
-        debug(Debug.OnPlayerInteract.CONFIG_PLANT_ON_TILL, FarmAssistConfig.PLANT_WHEAT_ON_TILL);
+        debug(Debug.OnPlayerInteract.CONFIG_WHEAT, plugin.getAssistConfig().getEnabled(Material.WHEAT));
+        debug(Debug.OnPlayerInteract.CONFIG_PLANT_ON_TILL, plugin.getAssistConfig().plantWheatOnTill());
 
-        if (Util.isWorldDisabled(event.getPlayer().getWorld())) {
+        if (Util.isWorldDisabled(event.getPlayer().getWorld().getName())) {
             debug(Debug.OnPlayerInteract.WORLD_DISABLED, event.getPlayer().getWorld().getName());
             return;
         }
-        if (!FarmAssistConfig.getEnabled(Material.WHEAT) || !FarmAssistConfig.PLANT_WHEAT_ON_TILL) {
-            debug(Debug.OnPlayerInteract.WHEAT_ENABLED, FarmAssistConfig.getEnabled(Material.WHEAT));
-            debug(Debug.OnPlayerInteract.TILL_ENABLED, FarmAssistConfig.PLANT_WHEAT_ON_TILL);
+        if (!plugin.getAssistConfig().getEnabled(Material.WHEAT) || !plugin.getAssistConfig().plantWheatOnTill()) {
+            debug(Debug.OnPlayerInteract.WHEAT_ENABLED, plugin.getAssistConfig().getEnabled(Material.WHEAT));
+            debug(Debug.OnPlayerInteract.TILL_ENABLED, plugin.getAssistConfig().plantWheatOnTill());
             return;
         }
 
@@ -73,7 +73,7 @@ public class PlayerInteractionListener implements Listener {
     }
 
     private boolean doesNotHaveWheatAndTillPermissions(final Player player) {
-        return FarmAssistConfig.USE_PERMISSIONS && (!player.hasPermission(Permissions.WHEAT)) || !player.hasPermission(Permissions.TILL);
+        return plugin.getAssistConfig().usePermissions() && (!player.hasPermission(Permissions.WHEAT)) || !player.hasPermission(Permissions.TILL);
     }
 
 

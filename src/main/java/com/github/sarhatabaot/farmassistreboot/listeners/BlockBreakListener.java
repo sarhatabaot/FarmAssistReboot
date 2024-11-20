@@ -3,7 +3,6 @@ package com.github.sarhatabaot.farmassistreboot.listeners;
 import com.github.sarhatabaot.farmassistreboot.Crop;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.github.sarhatabaot.farmassistreboot.Util;
-import com.github.sarhatabaot.farmassistreboot.config.FarmAssistConfig;
 import com.github.sarhatabaot.farmassistreboot.messages.Debug;
 import com.github.sarhatabaot.farmassistreboot.messages.Permissions;
 import org.bukkit.Material;
@@ -34,13 +33,13 @@ public class BlockBreakListener implements Listener {
 			return;
 		}
 
-        if (FarmAssistConfig.USE_PERMISSIONS && !hasMaterialPermission(event)) {
+        if (plugin.getAssistConfig().usePermissions() && !hasMaterialPermission(event)) {
             final String permission = Permissions.BASE_PERMISSION + event.getBlock().getType().name();
             debug(Debug.OnBlockBreak.PLAYER_NO_PERMISSION, event.getPlayer().getDisplayName(), permission);
             return;
         }
 
-        if (Util.isWorldDisabled(event.getPlayer().getWorld())) {
+        if (Util.isWorldDisabled(event.getPlayer().getWorld().getName())) {
             return;
         }
 
@@ -52,7 +51,7 @@ public class BlockBreakListener implements Listener {
         }
 
         debug(Debug.OnBlockBreak.CROP_LIST_CONTAINS, material.name());
-        if (!FarmAssistConfig.getEnabled(material)) {
+        if (!plugin.getAssistConfig().getEnabled(material)) {
             debug(Debug.OnBlockBreak.MATERIAL_DISABLED, material.name());
             return;
         }
@@ -81,8 +80,8 @@ public class BlockBreakListener implements Listener {
             return;
         }
 
-        if (!FarmAssistConfig.getRipe(material) || isRipe(event.getBlock())) {
-            debug(String.format("isRipeConfig %s: ", material) + FarmAssistConfig.getRipe(material));
+        if (!plugin.getAssistConfig().getRipe(material) || isRipe(event.getBlock())) {
+            debug(String.format("isRipeConfig %s: ", material) + plugin.getAssistConfig().getRipe(material));
             debug(String.format("isRipe %s: ", material) + isRipe(event.getBlock()));
             Util.replant(event.getPlayer(), event.getBlock(), slot);
         }

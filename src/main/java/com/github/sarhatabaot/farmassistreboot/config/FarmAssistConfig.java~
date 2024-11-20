@@ -39,7 +39,6 @@ public class FarmAssistConfig {
 
     public FarmAssistConfig(final @NotNull FarmAssistReboot plugin) {
         this.plugin = plugin;
-        this.createAndLoad();
     }
 
 

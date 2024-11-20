@@ -76,7 +76,7 @@ public class FarmAssistCommand extends BaseCommand {
     @CommandPermission(Commands.Reload.PERMISSION)
     @Description(Commands.Reload.DESCRIPTION)
     public void onReload(final @NotNull CommandSender sender) {
-        plugin.getAssistConfig().reloadConfig();
+        plugin.getAssistConfig().reload();
         plugin.getLanguageManager().getActiveLanguage().reloadConfig();
         Util.sendMessage(sender,ChatColor.GREEN + InternalMessages.Reload.COMMAND);
         plugin.debug(FarmAssistCommand.class, InternalMessages.Reload.DEBUG);

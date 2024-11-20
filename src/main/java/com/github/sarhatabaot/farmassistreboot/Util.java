@@ -55,14 +55,14 @@ public class Util {
             return -1;
         List<Map.Entry<Integer, ? extends ItemStack>> list = itemsSlotsMap.entrySet().stream()
                 .filter(p -> {
-                    if (FarmAssistConfig.IGNORE_RENAMED) {
+                    if (plugin.getAssistConfig().ignoreRenamed()) {
                         ItemStack itemStack = p.getValue();
                         return itemStack.getItemMeta() != null && !itemStack.getItemMeta().hasDisplayName();
                     }
                     return true;
                 })
                 .filter(p -> {
-                    if (FarmAssistConfig.IGNORE_NBT) {
+                    if (plugin.getAssistConfig().ignoreNbt()) {
                         return NBT.get(p.getValue(), ReadableItemNBT::hasNBTData);
                     }
                     return true;
@@ -75,13 +75,15 @@ public class Util {
         return list.get(0).getKey();
     }
 
-    public static boolean isWorldDisabled(@NotNull World world) {
-        debug(Debug.Worlds.CONFIG_PER_WORLD, FarmAssistConfig.ENABLED_PER_WORLD);
-        if (!FarmAssistConfig.ENABLED_PER_WORLD)
+
+    public static boolean isWorldDisabled(@NotNull String world) {
+        debug(Debug.Worlds.CONFIG_PER_WORLD, plugin.getAssistConfig().enabledPerWorld());
+        if (!plugin.getAssistConfig().enabledPerWorld())
             return false;
 
-        debug(Debug.Worlds.IS_WORLD_ENABLED, world.getName(), FarmAssistConfig.ENABLED_WORLDS.contains(world));
-        return !FarmAssistConfig.ENABLED_WORLDS.contains(world);
+        final boolean isWorldEnabled = plugin.getAssistConfig().isWorldEnabled(world);
+        debug(Debug.Worlds.IS_WORLD_ENABLED, world, isWorldEnabled);
+        return !isWorldEnabled;
     }
 
     public static void replant(@NotNull Player player, Block block, @NotNull Material material) {
@@ -98,7 +100,7 @@ public class Util {
 
     public static void replant(@NotNull Player player, Block block, int spot) {
         debug("Spot:" + spot);
-        debug("CONFIG:no-seeds: %b, PERMISSION:farmassist.no_seeds: %b", FarmAssistConfig.NO_SEEDS, player.hasPermission(Permissions.NO_SEEDS));
+        debug("CONFIG:no-seeds: %b, PERMISSION:farmassist.no_seeds: %b", plugin.getAssistConfig().noSeeds(), player.hasPermission(Permissions.NO_SEEDS));
         if (spot >= 0 || Util.checkNoSeeds(player)) {
             removeOrSubtractItem(player, spot);
             plugin.getPaperLib().scheduling().regionSpecificScheduler(block.getLocation()).runDelayed(new ReplantTask(block,plugin), 5L);
@@ -152,7 +154,7 @@ public class Util {
      * @return true if the config option is enabled or if the player has the permission
      */
     public static boolean checkNoSeeds(final Player player) {
-        return FarmAssistConfig.NO_SEEDS || player.hasPermission(Permissions.NO_SEEDS);
+        return plugin.getAssistConfig().noSeeds() || player.hasPermission(Permissions.NO_SEEDS);
     }
 
     public static boolean checkSeedsOrNoSeedsInInventory(final Player player, final Material material) {
