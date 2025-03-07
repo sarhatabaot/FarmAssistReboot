@@ -22,6 +22,10 @@ ignore-seeds:
 # Setting this to true will make it so players are no longer required to have seeds in their inventory to replant.
 # Want to have this per player? Set this to false and give them the permission "farmassist.noseeds"
 no-seeds: false
+# Only relevant for when the above is set true. (I mean, you could still disable drops if you want)
+# Disable the drops when replanting automatically.
+# You can also use "farmassist.nodrops"
+no-drops: false
 
 # Even if you give the permission, these settings will override it.
 # Example:

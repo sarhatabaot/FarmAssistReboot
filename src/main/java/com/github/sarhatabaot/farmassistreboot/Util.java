@@ -155,6 +155,10 @@ public class Util {
         return plugin.getAssistConfig().noSeeds() || player.hasPermission(Permissions.NO_SEEDS);
     }
 
+    public static boolean checkNoDrops(final Player player) {
+        return plugin.getAssistConfig().noDrops() || player.hasPermission(Permissions.NO_DROPS);
+    }
+
     public static boolean checkSeedsOrNoSeedsInInventory(final Player player, final Material material) {
         return checkSeedsOrNoSeedsInInventory(player, Util.inventoryContainsSeeds(player.getInventory(), material));
     }

@@ -88,6 +88,10 @@ public class FarmAssistConfig {
         return config.getBoolean(Route.from("no-seeds", false));
     }
 
+    public boolean noDrops() {
+        return config.getBoolean(Route.from("no-drops"), false);
+    }
+
     private @NotNull Set<String> getWorlds() {
         HashSet<String> enableWorlds = new HashSet<>();
         for (String world: config.getStringList(Route.from("worlds", "enabled-worlds"))) {

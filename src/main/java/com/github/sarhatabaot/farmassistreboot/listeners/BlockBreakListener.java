@@ -8,6 +8,7 @@ import com.github.sarhatabaot.farmassistreboot.messages.Permissions;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -65,25 +66,29 @@ public class BlockBreakListener implements Listener {
     }
 
     private void applyReplant(@NotNull BlockBreakEvent event) {
-        Material material = event.getBlock().getType();
+        final Material material = event.getBlock().getType();
+        final Player player = event.getPlayer();
 
-        int slot = Util.inventoryContainsSeeds(event.getPlayer().getInventory(), material);
-        if (Util.checkSeedsOrNoSeedsInInventory(event.getPlayer(), slot)) {
+        int slot = Util.inventoryContainsSeeds(player.getInventory(), material);
+        if (Util.checkSeedsOrNoSeedsInInventory(player, slot)) {
             debug(Debug.OnBlockBreak.NO_SEEDS, event.getPlayer().getName());
             debug("Material: %s, Seed: %s", material.name(), Crop.valueOf(material.name()).getSeed());
             return;
         }
 
+        if (Util.checkNoDrops(player)) {
+            event.setDropItems(false);
+        }
 
         if (material == Material.SUGAR_CANE || material == Material.CACTUS) {
-            Util.replant(event.getPlayer(), event.getBlock(), material);
+            Util.replant(player, event.getBlock(), material);
             return;
         }
 
         if (!plugin.getAssistConfig().getRipe(material) || isRipe(event.getBlock())) {
             debug(String.format("isRipeConfig %s: ", material) + plugin.getAssistConfig().getRipe(material));
             debug(String.format("isRipe %s: ", material) + isRipe(event.getBlock()));
-            Util.replant(event.getPlayer(), event.getBlock(), slot);
+            Util.replant(player, event.getBlock(), slot);
         }
     }
 
