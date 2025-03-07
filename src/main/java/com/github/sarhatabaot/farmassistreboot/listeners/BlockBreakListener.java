@@ -1,11 +1,14 @@
 package com.github.sarhatabaot.farmassistreboot.listeners;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.github.sarhatabaot.farmassistreboot.Crop;
 import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import com.github.sarhatabaot.farmassistreboot.Util;
 import com.github.sarhatabaot.farmassistreboot.messages.Debug;
 import com.github.sarhatabaot.farmassistreboot.messages.Permissions;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Player;
@@ -13,7 +16,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 public class BlockBreakListener implements Listener {
     private final FarmAssistReboot plugin;
@@ -65,6 +73,17 @@ public class BlockBreakListener implements Listener {
         return event.getPlayer().hasPermission(Permissions.BASE_PERMISSION + event.getBlock().getType().name());
     }
 
+    public void dropItemsNaturally(Location location, Collection<ItemStack> items) {
+        World world = location.getWorld();
+        if (world == null) return;
+
+        for (ItemStack item : items) {
+            if (item == null || item.getType() == Material.AIR) continue;
+            world.dropItemNaturally(location, item);
+        }
+    }
+
+
     private void applyReplant(@NotNull BlockBreakEvent event) {
         final Material material = event.getBlock().getType();
         final Player player = event.getPlayer();
@@ -77,6 +96,12 @@ public class BlockBreakListener implements Listener {
         }
 
         if (Util.checkNoDrops(player)) {
+            final XMaterial seed = Crop.valueOf(material.name()).getSeed();
+            final Collection<ItemStack> items = event.getBlock().getDrops().stream()
+                    .filter(itemStack -> itemStack.getType() != seed.get())
+                    .collect(Collectors.toList());
+
+            dropItemsNaturally(event.getBlock().getLocation(), items);
             event.setDropItems(false);
         }
 
