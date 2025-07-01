@@ -26,7 +26,7 @@ dependencyResolutionManagement {
 
             library("boosted-yml", "dev.dejvokep:boosted-yaml:1.3.7")
 
-            plugin("shadow", "com.gradleup.shadow").version("8.3.0")
+            plugin("shadow", "com.gradleup.shadow").version("8.3.8")
 
             //Add our in-house messages plugin or find an alternative compat with java8
         }
