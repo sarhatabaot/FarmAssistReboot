@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.github.sarhatabaot.farmassistreboot"
-version = "1.4.8.1"
+version = "1.4.9.0"
 
 dependencies {
     compileOnly(libs.spigot.api)
@@ -25,7 +25,7 @@ dependencies {
 bukkit {
     main = "com.github.sarhatabaot.farmassistreboot.FarmAssistReboot"
     name = "FarmAssistReboot"
-    authors = listOf("Friendly Baron","sarhatabaot")
+    authors = listOf("Friendly Baron", "sarhatabaot")
     website = "https://github.com/sarhatabaot/FarmAssistReboot"
     description = "Allow players to auto-replant crops."
     apiVersion = "1.13"
@@ -33,6 +33,22 @@ bukkit {
     foliaSupported = true
 
     permissions {
+
+        listOf("wheat", "sugar_cane", "nether_wart", "cocoa", "carrots", "potatoes", "beetroots", "cactus")
+            .forEach { crop ->
+                register("farmassist.$crop") {
+                    default = BukkitPluginDescription.Permission.Default.FALSE
+                }
+            }
+
+        // Admin permissions
+        listOf("reload", "toggle", "global", "update", "notify.update", "lang")
+            .forEach { perm ->
+                register("farmassist.$perm") {
+                    default = BukkitPluginDescription.Permission.Default.OP
+                }
+            }
+
         register("farmassist.crops") {
             default = BukkitPluginDescription.Permission.Default.TRUE
             children = listOf(
@@ -46,48 +62,7 @@ bukkit {
                 "farmassist.cactus",
             )
         }
-        register("farmassist.wheat") {
-            default = BukkitPluginDescription.Permission.Default.FALSE
-        }
-        register("farmassist.sugar_cane") {
-            default = BukkitPluginDescription.Permission.Default.FALSE
-        }
-        register("farmassist.nether_wart") {
-            default = BukkitPluginDescription.Permission.Default.FALSE
-        }
-        register("farmassist.cocoa") {
-            default = BukkitPluginDescription.Permission.Default.FALSE
-        }
-        register("farmassist.carrots") {
-            default = BukkitPluginDescription.Permission.Default.FALSE
-        }
-        register("farmassist.potatoes") {
-            default = BukkitPluginDescription.Permission.Default.FALSE
-        }
-        register("farmassist.beetroots") {
-            default = BukkitPluginDescription.Permission.Default.FALSE
-        }
-        register("farmassist.cactus") {
-            default = BukkitPluginDescription.Permission.Default.FALSE
-        }
-        register("farmassist.reload") {
-            default = BukkitPluginDescription.Permission.Default.OP
-        }
-        register("farmassist.toggle") {
-            default = BukkitPluginDescription.Permission.Default.OP
-        }
-        register("farmassist.global") {
-            default = BukkitPluginDescription.Permission.Default.OP
-        }
-        register("farmassist.update") {
-            default = BukkitPluginDescription.Permission.Default.OP
-        }
-        register("farmassist.notify.update") {
-            default = BukkitPluginDescription.Permission.Default.OP
-        }
-        register("farmassist.lang") {
-            default = BukkitPluginDescription.Permission.Default.OP
-        }
+
         register("farmassist.noseeds") {
             default = BukkitPluginDescription.Permission.Default.FALSE
         }
