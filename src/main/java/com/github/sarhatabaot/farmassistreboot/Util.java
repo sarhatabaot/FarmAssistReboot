@@ -14,6 +14,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,6 +32,10 @@ public class Util {
 
     public static void init(final FarmAssistReboot plugin) {
         Util.plugin = plugin;
+    }
+
+    public static void cleanup() {
+        Util.plugin = null;
     }
 
     /**
@@ -55,13 +60,14 @@ public class Util {
                 .filter(p -> {
                     if (plugin.getAssistConfig().ignoreRenamed()) {
                         ItemStack itemStack = p.getValue();
-                        return itemStack.getItemMeta() != null && !itemStack.getItemMeta().hasDisplayName();
+                        ItemMeta meta = itemStack.getItemMeta();
+                        return meta == null || !meta.hasDisplayName();
                     }
                     return true;
                 })
                 .filter(p -> {
                     if (plugin.getAssistConfig().ignoreNbt()) {
-                        return NBT.get(p.getValue(), ReadableItemNBT::hasNBTData);
+                        return !NBT.get(p.getValue(), ReadableItemNBT::hasNBTData);
                     }
                     return true;
                 })

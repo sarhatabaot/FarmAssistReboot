@@ -37,7 +37,12 @@ public class SimpleUpdateCheckerTask implements Runnable {
             try(BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()))) {
                 Object obj = parser.parse(in);
                 JSONObject jsonObject = (JSONObject) obj;
-                final String remoteVer = ((String) jsonObject.get("tag_name")).replace("v", "");
+                final Object tagNameObj = jsonObject.get("tag_name");
+                if (tagNameObj == null) {
+                    plugin.getLogger().warning("Update check failed: 'tag_name' missing from GitHub API response.");
+                    return;
+                }
+                final String remoteVer = ((String) tagNameObj).replace("v", "");
                 int remoteVal = Integer.parseInt(remoteVer.replace(".", ""));
                 int localVer = Integer.parseInt(versionNumber.replace(".", ""));
                 if (remoteVal > localVer) {

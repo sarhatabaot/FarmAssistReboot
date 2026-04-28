@@ -72,7 +72,7 @@ public class PlayerInteractionListener implements Listener {
     }
 
     private boolean doesNotHaveWheatAndTillPermissions(final Player player) {
-        return plugin.getAssistConfig().usePermissions() && (!player.hasPermission(Permissions.WHEAT)) || !player.hasPermission(Permissions.TILL);
+        return plugin.getAssistConfig().usePermissions() && (!player.hasPermission(Permissions.WHEAT) || !player.hasPermission(Permissions.TILL));
     }
 
 

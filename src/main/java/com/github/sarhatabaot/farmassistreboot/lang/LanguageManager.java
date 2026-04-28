@@ -66,7 +66,7 @@ public class LanguageManager {
                     }
                 }
             } catch (IOException e) {
-                //
+                plugin.getLogger().warning("Failed to read languages from jar: " + e.getMessage());
             }
         }
         return fileNames;

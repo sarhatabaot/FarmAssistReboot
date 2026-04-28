@@ -5,7 +5,8 @@ import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.Material;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public enum Crop {
@@ -18,7 +19,14 @@ public enum Crop {
     BEETROOTS(new XMaterial[]{XMaterial.FARMLAND}, XMaterial.BEETROOTS, XMaterial.BEETROOT_SEEDS),
     CACTUS(new XMaterial[]{XMaterial.SAND}, XMaterial.CACTUS, XMaterial.CACTUS),
     TORCHFLOWER(new XMaterial[]{XMaterial.FARMLAND}, XMaterial.TORCHFLOWER, XMaterial.TORCHFLOWER_SEEDS),
-    PITCHER_PLANT(new XMaterial[]{XMaterial.FARMLAND}, XMaterial.PITCHER_CROP, XMaterial.PITCHER_POD);
+    PITCHER_CROP(new XMaterial[]{XMaterial.FARMLAND}, XMaterial.PITCHER_CROP, XMaterial.PITCHER_POD);
+
+    private static final Set<Material> CROP_MATERIALS = Collections.unmodifiableSet(
+            Arrays.stream(Crop.values())
+                    .map(crop -> crop.planted.parseMaterial())
+                    .filter(m -> m != null)
+                    .collect(Collectors.toSet())
+    );
 
     private final XMaterial[] plantedOn;
     private final XMaterial planted;
@@ -31,8 +39,8 @@ public enum Crop {
         this.seed = seed;
     }
 
-    public static List<Material> getCropList() {
-        return Arrays.stream(Crop.values()).map(crop -> crop.planted.parseMaterial()).collect(Collectors.toList());
+    public static Set<Material> getCropList() {
+        return CROP_MATERIALS;
     }
 
     public XMaterial[] getPlantedOn() {

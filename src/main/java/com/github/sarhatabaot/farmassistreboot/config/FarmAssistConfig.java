@@ -4,7 +4,6 @@ import com.github.sarhatabaot.farmassistreboot.FarmAssistReboot;
 import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.route.Route;
 import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,7 +24,9 @@ public class FarmAssistConfig {
                             .setAutoUpdate(true)
                             .build());
         } catch (IOException e) {
-            this.plugin.getLogger().severe("Failed to load config.yml");
+            this.plugin.getLogger().severe("Failed to load config.yml: " + e.getMessage());
+            this.plugin.getServer().getPluginManager().disablePlugin(this.plugin);
+            return;
         }
     }
 
@@ -85,7 +86,7 @@ public class FarmAssistConfig {
     }
 
     public boolean noSeeds() {
-        return config.getBoolean(Route.from("no-seeds", false));
+        return config.getBoolean(Route.from("no-seeds"), false);
     }
 
     public boolean noDrops() {
@@ -93,13 +94,7 @@ public class FarmAssistConfig {
     }
 
     private @NotNull Set<String> getWorlds() {
-        HashSet<String> enableWorlds = new HashSet<>();
-        for (String world: config.getStringList(Route.from("worlds", "enabled-worlds"))) {
-            if (Bukkit.getWorld(world) != null) {
-                enableWorlds.add(world);
-            }
-        }
-        return enableWorlds;
+        return new HashSet<>(config.getStringList(Route.from("worlds", "enabled-worlds")));
     }
 
     public boolean getRipe(@NotNull Material material) {

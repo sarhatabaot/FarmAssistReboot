@@ -14,35 +14,36 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import space.arim.morepaperlib.MorePaperLib;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author sarhatabaot
  */
 public class FarmAssistReboot extends JavaPlugin {
     private final MorePaperLib paperLib = new MorePaperLib(this);
-    private final List<UUID> disabledPlayerList = new ArrayList<>();
+    private final List<UUID> disabledPlayerList = new CopyOnWriteArrayList<>();
     private FarmAssistConfig assistConfig;
     private LanguageManager languageManager;
 
-    private boolean globalEnabled;
+    private volatile boolean globalEnabled;
 
-    private boolean needsUpdate;
-    private String newVersion;
+    private volatile boolean needsUpdate;
+    private volatile String newVersion;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         this.assistConfig = new FarmAssistConfig(this);
+        if (!isEnabled()) return;
         this.languageManager = new LanguageManager(this);
 
         this.globalEnabled = true;
 
         PaperCommandManager commandManager = new PaperCommandManager(this);
         commandManager.registerCommand(new FarmAssistCommand(this));
-        commandManager.getCommandCompletions().registerCompletion("supported-lang", c -> languageManager.getSupportedLanguages());
+        commandManager.getCommandCompletions().registerCompletion("supported-lang", _ -> languageManager.getSupportedLanguages());
 
         registerListeners();
         Util.init(this);
@@ -118,5 +119,11 @@ public class FarmAssistReboot extends JavaPlugin {
 
     public void setNewVersion(String newVersion) {
         this.newVersion = newVersion;
+    }
+
+    @Override
+    public void onDisable() {
+        Util.cleanup();
+        paperLib.scheduling().cancelGlobalTasks();
     }
 }

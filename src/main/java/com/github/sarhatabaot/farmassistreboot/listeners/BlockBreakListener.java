@@ -94,16 +94,6 @@ public class BlockBreakListener implements Listener {
             return;
         }
 
-        if (Util.checkNoDrops(player)) {
-            final XMaterial seed = Crop.valueOf(material.name()).getSeed();
-            final Collection<ItemStack> items = event.getBlock().getDrops().stream()
-                    .filter(itemStack -> itemStack.getType() != seed.get())
-                    .collect(Collectors.toList());
-
-            dropItemsNaturally(event.getBlock().getLocation(), items);
-            event.setDropItems(false);
-        }
-
         if (material == Material.SUGAR_CANE || material == Material.CACTUS) {
             Util.replant(player, event.getBlock(), material);
             return;
@@ -112,14 +102,28 @@ public class BlockBreakListener implements Listener {
         if (!plugin.getAssistConfig().getRipe(material) || isRipe(event.getBlock())) {
             debug(String.format("isRipeConfig %s: ", material) + plugin.getAssistConfig().getRipe(material));
             debug(String.format("isRipe %s: ", material) + isRipe(event.getBlock()));
+
+            if (Util.checkNoDrops(player)) {
+                final Material seedMaterial = Crop.valueOf(material.name()).getSeed().parseMaterial();
+                final Collection<ItemStack> items = event.getBlock().getDrops().stream()
+                        .filter(itemStack -> seedMaterial == null || itemStack.getType() != seedMaterial)
+                        .collect(Collectors.toList());
+                dropItemsNaturally(event.getBlock().getLocation(), items);
+                event.setDropItems(false);
+            }
+
             Util.replant(player, event.getBlock(), slot);
         }
     }
 
 
     private boolean isRipe(@NotNull Block block) {
-        Ageable age = (Ageable) block.getBlockData();
-        return (age.getAge() == age.getMaximumAge());
+        final org.bukkit.block.data.BlockData data = block.getBlockData();
+        if (!(data instanceof Ageable)) {
+            return false;
+        }
+        final Ageable age = (Ageable) data;
+        return age.getAge() == age.getMaximumAge();
     }
 
     private void debug(final String message, Object... args) {

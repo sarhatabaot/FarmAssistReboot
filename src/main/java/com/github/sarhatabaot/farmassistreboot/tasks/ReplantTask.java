@@ -30,8 +30,11 @@ public class ReplantTask implements Runnable {
         this.material = block.getType();
 
         if (XMaterial.matchXMaterial(block.getType()) == XMaterial.COCOA) {
-            this.cocoa = (Cocoa) block.getBlockData().clone();
-            this.cocoa.setAge(0);
+            final BlockData data = block.getBlockData();
+            if (data instanceof Cocoa) {
+                this.cocoa = (Cocoa) data.clone();
+                this.cocoa.setAge(0);
+            }
         }
     }
 
@@ -64,6 +67,11 @@ public class ReplantTask implements Runnable {
 
     private void setCocoaOrDropSeed() {
         if (this.block.getType() != Material.AIR) {
+            return;
+        }
+
+        if (cocoa == null) {
+            this.block.getWorld().dropItemNaturally(this.block.getLocation(), new ItemStack(Material.COCOA_BEANS));
             return;
         }
 
@@ -109,8 +117,10 @@ public class ReplantTask implements Runnable {
     }
 
     private @NotNull BlockData setCropAge() {
-        Ageable age = (Ageable) this.block.getBlockData();
-        age.setAge(0);
-        return age;
+        final BlockData data = this.block.getBlockData();
+        if (data instanceof Ageable) {
+            ((Ageable) data).setAge(0);
+        }
+        return data;
     }
 }
