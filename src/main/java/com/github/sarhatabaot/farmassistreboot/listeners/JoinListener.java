@@ -21,12 +21,18 @@ public class JoinListener implements Listener {
     public void onPlayerJoin(final @NotNull PlayerJoinEvent event) {
         final Player player = event.getPlayer();
         final LanguageFile activeLang = plugin.getLanguageManager().getActiveLanguage();
-		if (!player.hasPermission(Permissions.UPDATE_NOTIFY)) {
-			return;
-		}
+        if (!player.hasPermission(Permissions.UPDATE_NOTIFY)) {
+            return;
+        }
 
-        if (plugin.doesNotNeedUpdate() && !plugin.getAssistConfig().disableLatestVersion()) {
-            Util.sendMessage(player, String.format(activeLang.getUpdateLatestVersion(), plugin.getDescription().getVersion()));
+        if (!plugin.getAssistConfig().checkForUpdates()) {
+            return;
+        }
+
+        if (plugin.doesNotNeedUpdate()) {
+            if (!plugin.getAssistConfig().disableLatestVersion()) {
+                Util.sendMessage(player, String.format(activeLang.getUpdateLatestVersion(), plugin.getDescription().getVersion()));
+            }
             return;
         }
 
