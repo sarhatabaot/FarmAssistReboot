@@ -18,7 +18,7 @@ dependencyResolutionManagement {
             library("acf-paper", "co.aikar:acf-paper:0.5.1-SNAPSHOT")
             library("bstats", "org.bstats:bstats-bukkit:3.1.0")
             library("nbt-api", "de.tr7zw:item-nbt-api:2.15.7")
-            library("annotations", "org.jetbrains:annotations:26.0.2")
+            library("annotations", "org.jetbrains:annotations:26.1.0")
             library("more-paper", "space.arim.morepaperlib:morepaperlib:0.4.4")
             library("xseries", "com.github.cryptomorin:XSeries:13.3.3")
             version("plugin-yml", "0.6.0")
