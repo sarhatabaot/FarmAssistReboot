@@ -1,3 +1,13 @@
+> [!NOTE]
+> **Maintenance Mode**
+>
+> Life has become a bit busier these days, so this project is no longer under active development.
+>
+> I'll still keep an eye on critical issues and compatibility updates, and I'm happy to review pull requests when I can. New features are unlikely unless they come from community contributions or I find myself with more free time in the future.
+>
+> Thanks for all the support and understanding—it really means a lot.
+
+
 # FarmAssistReboot
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sarhatabaot_FarmAssistReboot&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=sarhatabaot_FarmAssistReboot)
 ![Java CI with Maven](https://github.com/sarhatabaot/FarmAssistReboot/workflows/Java%20CI%20with%20Maven/badge.svg)
