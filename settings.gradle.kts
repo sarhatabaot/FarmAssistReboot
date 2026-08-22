@@ -31,6 +31,10 @@ dependencyResolutionManagement {
 
             plugin("shadow", "com.gradleup.shadow").version("8.3.0")
 
+            version("junit", "5.8.1")
+            library("junit-api", "org.junit.jupiter","junit-jupiter-api").versionRef("junit")
+            library("junit-engine", "org.junit.jupiter","junit-jupiter-engine").versionRef("junit")
+
             //Add our in-house messages plugin or find an alternative compat with java8
         }
     }

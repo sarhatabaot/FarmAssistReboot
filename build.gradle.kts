@@ -20,6 +20,9 @@ dependencies {
     implementation(libs.annotations)
     implementation(libs.xseries)
     implementation(libs.boosted.yml)
+
+    testImplementation(libs.junit.api)
+    testRuntimeOnly(libs.junit.engine)
 }
 
 bukkit {
@@ -70,6 +73,10 @@ bukkit {
 }
 
 tasks {
+    test {
+        useJUnitPlatform()
+    }
+
     build {
         dependsOn(shadowJar)
     }
