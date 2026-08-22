@@ -34,6 +34,12 @@ dependencyResolutionManagement {
             version("junit", "5.8.1")
             library("junit-api", "org.junit.jupiter","junit-jupiter-api").versionRef("junit")
             library("junit-engine", "org.junit.jupiter","junit-jupiter-engine").versionRef("junit")
+            library("junit-params", "org.junit.jupiter","junit-jupiter-params").versionRef("junit")
+
+            // Testing: Mockito for unit tests (Bukkit API mocking)
+            version("mockito", "4.11.0")
+            library("mockito-core", "org.mockito","mockito-core").versionRef("mockito")
+            library("mockito-junit-jupiter", "org.mockito","mockito-junit-jupiter").versionRef("mockito")
 
             //Add our in-house messages plugin or find an alternative compat with java8
         }

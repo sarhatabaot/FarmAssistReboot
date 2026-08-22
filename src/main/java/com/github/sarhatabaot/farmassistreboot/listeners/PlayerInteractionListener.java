@@ -71,8 +71,21 @@ public class PlayerInteractionListener implements Listener {
         Util.replant(player, event.getClickedBlock(), Material.WHEAT);
     }
 
-    private boolean doesNotHaveWheatAndTillPermissions(final Player player) {
-        return plugin.getAssistConfig().usePermissions() && (!player.hasPermission(Permissions.WHEAT)|| !player.hasPermission(Permissions.TILL));
+    /**
+     * Returns {@code true} when the player should be denied auto-till on the basis of permissions.
+     * <p>
+     * Semantics: when {@code use-permissions} is {@code false} in the config, this ALWAYS returns
+     * {@code false} (permission gating is disabled). Otherwise, the player must have BOTH
+     * {@link Permissions#WHEAT} and {@link Permissions#TILL} — lacking either one returns {@code true}.
+     * <p>
+     * Package-private for unit testing.
+     *
+     * @param player the player whose permissions are checked
+     * @return {@code true} if the player lacks the required permissions
+     */
+    boolean doesNotHaveWheatAndTillPermissions(final Player player) {
+        return plugin.getAssistConfig().usePermissions()
+                && (!player.hasPermission(Permissions.WHEAT) || !player.hasPermission(Permissions.TILL));
     }
 
 

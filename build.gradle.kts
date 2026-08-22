@@ -21,8 +21,13 @@ dependencies {
     implementation(libs.xseries)
     implementation(libs.boosted.yml)
 
+    testImplementation(libs.spigot.api)
     testImplementation(libs.junit.api)
+    testImplementation(libs.junit.params)
+
     testRuntimeOnly(libs.junit.engine)
+    testImplementation(libs.mockito.core)
+    testRuntimeOnly(libs.mockito.junit.jupiter)
 }
 
 bukkit {
