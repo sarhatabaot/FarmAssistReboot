@@ -14,7 +14,7 @@ dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
             library("spigot-api", "org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT")
-            library("papi-api", "me.clip:placeholderapi:2.12.2")
+            library("papi-api", "me.clip:placeholderapi:2.12.3")
             library("acf-paper", "co.aikar:acf-paper:0.5.1-SNAPSHOT")
             library("bstats", "org.bstats:bstats-bukkit:3.2.1")
             library("nbt-api", "de.tr7zw:item-nbt-api:2.16.0")
