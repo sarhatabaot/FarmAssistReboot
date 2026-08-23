@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.github.sarhatabaot.farmassistreboot"
-version = "1.5.1"
+version = "1.5.2"
 
 dependencies {
     compileOnly(libs.spigot.api)
