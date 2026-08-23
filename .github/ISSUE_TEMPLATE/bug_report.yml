@@ -1,0 +1,95 @@
+name: Bug Report
+description: Report something that is not working as documented.
+title: "[Bug] "
+labels: ["bug"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please fill in the sections below so we
+        can reproduce and fix it. Incomplete reports will be closed.
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version
+      description: The version shown by `/plugins` or `/version FarmAssistReboot`.
+      placeholder: "1.4.9.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: server-software
+    attributes:
+      label: Server software
+      description: Which Minecraft server implementation are you running?
+      options:
+        - Paper
+        - Folia
+        - Spigot
+        - CraftBukkit
+        - Other (describe below)
+    validations:
+      required: true
+
+  - type: input
+    id: server-version
+    attributes:
+      label: Server version
+      description: The Minecraft / server-software version (e.g. "1.20.1" or "paper-411").
+      placeholder: "1.20.1"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+      description: What did you expect to happen?
+      placeholder: |
+        When I break wheat, the seed should be replanted automatically.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+      description: What actually happened? Include any error messages.
+      placeholder: |
+        Nothing happens. The block is dropped but no replant.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Minimal steps to trigger the bug.
+      placeholder: |
+        1. Plant wheat seeds on dirt.
+        2. Wait for the wheat to fully grow.
+        3. Break the wheat.
+        4. Observe no replant.
+    validations:
+      required: true
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Relevant config snippet
+      description: Paste the relevant section of your `config.yml`. Omit if not applicable.
+      render: yaml
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Paste the relevant lines from `logs/latest.log` (with `debug: true` if possible).
+      render: shell
+    validations:
+      required: false

@@ -1,0 +1,68 @@
+name: Feature Request
+description: Suggest a new feature for FarmAssistReboot.
+title: "[Feature] "
+labels: ["enhancement"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to suggest a new feature. If you would like to
+        implement it yourself, please say so in the "Willing to PR?" field.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What problem does this feature solve? Frame it from a user's perspective.
+      placeholder: |
+        As a player, I want to be able to ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed solution
+      description: How would you like the feature to work?
+      placeholder: |
+        Add a new subcommand `/farmassist foo` that ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other approaches you have considered, and why this one is better.
+    validations:
+      required: false
+
+  - type: textarea
+    id: permissions
+    attributes:
+      label: Permissions / config impact
+      description: Does this need a new permission node or config key? Which?
+    validations:
+      required: false
+
+  - type: dropdown
+    id: willing-to-pr
+    attributes:
+      label: Willing to PR?
+      description: Are you willing to submit a pull request for this feature?
+      options:
+        - "Yes, I'll PR it"
+        - "Maybe, with guidance"
+        - "No, just a suggestion"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Screenshots, mockups, links, or anything else that helps explain the request.
+    validations:
+      required: false
