@@ -30,7 +30,7 @@ jobs:
           files: ./build/libs/FarmAssistReboot-*.jar
           # Strip a leading "v" from the tag (e.g. v1.5.0 → 1.5.0).
           version: ${{ github.event.release.tag_name }}
-          version-type: release
+          channel: release
           # The release body becomes the Modrinth changelog.
           changelog: ${{ github.event.release.body }}
           # Paper is the only supported runtime.
@@ -41,7 +41,4 @@ jobs:
             purpur
           # Supported MC versions. Adjust when you bump the supported range.
           game-versions: 1.13 - 26
-          # New plugins are unfeatured by default; flip to true if you want
-          # the release to appear on the project page.
-          featured: true
           environment: dedicated_server_only
