@@ -20,6 +20,21 @@ public class ConfigFile<T extends JavaPlugin> {
     protected File file;
     protected FileConfiguration config;
 
+    /**
+     * No-arg constructor for unit tests only. The instance produced is NOT
+     * usable for normal plugin operation — its fields are left uninitialised.
+     * Subclass tests that need a real {@link FileConfiguration} should use
+     * the dependency-injected helpers (e.g. {@code LanguageFile#applyValuesTo}).
+     * <p>
+     * Package-private / protected to keep it out of the public API.
+     */
+    protected ConfigFile() {
+        this.resourcePath = null;
+        this.plugin = null;
+        this.fileName = null;
+        this.folder = null;
+    }
+
     protected ConfigFile(final @NotNull T plugin, final String resourcePath, final String fileName, final String folder) {
         this.plugin = plugin;
         this.fileName = fileName;

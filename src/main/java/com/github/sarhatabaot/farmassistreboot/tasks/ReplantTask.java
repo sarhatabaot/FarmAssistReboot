@@ -38,25 +38,17 @@ public class ReplantTask implements Runnable {
     @Override
     public void run() {
         plugin.debug(ReplantTask.class, String.format(Debug.ReplantTask.RUN, block.getType().name(), material.name()));
-        switch (material) {
-            case COCOA:
-                setCocoaOrDropSeed();
-                break;
-            case FARMLAND:
-                if (this.block.getRelative(BlockFace.UP).getType() == Material.AIR)
-                    this.block.getRelative(BlockFace.UP).setType(Material.WHEAT);
-                break;
-            default:
-                setBlockAndDropItem(material);
-                break;
-
+        if (material == Material.COCOA) {
+            setCocoaOrDropSeed();
+        } else {
+            setBlockAndDropItem(material);
         }
     }
 
     private void setBlockAndDropItem(final @NotNull Material material) {
         Crop crop = Crop.valueOf(material.name());
-        if (isBottomBlock(crop.getPlantedOn()) && block.getType() == Material.AIR) {
-            setBlock(crop.getPlanted().parseMaterial());
+        if (isOnAnyOf(crop.getPlantedOn()) && block.getType() == Material.AIR) {
+            setBlock(crop.getPlanted().get());
         } else {
             dropItem(material);
         }
@@ -64,6 +56,11 @@ public class ReplantTask implements Runnable {
 
     private void setCocoaOrDropSeed() {
         if (this.block.getType() != Material.AIR) {
+            return;
+        }
+
+        if (cocoa == null) {
+            this.block.getWorld().dropItemNaturally(this.block.getLocation(), new ItemStack(Material.COCOA_BEANS));
             return;
         }
 
@@ -96,16 +93,25 @@ public class ReplantTask implements Runnable {
         return Arrays.stream(materials).anyMatch(m -> m == relativeType);
     }
 
-    private boolean isBottomBlock(XMaterial @NotNull [] materials) {
-        for (XMaterial bottomMaterial : materials) {
-            if (isBottomBlock(bottomMaterial.parseMaterial()))
+    /**
+     * Returns {@code true} if the block directly below this task's block is
+     * one of the given {@link XMaterial} values. C7: renamed from
+     * {@code isBottomBlock} for clarity; the previous name described the
+     * implementation (the block below), not the contract (is this block
+     * "on" one of these materials?).
+     *
+     * @param materials the materials the block below may match
+     * @return {@code true} if {@code block.getRelative(BlockFace.DOWN)} is
+     *         any of the given materials
+     */
+    private boolean isOnAnyOf(XMaterial @NotNull [] materials) {
+        Material below = this.block.getRelative(BlockFace.DOWN).getType();
+        for (XMaterial candidate : materials) {
+            if (candidate.get() == below) {
                 return true;
+            }
         }
         return false;
-    }
-
-    private boolean isBottomBlock(Material material) {
-        return this.block.getRelative(BlockFace.DOWN).getType() == material;
     }
 
     private @NotNull BlockData setCropAge() {

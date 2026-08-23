@@ -72,7 +72,7 @@ public class BlockBreakListener implements Listener {
         return event.getPlayer().hasPermission(Permissions.BASE_PERMISSION + event.getBlock().getType().name());
     }
 
-    public void dropItemsNaturally(Location location, Collection<ItemStack> items) {
+    private void dropItemsNaturally(Location location, Collection<ItemStack> items) {
         World world = location.getWorld();
         if (world == null) return;
 
@@ -88,7 +88,7 @@ public class BlockBreakListener implements Listener {
         final Player player = event.getPlayer();
 
         int slot = Util.inventoryContainsSeeds(player.getInventory(), material);
-        if (Util.checkSeedsOrNoSeedsInInventory(player, slot)) {
+        if (Util.isMissingRequiredSeeds(player, slot)) {
             debug(Debug.OnBlockBreak.NO_SEEDS, event.getPlayer().getName());
             debug("Material: %s, Seed: %s", material.name(), Crop.valueOf(material.name()).getSeed());
             return;
@@ -117,9 +117,26 @@ public class BlockBreakListener implements Listener {
     }
 
 
+    /**
+     * Returns {@code true} if the block's data is {@link Ageable} and its
+     * current age equals its maximum age.
+     * <p>
+     * C8: guards against {@link ClassCastException} for blocks whose
+     * {@code BlockData} is not {@code Ageable}. In practice every crop
+     * mapped by {@link Crop} is {@code Ageable}, but this method is also
+     * called for crops whose {@code replant-when-ripe} config is
+     * {@code true} — and any future {@link Crop} entry whose block data
+     * isn't {@code Ageable} would have thrown here.
+     *
+     * @param block the block to check
+     * @return {@code true} if ripe, {@code false} if not ripe or not ageable
+     */
     private boolean isRipe(@NotNull Block block) {
+        if (!(block.getBlockData() instanceof Ageable)) {
+            return false;
+        }
         Ageable age = (Ageable) block.getBlockData();
-        return (age.getAge() == age.getMaximumAge());
+        return age.getAge() == age.getMaximumAge();
     }
 
     private void debug(final String message, Object... args) {

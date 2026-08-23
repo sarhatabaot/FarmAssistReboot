@@ -24,13 +24,14 @@ public class JoinListener implements Listener {
 		if (!player.hasPermission(Permissions.UPDATE_NOTIFY)) {
 			return;
 		}
-
-        if (plugin.doesNotNeedUpdate() && !plugin.getAssistConfig().disableLatestVersion()) {
-            Util.sendMessage(player, String.format(activeLang.getUpdateLatestVersion(), plugin.getDescription().getVersion()));
+        if (plugin.needsUpdate()) {
+            Util.sendMessage(player, String.format(activeLang.getUpdateNew(), plugin.getNewVersion(), plugin.getDescription().getVersion()));
+            Util.sendMessage(player, String.format(activeLang.getUpdateGetNew(), plugin.getDescription().getWebsite()));
             return;
         }
 
-        Util.sendMessage(player, String.format(activeLang.getUpdateNew(), plugin.getNewVersion(), plugin.getDescription().getVersion()));
-        Util.sendMessage(player, String.format(activeLang.getUpdateGetNew(), plugin.getDescription().getWebsite()));
+        if (!plugin.getAssistConfig().disableLatestVersion()) {
+            Util.sendMessage(player, String.format(activeLang.getUpdateLatestVersion(), plugin.getDescription().getVersion()));
+        }
     }
 }

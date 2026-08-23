@@ -34,6 +34,16 @@ public class Util {
     }
 
     /**
+     * Reset the static plugin reference. Intended for unit tests that
+     * initialise {@link Util#init(FarmAssistReboot)} in {@code @BeforeEach}
+     * and need to clean up in {@code @AfterEach} so test order doesn't
+     * leak state between cases.
+     */
+    public static void reset() {
+        Util.plugin = null;
+    }
+
+    /**
      * Will return -1 if no slot is found.
      *
      * @param playerInventory The player inventory
@@ -42,7 +52,7 @@ public class Util {
      */
     public static int inventoryContainsSeeds(@NotNull PlayerInventory playerInventory, @NotNull Material material) {
         Crop crop = Crop.valueOf(material.name());
-        final Material seedMaterial = crop.getSeed().parseMaterial();
+        final Material seedMaterial = crop.getSeed().get();
         if (seedMaterial == null) {
             debug("There was a problem parsing the crop or the seed material for: %s", material.name());
             return -1;
@@ -85,19 +95,12 @@ public class Util {
     }
 
     public static void replant(@NotNull Player player, Block block, @NotNull Material material) {
-        final Crop crop = Crop.valueOf(material.name());
-        final Material seedMaterial = crop.getSeed().parseMaterial();
-        if (seedMaterial == null) {
-            debug("There was a problem parsing the crop or the seed material for: %s", material.name());
-            return;
-        }
-
-        int spot = player.getInventory().first(seedMaterial);
+        int spot = inventoryContainsSeeds(player.getInventory(), material);
         replant(player, block, spot);
     }
 
     public static void replant(@NotNull Player player, Block block, int spot) {
-        debug("Spot:" + spot);
+        debug("Spot: %d", spot);
         debug("CONFIG:no-seeds: %b, PERMISSION:farmassist.no_seeds: %b", plugin.getAssistConfig().noSeeds(), player.hasPermission(Permissions.NO_SEEDS));
         if (spot >= 0 || Util.checkNoSeeds(player)) {
             removeOrSubtractItem(player, spot);
@@ -137,7 +140,12 @@ public class Util {
     }
 
     public static void sendPrefixedAndColoredMessage(final @NotNull CommandSender sender, final String message) {
-        sender.sendMessage(color(plugin.getLanguageManager().getActiveLanguage().getPrefix() + message)); //Add this to lang manager
+        com.github.sarhatabaot.farmassistreboot.lang.LanguageFile lang =
+                plugin.getLanguageManager().getActiveLanguage();
+        String prefix = (lang != null && lang.getPrefix() != null)
+                ? lang.getPrefix()
+                : "&7[&aFarmAssistReboot&7]&r ";
+        sender.sendMessage(color(prefix + message));
     }
 
     @Contract("_ -> new")
@@ -159,11 +167,21 @@ public class Util {
         return plugin.getAssistConfig().noDrops() || player.hasPermission(Permissions.NO_DROPS);
     }
 
-    public static boolean checkSeedsOrNoSeedsInInventory(final Player player, final Material material) {
-        return checkSeedsOrNoSeedsInInventory(player, Util.inventoryContainsSeeds(player.getInventory(), material));
+    /**
+     * L4: renamed from {@code checkSeedsOrNoSeedsInInventory} — the old
+     * name was ambiguous (it could be read as "are the seeds missing? OR
+     * are we in no-seeds mode?"). The new name states the actual return
+     * contract: returns {@code true} iff the player must have seeds and
+     * doesn't.
+     *
+     * @return {@code true} if the player is required to have seeds and
+     *         their inventory does not contain any
+     */
+    public static boolean isMissingRequiredSeeds(final Player player, final Material material) {
+        return isMissingRequiredSeeds(player, Util.inventoryContainsSeeds(player.getInventory(), material));
     }
 
-    public static boolean checkSeedsOrNoSeedsInInventory(final Player player, int slot) {
+    public static boolean isMissingRequiredSeeds(final Player player, int slot) {
         return !checkNoSeeds(player) && slot == -1;
     }
 }

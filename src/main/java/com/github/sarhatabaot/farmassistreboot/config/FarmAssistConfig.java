@@ -85,7 +85,7 @@ public class FarmAssistConfig {
     }
 
     public boolean noSeeds() {
-        return config.getBoolean(Route.from("no-seeds", false));
+        return config.getBoolean(Route.from("no-seeds"), false);
     }
 
     public boolean noDrops() {

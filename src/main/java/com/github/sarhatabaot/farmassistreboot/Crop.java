@@ -32,7 +32,7 @@ public enum Crop {
     }
 
     public static List<Material> getCropList() {
-        return Arrays.stream(Crop.values()).map(crop -> crop.planted.parseMaterial()).collect(Collectors.toList());
+        return Arrays.stream(Crop.values()).map(crop -> crop.planted.get()).collect(Collectors.toList());
     }
 
     public XMaterial[] getPlantedOn() {

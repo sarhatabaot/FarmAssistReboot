@@ -39,6 +39,7 @@ dependencyResolutionManagement {
             // Testing: Mockito for unit tests (Bukkit API mocking)
             version("mockito", "4.11.0")
             library("mockito-core", "org.mockito","mockito-core").versionRef("mockito")
+            library("mockito-inline", "org.mockito","mockito-inline").versionRef("mockito")
             library("mockito-junit-jupiter", "org.mockito","mockito-junit-jupiter").versionRef("mockito")
 
             //Add our in-house messages plugin or find an alternative compat with java8

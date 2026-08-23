@@ -1,0 +1,13 @@
+# Keep the docker build context small.
+.git
+.gitattributes
+.github
+.gradle
+.idea
+build
+docker-data
+*.iml
+*.log
+.DS_Store
+internal-messages
+out

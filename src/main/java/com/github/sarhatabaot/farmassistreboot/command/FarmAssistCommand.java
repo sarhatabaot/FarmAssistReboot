@@ -29,11 +29,12 @@ public class FarmAssistCommand extends BaseCommand {
     @CommandPermission(Commands.TogglePlayer.PERMISSION)
     @Description(Commands.TogglePlayer.DESCRIPTION)
     public void onToggle(final @NotNull Player player) {
-        if (plugin.getDisabledPlayerList().contains(player.getUniqueId())) {
-            plugin.getDisabledPlayerList().remove(player.getUniqueId());
+        final java.util.UUID playerId = player.getUniqueId();
+        if (plugin.getDisabledPlayerList().contains(playerId)) {
+            plugin.enablePlayer(playerId);
             Util.sendMessage(player, ChatColor.GREEN + plugin.getLanguageManager().getActiveLanguage().getTogglePlayerOn());
         } else {
-            plugin.getDisabledPlayerList().add(player.getUniqueId());
+            plugin.disablePlayer(playerId);
             Util.sendMessage(player, ChatColor.GREEN + plugin.getLanguageManager().getActiveLanguage().getTogglePlayerOff());
         }
     }

@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.github.sarhatabaot.farmassistreboot"
-version = "1.4.9.0"
+version = "1.5.0"
 
 dependencies {
     compileOnly(libs.spigot.api)
@@ -28,6 +28,7 @@ dependencies {
     testRuntimeOnly(libs.junit.engine)
     testImplementation(libs.mockito.core)
     testRuntimeOnly(libs.mockito.junit.jupiter)
+    testRuntimeOnly(libs.mockito.inline)
 }
 
 bukkit {
@@ -42,20 +43,40 @@ bukkit {
 
     permissions {
 
-        listOf("wheat", "sugar_cane", "nether_wart", "cocoa", "carrots", "potatoes", "beetroots", "cactus")
-            .forEach { crop ->
-                register("farmassist.$crop") {
-                    default = BukkitPluginDescription.Permission.Default.FALSE
+        // H12: per-crop permissions. Crop names must match the keys used
+        // by BlockBreakListener (`Permissions.BASE_PERMISSION + material.name()`).
+        // Note: PITCHER_PLANT and TORCHFLOWER were missing from the original
+        // registration; registered now so the new crops work the same way.
+        listOf(
+            "wheat", "sugar_cane", "nether_wart", "cocoa", "carrots",
+            "potatoes", "beetroots", "cactus", "torch_flower", "pitcher_plant"
+        ).forEach { crop ->
+            register("farmassist.$crop") {
+                default = BukkitPluginDescription.Permission.Default.FALSE
+            }
+        }
+
+        // Player-facing command permissions (default TRUE so anyone can toggle).
+        listOf("toggle", "till")
+            .forEach { perm ->
+                register("farmassist.$perm") {
+                    default = BukkitPluginDescription.Permission.Default.TRUE
                 }
             }
 
-        // Admin permissions
-        listOf("reload", "toggle", "global", "update", "notify.update", "lang")
+        // Admin-only command permissions.
+        listOf("reload", "update", "notify.update", "lang", "info")
             .forEach { perm ->
                 register("farmassist.$perm") {
                     default = BukkitPluginDescription.Permission.Default.OP
                 }
             }
+
+        // H12: was registered as "global" but Commands.ToggleGlobal.PERMISSION
+        // is "farmassist.toggle.global". Correct the key.
+        register("farmassist.toggle.global") {
+            default = BukkitPluginDescription.Permission.Default.OP
+        }
 
         register("farmassist.crops") {
             default = BukkitPluginDescription.Permission.Default.TRUE
@@ -68,12 +89,18 @@ bukkit {
                 "farmassist.potatoes",
                 "farmassist.beetroots",
                 "farmassist.cactus",
+                "farmassist.torch_flower",
+                "farmassist.pitcher_plant",
             )
         }
 
-        register("farmassist.noseeds") {
-            default = BukkitPluginDescription.Permission.Default.FALSE
-        }
+        // Bypass flags — opt-in, default FALSE.
+        listOf("noseeds", "nodrops")
+            .forEach { perm ->
+                register("farmassist.$perm") {
+                    default = BukkitPluginDescription.Permission.Default.FALSE
+                }
+            }
     }
 }
 

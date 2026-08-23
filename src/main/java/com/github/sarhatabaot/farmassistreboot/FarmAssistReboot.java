@@ -14,16 +14,17 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import space.arim.morepaperlib.MorePaperLib;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author sarhatabaot
  */
 public class FarmAssistReboot extends JavaPlugin {
     private final MorePaperLib paperLib = new MorePaperLib(this);
-    private final List<UUID> disabledPlayerList = new ArrayList<>();
+    private final Set<UUID> disabledPlayerList = ConcurrentHashMap.newKeySet();
     private FarmAssistConfig assistConfig;
     private LanguageManager languageManager;
 
@@ -34,6 +35,9 @@ public class FarmAssistReboot extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        this.needsUpdate = false;
+        this.newVersion = this.getDescription().getVersion();
+
         saveDefaultConfig();
         this.assistConfig = new FarmAssistConfig(this);
         this.languageManager = new LanguageManager(this);
@@ -84,8 +88,31 @@ public class FarmAssistReboot extends JavaPlugin {
         return languageManager;
     }
 
-    public List<UUID> getDisabledPlayerList() {
-        return disabledPlayerList;
+    /**
+     * H11: returns an unmodifiable view of the disabled-player set. Callers
+     * that need to mutate it should use {@link #disablePlayer(UUID)} or
+     * {@link #enablePlayer(UUID)} instead.
+     *
+     * @return an unmodifiable view of the disabled-player set
+     */
+    public Set<UUID> getDisabledPlayerList() {
+        return Collections.unmodifiableSet(disabledPlayerList);
+    }
+
+    /**
+     * Add a player to the disabled set. Returns {@code true} if the player
+     * was not already disabled.
+     */
+    public boolean disablePlayer(UUID playerId) {
+        return disabledPlayerList.add(playerId);
+    }
+
+    /**
+     * Remove a player from the disabled set. Returns {@code true} if the
+     * player was previously disabled.
+     */
+    public boolean enablePlayer(UUID playerId) {
+        return disabledPlayerList.remove(playerId);
     }
 
     public FarmAssistConfig getAssistConfig() {
@@ -102,6 +129,15 @@ public class FarmAssistReboot extends JavaPlugin {
 
     public boolean doesNotNeedUpdate() {
         return !needsUpdate;
+    }
+
+    /**
+     * @return {@code true} if the update checker has determined that a newer
+     *         version is available.
+     * @see #doesNotNeedUpdate()
+     */
+    public boolean needsUpdate() {
+        return needsUpdate;
     }
 
     public String getNewVersion() {

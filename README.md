@@ -10,10 +10,10 @@
 
 # FarmAssistReboot
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sarhatabaot_FarmAssistReboot&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=sarhatabaot_FarmAssistReboot)
-![Java CI with Maven](https://github.com/sarhatabaot/FarmAssistReboot/workflows/Java%20CI%20with%20Maven/badge.svg)
+![Java CI with Gradle](https://github.com/sarhatabaot/FarmAssistReboot/workflows/Java%20CI%20with%20Gradle/badge.svg)
 [![Crowdin](https://badges.crowdin.net/farmassistreboot/localized.svg)](https://crowdin.com/project/farmassistreboot)
 
-A 1.13.2-1.20.1 version of FarmAssist. 
+A 1.13.2 – 26.2 version of FarmAssist. Requires **Java 8** or newer.
 ## Commands:
 * **/farmassist toggle** - Lets a player turn off FarmAssist features.
 * **/farmassist global** - Turns off FarmAssist globally without disabling the plugin.
@@ -90,3 +90,38 @@ worlds:
 check-for-updates: true
 debug: false
 ```
+
+## Testing (local development)
+
+A `docker-compose.yml` is provided for spinning up a local Paper 26.2 server
+with the plugin mounted from `./build/libs/`. RCON is enabled for sending
+commands without a Minecraft client.
+
+1. Build the shaded plugin jar:
+   ```bash
+   ./gradlew shadowJar
+   ```
+2. Copy the built jar into the plugins directory the compose file mounts:
+   ```bash
+   cp build/libs/FarmAssistReboot-*.jar docker/plugins/
+   ```
+3. Start the server (named Docker volume `mc-data` persists the world):
+   ```bash
+   docker compose up -d
+   ```
+4. Tail the server logs to confirm startup:
+   ```bash
+   docker compose logs -f minecraft
+   ```
+5. Send commands via RCON. The `rcon` service runs under the `tools`
+   profile so it doesn't start automatically — invoke it on demand:
+   ```bash
+   # one-shot: run a single command
+   docker compose run --rm rcon mcrcon -H minecraft -p 25575 -p farmassist-dev "say hello"
+   # or use the shorter form (the entrypoint passes args through)
+   docker compose run --rm rcon "say hello from rcon"
+   ```
+
+Server console: `localhost:25565`. RCON: port `25575`, password `farmassist-dev`.
+World data: Docker volume `mc-data` (named, not a host bind mount).
+

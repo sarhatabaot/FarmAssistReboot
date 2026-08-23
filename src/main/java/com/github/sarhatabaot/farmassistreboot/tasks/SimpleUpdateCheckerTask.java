@@ -36,7 +36,14 @@ public class SimpleUpdateCheckerTask implements Runnable {
             URL url = new URL(latest);
             URLConnection urlConnection = url.openConnection();
             try (BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()))) {
-                Object obj = parser.parse(in);
+                Object obj;
+                try {
+                    obj = parser.parse(in);
+                } catch (org.json.simple.parser.ParseException pe) {
+                    plugin.setNeedsUpdate(false);
+                    plugin.getLogger().log(Level.WARNING, "Could not parse GitHub release JSON", pe);
+                    return;
+                }
                 JSONObject jsonObject = (JSONObject) obj;
                 final String remoteVer = ((String) jsonObject.get("tag_name")).replace("v", "");
 
@@ -50,9 +57,13 @@ public class SimpleUpdateCheckerTask implements Runnable {
                 }
 
             }
-        } catch (Exception t) {
+        } catch (java.io.IOException io) {
+            plugin.setNeedsUpdate(false);
             plugin.getLogger().info(() -> plugin.getLanguageManager().getActiveLanguage().getUpdateNewVersionFail());
-            plugin.getLogger().log(Level.WARNING, t.getMessage(), t.getCause());
+            plugin.getLogger().log(Level.WARNING, "Update check failed: " + io.getMessage(), io);
+        } catch (Exception t) {
+            plugin.setNeedsUpdate(false);
+            plugin.getLogger().log(Level.SEVERE, "Unexpected error during update check", t);
         }
     }
 
