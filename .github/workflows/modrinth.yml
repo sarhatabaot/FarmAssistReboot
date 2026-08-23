@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Publish to Modrinth
-        uses: modrinth/publish@v1
+        uses: cloudnode-pro/modrinth-publish@v2
         with:
           # The Modrinth project id (slug like "farmassistreboot" or numeric id).
           project: ${{ secrets.MODRINTH_PROJECT_ID }}
