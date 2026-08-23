@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.github.sarhatabaot.farmassistreboot"
-version = "1.5.2"
+version = providers.gradleProperty("versionOverride").orElse("1.5.2").get()
 
 dependencies {
     compileOnly(libs.spigot.api)
