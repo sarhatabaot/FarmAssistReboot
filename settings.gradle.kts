@@ -31,7 +31,7 @@ dependencyResolutionManagement {
 
             plugin("shadow", "com.gradleup.shadow").version("8.3.0")
 
-            version("junit", "5.8.1")
+            version("junit", "6.1.3")
             library("junit-api", "org.junit.jupiter","junit-jupiter-api").versionRef("junit")
             library("junit-engine", "org.junit.jupiter","junit-jupiter-engine").versionRef("junit")
             library("junit-params", "org.junit.jupiter","junit-jupiter-params").versionRef("junit")
