@@ -29,7 +29,7 @@ dependencyResolutionManagement {
 
             library("boosted-yml", "dev.dejvokep:boosted-yaml:1.3.7")
 
-            plugin("shadow", "com.gradleup.shadow").version("8.3.0")
+            plugin("shadow", "com.gradleup.shadow").version("9.6.1")
 
             version("junit", "5.8.1")
             library("junit-api", "org.junit.jupiter","junit-jupiter-api").versionRef("junit")
