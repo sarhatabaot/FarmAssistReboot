@@ -69,7 +69,7 @@ jobs:
 
       - name: Setup Gradle
         if: steps.nightly_meta.outputs.should_release == 'true'
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Make gradlew executable
         if: steps.nightly_meta.outputs.should_release == 'true'
