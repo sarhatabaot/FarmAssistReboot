@@ -13,7 +13,9 @@
 ![Java CI with Gradle](https://github.com/sarhatabaot/FarmAssistReboot/workflows/Java%20CI%20with%20Gradle/badge.svg)
 [![Crowdin](https://badges.crowdin.net/farmassistreboot/localized.svg)](https://crowdin.com/project/farmassistreboot)
 
-A 1.13.2 – 26.2 version of FarmAssist. Requires **Java 8** or newer.
+A 1.13.2 – 26.2 version of FarmAssist. The plugin targets **Java 8** bytecode;
+run each Minecraft server with the Java version it requires. See
+[`docs/development.md`](docs/development.md) for the build and verification scope.
 ## Commands:
 * **/farmassist toggle** - Lets a player turn off FarmAssist features.
 * **/farmassist global** - Turns off FarmAssist globally without disabling the plugin.

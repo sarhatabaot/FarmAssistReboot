@@ -12,6 +12,22 @@ dependencyResolutionManagement {
         maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
         maven("https://mvn-repo.arim.space/lesser-gpl3/")
         maven("https://nexuslite.gcnt.net/repos/other/")
+        exclusiveContent {
+            forRepository {
+                ivy {
+                    url = uri("https://github.com/sarhatabaot/WatchWolf-Tester/releases/download/")
+                    patternLayout {
+                        artifact("v[revision]/[artifact]-[revision].[ext]")
+                    }
+                    metadataSources {
+                        artifact()
+                    }
+                }
+            }
+            filter {
+                includeModule("dev.watchwolf", "watchwolf-tester")
+            }
+        }
     }
 
     versionCatalogs {
@@ -35,6 +51,9 @@ dependencyResolutionManagement {
             library("junit-api", "org.junit.jupiter","junit-jupiter-api").versionRef("junit")
             library("junit-engine", "org.junit.jupiter","junit-jupiter-engine").versionRef("junit")
             library("junit-params", "org.junit.jupiter","junit-jupiter-params").versionRef("junit")
+            library("junit-launcher", "org.junit.platform:junit-platform-launcher:1.8.1")
+            library("watchwolf-tester", "dev.watchwolf:watchwolf-tester:0.4.1")
+            library("snakeyaml", "org.yaml:snakeyaml:1.21")
 
             // Testing: Mockito for unit tests (Bukkit API mocking)
             version("mockito", "4.11.0")

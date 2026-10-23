@@ -126,6 +126,48 @@ tasks {
     }
 }
 
+val stageWatchWolfJar by tasks.registering(Copy::class) {
+    dependsOn(tasks.shadowJar)
+    from(tasks.shadowJar.flatMap { it.archiveFile }) {
+        rename { "FarmAssistReboot.jar" }
+    }
+    into(layout.buildDirectory.dir("watchwolf"))
+}
+
+testing {
+    suites {
+        val testWatchWolf by creating(JvmTestSuite::class) {
+            useJUnitJupiter()
+
+            sources {
+                java {
+                    srcDir("src/testWatchWolf/java")
+                }
+            }
+
+            dependencies {
+                implementation(libs.watchwolf.tester)
+                implementation(libs.snakeyaml)
+                implementation(libs.junit.api)
+                implementation(libs.junit.params)
+                runtimeOnly(libs.junit.engine)
+                runtimeOnly(libs.junit.launcher)
+            }
+
+            targets {
+                all {
+                    testTask.configure {
+                        useJUnitPlatform()
+                        group = "verification"
+                        description = "Runs the WatchWolf smoke test against an isolated Paper server."
+                        dependsOn(stageWatchWolfJar)
+                    }
+                }
+            }
+        }
+    }
+}
+
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(8))
