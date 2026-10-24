@@ -68,7 +68,7 @@ public class PlayerInteractionListener implements Listener {
             event.getClickedBlock().setType(Material.FARMLAND);
         }
 
-        Util.replant(player, event.getClickedBlock(), Material.WHEAT);
+        Util.replant(player, block.getRelative(BlockFace.UP), Material.WHEAT);
     }
 
     /**

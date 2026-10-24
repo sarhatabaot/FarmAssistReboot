@@ -24,10 +24,10 @@ public class ReplantTask implements Runnable {
 
     private Cocoa cocoa;
 
-    public ReplantTask(@NotNull Block block, final FarmAssistReboot plugin) {
+    public ReplantTask(@NotNull Block block, final FarmAssistReboot plugin, @NotNull Material material) {
         this.plugin = plugin;
         this.block = block;
-        this.material = block.getType();
+        this.material = material;
 
         if (XMaterial.matchXMaterial(block.getType()) == XMaterial.COCOA) {
             this.cocoa = (Cocoa) block.getBlockData().clone();

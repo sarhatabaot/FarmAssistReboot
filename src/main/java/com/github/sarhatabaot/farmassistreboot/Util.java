@@ -96,15 +96,19 @@ public class Util {
 
     public static void replant(@NotNull Player player, Block block, @NotNull Material material) {
         int spot = inventoryContainsSeeds(player.getInventory(), material);
-        replant(player, block, spot);
+        replant(player, block, spot, material);
     }
 
     public static void replant(@NotNull Player player, Block block, int spot) {
+        replant(player, block, spot, block.getType());
+    }
+
+    private static void replant(@NotNull Player player, Block block, int spot, Material material) {
         debug("Spot: %d", spot);
         debug("CONFIG:no-seeds: %b, PERMISSION:farmassist.no_seeds: %b", plugin.getAssistConfig().noSeeds(), player.hasPermission(Permissions.NO_SEEDS));
         if (spot >= 0 || Util.checkNoSeeds(player)) {
             removeOrSubtractItem(player, spot);
-            plugin.getPaperLib().scheduling().regionSpecificScheduler(block.getLocation()).runDelayed(new ReplantTask(block,plugin), 5L);
+            plugin.getPaperLib().scheduling().regionSpecificScheduler(block.getLocation()).runDelayed(new ReplantTask(block,plugin,material), 5L);
         }
     }
 
