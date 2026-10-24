@@ -4,3 +4,5 @@ server-type:
       - "1.20.6"
 plugin: "build/watchwolf/FarmAssistReboot.jar"
 world-type: "FLAT"
+users:
+  - "FarmAssistTester"
