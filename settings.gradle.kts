@@ -53,7 +53,7 @@ dependencyResolutionManagement {
             library("junit-params", "org.junit.jupiter","junit-jupiter-params").versionRef("junit")
             library("junit-launcher", "org.junit.platform:junit-platform-launcher:1.8.1")
             library("watchwolf-tester", "dev.watchwolf:watchwolf-tester:0.4.1")
-            library("snakeyaml", "org.yaml:snakeyaml:1.21")
+            library("snakeyaml", "org.yaml:snakeyaml:2.0")
 
             // Testing: Mockito for unit tests (Bukkit API mocking)
             version("mockito", "4.11.0")
