@@ -56,7 +56,7 @@ dependencyResolutionManagement {
             library("snakeyaml", "org.yaml:snakeyaml:1.21")
 
             // Testing: Mockito for unit tests (Bukkit API mocking)
-            version("mockito", "4.11.0")
+            version("mockito", "5.24.0")
             library("mockito-core", "org.mockito","mockito-core").versionRef("mockito")
             library("mockito-inline", "org.mockito","mockito-inline").versionRef("mockito")
             library("mockito-junit-jupiter", "org.mockito","mockito-junit-jupiter").versionRef("mockito")
