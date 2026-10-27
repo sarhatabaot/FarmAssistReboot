@@ -94,7 +94,7 @@ jobs:
 
       - name: Publish nightly prerelease
         if: steps.nightly_meta.outputs.should_release == 'true'
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ steps.nightly_meta.outputs.tag }}
           target_commitish: ${{ steps.nightly_meta.outputs.head_sha }}
