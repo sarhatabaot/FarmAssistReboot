@@ -47,11 +47,11 @@ dependencyResolutionManagement {
 
             plugin("shadow", "com.gradleup.shadow").version("8.3.0")
 
-            version("junit", "5.8.1")
+            version("junit", "6.1.3")
             library("junit-api", "org.junit.jupiter","junit-jupiter-api").versionRef("junit")
             library("junit-engine", "org.junit.jupiter","junit-jupiter-engine").versionRef("junit")
             library("junit-params", "org.junit.jupiter","junit-jupiter-params").versionRef("junit")
-            library("junit-launcher", "org.junit.platform:junit-platform-launcher:1.8.1")
+            library("junit-launcher", "org.junit.platform:junit-platform-launcher:6.1.3")
             library("watchwolf-tester", "dev.watchwolf:watchwolf-tester:0.4.1")
             library("snakeyaml", "org.yaml:snakeyaml:1.21")
 
